@@ -1,7 +1,7 @@
 Programming and Problemsolving in Python - python
 ===================
 
-Coursematerial for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level. 
+Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level. 
 
 The course will have a high enough level to satisfy those who are familiar with another programming language and has the need to learn python.
 
