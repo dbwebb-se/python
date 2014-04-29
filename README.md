@@ -26,7 +26,7 @@ We will do it.
 * [lewenhagen](https://github.com/lewenhagen), Kennet Lewenhagen
 * [mosbth](https://github.com/mosbth), Mikael Roos
 * [reechani](https://github.com/reechani), Jane Strandberg
-* [Zingo89](https://github.com/Zingo89), Robin Sing
+* [Zingo89](https://github.com/Zingo89), Robin Singh
 
 
 
