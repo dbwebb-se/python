@@ -23,7 +23,7 @@ Dive intro Python 3
 
 [Description of the book](http://www.diveintopython3.net/).
 
-[Book as PDF](dive-into-python/dive-into-python.pdf).
+[Book as PDF](dive-into-python3/dive-into-python3.pdf).
 
 This work is licensed under the Creative Commons Attribution-ShareAlike .0 International License, http://creativecommons.org/licenses/by-sa/3.0/.
 
