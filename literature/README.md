@@ -28,9 +28,3 @@ Dive intro Python 3
 This work is licensed under the Creative Commons Attribution-ShareAlike .0 International License, http://creativecommons.org/licenses/by-sa/3.0/.
 
 
-
-
-```                                                            
- .                                                             
-..:  Copyright (c) 2014 Mikael Roos, me@mikaelroos.se   
-```                                                            
