@@ -25,6 +25,6 @@ Dive intro Python 3
 
 [Book as PDF](dive-into-python3/dive-into-python3.pdf).
 
-This work is licensed under the Creative Commons Attribution-ShareAlike .0 International License, http://creativecommons.org/licenses/by-sa/3.0/.
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 International License, http://creativecommons.org/licenses/by-sa/3.0/.
 
 
