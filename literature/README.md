@@ -6,7 +6,7 @@ Literature
 Think Python
 -------------------
 
-<img src="thinkpython/cover.png" alt="Think Python Book Cover">
+<img src="thinkpython/cover.jpg" alt="Think Python Book Cover">
 
 [Description of the book](http://www.greenteapress.com/thinkpython/thinkpython.html).
 
@@ -19,7 +19,7 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 Dive intro Python 3
 -------------------
 
-<img src="dive-into-python3/cover.png" alt="Dive Into Python Cover">
+<img src="dive-into-python3/cover.jpg" alt="Dive Into Python Cover">
 
 [Description of the book](http://www.diveintopython3.net/).
 
