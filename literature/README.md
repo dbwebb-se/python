@@ -6,11 +6,26 @@ Literature
 Think Python
 -------------------
 
-<img src="thinkpython_cover.png" alt="Think Python Book Cover">
+<img src="thinkpython/cover.png" alt="Think Python Book Cover">
 
 [Description of the book](http://www.greenteapress.com/thinkpython/thinkpython.html).
 
-This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+[Book as PDF](thinkpython/thinkpython.pdf).
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License, http://creativecommons.org/licenses/by-nc-sa/4.0/.
+
+
+
+Dive intro Python 3
+-------------------
+
+<img src="dive-into-python3/cover.png" alt="Dive Into Python Cover">
+
+[Description of the book](http://www.diveintopython3.net/).
+
+[Book as PDF](dive-into-python/dive-into-python.pdf).
+
+This work is licensed under the Creative Commons Attribution-ShareAlike .0 International License, http://creativecommons.org/licenses/by-sa/3.0/.
 
 
 
