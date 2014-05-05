@@ -1,7 +1,7 @@
 Programming and Problemsolving in Python - python
 ===================
 
-Coursematerial for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level. 
+Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level. 
 
 The course will have a high enough level to satisfy those who are familiar with another programming language and has the need to learn python.
 
@@ -26,7 +26,7 @@ We will do it.
 * [lewenhagen](https://github.com/lewenhagen), Kennet Lewenhagen
 * [mosbth](https://github.com/mosbth), Mikael Roos
 * [reechani](https://github.com/reechani), Jane Strandberg
-* [Zingo89](https://github.com/Zingo89), Robin Sing
+* [Zingo89](https://github.com/Zingo89), Robin Singh
 
 
 
