@@ -38,7 +38,7 @@ Python for Informatics: Python for Informatics
 
 [Book as PDF](python-for-informatics/python-for-informatics.pdf).
 
-This work is licensed under a Creative Common Attribution-NonCommercial-ShareAlike 3.0 Unported License http:/(/creativecommons.org/licenses/by-nc-sa/3.0/ 
+This work is licensed under a Creative Common Attribution-NonCommercial-ShareAlike 3.0 Unported License http://creativecommons.org/licenses/by-nc-sa/3.0/ 
 
 
 
@@ -51,5 +51,5 @@ Invent Your Own Computer Games with Python
 
 [Book as PDF](games-with-python/games-with-python.pdf).
 
-This work is licensed under a Creative Common Attribution-NonCommercial-ShareAlike 3.0 United States License http:/(/creativecommons.org/licenses/by-nc-sa/3.0/us/ 
+This work is licensed under a Creative Common Attribution-NonCommercial-ShareAlike 3.0 United States License http://creativecommons.org/licenses/by-nc-sa/3.0/us/ 
 
