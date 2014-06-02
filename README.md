@@ -16,20 +16,6 @@ This work is licensed under the Creative Commons Attribution-NonCommercial-Share
 
 
 
-Team
--------------------
-
-We will do it.
-
-* [bobbzorzen](https://github.com/bobbzorzen), Leopold Olsson
-* [daniel-j](https://github.com/daniel-j), Daniel Jönsson
-* [lewenhagen](https://github.com/lewenhagen), Kennet Lewenhagen
-* [mosbth](https://github.com/mosbth), Mikael Roos
-* [reechani](https://github.com/reechani), Jane Strandberg
-* [Zingo89](https://github.com/Zingo89), Robin Singh
-
-
-
 History
 -------------------
 
