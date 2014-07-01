@@ -199,11 +199,10 @@ createConfig()
 #
 createDefaultFiles()
 {
-    DEFAULT="me/default/"
-    WHERE="me/"
+    DEFAULT="$BUILD/default/"
 
     INTRO="Initiating course repo by creating course specific files."
-    COMMAND="rsync -a --ignore-existing $DEFAULT $WHERE"
+    COMMAND="rsync -a --ignore-existing $DEFAULT $BUILD"
     MESSAGE="to create course specific files in me-directory."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
