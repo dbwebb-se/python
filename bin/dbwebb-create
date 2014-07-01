@@ -1,0 +1,151 @@
+#!/bin/sh
+
+VERSION="1.0.0"
+
+ECHO="printf"
+TMPFILE="/tmp/dbwebb-create$$"
+
+
+#
+# Print usage of script
+#
+printUsage()
+{
+    $ECHO "\nUtility dbwebb-create $VERSION by Mikael Roos, to create a personlized lab."
+    $ECHO "\n"
+    $ECHO "\nUsage: dbwebb-create [options] <lab>"
+    $ECHO "\n"
+    $ECHO "Options:"
+    $ECHO "\n"
+    $ECHO "\n  -h         Print this message and exit."
+    $ECHO "\n  -v         Print version and exit."
+    $ECHO "\n"
+    $ECHO "\Lab:"
+    $ECHO "\n"
+    $ECHO "\n  lab1      Create laboration 1."
+    $ECHO "\n  lab2      Create laboration 2."
+    $ECHO "\n  lab3      Create laboration 3."
+    $ECHO "\n  lab4      Create laboration 4."
+    $ECHO "\n  lab5      Create laboration 5."
+    $ECHO "\n"
+    $ECHO "\nExample:"
+    $ECHO "\n"
+    $ECHO "\n  $ dbwebb-create lab1"
+    $ECHO "\n  $ dbwebb-create lab5"
+    $ECHO "\n"
+    $ECHO "\n"
+    exit
+}
+
+
+
+#
+# Create a lab
+#
+createLab()
+{
+    LAB="$1"
+    WHERE="$TARGET/$2/$LAB"
+
+    $ECHO "\nCreating $COURSE $LAB."
+
+    # Check if lab is already there
+    if [ -d "$WHERE" ]
+    then
+        echo "\nYou already have a lab directory.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        exit 1
+    else
+        mkdir "$WHERE"
+    fi
+
+    # Create the key
+    KEY="`wget -qO- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
+
+    # The lab description & the answers
+    $ECHO "\ninstruction.html"
+    wget  -qO "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
+
+    $ECHO "\nanswer.html"
+    wget  -qO "$WHERE/answer.html" "$SERVICE/$GET_ANSWER_HTML&key=$KEY"
+
+    $ECHO "\nanswer.js"
+    wget  -qO "$WHERE/answer.js" "$SERVICE/$GET_ANSWER_JS&key=$KEY"
+
+    $ECHO "\nYou can find the lab and all files here:\n$WHERE"
+}
+
+
+
+#
+# Main
+#
+if [ $# -lt 1 ]
+then
+    printUsage
+fi
+
+# Get settings from config-file
+. "./.dbwebb.config"
+
+
+# Get options
+while getopts ":hv" opt
+do
+    case $opt in
+        (h) 
+            printUsage
+            ;;
+
+        (v) 
+            $ECHO "$VERSION\n"
+            exit 0
+            ;;
+
+        \?)
+            $ECHO "\nInvalid option: -$OPTARG" >&2
+            $ECHO "\n"
+            $ECHO "\nUse the following to get help."
+            $ECHO "\ndbwebb-create -h"
+            $ECHO "\n"
+            $ECHO "\n"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+# Execute command
+CMD=$1
+case $CMD in
+    
+    lab1)
+        createLab "lab1" "kmom02"
+        ;;
+
+    lab2)
+        createLab "lab2" "kmom03"
+        ;;
+
+    lab3)
+        createLab "lab3" "kmom04"
+        ;;
+
+    lab4)
+        createLab "lab4" "kmom04"
+        ;;
+
+    lab5)
+        createLab "lab5" "kmom05"
+        ;;
+
+    *)
+        printUsage
+        ;;
+esac
+
+
+rm -f $TMPFILE
+
+$ECHO "\n"
+exit 0

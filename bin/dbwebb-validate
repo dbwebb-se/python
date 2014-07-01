@@ -1,0 +1,775 @@
+#!/bin/sh
+
+VERSION="1.0.0"
+
+TESTS=0
+ASSERTS=0
+FAULTS=0
+
+ECHO="printf"
+TMPFILE="/tmp/dbwebb-error$$"
+
+
+#
+# External tools
+#
+JSHINT="jshint"
+
+HTMLHINT="htmlhint"
+
+CSSHINT="htmlhint"
+
+HTML_MINIFIER="html-minifier"
+HTML_MINIFIER_OPTIONS="--minify-js --minify-css --use-short-doctype --remove-attribute-quotes --collapse-boolean-attributes --conservative-collapse --collapse-whitespace --remove-comments"
+
+UGLIFYJS="uglifyjs"
+UGLIFYJS_OPTIONS="-m -c --screw-ie8 --comments"
+
+CLEANCSS="cleancss --s1"
+
+
+
+#
+# Settings for this script
+#
+umask 022
+export NODE_PATH=/usr/local/lib/node_modules
+
+
+#
+# Print usage of script
+#
+printUsage()
+{
+    $ECHO "\nUtility dbwebb-validate $VERSION by Mikael Roos, to validate and publish course results when done."
+    $ECHO "\n"
+    $ECHO "\nUsage: dbwebb-validate [options] <item> [item]"
+    $ECHO "\n"
+    $ECHO "Options:"
+    $ECHO "\n"
+    $ECHO "\n  -h         Print this message and exit."
+    $ECHO "\n  -i         Ignore validation faults and proceed anyway."
+    $ECHO "\n  -n         Only validate, do not publish."
+    $ECHO "\n  -r         Print required external commands."
+    $ECHO "\n  -v         Print version and exit."
+    $ECHO "\n"
+    $ECHO "\nItem:"
+    $ECHO "\n"
+    $ECHO "\n  kmom01    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom02    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom03    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom04    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom05    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom06    Validate (and publish) selected kmom."
+    $ECHO "\n  kmom10    Validate (and publish) selected kmom."
+    $ECHO "\n  all       Validate (and publish) all kmoms."
+    $ECHO "\n"
+    $ECHO "\nExample:"
+    $ECHO "\n"
+    $ECHO "\n  $ dbwebb-validate kmom01"
+    $ECHO "\n  $ dbwebb-validate -n kmom01"
+    $ECHO "\n"
+    $ECHO "\n"
+}
+
+
+
+#
+# Perform an assert
+#
+assert()
+{
+    EXPECTED=$1
+    TEST=$2
+    MESSAGE=$3
+    ASSERTS=$(( $ASSERTS + 1 ))
+
+    sh -c "$TEST" > $TMPFILE 2>&1
+    STATUS=$?
+    #ERROR=$(</tmp/dbwebb-error)
+    ERROR=`cat $TMPFILE`
+
+    if [ ! $STATUS -eq $EXPECTED ]
+    then
+        FAULTS=$(( $FAULTS + 1 ))
+
+        if [ $IGNORE_FAULTS = "yes" ]
+        then
+            $ECHO "\n\033[43mWARNING.\033[0m $MESSAGE"
+            [ -z "$ERROR" ] || $ECHO "\n$ERROR"
+        else
+            $ECHO "\n\033[0;37;41mFAILED.\033[0m $MESSAGE\n"
+            [ -z "$ERROR" ] || $ECHO "\n$ERROR"
+            $ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+            $ECHO "\nCorrect the fault and run the validation again.\n\n"
+            exit 1
+        fi
+    fi
+
+    return $STATUS
+}
+
+
+
+#
+# Check for installed commands
+#
+checkCommand()
+{
+    COMMAND=$1
+    #$ECHO "\nChecking $COMMAND"
+
+    if ! hash $COMMAND 2>/dev/null
+    then
+        $ECHO >&2 "\nI require $COMMAND but it's not installed. Aborting."
+        $ECHO >&2 "\nUse the following command to see what is required to run this script"
+        $ECHO >&2 "\n  dbwebb-validate -r";
+        $ECHO >&2 "\n";
+        exit 1
+    fi
+}
+
+
+
+#
+# Publish all
+#
+publish()
+{
+    DIR="$1"
+    SILENT="$2"
+    $ECHO "\n\nPublishing $DIR"
+
+    initBuildDir
+
+    if [ -z "$SILENT" ]; then
+        $ECHO "\nCopying files to www."
+    fi
+    
+    if [ "$DIR" = "all" ]
+    then
+        rsync -a --delete $TARGET/ $BUILD/
+    elif [ "$DIR" = "example" ]
+    then
+        rsync -a --delete $TARGET/../example/ $BUILD/../example
+    elif [ "$DIR" = "tutorial" ]
+    then
+        rsync -a --delete $TARGET/../tutorial/ $BUILD/../tutorial
+    else
+        rsync -a --delete $TARGET/$DIR/ $BUILD/$DIR/
+        rsync -a $TARGET/me.html $BUILD/me.html
+        rsync -a $TARGET/redovisning.html $BUILD/redovisning.html
+        rsync -a --delete $TARGET/js/ $BUILD/js/
+        rsync -a --delete $TARGET/style/ $BUILD/style/
+    fi
+
+    if [ -z "$SILENT" ]; then
+        $ECHO "\nMinifying HTML-files."
+    fi
+    find $BUILD/ -type f -name '*.html' | while read filename; do $HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename; done
+    
+    if [ -z "$SILENT" ]; then
+        $ECHO "\nUglify JavaScript-files."
+    fi
+    find $BUILD/ -type f -name '*.js' | while read filename; do $UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS; done
+    #$UGLIFYJS $BUILD/$KMOM/$DIR/js/main.js -o $BUILD/$KMOM/$DIR/js/main.js $UGLIFYJS_OPTIONS
+    
+    if [ -z "$SILENT" ]; then
+        $ECHO "\nMinify CSS-files."
+    fi
+    find $BUILD/ -type f -name '*.css' | while read filename; do $CLEANCSS $filename -o $filename; done
+    #$CLEANCSS $BUILD/$KMOM/$DIR/style/style.css -o $BUILD/$KMOM/$DIR/style/style.css
+}
+
+
+
+#
+# Check for installed tools
+#
+CHECKTOOLS="no"
+checkTools()
+{
+    [ $CHECKTOOLS = "no" ] || return; CHECKTOOLS="yes"
+
+    $ECHO "\nCheck for installed tools."
+
+    checkCommand $JSHINT
+    checkCommand $HTMLHINT
+
+    [ $PUBLISH = "yes" -o $IGNORE_FAULTS = "yes" ] || return
+
+    checkCommand $HTML_MINIFIER
+    checkCommand $UGLIFYJS
+    checkCommand $CLEANCSS
+}
+
+
+
+#
+# Init the build directory
+#
+BUILDDIR="no"
+initBuildDir()
+{
+    [ $BUILDDIR = "no" ] || return; BUILDDIR="yes"
+    [ $PUBLISH = "yes" ] || return
+
+    $ECHO "\nInit the build directory."
+
+    if [ ! -d $BUILD1 ] 
+    then
+        mkdir $BUILD1
+    fi
+
+    if [ ! -d $BUILD2 ] 
+    then
+        mkdir $BUILD2
+    fi
+
+    if [ ! -d $BUILD3 ] 
+    then
+        mkdir $BUILD3
+    fi
+
+    if [ ! -d $BUILD ] 
+    then
+        mkdir $BUILD
+    fi
+
+    if [ ! -d "$BUILD/kmom01" ]; then mkdir "$BUILD/kmom01"; fi
+    if [ ! -d "$BUILD/kmom02" ]; then mkdir "$BUILD/kmom02"; fi
+    if [ ! -d "$BUILD/kmom03" ]; then mkdir "$BUILD/kmom03"; fi
+    if [ ! -d "$BUILD/kmom04" ]; then mkdir "$BUILD/kmom04"; fi
+    if [ ! -d "$BUILD/kmom05" ]; then mkdir "$BUILD/kmom05"; fi
+    if [ ! -d "$BUILD/kmom06" ]; then mkdir "$BUILD/kmom06"; fi
+    if [ ! -d "$BUILD/kmom10" ]; then mkdir "$BUILD/kmom10"; fi
+
+}
+
+
+
+#
+# Test me/ at the beginning
+#
+MESTART="no"
+testMeStart()
+{
+    [ $MESTART = "no" ] || return; MESTART="yes"
+
+    TESTS=$(( $TESTS + 1 ))
+
+    $ECHO "\nTesting Me-directory items."
+
+    assert 0 "[ -d $TARGET ]" "Missing directory for me-pages: $TARGET"
+    assert 0 "[ -f $TARGET/me.html ]" "Missing presentation file: $TARGET/me.html" 
+    assert 0 "[ -d $TARGET/kmom01 ]" "Missing directory: $TARGET/kmom01"
+    assert 0 "[ -d $TARGET/kmom02 ]" "Missing directory: $TARGET/kmom02"
+    assert 0 "[ -d $TARGET/kmom03 ]" "Missing directory: $TARGET/kmom03"
+    assert 0 "[ -d $TARGET/kmom04 ]" "Missing directory: $TARGET/kmom04"
+    assert 0 "[ -d $TARGET/kmom05 ]" "Missing directory: $TARGET/kmom05"
+    assert 0 "[ -d $TARGET/kmom06 ]" "Missing directory: $TARGET/kmom06"
+    assert 0 "[ -d $TARGET/kmom10 ]" "Missing directory: $TARGET/kmom10"
+
+    [ $PUBLISH = "yes" ] || return
+
+    rsync -a $TARGET/me.html $BUILD/
+    rsync -a --delete $TARGET/../example/ $BUILD/../example/
+}
+
+
+
+#
+# Perform validation tests
+#
+validateHtmlCssJs()
+{
+    TESTS=$(( $TESTS + 1 ))
+    DIR="$1"
+
+    $ECHO "\nTesting $DIR."
+
+    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
+
+    $ECHO "\nValidate using HTMLHint."
+    find $TARGET/$DIR -type f -name '*.html' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
+
+    $ECHO "\nValidate using JSHint."
+    find $TARGET/$DIR -type f -name '*.js' | while read filename; do assert 0 "$JSHINT $filename" "JSHint failed: $filename"; done
+}
+
+
+
+#
+# Test kmom01/sandbox
+#
+testSandbox()
+{
+    TESTS=$(( $TESTS + 1 ))
+    KMOM="kmom01"
+    DIR="sandbox"
+
+    validateHtmlCssJs "$KMOM/$DIR"
+}
+
+
+
+
+#
+# Test Flag
+#
+testFlag()
+{
+    TESTS=$(( $TESTS + 1 ))
+    KMOM="$1"
+    DIR="$2"
+
+    validateHtmlCssJs "$KMOM/$DIR"
+}
+
+
+
+#
+# Test Lab
+#
+testLab()
+{
+    TESTS=$(( $TESTS + 1 ))
+    KMOM="$1"
+    DIR="$2"
+
+    validateHtmlCssJs "$KMOM/$DIR"
+}
+
+
+
+#
+# Test Baddie
+#
+testBaddie()
+{
+    TESTS=$(( $TESTS + 1 ))
+    KMOM="$1"
+    DIR="$2"
+
+    validateHtmlCssJs "$KMOM/$DIR"
+}
+
+
+
+
+#
+# kmom01
+#
+kmom01()
+{
+    testMeStart
+    testSandbox
+}
+
+
+
+#
+# kmom02
+#
+kmom02()
+{
+    testMeStart
+    testFlag "kmom02" "flag1"
+    testLab "kmom02" "lab1"
+    testBaddie "kmom02" "baddie1"
+}
+
+
+
+#
+# kmom03
+#
+kmom03()
+{
+    testMeStart
+    testFlag "kmom03" "flag2"
+    testLab "kmom03" "lab2"
+    testBaddie "kmom03" "baddie2"
+}
+
+
+
+#
+# kmom04
+#
+kmom04()
+{
+    testMeStart
+    testFlag "kmom04" "flag3"
+    testLab "kmom04" "lab3"
+    testLab "kmom04" "lab4"
+    testBaddie "kmom04" "baddie3"
+}
+
+
+
+#
+# kmom05
+#
+kmom05()
+{
+    testMeStart
+    testFlag "kmom05" "flag4"
+    testLab "kmom05" "lab5"
+    testBaddie "kmom05" "baddie4"
+}
+
+
+
+#
+# kmom06
+#
+kmom06()
+{
+    testMeStart
+    testFlag "kmom06" "flag5"
+    testBaddie "kmom06" "baddie5"
+}
+
+
+
+#
+# kmom10
+#
+kmom10()
+{
+    testMeStart
+}
+
+
+
+#
+# example
+#
+example()
+{
+    validateHtmlCssJs "../example"
+}
+
+
+
+#
+# Main
+#
+if [ $# != 3 ]
+then
+    :
+    #$ECHO
+    #printUsage
+fi
+
+# Get settings from config-file
+. "./.dbwebb.config"
+
+
+# Get options
+PUBLISH="yes"
+IGNORE_FAULTS="no"
+
+while getopts ":hinrv" opt
+do
+    case $opt in
+        (h) 
+            printUsage
+            exit 0
+            ;;
+
+        (i) 
+            IGNORE_FAULTS="yes"
+            ;;
+
+        (n) 
+            PUBLISH="no"
+            ;;
+
+        (r) 
+            $ECHO "\nRequired external tools are:"
+            $ECHO "\n  npm install jshint html-minifier uglify-js clean-css htmlhint"
+            $ECHO "\n"
+            $ECHO "\n"
+            exit 0
+            ;;
+
+        (v) 
+            $ECHO "$VERSION\n"
+            exit 0
+            ;;
+
+        \?)
+            $ECHO "\nInvalid option: -$OPTARG" >&2
+            $ECHO "\n"
+            $ECHO "\nUse the following to get help."
+            $ECHO "\ndbwebb-validate -h"
+            $ECHO "\n"
+            $ECHO "\n"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+# Execute command
+checkTools
+
+CMD=$1
+case $CMD in
+    
+    kmom01)
+        kmom01
+        ;;
+
+    kmom02)
+        kmom02
+        ;;
+
+    kmom03)
+        kmom03
+        ;;
+
+    kmom04)
+        kmom04
+        ;;
+
+    kmom05)
+        kmom05
+        ;;
+
+    kmom06)
+        kmom06
+        ;;
+
+    kmom10)
+        kmom10
+        ;;
+
+    example)
+        example
+        ;;
+
+    tutorial)
+        ;;
+
+    sandbox)
+        testSandbox
+        ;;
+
+    flag1)
+        testFlag "kmom02" "flag1" 
+        ;;
+
+    flag2)
+        testFlag "kmom03" "flag2" 
+        ;;
+
+    flag3)
+        testFlag "kmom04" "flag3" 
+        ;;
+
+    flag4)
+        testFlag "kmom05" "flag4" 
+        ;;
+
+    flag5)
+        testFlag "kmom06" "flag5" 
+        ;;
+
+    baddie1)
+        testBaddie "kmom02" "baddie1" 
+        ;;
+
+    baddie2)
+        testBaddie "kmom03" "baddie2" 
+        ;;
+
+    baddie3)
+        testBaddie "kmom04" "baddie3" 
+        ;;
+
+    baddie4)
+        testBaddie "kmom05" "baddie4" 
+        ;;
+
+    baddie5)
+        testBaddie "kmom06" "baddie5" 
+        ;;
+
+    lab1)
+        testLab "kmom02" "lab1" 
+        ;;
+
+    lab2)
+        testLab "kmom03" "lab2" 
+        ;;
+
+    lab3)
+        testLab "kmom04" "lab3" 
+        ;;
+
+    lab4)
+        testLab "kmom04" "lab4" 
+        ;;
+
+    lab5)
+        testLab "kmom05" "lab5" 
+        ;;
+
+    all)
+        kmom01
+        kmom02
+        kmom03
+        kmom04
+        kmom05
+        kmom06
+        kmom10
+        ;;
+
+    *)
+        $ECHO "\n\033[0;37;41mERROR\033[0m: No such item to validate."
+        printUsage
+        exit 1
+        ;;
+esac
+
+if [ $PUBLISH = "yes" ]
+then
+    case $CMD in
+        
+        kmom01)
+            publish "kmom01"
+            ;;
+
+        kmom02)
+            publish "kmom02"
+            ;;
+
+        kmom03)
+            publish "kmom03"
+            ;;
+
+        kmom04)
+            publish "kmom04"
+            ;;
+
+        kmom05)
+            publish "kmom05"
+            ;;
+
+        kmom06)
+            publish "kmom06"
+            ;;
+
+        kmom10)
+            publish "kmom10"
+            ;;
+
+        all)
+            publish "example" "silent"
+            publish "tutorial" "silent"
+            publish "all"
+            ;;
+
+        example)
+            publish "example"
+            ;;
+
+        tutorial)
+            publish "tutorial"
+            ;;
+
+        sandbox)
+            publish "kmom01/sandbox"
+            ;;
+
+        flag1)
+            publish "kmom02/flag1"
+            ;;
+
+        flag2)
+            publish "kmom03/flag2"
+            ;;
+
+        flag3)
+            publish "kmom04/flag3"
+            ;;
+
+        flag4)
+            publish "kmom05/flag4"
+            ;;
+
+        flag5)
+            publish "kmom06/flag5"
+            ;;
+
+        baddie1)
+            publish "kmom02/baddie1"
+            ;;
+
+        baddie2)
+            publish "kmom02/baddie2"
+            ;;
+
+        baddie3)
+            publish "kmom02/baddie3"
+            ;;
+
+        baddie4)
+            publish "kmom02/baddie4"
+            ;;
+
+        baddie5)
+            publish "kmom06/baddie5"
+            ;;
+
+        lab1)
+            publish "kmom02/lab1"
+            ;;
+
+        lab2)
+            publish "kmom03/lab2"
+            ;;
+
+        lab3)
+            publish "kmom04/lab3"
+            ;;
+
+        lab4)
+            publish "kmom04/lab4"
+            ;;
+
+        lab5)
+            publish "kmom05/lab5"
+            ;;
+
+        *)
+            $ECHO "\n\033[0;37;41mERROR\033[0m: No such item to publish."
+            printUsage
+            exit 1
+            ;;
+    esac
+fi
+
+rm -f $TMPFILE
+
+if [ $FAULTS -gt 0 ]
+then
+        if [ $IGNORE_FAULTS = "yes" ]
+        then
+            $ECHO "\n\n\033[43mWARNING.\033[0m"
+            STATUS=2
+        else
+            $ECHO "\n\n\033[0;37;41mFAILED.\033[0m"
+            STATUS=1
+        fi
+        $ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+        exit $STATUS
+fi
+
+$ECHO "\n\n\033[0;30;42mOK\033[0m"
+$ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+exit 0

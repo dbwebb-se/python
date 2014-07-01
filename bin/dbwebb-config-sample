@@ -1,0 +1,64 @@
+#
+# Change this to your own acronym
+#
+USER="DEFAULT_USER"
+COURSE="DEFAULT_COURSE"
+
+
+
+#
+# Do not change below unless you are really sure on the effects
+#
+
+
+#
+# all
+#
+HOST="ssh.student.bth.se"
+BASEDIR="dbwebb-kurser"
+PROJECT=${PWD##*/}
+SOURCE="$PWD/"
+DESTINATION="${USER}@${HOST}:$BASEDIR/$PROJECT/"
+
+# Detect if ssh-key is available
+SSH_KEY=""
+SSH_KEY_OPTIONS=""
+if [ -f $HOME/.ssh/dbwebb ]
+then
+    SSH_KEY="$HOME/.ssh/dbwebb"
+    SSH_KEY_OPTION="-i $SSH_KEY"
+fi
+
+
+
+#
+# Cygwin specifics
+#
+case "`uname`" in
+   CYGWIN*) IS_CYGWIN="yes" ;;
+   *)       IS_CYGWIN="no" ;;
+esac
+CYGWIN_DEFAULT_GROUP="Users"
+
+
+
+#
+# dbwebb-validate
+#
+BASEURL="http://www.student.bth.se/~$USER/$BASEDIR/$PROJECT"
+TARGET="$PWD/me"
+BUILD1="$HOME/www"
+BUILD2="$BUILD1/$BASEDIR"
+BUILD3="$BUILD2/$PROJECT"
+BUILD="$BUILD3/me"
+
+
+#
+# dbwebb-create
+#
+SERVICE="http://www.student.bth.se/~mosstud/kod-exempel/javascript1/exercises/lab"
+GET_KEY="action=only-key&acronym=$USER&course=$COURSE&doGenerate=Submit"
+GET_LAB="lab.php?lab"
+GET_ANSWERS="lab.php?answers"
+GET_ANSWER_HTML="lab.php?answer-html"
+GET_ANSWER_JS="lab.php?answer-js"
