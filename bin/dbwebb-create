@@ -34,15 +34,14 @@ printUsage()
     $ECHO "\n  $ dbwebb-create lab5"
     $ECHO "\n"
     $ECHO "\n"
-    exit
 }
 
 
 
 #
-# Create a lab
+# Create a lab for course javascript1
 #
-createLab()
+createLabJavaScript1()
 {
     LAB="$1"
     WHERE="$TARGET/$2/$LAB"
@@ -77,6 +76,43 @@ createLab()
 
 
 #
+# Create a lab for course python
+#
+createLabPython()
+{
+    LAB="$1"
+    WHERE="$TARGET/$2/$LAB"
+
+    $ECHO "\nCreating $COURSE $LAB."
+
+    # Check if lab is already there
+    if [ -d "$WHERE" ]
+    then
+        echo "\nYou already have a lab directory.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        exit 1
+    else
+        mkdir "$WHERE"
+    fi
+
+    # Create the key
+    KEY="`wget -qO- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
+
+    # The lab description & the answers
+    $ECHO "\ninstruction.html"
+    wget  -qO "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
+
+    #$ECHO "\nanswer.html"
+    #wget  -qO "$WHERE/answer.html" "$SERVICE/$GET_ANSWER_HTML&key=$KEY"
+
+    #$ECHO "\nanswer.js"
+    #wget  -qO "$WHERE/answer.js" "$SERVICE/$GET_ANSWER_JS&key=$KEY"
+
+    $ECHO "\nYou can find the lab and all files here:\n$WHERE"
+}
+
+
+
+#
 # Main
 #
 if [ $# -lt 1 ]
@@ -94,6 +130,7 @@ do
     case $opt in
         (h) 
             printUsage
+            exit 0
             ;;
 
         (v) 
@@ -117,33 +154,67 @@ shift $((OPTIND - 1))
 
 # Execute command
 CMD=$1
-case $CMD in
-    
-    lab1)
-        createLab "lab1" "kmom02"
-        ;;
+if [ $COURSE = "javascript1" ]
+then
+    case $CMD in
+        
+        lab1)
+            createLabJavaScript1 "lab1" "kmom02"
+            ;;
 
-    lab2)
-        createLab "lab2" "kmom03"
-        ;;
+        lab2)
+            createLabJavaScript1 "lab2" "kmom03"
+            ;;
 
-    lab3)
-        createLab "lab3" "kmom04"
-        ;;
+        lab3)
+            createLabJavaScript1 "lab3" "kmom04"
+            ;;
 
-    lab4)
-        createLab "lab4" "kmom04"
-        ;;
+        lab4)
+            createLabJavaScript1 "lab4" "kmom04"
+            ;;
 
-    lab5)
-        createLab "lab5" "kmom05"
-        ;;
+        lab5)
+            createLabJavaScript1 "lab5" "kmom05"
+            ;;
 
-    *)
-        printUsage
-        ;;
-esac
+        *)
+            printUsage
+            exit 1
+            ;;
+    esac
 
+elif [ $COURSE = "python" ]
+then
+    case $CMD in
+        
+        lab1)
+            createLabPython "lab1" "kmom02"
+            ;;
+
+        lab2)
+            createLabPython "lab2" "kmom03"
+            ;;
+
+        lab3)
+            createLabPython "lab3" "kmom04"
+            ;;
+
+        lab4)
+            createLabPython "lab4" "kmom04"
+            ;;
+
+        lab5)
+            createLabPython "lab5" "kmom05"
+            ;;
+
+        *)
+            printUsage
+            exit 1
+            ;;
+    esac
+
+fi
 
 rm -f $TMPFILE
 
