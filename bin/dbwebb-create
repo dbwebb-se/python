@@ -106,6 +106,7 @@ createLabPython()
 
     $ECHO "\nanswer.py"
     wget  -qO "$WHERE/answer.py" "$SERVICE/$GET_ANSWER_PY&key=$KEY"
+    chmod 755 "$WHERE/answer.py"
 
     $ECHO "\nDbwebb.py"
     wget  -qO "$WHERE/Dbwebb.py" "$SERVICE/$GET_ANSWER_PYDBWEBB&key=$KEY"
