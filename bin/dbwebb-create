@@ -101,11 +101,14 @@ createLabPython()
     $ECHO "\ninstruction.html"
     wget  -qO "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
 
-    #$ECHO "\nanswer.html"
-    #wget  -qO "$WHERE/answer.html" "$SERVICE/$GET_ANSWER_HTML&key=$KEY"
+    $ECHO "\nanswer.json"
+    wget  -qO "$WHERE/answer.json" "$SERVICE/$GET_ANSWER_JSON&key=$KEY"
 
-    #$ECHO "\nanswer.js"
-    #wget  -qO "$WHERE/answer.js" "$SERVICE/$GET_ANSWER_JS&key=$KEY"
+    $ECHO "\nanswer.py"
+    wget  -qO "$WHERE/answer.py" "$SERVICE/$GET_ANSWER_PY&key=$KEY"
+
+    $ECHO "\nDbwebb.py"
+    wget  -qO "$WHERE/Dbwebb.py" "$SERVICE/$GET_ANSWER_PYDBWEBB&key=$KEY"
 
     $ECHO "\nYou can find the lab and all files here:\n$WHERE"
 }

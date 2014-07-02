@@ -62,3 +62,7 @@ GET_LAB="lab.php?lab"
 GET_ANSWERS="lab.php?answers"
 GET_ANSWER_HTML="lab.php?answer-html"
 GET_ANSWER_JS="lab.php?answer-js"
+GET_ANSWER_JSON="lab.php?answer-json"
+GET_ANSWER_PY="lab.php?answer-py"
+GET_ANSWER_PYDBWEBB="lab.php?answer-py-assert"
+
