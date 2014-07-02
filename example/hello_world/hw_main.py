@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 """
 Calling the function what says hello from a main-method and using docstrings to
@@ -39,3 +39,4 @@ def main():
 if __name__ == "__main__":
         print(main.__doc__)
         main()
+
