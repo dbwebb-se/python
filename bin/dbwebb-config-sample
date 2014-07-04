@@ -9,6 +9,11 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
+VERSION_CONFIG="1.0.0"
+MSG_OK="\033[0;30;42mOK\033[0m"
+MSG_WARNING="\033[43mWARNING.\033[0m"
+MSG_FAILED="\033[0;37;41mFAILED.\033[0m"
+
 
 
 #
@@ -46,11 +51,10 @@ CYGWIN_DEFAULT_GROUP="Users"
 # dbwebb-validate
 #
 BASEURL="http://www.student.bth.se/~$USER/$BASEDIR/$PROJECT"
-TARGET="$PWD/me"
+TARGET="$PWD"
 BUILD1="$HOME/www"
 BUILD2="$BUILD1/$BASEDIR"
-BUILD3="$BUILD2/$PROJECT"
-BUILD="$BUILD3/me"
+BUILD="$BUILD2/$PROJECT"
 
 
 #

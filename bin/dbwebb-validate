@@ -27,6 +27,8 @@ UGLIFYJS_OPTIONS="-m -c --screw-ie8 --comments"
 
 CLEANCSS="cleancss --s1"
 
+PYLINT="pylint"
+
 
 
 #
@@ -43,7 +45,7 @@ printUsage()
 {
     $ECHO "\nUtility dbwebb-validate $VERSION by Mikael Roos, to validate and publish course results when done."
     $ECHO "\n"
-    $ECHO "\nUsage: dbwebb-validate [options] <item> [item]"
+    $ECHO "\nUsage: dbwebb-validate [options] <item>"
     $ECHO "\n"
     $ECHO "Options:"
     $ECHO "\n"
@@ -62,14 +64,179 @@ printUsage()
     $ECHO "\n  kmom05    Validate (and publish) selected kmom."
     $ECHO "\n  kmom06    Validate (and publish) selected kmom."
     $ECHO "\n  kmom10    Validate (and publish) selected kmom."
-    $ECHO "\n  all       Validate (and publish) all kmoms."
+    $ECHO "\n  me        Validate (and publish) all kmoms."
+    $ECHO "\n  tutorial  Validate (and publish) the tutorial."
+    $ECHO "\n  example   Validate (and publish) the example programs."
+    $ECHO "\n  all       Validate (and publish) me, tutorial and example."
     $ECHO "\n"
     $ECHO "\nExample:"
     $ECHO "\n"
     $ECHO "\n  $ dbwebb-validate kmom01"
     $ECHO "\n  $ dbwebb-validate -n kmom01"
+    $ECHO "\n  $ dbwebb-validate me"
     $ECHO "\n"
     $ECHO "\n"
+}
+
+
+
+#
+# Map command to path
+#
+mapCmdToDir()
+{
+    CMD="$1"
+    RES=""
+
+    case "$CMD" in
+        example)    RES="example" ;;
+        tutorial)   RES="tutorial" ;;
+        me)         RES="me" ;;
+        all)        RES="all" ;;
+        kmom01)     RES="me/kmom01" ;;
+        kmom02)     RES="me/kmom02" ;;
+        kmom03)     RES="me/kmom03" ;;
+        kmom04)     RES="me/kmom04" ;;
+        kmom05)     RES="me/kmom05" ;;
+        kmom06)     RES="me/kmom06" ;;
+        kmom10)     RES="me/kmom10" ;;
+    esac
+
+    if [ ! -z $RES ]; then 
+        $ECHO "$RES"
+        return
+    fi 
+
+    case "$COURSE" in
+        javascript1)
+            case "$CMD" in
+                sandbox)    RES="me/kmom01/sandbox" ;;
+
+                lab1)       RES="me/kmom02/lab1" ;;
+                lab2)       RES="me/kmom03/lab2" ;;
+                lab3)       RES="me/kmom04/lab3" ;;
+                lab4)       RES="me/kmom04/lab4" ;;
+                lab5)       RES="me/kmom05/lab5" ;;
+
+                flag1)      RES="me/kmom02/flag1" ;;
+                flag2)      RES="me/kmom03/flag2" ;;
+                flag3)      RES="me/kmom04/flag3" ;;
+                flag4)      RES="me/kmom05/flag4" ;;
+                flag5)      RES="me/kmom06/flag5" ;;
+
+                baddie1)    RES="me/kmom02/baddie1" ;;
+                baddie1)    RES="me/kmom03/baddie2" ;;
+                baddie1)    RES="me/kmom04/baddie3" ;;
+                baddie1)    RES="me/kmom05/baddie4" ;;
+                baddie1)    RES="me/kmom06/baddie5" ;;
+            esac
+            ;;
+        python)
+            case "$CMD" in
+                intro)      RES="me/kmom01/intro" ;;
+
+                lab1)       RES="me/kmom02/lab1" ;;
+                lab2)       RES="me/kmom03/lab2" ;;
+                lab3)       RES="me/kmom04/lab3" ;;
+                lab4)       RES="me/kmom05/lab4" ;;
+                lab5)       RES="me/kmom06/lab5" ;;
+
+                marvin1)    RES="me/kmom02/marvin1" ;;
+                marvin2)    RES="me/kmom03/marvin2" ;;
+                marvin3)    RES="me/kmom04/marvin3" ;;
+                marvin4)    RES="me/kmom05/marvin4" ;;
+                marvin5)    RES="me/kmom06/marvin5" ;;
+
+                game1)      RES="me/kmom04/game1" ;;
+                game2)      RES="me/kmom05/game2" ;;
+                game3)      RES="me/kmom06/game3" ;;
+            esac
+            ;;
+        *)
+            $ECHO "\n$MSG_FAILED Unknown Course. Error in config file.\n"
+            exit 1
+            ;;
+    esac
+
+    if [ ! -z "$RES" ]; then 
+        $ECHO "$RES"
+        return
+    fi 
+
+    $ECHO "\n$MSG_FAILED Unknown combination of Course and Item: $COURSE $CMD.\n"
+    exit 1
+}
+
+
+
+#
+# Test me/ to contain at least expected items
+#
+testMe()
+{
+    TESTS=$(( $TESTS + 1 ))
+    CMD="$1"
+    DIRS=""
+    FILES=""
+    ME="$TARGET/me"
+
+    case $COURSE in
+
+        javascript1) 
+            FILES="me.html redovisning.html" 
+            KMOM01="kmom01 kmom01/sandbox"
+            KMOM02="kmom02 kmom02/flag1 kmom02/lab1 kmom02/baddie1"
+            KMOM03="kmom03 kmom03/flag2 kmom03/lab2 kmom03/baddie2"
+            KMOM04="kmom04 kmom04/flag3 kmom04/lab3 kmom04/lab4 kmom04/baddie3"
+            KMOM05="kmom05 kmom05/flag4 kmom05/lab5 kmom05/baddie4"
+            KMOM06="kmom06 kmom06/flag5 kmom06/baddie5"
+            KMOM10="kmom10"            
+            ;;
+
+        python)      
+            FILES="me.cgi redovisning.cgi" 
+            KMOM01="kmom01 kmom01/intro"
+            KMOM02="kmom02 kmom02/marvin1 kmom02/lab1"
+            KMOM03="kmom03 kmom03/marvin2 kmom03/lab2"
+            KMOM04="kmom04 kmom04/marvin3 kmom04/lab3 kmom04/game1"
+            KMOM05="kmom05 kmom05/marvin4 kmom05/lab4 kmom05/game2"
+            KMOM06="kmom06 kmom06/marvin5 kmom05/lab5 kmom06/game3"
+            KMOM10="kmom10"
+            ;;
+
+        *)           
+            FILES="" 
+            ;;
+    esac
+
+    case "$CMD" in
+        kmom01)     DIRS="$KMOM01" ;;
+        kmom02)     DIRS="$KMOM02" ;;
+        kmom03)     DIRS="$KMOM03" ;;
+        kmom04)     DIRS="$KMOM04" ;;
+        kmom05)     DIRS="$KMOM05" ;;
+        kmom06)     DIRS="$KMOM06" ;;
+        kmom10)     DIRS="$KMOM10" ;;
+        me)         DIRS="$KMOM01 $KMOM02 $KMOM03 $KMOM04 $KMOM05 $KMOM06 $KMOM10" ;;
+        all)        DIRS="$KMOM01 $KMOM02 $KMOM03 $KMOM04 $KMOM05 $KMOM06 $KMOM10" ;;
+        *)          DIRS=""; FILES="" ;;
+    esac
+
+    if [ -z "$DIRS$FILES" ]; then
+        return
+    fi
+
+    $ECHO "\n\nTesting Me-directory items."
+
+    for dir in $DIRS; do
+        $ECHO "\n $dir"
+        assert 0 "[ -d $ME/$dir ]"  "Missing directory: me/$dir"
+    done
+
+    for file in $FILES; do
+        $ECHO "\n $file"
+        assert 0 "[ -f $ME/$file ]" "Missing file: me/$file" 
+    done
 }
 
 
@@ -84,22 +251,23 @@ assert()
     MESSAGE=$3
     ASSERTS=$(( $ASSERTS + 1 ))
 
-    sh -c "$TEST" > $TMPFILE 2>&1
+    sh -c "$TEST" > "$TMPFILE" 2>&1
     STATUS=$?
-    #ERROR=$(</tmp/dbwebb-error)
-    ERROR=`cat $TMPFILE`
+    ERROR=$(cat $TMPFILE)
 
-    if [ ! $STATUS -eq $EXPECTED ]
-    then
+    #if [ ! $STATUS -eq $EXPECTED ]; then
+    if [ \( ! $STATUS -eq $EXPECTED \) -o \( ! -z "$ERROR" \) ]; then
         FAULTS=$(( $FAULTS + 1 ))
 
-        if [ $IGNORE_FAULTS = "yes" ]
-        then
-            $ECHO "\n\033[43mWARNING.\033[0m $MESSAGE"
-            [ -z "$ERROR" ] || $ECHO "\n$ERROR"
-        else
-            $ECHO "\n\033[0;37;41mFAILED.\033[0m $MESSAGE\n"
-            [ -z "$ERROR" ] || $ECHO "\n$ERROR"
+        case $IGNORE_FAULTS in
+            yes) MSG="\n\n$MSG_WARNING $MESSAGE\n" ;;
+            no)  MSG="\n\n$MSG_FAILED $MESSAGE\n" ;;
+        esac
+
+        $ECHO "$MSG" 
+        [ -z "$ERROR" ] || $ECHO "$ERROR\n\n"
+
+        if [ $IGNORE_FAULTS = "no" ]; then 
             $ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
             $ECHO "\nCorrect the fault and run the validation again.\n\n"
             exit 1
@@ -119,66 +287,14 @@ checkCommand()
     COMMAND=$1
     #$ECHO "\nChecking $COMMAND"
 
-    if ! hash $COMMAND 2>/dev/null
-    then
-        $ECHO >&2 "\nI require $COMMAND but it's not installed. Aborting."
-        $ECHO >&2 "\nUse the following command to see what is required to run this script"
-        $ECHO >&2 "\n  dbwebb-validate -r";
-        $ECHO >&2 "\n";
-        exit 1
+    if ! hash $COMMAND 2>/dev/null; then
+        $ECHO "\n I require $COMMAND but it's not installed. Ignoring."
+        #$ECHO >&2 "\nI require $COMMAND but it's not installed. Ignoring for now."
+        #$ECHO >&2 "\nUse the following command to see what is required to run this script"
+        #$ECHO >&2 "\n  dbwebb-validate -r";
+        #$ECHO >&2 "\n";
+        #exit 1
     fi
-}
-
-
-
-#
-# Publish all
-#
-publish()
-{
-    DIR="$1"
-    SILENT="$2"
-    $ECHO "\n\nPublishing $DIR"
-
-    initBuildDir
-
-    if [ -z "$SILENT" ]; then
-        $ECHO "\nCopying files to www."
-    fi
-    
-    if [ "$DIR" = "all" ]
-    then
-        rsync -a --delete $TARGET/ $BUILD/
-    elif [ "$DIR" = "example" ]
-    then
-        rsync -a --delete $TARGET/../example/ $BUILD/../example
-    elif [ "$DIR" = "tutorial" ]
-    then
-        rsync -a --delete $TARGET/../tutorial/ $BUILD/../tutorial
-    else
-        rsync -a --delete $TARGET/$DIR/ $BUILD/$DIR/
-        rsync -a $TARGET/me.html $BUILD/me.html
-        rsync -a $TARGET/redovisning.html $BUILD/redovisning.html
-        rsync -a --delete $TARGET/js/ $BUILD/js/
-        rsync -a --delete $TARGET/style/ $BUILD/style/
-    fi
-
-    if [ -z "$SILENT" ]; then
-        $ECHO "\nMinifying HTML-files."
-    fi
-    find $BUILD/ -type f -name '*.html' | while read filename; do $HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename; done
-    
-    if [ -z "$SILENT" ]; then
-        $ECHO "\nUglify JavaScript-files."
-    fi
-    find $BUILD/ -type f -name '*.js' | while read filename; do $UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS; done
-    #$UGLIFYJS $BUILD/$KMOM/$DIR/js/main.js -o $BUILD/$KMOM/$DIR/js/main.js $UGLIFYJS_OPTIONS
-    
-    if [ -z "$SILENT" ]; then
-        $ECHO "\nMinify CSS-files."
-    fi
-    find $BUILD/ -type f -name '*.css' | while read filename; do $CLEANCSS $filename -o $filename; done
-    #$CLEANCSS $BUILD/$KMOM/$DIR/style/style.css -o $BUILD/$KMOM/$DIR/style/style.css
 }
 
 
@@ -193,8 +309,11 @@ checkTools()
 
     $ECHO "\nCheck for installed tools."
 
-    checkCommand $JSHINT
+    checkCommand $PYLINT
+
     checkCommand $HTMLHINT
+    checkCommand $JSHINT
+    checkCommand $CSSHINT
 
     [ $PUBLISH = "yes" -o $IGNORE_FAULTS = "yes" ] || return
 
@@ -206,74 +325,32 @@ checkTools()
 
 
 #
-# Init the build directory
+# Perform validation tests
 #
-BUILDDIR="no"
-initBuildDir()
+validateHtmlCssJs()
 {
-    [ $BUILDDIR = "no" ] || return; BUILDDIR="yes"
-    [ $PUBLISH = "yes" ] || return
-
-    $ECHO "\nInit the build directory."
-
-    if [ ! -d $BUILD1 ] 
-    then
-        mkdir $BUILD1
-    fi
-
-    if [ ! -d $BUILD2 ] 
-    then
-        mkdir $BUILD2
-    fi
-
-    if [ ! -d $BUILD3 ] 
-    then
-        mkdir $BUILD3
-    fi
-
-    if [ ! -d $BUILD ] 
-    then
-        mkdir $BUILD
-    fi
-
-    if [ ! -d "$BUILD/kmom01" ]; then mkdir "$BUILD/kmom01"; fi
-    if [ ! -d "$BUILD/kmom02" ]; then mkdir "$BUILD/kmom02"; fi
-    if [ ! -d "$BUILD/kmom03" ]; then mkdir "$BUILD/kmom03"; fi
-    if [ ! -d "$BUILD/kmom04" ]; then mkdir "$BUILD/kmom04"; fi
-    if [ ! -d "$BUILD/kmom05" ]; then mkdir "$BUILD/kmom05"; fi
-    if [ ! -d "$BUILD/kmom06" ]; then mkdir "$BUILD/kmom06"; fi
-    if [ ! -d "$BUILD/kmom10" ]; then mkdir "$BUILD/kmom10"; fi
-
-}
-
-
-
-#
-# Test me/ at the beginning
-#
-MESTART="no"
-testMeStart()
-{
-    [ $MESTART = "no" ] || return; MESTART="yes"
-
     TESTS=$(( $TESTS + 1 ))
+    DIR="$1"
+    SILENT="$2"
 
-    $ECHO "\nTesting Me-directory items."
+    if [ -z "$SILENT" ]; then $ECHO "\nValidate $DIR."; fi
 
-    assert 0 "[ -d $TARGET ]" "Missing directory for me-pages: $TARGET"
-    assert 0 "[ -f $TARGET/me.html ]" "Missing presentation file: $TARGET/me.html" 
-    assert 0 "[ -d $TARGET/kmom01 ]" "Missing directory: $TARGET/kmom01"
-    assert 0 "[ -d $TARGET/kmom02 ]" "Missing directory: $TARGET/kmom02"
-    assert 0 "[ -d $TARGET/kmom03 ]" "Missing directory: $TARGET/kmom03"
-    assert 0 "[ -d $TARGET/kmom04 ]" "Missing directory: $TARGET/kmom04"
-    assert 0 "[ -d $TARGET/kmom05 ]" "Missing directory: $TARGET/kmom05"
-    assert 0 "[ -d $TARGET/kmom06 ]" "Missing directory: $TARGET/kmom06"
-    assert 0 "[ -d $TARGET/kmom10 ]" "Missing directory: $TARGET/kmom10"
+    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
 
-    [ $PUBLISH = "yes" ] || return
+    $ECHO "\n *.html using HTMLHint."
+    #find $TARGET/$DIR -type f -name '*.html' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
+    for filename in $(find "$TARGET/$DIR/" -type f -name '*.html'); do
+        assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"
+    done
 
-    rsync -a $TARGET/me.html $BUILD/
-    rsync -a --delete $TARGET/../example/ $BUILD/../example/
+    $ECHO "\n *.css using HTMLHint."
+    #find $TARGET/$DIR -type f -name '*.css' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
+
+    $ECHO "\n *.js using JSHint."
+    #find $TARGET/$DIR -type f -name '*.js' | while read filename; do assert 0 "$JSHINT $filename" "JSHint failed: $filename"; done
+    for filename in $(find "$TARGET/$DIR/" -type f -name '*.js'); do
+        assert 0 "$JSHINT $filename" "JSHint failed: $filename"
+    done
 }
 
 
@@ -281,174 +358,134 @@ testMeStart()
 #
 # Perform validation tests
 #
-validateHtmlCssJs()
+validatePython()
+{
+    TESTS=$(( $TESTS + 1 ))
+    DIR="$1"
+    SILENT="$2"
+
+    if [ -z "$SILENT" ]; then $ECHO "\nValidate $DIR."; fi
+    
+    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
+
+    $ECHO "\n *.py using Pylint."
+    #find $TARGET/$DIR -type f -name '*.py' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
+
+    $ECHO "\n *.cgi using Pylint."
+    #find $TARGET/$DIR -type f -name '*.cgi' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
+}
+
+
+
+#
+# Validete by all techniques
+#
+validate()
 {
     TESTS=$(( $TESTS + 1 ))
     DIR="$1"
 
-    $ECHO "\nTesting $DIR."
+    if [ "$DIR" = "all" ]; then
+        DIR="example tutorial me"
+    fi
 
-    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
+    $ECHO "\n\nValidate $DIR."
 
-    $ECHO "\nValidate using HTMLHint."
-    find $TARGET/$DIR -type f -name '*.html' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
-
-    $ECHO "\nValidate using JSHint."
-    find $TARGET/$DIR -type f -name '*.js' | while read filename; do assert 0 "$JSHINT $filename" "JSHint failed: $filename"; done
+    for dir in $DIR; do
+        assert 0 "[ -d $TARGET/$dir ]" "Missing directory: $TARGET/$dir" || return
+        validateHtmlCssJs "$dir" "silent"
+        validatePython "$dir" "silent"
+    done
 }
 
 
 
 #
-# Test kmom01/sandbox
+# Init the build directory
 #
-testSandbox()
+initBuildDir()
 {
-    TESTS=$(( $TESTS + 1 ))
-    KMOM="kmom01"
-    DIR="sandbox"
+    SILENT="$1"
 
-    validateHtmlCssJs "$KMOM/$DIR"
-}
+    if [ -z "$SILENT" ]; then
+        $ECHO "\nChecking the www directory."
+    fi
 
-
-
-
-#
-# Test Flag
-#
-testFlag()
-{
-    TESTS=$(( $TESTS + 1 ))
-    KMOM="$1"
-    DIR="$2"
-
-    validateHtmlCssJs "$KMOM/$DIR"
+    ME="$BUILD/me"
+    for dir in $BUILD1 $BUILD2 $BUILD3 $BUILD $ME/kmom01 $ME/kmom02 $ME/kmom03 $ME/kmom04 $ME/kmom05 $ME/kmom06 $ME/kmom10; do
+        if [ ! -d $dir ]; then mkdir $dir; fi
+    done
 }
 
 
 
 #
-# Test Lab
+# Publish all
 #
-testLab()
+publish()
 {
-    TESTS=$(( $TESTS + 1 ))
-    KMOM="$1"
-    DIR="$2"
+    DIR="$1"
+    SILENT="$2"
 
-    validateHtmlCssJs "$KMOM/$DIR"
-}
+    if [ -z "$SILENT" ]; then
+        $ECHO "\n\nPublishing $DIR to www/$BASEDIR/$PROJECT."
+    fi
+   
+    case "$DIR" in
+        example)    DIRS="example" ;;
+        tutorial)   DIRS="tutorial" ;;
+        me)         DIRS="me" ;;
+        all)        DIRS="example tutorial me" ;;
+        kmom*)      DIRS="me/js me/style $DIR" ;;
+        *)          DIRS="$DIR" ;;
+    esac
 
+    rsync -a --delete -f '- /*/' $TARGET/me/ $BUILD/me/
 
+    for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
+        assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
+    done
 
-#
-# Test Baddie
-#
-testBaddie()
-{
-    TESTS=$(( $TESTS + 1 ))
-    KMOM="$1"
-    DIR="$2"
+    for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.js'); do
+        assert 0 "$UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS" "UglifyJS failed: $filename"
+    done
 
-    validateHtmlCssJs "$KMOM/$DIR"
-}
+    for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.css'); do
+        assert 0 "$CLEANCSS $filename -o $filename" "CleanCSS failed: $filename"
+    done
 
+    #find "$BUILD/me/" -maxdepth 1 -type f -name '*.html' | while read filename; do $HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename; exit; done
+    #find "$BUILD/me/" -maxdepth 1 -type f -name '*.js'   | while read filename; do $UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS; done
+    #find "$BUILD/me/" -maxdepth 1 -type f -name '*.css'  | while read filename; do $CLEANCSS $filename -o $filename; done
 
+    for dir in $DIRS; do
+        if [ ! -d "$TARGET/$dir" ]; then continue; fi
 
+        $ECHO "\n $dir:"
+        rsync -a --delete $TARGET/$dir/ $BUILD/$dir/ 
 
-#
-# kmom01
-#
-kmom01()
-{
-    testMeStart
-    testSandbox
-}
+        if [ -z "$SILENT" ]; then $ECHO " minify *.html"; fi
+        #find "$BUILD/$dir/" -type f -name '*.html' | while read filename; do assert "0" "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"; done
+        for filename in $(find "$BUILD/$dir/" -type f -name '*.html'); do
+            assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
+        done
 
+        if [ -z "$SILENT" ]; then $ECHO " uglify *.js"; fi
+        #$UGLIFYJS $BUILD/$KMOM/$DIR/js/main.js -o $BUILD/$KMOM/$DIR/js/main.js $UGLIFYJS_OPTIONS
+        #find "$BUILD/$dir/" -type f -name '*.js' | while read filename; do assert "0" "$UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS" "UglifyJS failed: $filename"; done
+        for filename in $(find "$BUILD/$dir/" -type f -name '*.js'); do
+            assert 0 "$UGLIFYJS $filename -o $filename $UGLIFYJS_OPTIONS" "UglifyJS failed: $filename"
+        done
 
+        
+        if [ -z "$SILENT" ]; then $ECHO " minify *.css"; fi
+        #$CLEANCSS $BUILD/$KMOM/$DIR/style/style.css -o $BUILD/$KMOM/$DIR/style/style.css
+        #find "$BUILD/$dir/" -type f -name '*.css' | while read filename; do assert "0" "$CLEANCSS $filename -o $filename" "CleanCSS failed: $filename"; done
+        for filename in $(find "$BUILD/$dir/" -type f -name '*.css'); do
+            assert 0 "$CLEANCSS $filename -o $filename" "CleanCSS failed: $filename"
+        done
 
-#
-# kmom02
-#
-kmom02()
-{
-    testMeStart
-    testFlag "kmom02" "flag1"
-    testLab "kmom02" "lab1"
-    testBaddie "kmom02" "baddie1"
-}
-
-
-
-#
-# kmom03
-#
-kmom03()
-{
-    testMeStart
-    testFlag "kmom03" "flag2"
-    testLab "kmom03" "lab2"
-    testBaddie "kmom03" "baddie2"
-}
-
-
-
-#
-# kmom04
-#
-kmom04()
-{
-    testMeStart
-    testFlag "kmom04" "flag3"
-    testLab "kmom04" "lab3"
-    testLab "kmom04" "lab4"
-    testBaddie "kmom04" "baddie3"
-}
-
-
-
-#
-# kmom05
-#
-kmom05()
-{
-    testMeStart
-    testFlag "kmom05" "flag4"
-    testLab "kmom05" "lab5"
-    testBaddie "kmom05" "baddie4"
-}
-
-
-
-#
-# kmom06
-#
-kmom06()
-{
-    testMeStart
-    testFlag "kmom06" "flag5"
-    testBaddie "kmom06" "baddie5"
-}
-
-
-
-#
-# kmom10
-#
-kmom10()
-{
-    testMeStart
-}
-
-
-
-#
-# example
-#
-example()
-{
-    validateHtmlCssJs "../example"
+    done
 }
 
 
@@ -489,7 +526,7 @@ do
 
         (r) 
             $ECHO "\nRequired external tools are:"
-            $ECHO "\n  npm install jshint html-minifier uglify-js clean-css htmlhint"
+            $ECHO "\n  npm install jshint html-minifier uglify-js clean-css htmlhint pylint"
             $ECHO "\n"
             $ECHO "\n"
             exit 0
@@ -514,262 +551,43 @@ done
 shift $((OPTIND - 1))
 
 
-# Execute command
-checkTools
-
+# Get path to dir to check
+FAULTS=0
 CMD=$1
-case $CMD in
-    
-    kmom01)
-        kmom01
-        ;;
-
-    kmom02)
-        kmom02
-        ;;
-
-    kmom03)
-        kmom03
-        ;;
-
-    kmom04)
-        kmom04
-        ;;
-
-    kmom05)
-        kmom05
-        ;;
-
-    kmom06)
-        kmom06
-        ;;
-
-    kmom10)
-        kmom10
-        ;;
-
-    example)
-        example
-        ;;
-
-    tutorial)
-        ;;
-
-    sandbox)
-        testSandbox
-        ;;
-
-    flag1)
-        testFlag "kmom02" "flag1" 
-        ;;
-
-    flag2)
-        testFlag "kmom03" "flag2" 
-        ;;
-
-    flag3)
-        testFlag "kmom04" "flag3" 
-        ;;
-
-    flag4)
-        testFlag "kmom05" "flag4" 
-        ;;
-
-    flag5)
-        testFlag "kmom06" "flag5" 
-        ;;
-
-    baddie1)
-        testBaddie "kmom02" "baddie1" 
-        ;;
-
-    baddie2)
-        testBaddie "kmom03" "baddie2" 
-        ;;
-
-    baddie3)
-        testBaddie "kmom04" "baddie3" 
-        ;;
-
-    baddie4)
-        testBaddie "kmom05" "baddie4" 
-        ;;
-
-    baddie5)
-        testBaddie "kmom06" "baddie5" 
-        ;;
-
-    lab1)
-        testLab "kmom02" "lab1" 
-        ;;
-
-    lab2)
-        testLab "kmom03" "lab2" 
-        ;;
-
-    lab3)
-        testLab "kmom04" "lab3" 
-        ;;
-
-    lab4)
-        testLab "kmom04" "lab4" 
-        ;;
-
-    lab5)
-        testLab "kmom05" "lab5" 
-        ;;
-
-    all)
-        kmom01
-        kmom02
-        kmom03
-        kmom04
-        kmom05
-        kmom06
-        kmom10
-        ;;
-
-    *)
-        $ECHO "\n\033[0;37;41mERROR\033[0m: No such item to validate."
-        printUsage
-        exit 1
-        ;;
-esac
-
-if [ $PUBLISH = "yes" ]
-then
-    case $CMD in
-        
-        kmom01)
-            publish "kmom01"
-            ;;
-
-        kmom02)
-            publish "kmom02"
-            ;;
-
-        kmom03)
-            publish "kmom03"
-            ;;
-
-        kmom04)
-            publish "kmom04"
-            ;;
-
-        kmom05)
-            publish "kmom05"
-            ;;
-
-        kmom06)
-            publish "kmom06"
-            ;;
-
-        kmom10)
-            publish "kmom10"
-            ;;
-
-        all)
-            publish "example" "silent"
-            publish "tutorial" "silent"
-            publish "all"
-            ;;
-
-        example)
-            publish "example"
-            ;;
-
-        tutorial)
-            publish "tutorial"
-            ;;
-
-        sandbox)
-            publish "kmom01/sandbox"
-            ;;
-
-        flag1)
-            publish "kmom02/flag1"
-            ;;
-
-        flag2)
-            publish "kmom03/flag2"
-            ;;
-
-        flag3)
-            publish "kmom04/flag3"
-            ;;
-
-        flag4)
-            publish "kmom05/flag4"
-            ;;
-
-        flag5)
-            publish "kmom06/flag5"
-            ;;
-
-        baddie1)
-            publish "kmom02/baddie1"
-            ;;
-
-        baddie2)
-            publish "kmom02/baddie2"
-            ;;
-
-        baddie3)
-            publish "kmom02/baddie3"
-            ;;
-
-        baddie4)
-            publish "kmom02/baddie4"
-            ;;
-
-        baddie5)
-            publish "kmom06/baddie5"
-            ;;
-
-        lab1)
-            publish "kmom02/lab1"
-            ;;
-
-        lab2)
-            publish "kmom03/lab2"
-            ;;
-
-        lab3)
-            publish "kmom04/lab3"
-            ;;
-
-        lab4)
-            publish "kmom04/lab4"
-            ;;
-
-        lab5)
-            publish "kmom05/lab5"
-            ;;
-
-        *)
-            $ECHO "\n\033[0;37;41mERROR\033[0m: No such item to publish."
-            printUsage
-            exit 1
-            ;;
-    esac
+DIR=$(mapCmdToDir "$CMD") 
+if [ $? -eq 1 ]; then
+    $ECHO "$DIR"; exit 1
 fi
 
+
+# Execute command
+checkTools
+testMe "$CMD"
+validate "$DIR"
+
+if [ $PUBLISH = "yes" ]; then
+    initBuildDir "silent"
+    publish "$DIR"
+fi
+
+
+# Clean up and output results
 rm -f $TMPFILE
 
 if [ $FAULTS -gt 0 ]
 then
         if [ $IGNORE_FAULTS = "yes" ]
         then
-            $ECHO "\n\n\033[43mWARNING.\033[0m"
+            $ECHO "\n\n$MSG_WARNING"
             STATUS=2
         else
-            $ECHO "\n\n\033[0;37;41mFAILED.\033[0m"
+            $ECHO "\n\n$MSG_FAILED"
             STATUS=1
         fi
-        $ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+        $ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
         exit $STATUS
 fi
 
-$ECHO "\n\n\033[0;30;42mOK\033[0m"
-$ECHO "\nTests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+$ECHO "\n\n$MSG_OK"
+$ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
 exit 0

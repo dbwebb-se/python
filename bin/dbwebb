@@ -1,4 +1,5 @@
 #!/bin/sh
+
 VERSION="1.0.0"
 
 ECHO="printf"
@@ -91,9 +92,9 @@ executeCommand()
     MESSAGE=$3
     if [ $STATUS = 0 ]
     then
-        $ECHO "\n\033[0;30;42mSUCCESS\033[0m $MESSAGE"
+        $ECHO "\n$MSG_OK $MESSAGE"
     else 
-        $ECHO "\n\033[0;37;41mFAILED\033[0m $MESSAGE"
+        $ECHO "\n$MSG_FAILED $MESSAGE"
     fi 
     $ECHO "\n"
     $ECHO "\n"
@@ -171,12 +172,17 @@ createConfig()
 {
     FIRST=$1
 
-    GUESS_COURSE=${PWD##*/}
+    if [ -z "$COURSE" ]; then        
+        GUESS_COURSE=${PWD##*/}
+    else
+        GUESS_COURSE=$COURSE
+    fi
 
-    if [ -z $FIRST ]
-    then
+    if [ -z $FIRST ]; then
         $ECHO "Welcome to dbwebb utility! It seems like its your first time here?\n"
         $ECHO "I'm missing the configuration file."
+    elif [ $FIRST = "update" ]; then
+        $ECHO "You need to update your configuration file.\n"
     fi
 
     $ECHO "\nI will now create the configuration file \".dbwebb.config\"."
@@ -186,7 +192,7 @@ createConfig()
 
     $ECHO "\nThe config file \".dbwebb.config\" is now created.\n"
     
-    if [ -z $FIRST ]
+    if [ -z $FIRST -o  $FIRST = "update"]
     then
         $ECHO "You can now re-run your initial command.\n"
     fi
@@ -313,7 +319,15 @@ then
     createConfig
     exit
 fi
+
 . "./.dbwebb.config"
+
+if [ -z "$VERSION_CONFIG" -o ! "$VERSION" = "$VERSION_CONFIG" ]
+then
+    createConfig "update"
+    exit
+fi
+
 UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION" 
 SSH="ssh ${USER}@${HOST} $SSH_KEY_OPTION"
 
