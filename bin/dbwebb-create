@@ -166,6 +166,7 @@ then
         lab3) createLabJavaScript1 "lab3" "kmom04" ;;
         lab4) createLabJavaScript1 "lab4" "kmom04" ;;
         lab5) createLabJavaScript1 "lab5" "kmom05" ;;
+        labtest) createLabJavaScript1 "labtest" "kmom01" ;;
         *)    
             printUsage
             exit 1
@@ -180,6 +181,7 @@ then
         lab3) createLabPython "lab3" "kmom04" ;;
         lab4) createLabPython "lab4" "kmom05" ;;
         lab5) createLabPython "lab5" "kmom06" ;;
+        labtest) createLabPython "labtest" "kmom01" ;;
         *)
             printUsage
             exit 1
