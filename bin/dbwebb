@@ -205,10 +205,10 @@ createConfig()
 #
 createDefaultFiles()
 {
-    DEFAULT="$TARGET/default/"
+    DEFAULT="$TARGET/me/default/"
 
     INTRO="Initiating course repo by creating course specific files."
-    COMMAND="rsync -a --ignore-existing $DEFAULT $TARGET"
+    COMMAND="rsync -a --ignore-existing $DEFAULT $TARGET/me/"
     MESSAGE="to create course specific files in me-directory."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }

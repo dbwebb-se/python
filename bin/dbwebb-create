@@ -44,7 +44,7 @@ printUsage()
 createLabJavaScript1()
 {
     LAB="$1"
-    WHERE="$TARGET/$2/$LAB"
+    WHERE="$TARGET/me/$2/$LAB"
 
     $ECHO "\nCreating $COURSE $LAB."
 
@@ -81,7 +81,7 @@ createLabJavaScript1()
 createLabPython()
 {
     LAB="$1"
-    WHERE="$TARGET/$2/$LAB"
+    WHERE="$TARGET/me/$2/$LAB"
 
     $ECHO "\nCreating $COURSE $LAB."
 
@@ -161,28 +161,12 @@ CMD=$1
 if [ $COURSE = "javascript1" ]
 then
     case $CMD in
-        
-        lab1)
-            createLabJavaScript1 "lab1" "kmom02"
-            ;;
-
-        lab2)
-            createLabJavaScript1 "lab2" "kmom03"
-            ;;
-
-        lab3)
-            createLabJavaScript1 "lab3" "kmom04"
-            ;;
-
-        lab4)
-            createLabJavaScript1 "lab4" "kmom04"
-            ;;
-
-        lab5)
-            createLabJavaScript1 "lab5" "kmom05"
-            ;;
-
-        *)
+        lab1) createLabJavaScript1 "lab1" "kmom02" ;;
+        lab2) createLabJavaScript1 "lab2" "kmom03" ;;
+        lab3) createLabJavaScript1 "lab3" "kmom04" ;;
+        lab4) createLabJavaScript1 "lab4" "kmom04" ;;
+        lab5) createLabJavaScript1 "lab5" "kmom05" ;;
+        *)    
             printUsage
             exit 1
             ;;
@@ -191,27 +175,11 @@ then
 elif [ $COURSE = "python" ]
 then
     case $CMD in
-        
-        lab1)
-            createLabPython "lab1" "kmom02"
-            ;;
-
-        lab2)
-            createLabPython "lab2" "kmom03"
-            ;;
-
-        lab3)
-            createLabPython "lab3" "kmom04"
-            ;;
-
-        lab4)
-            createLabPython "lab4" "kmom04"
-            ;;
-
-        lab5)
-            createLabPython "lab5" "kmom05"
-            ;;
-
+        lab1) createLabPython "lab1" "kmom02" ;;
+        lab2) createLabPython "lab2" "kmom03" ;;
+        lab3) createLabPython "lab3" "kmom04" ;;
+        lab4) createLabPython "lab4" "kmom05" ;;
+        lab5) createLabPython "lab5" "kmom06" ;;
         *)
             printUsage
             exit 1
