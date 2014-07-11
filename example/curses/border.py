@@ -58,6 +58,15 @@ def main(scr):
         else:
             ch = key
 
+        if y <= y0:
+            y = y0 + 1
+        elif y >= y1:
+            y = y1 - 1
+        if x <= x0:
+            x = x0 + 1
+        elif x >= x1:
+            x = x1 - 1
+
         if ch != ' ':
             scr.addstr(ch)
         
