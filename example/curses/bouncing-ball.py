@@ -9,7 +9,7 @@ def main(screen):
 	dims = screen.getmaxyx()
 	screen.nodelay(1)
 
-	myStr = "O"
+	my_str = "O"
 
 	x, y = 0, 0
 	vert = 1
@@ -17,14 +17,14 @@ def main(screen):
 	while True:
 		screen.clear()
 		#screen.border()
-		screen.addstr(y, x, myStr, curses.A_BOLD)
+		screen.addstr(y, x, my_str, curses.A_BOLD)
 		screen.move(0,0)
 		screen.refresh()
 		x += hori
 		y += vert
 		if y == dims[0]-1 or y == 0:
 			vert = -vert # reverse
-		if x == dims[1]-len(myStr)-1 or x == 0:
+		if x == dims[1]-len(my_str)-1 or x == 0:
 			hori = -hori # reverse
 		time.sleep(0.1)
 		q = screen.getch()
