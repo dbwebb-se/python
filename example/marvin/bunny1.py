@@ -35,7 +35,7 @@ def menu():
     7. Generate random number
     8. Print a number of random numbers
     9. Get average of numbers
-    10. Get grade
+    10. Get grade from score
     """)
 
 # simple function and input, output

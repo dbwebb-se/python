@@ -46,7 +46,7 @@ def main(screen):
 			board_x += 1
 		# quit
 		elif q == ord("q"):
-			screen.clear()
+			#screen.clear()
 			text = "GAME OVER!"
 			screen.addstr(max_y//2, max_x//2-len(text)//2, text)
 			screen.refresh()
@@ -55,27 +55,39 @@ def main(screen):
 
 		if delayed >= delay:
 			# check where ball is and reverse dir if needed
-			if ball_y == max_y-2 or ball_y == 0:
-				vert_dir = -vert_dir # reverse
+			if ball_y == max_y-1 or ball_y == 0:
+				vert_dir = -vert_dir # reverse top
 			if ball_x == max_x-len(ball)-1 or ball_x == 0:
 				hori_dir = -hori_dir # reverse
 			if ball_y == max_y-2:
-				if ball_x < board_x or ball_x > board_x+len(board):
-					life -= 1
-					if life == 0:
-						screen.clear()
-						text = "GAME OVER!"
-						screen.addstr(max_y//2, max_x//2-len(text)//2, text)
-						screen.refresh()
-						curses.napms(2500)
-						break
-				elif ball_x > board_x and ball_x < board_x+len(board):
+				if ball_x > board_x and ball_x < board_x+len(board):
+					vert_dir = -vert_dir # reverse top
 					score += 1
 					if score > 1 and score%5 == 0 and len(board) > 8:
 						board = board[1:]
 					elif score > 1 and score%5 == 0 and delay > 8:
 						delay -= 1
 					screen.refresh()
+				# potential board bounce
+			if ball_y == max_y-1:
+				if ball_x < board_x or ball_x > board_x+len(board):
+					life -= 1
+					ball_y, ball_x = 3, 3
+					vert_dir, hori_dir = 1, 1
+					if life == 0:
+						#screen.clear()
+						text = "GAME OVER!"
+						screen.addstr(max_y//2, max_x//2-len(text)//2, text)
+						screen.refresh()
+						curses.napms(2500)
+						break
+				# elif ball_x > board_x and ball_x < board_x+len(board):
+				# 	score += 1
+				# 	if score > 1 and score%5 == 0 and len(board) > 8:
+				# 		board = board[1:]
+				# 	elif score > 1 and score%5 == 0 and delay > 8:
+				# 		delay -= 1
+				# 	screen.refresh()
 			ball_x += hori_dir
 			ball_y += vert_dir
 			delayed = 0
@@ -86,6 +98,7 @@ def main(screen):
 		#screen.timeout(5)
 	
 	curses.endwin()
+
 	print("Final score:", score)
 
 
