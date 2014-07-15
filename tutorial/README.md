@@ -11,7 +11,7 @@ Get going
 Language constructs
 ------------------------------
 
-[if, elseif, else](if.md)
+[if, elif, else](if.md)
 
 
 
