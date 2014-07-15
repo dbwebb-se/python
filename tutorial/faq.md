@@ -6,7 +6,6 @@ FAQ - Differences between Python 2 and 3
 """
 Print
 """
-
 # Python 2
 print "Hello world!"
 
@@ -18,10 +17,10 @@ print("Hello world!")
 print("some text,", end="") 
 print(" print more text on the same line")
 
+
 """
 Input
 """
-
 # Python 2
 inp = raw_input("Enter your input: ")
 
@@ -32,7 +31,6 @@ inp = input("Enter your input: ")
 """
 Division
 """
-
 # Python 2
 x = 5 / 4
 print x		# prints 1, an integer
@@ -48,7 +46,6 @@ print(x)	# prints 1, an integer
 """
 Type
 """
-
 # Python 2
 x = 42
 type(x)		# prints <type 'int'>
@@ -61,7 +58,6 @@ type(x)		# prints <class 'int'>
 """
 Range
 """
-
 # Python 2
 for x in xrange(10):	# xrange() is faster than range()
 	print x,
@@ -74,7 +70,6 @@ for x in range(10):		# xrange() no longer exists
 """
 
 """
-
 # Python 2
 
 # Python 3
