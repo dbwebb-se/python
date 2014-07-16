@@ -3,7 +3,7 @@ If, elif, else
 Examples in Python 3
 
 
-```python
+
 """
 Do something if a variable has a certain value.
 """
@@ -39,7 +39,7 @@ else:
 	print("NO")
 
 
-```
+
 
 
 
