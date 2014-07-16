@@ -38,7 +38,7 @@ Reference and read more
 
 [Format String Syntax](https://docs.python.org/3/library/string.html#formatstrings)
 
-[str.format](https://docs.python.org/3/library/stdtypes.html#str.format)
+[str.format()](https://docs.python.org/3/library/stdtypes.html#str.format)
 
 [Fancier Output Formatting](https://docs.python.org/3/tutorial/inputoutput.html#fancier-output-formatting)
 
