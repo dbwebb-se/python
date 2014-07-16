@@ -3,26 +3,32 @@ Operators
 Examples in Python 3
 
 
+### Numeric values
 ```python
 """
-Numeric values
+Addition
 """
-# Addition
 x = 40 + 2
 print(x)
 
-# Subtraction
+"""
+Subtraction
+"""
 x = 8 - 50
 print(x)
 
-# Multiplication
+"""
+Multiplication
+"""
 x = 6 * 7
 print(x)
 
 x = 5.6 * 7.5
 print(x)
 
-# Division
+"""
+Division
+"""
 x = 126 / 3
 print(x)        # float
 
@@ -35,7 +41,9 @@ print(x)
 x = 71.4 // 1.7
 print(x)
 
-# Powers
+"""
+Powers
+"""
 x = 5**2
 print(x)
 
@@ -45,14 +53,21 @@ print(x)
 x = 6.49**2
 print(x)
 
-# Modulus
+"""
+Modulus
+"""
 x = 242 % 50
 print(x)
 
+
+```
+
+
+### Strings
+```
 """
-Strings
+Concatenation
 """
-# Concatenation
 x = "Hello" + "World"
 print(x)
 
@@ -66,7 +81,9 @@ y = "2"
 print(x + y)
 print(x, y)
 
-# Multiplication
+"""
+Multiplication
+"""
 x = "Na" * 10
 print(x + " Watman!")
 
