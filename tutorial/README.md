@@ -12,9 +12,13 @@ Language constructs
 ------------------------------
 
 [variables](variables.md)
+
 [types](types.md)
+
 [operators](operators.md)
+
 [string formatting](string-formatting.md)
+
 [if, elif, else](if.md)
 
 
