@@ -64,7 +64,7 @@ print(x)
 
 
 ### Strings
-```
+```python
 """
 Concatenation
 """
