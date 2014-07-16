@@ -11,15 +11,12 @@ Get going
 Language constructs
 ------------------------------
 
-[variables](variables.md)
+* [variables](variables.md)
+* [types](types.md)
+* [operators](operators.md)
+* [string formatting](string-formatting.md)
 
-[types](types.md)
-
-[operators](operators.md)
-
-[string formatting](string-formatting.md)
-
-[if, elif, else](if.md)
+* [if, elif, else](if.md)
 
 
 
