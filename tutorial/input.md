@@ -24,9 +24,7 @@ input("Press any key to continue...")
 
 
 
-
 ```
-
 
 
 Reference and read more
