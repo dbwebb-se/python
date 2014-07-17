@@ -14,6 +14,7 @@ Translate some characters into numbers
 # Create a variable string with all numbers 0-9
 nrs = string.digits
 # Create a string which containts characters for each number in order
+# 		 0123456789
 chars = "olzeasgtbp"
 
 # Create a translation table, from and to as parameters
