@@ -55,6 +55,7 @@ x.reverse()
 print(x)
 
 # Can't sort when there are ints and strings in the same list
+
 x = [3,7,2,4,5]
 x.sort()
 print(x)
@@ -78,4 +79,4 @@ Reference and read more
 Revision history
 ------------------------------
 
-2014-07-17 (sylvanas) PA1 First try.
+2014-07-21 (sylvanas) PA1 First try.

@@ -61,13 +61,6 @@ x += y
 print(x)
 
 
-"""
-Append to list
-"""
-x = [1,2,3]
-x.append(42)
-print(x)
-
 
 """
 Replace and remove
@@ -96,4 +89,4 @@ Reference and read more
 Revision history
 ------------------------------
 
-2014-07-17 (sylvanas) PA1 First try.
+2014-07-21 (sylvanas) PA1 First try.
