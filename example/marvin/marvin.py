@@ -11,22 +11,20 @@ def menu():
     """
     print(chr(27) + "[2J" + chr(27) + "[;H");
     print("""
-          ,     ,
-         (\____/)
-          (_oo_)
-            (O)
-          __||__    \)
-       []/______\[] /
-       / \______/ \/
-      /    /__\ 
-     (\   /____\ 
+     ,     ,
+    (\____/)
+     (_oo_)
+       (O)
+     __||__    \)
+  []/______\[] /
+  / \______/ \/
+ /    /__\ 
+(\   /____\ 
 
 Hi, I'm Marvin. I know it all. What can I do you for?
-
     """)
     print("1) State your name and meet Marvin.")
     print("q) Quit.")
-
 
 
 def main():
@@ -36,16 +34,14 @@ def main():
     while True:
         menu()
         choice = input("--> ")
-        
+
         if choice == "q":
             break
         else:
             print(choice)
-            input("Press enter to continue...")
+        input("Press enter to continue...")
 
 
 
 if __name__ == "__main__":
-        main()
-
-
+    main()
