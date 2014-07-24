@@ -1,1 +1,1 @@
-Hello. Today's date is {date} and the time is {time}. I'm feeling {mood} {smiley}.
+Hello. I'm feeling {mood} {smiley}.
