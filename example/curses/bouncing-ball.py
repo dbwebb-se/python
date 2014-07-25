@@ -24,26 +24,19 @@ def main(screen):
 		screen.addstr(y, x, my_str)
 		# Move cursor out of the way
 		screen.move(0,0)
-
 		screen.refresh()
 
 		# Move x and y in the current directions
 		x += hori
 		y += vert
 
-		# --------------------------------------------------------
-		# ASSIGNMENT
-		# Remove current if-statements and instead check if new x and y is at any edge
-		# Bounce ball if it is (reverse vertical or horizontal direction depending on which edge)
-		# Remember to:
-		# 	Subtract 1 on max because the first position is 0
-		# 	Count for the lenght of the ball in horizontal check
-		if y == max_y:
-			y = 0
-		if x == max_x:
-			x = 0
+		# Check if new x and y is at any edge and bounce it if it is
+		if y == max_y-1 or y == 0: # top and bottom
+			vert = -vert # reverse
+		if x == max_x-len(my_str)-1 or x == 0: # left and right
+			hori = -hori # reverse
 
-		# Animate only every 0.1 sec so that you can actually see the ball move
+		# Animate only every 0.1 sec so that you can acutally see the ball move
 		time.sleep(0.1)
 
 		# Allow for an exit-key - any key pressed

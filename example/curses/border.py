@@ -9,29 +9,43 @@ import time
 import curses
 
 
+
 def main(scr):
 	"""
 	Draw a border around the screen.
 	"""
-	# Clear the screen of any output
 	scr.clear()
 
-	# Get screen dimensions
 	y1, x1 = scr.getmaxyx()
 	y1 -= 1
 	x1 -= 1
 
 	y0, x0 = 0, 0
-	# Get center position
 	yc, xc = (y1-y0)//2, (x1-x0)//2
 
-	# Draw a border
+
+	# # Get the x of the window
+	# x0 = 0
+	# x1 = curses.COLS - 1
+
+	# # Get the y of the window
+	# y0 = 0
+	# y1 = curses.LINES - 1
+
+	# # Get the center of the window
+	# yc = (y1 - y0) // 2
+	# xc = (x1 - x0) // 2
+
+	# for x in range(x0 + 1, x1):
+	# 	scr.addch(y0, x, '-')
+	# 	scr.addch(y1, x, '-')
+
+	# for y in range(y0 + 1, y1):
+	# 	scr.addch(y, x0, '|')
+	# 	scr.addch(y, x1, '|')
 	scr.border()
 
-	# Move cursor to center
 	scr.move(yc, xc);
-
-	# Refresh to draw out
 	scr.refresh()
 
 	# Main loop
@@ -51,24 +65,27 @@ def main(scr):
 		elif key == 'KEY_RIGHT':
 			x += 1
 		else:
-			ch = key # change the char to draw to the inputed key
+			ch = key
 
-		# --------------------------------------------------------
-		# ASSIGNMENT
-		# Add code so that user can not move outside of the border
-		
-		# As long as key was not spacebar - draw out the char at cursor
+		if y <= y0:
+			y = y0 + 1
+		elif y >= y1:
+			y = y1 - 1
+		if x <= x0:
+			x = x0 + 1
+		elif x >= x1:
+			x = x1 - 1
+
 		if ch != ' ':
 			scr.addstr(ch)
 		
-		# Move cursor to new position
 		scr.move(y, x)
-
-		# Refresh
 		scr.refresh()
 
 
 
 if __name__ == "__main__":
-	print(main.__doc__)
-	curses.wrapper(main)
+		print(main.__doc__)
+		curses.wrapper(main)
+
+

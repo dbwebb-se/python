@@ -6,26 +6,20 @@ from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
 
 
 def main(screen):
-	# Don't show cursor. Only works in Unix/Cygwin
 	curses.curs_set(0)
 
-	# Get dimensions
 	max_y, max_x = screen.getmaxyx()
 
-	# Ball values
-	ball = "O"
-	ball_y, ball_x = 4, 4
-	vert_dir, hori_dir = 1, 1
-
-	# Board values
-	board = "_"*15
+	ball = "o"
+	board = "_"*20
 	board_x = max_x//2 - len(board)//2
 
-	# Animation values
+	ball_y, ball_x = 3, 3
+	vert_dir = 1
+	hori_dir = 1
+
 	delay = 15
 	delayed = 0
-
-	# Game values
 	life = 3
 	score = 0
 
@@ -34,70 +28,74 @@ def main(screen):
 	while True:
 		screen.clear()
 
-		# Print game values
 		screen.addstr(0,0, "Score: " + str(score))
 		screen.addstr(1,0, "Lives left: " + str(life))
-		# Print ball and board
+		# Debug output:
+		# screen.addstr(2,0, str(ball_y)+","+str(ball_x))
+		# screen.addstr(3,0, str(max_y)+","+str(max_x))
+		# screen.addstr(4,0, str(vert_dir)+","+str(hori_dir))
 		screen.addstr(ball_y, ball_x, ball)
 		screen.addstr(max_y-1, board_x, board)
 		
-		# Allow for input
 		q = screen.getch()
 
-		# --------------------------------------------------------
-		# ASSIGNMENT
-		# If possible, move board
-		# Remember to:
-		# 	Not move if board is at min or max positions
-		# 	Count for the lenght of the board at max
-		# 	Use KEY_LEFT and KEY_RIGHT to check which key was pressed
-
-
-		# Quit
-		if q == ord("q"):
-			# Print text and wait before ending program
+		# if possible, move paddle
+		if q == KEY_LEFT and board_x > 0:
+			board_x -= 1
+		elif q == KEY_RIGHT and board_x < max_x-1-len(board):
+			board_x += 1
+		# quit
+		elif q == ord("q"):
+			#screen.clear()
 			text = "GAME OVER!"
 			screen.addstr(max_y//2, max_x//2-len(text)//2, text)
 			screen.refresh()
 			curses.napms(2500)
 			break
 
-		# Only check ball status every full delay so that ball and board can move independet of eachother
 		if delayed >= delay:
-			# Check where ball is and reverse dir if needed
+			# check where ball is and reverse dir if needed
 			if ball_y == max_y-1 or ball_y == 0:
-				vert_dir = -vert_dir # reverse vertical
+				vert_dir = -vert_dir # reverse top
 			if ball_x == max_x-len(ball)-1 or ball_x == 0:
-				hori_dir = -hori_dir # reverse horizontal
-
-
-			# --------------------------------------------------------
-			# ASSIGNMENT
-			# Check if ball is at board
-			# Remember to:
-			# 	Count for the lenght of the board
-			# 	Reverse direction if ball hit board
-			# 	Give 1 point if ball hit board
-
-
-			# --------------------------------------------------------
-			# ASSIGNMENT
-			# Check if ball is past board
-			# Remember to:
-			# 	Count for the lenght of the board
-			# 	Rest ball position and direction to starting values if it was past board
-			# 	Withdraw a life
-			# 	End game if out of lives - tip: use the same code as in the quit-key-if
-
-
-			# Move ball
+				hori_dir = -hori_dir # reverse
+			if ball_y == max_y-2:
+				if ball_x > board_x and ball_x < board_x+len(board):
+					vert_dir = -vert_dir # reverse top
+					score += 1
+					if score > 1 and score%5 == 0 and len(board) > 8:
+						board = board[1:]
+					elif score > 1 and score%5 == 0 and delay > 8:
+						delay -= 1
+					screen.refresh()
+				# potential board bounce
+			if ball_y == max_y-1:
+				if ball_x < board_x or ball_x > board_x+len(board):
+					life -= 1
+					ball_y, ball_x = 3, 3
+					vert_dir, hori_dir = 1, 1
+					if life == 0:
+						#screen.clear()
+						text = "GAME OVER!"
+						screen.addstr(max_y//2, max_x//2-len(text)//2, text)
+						screen.refresh()
+						curses.napms(2500)
+						break
+				# elif ball_x > board_x and ball_x < board_x+len(board):
+				# 	score += 1
+				# 	if score > 1 and score%5 == 0 and len(board) > 8:
+				# 		board = board[1:]
+				# 	elif score > 1 and score%5 == 0 and delay > 8:
+				# 		delay -= 1
+				# 	screen.refresh()
 			ball_x += hori_dir
 			ball_y += vert_dir
-			# Reset delay
 			delayed = 0
 
 		delayed += 1
 		curses.napms(5)
+		#time.sleep(0.005)
+		#screen.timeout(5)
 	
 	curses.endwin()
 
@@ -105,5 +103,5 @@ def main(screen):
 
 
 if __name__ == "__main__":
-	print(main.__doc__)
-	curses.wrapper(main)
+        print(main.__doc__)
+        curses.wrapper(main)
