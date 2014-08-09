@@ -300,7 +300,7 @@ publishResults()
     then
         $ECHO "Your files are now"
     else
-        $ECHO "Some of your files may might be"
+        $ECHO "Some of your files might be"
     fi
     $ECHO " published on $BASEURL"
     $ECHO "\n"
