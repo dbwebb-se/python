@@ -195,7 +195,7 @@ createConfig()
 
     $ECHO "\nThe config file \".dbwebb.config\" is now created.\n"
     
-    if [ -z $FIRST -o  $FIRST = "update"]
+    if [ -z $FIRST -o $FIRST = "update" ]
     then
         $ECHO "You can now re-run your initial command.\n"
     fi
