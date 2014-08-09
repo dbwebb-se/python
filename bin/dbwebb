@@ -172,16 +172,19 @@ createConfig()
 {
     FIRST=$1
 
-    if [ -z "$COURSE" ]; then
+    if [ -z "$COURSE" ]
+    then
         GUESS_COURSE=${PWD##*/}
     else
         GUESS_COURSE=$COURSE
     fi
 
-    if [ -z $FIRST ]; then
+    if [ -z $FIRST ]
+    then
         $ECHO "Welcome to dbwebb utility! It seems like its your first time here?\n"
         $ECHO "I'm missing the configuration file."
-    elif [ $FIRST = "update" ]; then
+    elif [ $FIRST = "update" ]
+    then
         $ECHO "You need to update your configuration file.\n"
     fi
 
