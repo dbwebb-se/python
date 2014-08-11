@@ -412,7 +412,7 @@ initBuildDir()
     fi
 
     ME="$BUILD/me"
-    for dir in $BUILD1 $BUILD2 $BUILD3 $BUILD $ME/kmom01 $ME/kmom02 $ME/kmom03 $ME/kmom04 $ME/kmom05 $ME/kmom06 $ME/kmom10; do
+    for dir in $BUILD1 $BUILD2 $BUILD3 $BUILD $ME $ME/kmom01 $ME/kmom02 $ME/kmom03 $ME/kmom04 $ME/kmom05 $ME/kmom06 $ME/kmom10; do
         if [ ! -d $dir ]; then mkdir $dir; fi
     done
 }
