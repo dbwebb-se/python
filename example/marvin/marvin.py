@@ -41,6 +41,7 @@ def main():
             break
         else:
             print(choice)
+            input("Press enter to continue...")
 
 
 
