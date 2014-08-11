@@ -317,6 +317,7 @@ fi
 if [ ! -f ".dbwebb.config" ]
 then
     createConfig 
+    $ECHO "\nYou can now re-run your command.\n"
     exit
 fi
 
