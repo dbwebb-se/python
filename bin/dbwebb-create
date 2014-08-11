@@ -49,12 +49,15 @@ createLabJavaScript1()
     $ECHO "\nCreating $COURSE $LAB."
 
     # Check if lab is already there
-    if [ -d "$WHERE" ]
+    if [ -f "$WHERE/answer.js" ]
     then
-        echo "\nYou already have a lab directory.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove it if you want to create a new lab."
         exit 1
     else
-        mkdir "$WHERE"
+        if [ ! -d "$WHERE" ]
+        then
+            mkdir "$WHERE"
+        fi
     fi
 
     # Create the key
@@ -86,12 +89,15 @@ createLabPython()
     $ECHO "\nCreating $COURSE $LAB."
 
     # Check if lab is already there
-    if [ -d "$WHERE" ]
+    if [ -d "$WHERE/answer.py" ]
     then
-        echo "\nYou already have a lab directory.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove it if you want to create a new lab."
         exit 1
     else
-        mkdir "$WHERE"
+        if [ ! -d "$WHERE" ]
+        then
+            mkdir "$WHERE"
+        fi
     fi
 
     # Create the key
