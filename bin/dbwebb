@@ -192,10 +192,10 @@ createConfig()
 
     $ECHO "\nThe config file \".dbwebb.config\" is now created.\n"
     
-    if [ -z $FIRST -o  $FIRST = "update"]
-    then
-        $ECHO "You can now re-run your initial command.\n"
-    fi
+    #if [ -z $FIRST -o "$FIRST" = "update" ]
+    #then
+    #    $ECHO "You can now re-run your initial command.\n"
+    #fi
 }
 
 
@@ -316,7 +316,7 @@ fi
 # Get settings from config-file
 if [ ! -f ".dbwebb.config" ]
 then
-    createConfig
+    createConfig 
     exit
 fi
 

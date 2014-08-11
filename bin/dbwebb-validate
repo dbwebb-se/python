@@ -440,7 +440,7 @@ publish()
         *)          DIRS="$DIR" ;;
     esac
 
-    rsync -a --delete -f '- /*/' $TARGET/me/ $BUILD/me/
+    rsync -a --delete --exclude 'me/default' -f '- /*/' $TARGET/me/ $BUILD/me/
 
     for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
         assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
