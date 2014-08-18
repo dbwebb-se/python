@@ -1,6 +1,6 @@
 [MESSAGES CONTROL]
 #disable=superfluous-parens,anomalous-backslash-in-string,W0141,invalid-name
-disable=W0141,invalid-name
+disable=W0141,C0103
 
 
 [REPORTS]
