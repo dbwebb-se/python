@@ -12,7 +12,7 @@ def hello():
 # Call a function that prints out Hello World
 hello()
 
-# Print out Hello World 
+# Print out Hello World
 print("Just saying Hello World")
 
 # Assign the string Hello World to a variable and print it out

@@ -9,7 +9,7 @@ def menu():
     """
     Display the menu with options that Marvin can do.
     """
-    print(chr(27) + "[2J" + chr(27) + "[;H");
+    print(chr(27) + "[2J" + chr(27) + "[;H")
     print("""
           ,     ,
          (\____/)
@@ -36,7 +36,7 @@ def main():
     while True:
         menu()
         choice = input("--> ")
-        
+
         if choice == "q":
             break
         else:
@@ -46,6 +46,6 @@ def main():
 
 
 if __name__ == "__main__":
-        main()
+    main()
 
 

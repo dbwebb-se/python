@@ -1,0 +1,6 @@
+[MESSAGES CONTROL]
+disable=superfluous-parens,anomalous-backslash-in-string,W0141,invalid-name
+
+
+[REPORTS]
+reports=no
