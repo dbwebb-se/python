@@ -133,7 +133,7 @@ mapCmdToDir()
             ;;
         python)
             case "$CMD" in
-                intro)      RES="me/kmom01/intro" ;;
+                intro)      RES="me/kmom01/hello" ;;
 
                 lab1)       RES="me/kmom02/lab1" ;;
                 lab2)       RES="me/kmom03/lab2" ;;
@@ -195,7 +195,7 @@ testMe()
 
         python)      
             FILES="me.cgi redovisning.cgi" 
-            KMOM01="kmom01 kmom01/intro"
+            KMOM01="kmom01 kmom01/hello"
             KMOM02="kmom02 kmom02/marvin1 kmom02/lab1"
             KMOM03="kmom03 kmom03/marvin2 kmom03/lab2"
             KMOM04="kmom04 kmom04/marvin3 kmom04/lab3 kmom04/game1"
