@@ -134,6 +134,7 @@ mapCmdToDir()
         python)
             case "$CMD" in
                 hello)      RES="me/kmom01/hello" ;;
+                plane)      RES="me/kmom01/plane" ;;
 
                 lab1)       RES="me/kmom02/lab1" ;;
                 lab2)       RES="me/kmom03/lab2" ;;
@@ -444,6 +445,12 @@ publish()
     esac
 
     rsync -a --delete --exclude 'me/default' -f '- /*/' $TARGET/me/ $BUILD/me/
+    
+    #chmod -R u+w $BUILD/me/
+    #chmod -R a+r $BUILD/me/
+
+    find $BUILD/me/ -type d -print0 | xargs -0 chmod 755 
+    find $BUILD/me/ -type f -print0 | xargs -0 chmod 644
 
     for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
         assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
@@ -466,6 +473,12 @@ publish()
 
         $ECHO "\n $dir:"
         rsync -a --delete $TARGET/$dir/ $BUILD/$dir/ 
+        
+        #chmod -R u+w $BUILD/$dir/
+        #chmod -R a+r $BUILD/$dir/
+
+        find $BUILD/$dir/ -type d -print0 | xargs -0 chmod 755 
+        find $BUILD/$dir/ -type f -print0 | xargs -0 chmod 644
 
         if [ -z "$SILENT" ]; then $ECHO " minify *.html"; fi
         #find "$BUILD/$dir/" -type f -name '*.html' | while read filename; do assert "0" "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"; done
