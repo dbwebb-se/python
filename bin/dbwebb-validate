@@ -370,13 +370,14 @@ validatePython()
     assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
 
     $ECHO "\n *.py using Pylint."
-    #find $TARGET/$DIR -type f -name '*.py' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
     for filename in $(find "$TARGET/$DIR/" -type f -name '*.py'); do
         assert 0 "$PYLINT $filename" "pylint failed: $filename"
     done
 
     $ECHO "\n *.cgi using Pylint."
-    #find $TARGET/$DIR -type f -name '*.cgi' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
+    for filename in $(find "$TARGET/$DIR/" -type f -name '*.cgi'); do
+        assert 0 "$PYLINT $filename" "pylint failed: $filename"
+    done
 }
 
 
