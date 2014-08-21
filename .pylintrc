@@ -6,3 +6,6 @@ disable=W0141,C0103
 [REPORTS]
 reports=no
 include-ids=yes
+
+[General]
+init-hook='import sys; sys.path.append(os.getcwd())'
