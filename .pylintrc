@@ -1,5 +1,5 @@
 [MASTER]
-init-hook='import sys; sys.path.append(os.getcwd())'
+init-hook='import sys; import os; sys.path.append(os.getcwd())'
 
 [MESSAGES CONTROL]
 #disable=superfluous-parens,anomalous-backslash-in-string,bad-builtin,invalid-name
