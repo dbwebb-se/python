@@ -191,6 +191,8 @@ createConfig()
     cat bin/dbwebb-config-sample | sed s/DEFAULT_USER/$ACRONYM/g | sed s/DEFAULT_COURSE/$GUESS_COURSE/g > .dbwebb.config
 
     $ECHO "\nThe config file \".dbwebb.config\" is now created.\n"
+    $ECHO "\nYou can always re-create the config-file by running the command:\n"
+    $ECHO "\n bin/dbwebb config\n"
     
     #if [ -z $FIRST -o "$FIRST" = "update" ]
     #then
