@@ -5,3 +5,4 @@ disable=W0141,C0103
 
 [REPORTS]
 reports=no
+include-ids=yes
