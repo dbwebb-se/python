@@ -7,7 +7,7 @@ Execute as cgi-skript and send a correct HTTP header.
 
 """
 
-#Enable debugging of cgi-.scripts
+# Enable debugging of cgi-.scripts
 import cgitb
 cgitb.enable()    
 
