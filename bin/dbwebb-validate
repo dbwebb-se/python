@@ -447,12 +447,10 @@ publish()
 
     rsync -a --delete --exclude 'me/default' -f '- /*/' $TARGET/me/ $BUILD/me/
     
-    #chmod -R u+w $BUILD/me/
-    #chmod -R a+r $BUILD/me/
-
     find $BUILD/me/ -type d -print0 | xargs -0 chmod 755 
     find $BUILD/me/ -type f -print0 | xargs -0 chmod 644
-    #change all.cgi to 755
+    find $BUILD/me/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
+    find $BUILD/me/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
 
     for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
         assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
@@ -476,12 +474,10 @@ publish()
         $ECHO "\n $dir:"
         rsync -a --delete $TARGET/$dir/ $BUILD/$dir/ 
         
-        #chmod -R u+w $BUILD/$dir/
-        #chmod -R a+r $BUILD/$dir/
-
         find $BUILD/$dir/ -type d -print0 | xargs -0 chmod 755 
         find $BUILD/$dir/ -type f -print0 | xargs -0 chmod 644
-        #change all.cgi to 755
+        find $BUILD/$dir/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
+        find $BUILD/$dir/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
 
         if [ -z "$SILENT" ]; then $ECHO " minify *.html"; fi
         #find "$BUILD/$dir/" -type f -name '*.html' | while read filename; do assert "0" "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"; done
