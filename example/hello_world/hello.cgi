@@ -18,6 +18,8 @@ print("Content-Type: text/plain;charset=utf-8")
 print("")
 
 
+
+# Define a function
 def hello():
     """
     Print out Hello World in a function.
