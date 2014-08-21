@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 A function to say Hello, just to show off how functions and docstrings works.
 
@@ -13,6 +16,8 @@ Also try pydoc like this in the terminal:
 pydoc sys
 
 """
+
+
 
 def say_it():
     """
