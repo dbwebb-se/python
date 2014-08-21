@@ -9,16 +9,25 @@ a webpage.
 
 """
 
-import sys
-import cgitb
 import os
+import sys
 
-def enc_print(string='', encoding='utf8'):
-    sys.stdout.buffer.write(string.encode(encoding) + b'\n')
 
+#Enable debugging of cgi-.scripts
+import cgitb
 cgitb.enable()    
 
 
-enc_print("Content-Type: text/plain")
-enc_print("")
-exec(open(os.path.dirname(os.path.realpath(__file__)) + "/mos-me.py").read())
+# Send the HTTP header
+print("Content-Type: text/plain;charset=utf-8")
+#print("Content-Type: text/html;charset=utf-8")
+print("")
+
+
+# Here comes the content of the webpage 
+# As a result from executin another python-script
+#exec(open(os.path.dirname(os.path.realpath(__file__)) + "/mos-me.py").read())
+#exec(open(os.path.splitext(__file__)[0] + ".py").read())
+filename = os.path.splitext(__file__)[0] + ".py"
+fullpath = os.path.realpath(filename)
+exec(open(fullpath).read())
