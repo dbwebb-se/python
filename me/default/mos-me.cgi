@@ -2,34 +2,23 @@
 # -*- coding: utf-8 -*-
 
 """
-Execute a .py-file that has the same filename as this file. 
-A file hello.cgi will execute the file hello.py and wrap its
-output with a HTTP header to be able to display the output as 
-a webpage. 
+Execute as cgi-skript and send a correct HTTP header.
 
 """
 
-import sys
+#Enable debugging of cgi-.scripts
 import cgitb
-import os
-
-def enc_print(string='', encoding='utf8'):
-    sys.stdout.buffer.write(string.encode(encoding) + b'\n')
-
 cgitb.enable()    
 
 
-#enc_print("Content-Type: text/plain")
-#enc_print("")
-
-print("Content-Type: text/plain")
+# Send the HTTP header
+print("Content-Type: text/plain;charset=utf-8")
+#print("Content-Type: text/html;charset=utf-8")
 print("")
 
+
+# Here comes the content of the webpage 
 print("""
-<!doctype html>
-<meta charset="utf-8">
-<title>Min me-sida</title>
-<pre>
 Min Me-sida
 ==============================================================================
 
@@ -69,5 +58,4 @@ http://dbwebb.se/blogg/forsmak-infor-hosten-2014#hobby
 
 Vi syns och hörs i forum och chatt!
 
-</pre>
 """)

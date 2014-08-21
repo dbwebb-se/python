@@ -3,13 +3,10 @@
 
 """
 Me-page, presentation of mos as a sample of a me-page.
+
 """
 
 print("""
-<!doctype html>
-<meta charset="utf-8">
-<title>Min me-sida</title>
-<pre>
 Min Me-sida
 ==============================================================================
 
@@ -49,5 +46,4 @@ http://dbwebb.se/blogg/forsmak-infor-hosten-2014#hobby
 
 Vi syns och hörs i forum och chatt!
 
-</pre>
 """)

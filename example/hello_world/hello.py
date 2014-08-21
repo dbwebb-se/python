@@ -20,5 +20,5 @@ print("Just saying Hello World")
 # Assign the string Hello World to a variable and print it out
 #str = "Hello World in a variable"
 #print(str)
-STR = "Hello World in a variable"
-print(STR)
+str1 = "Hello World in a variable"
+print(str1)
