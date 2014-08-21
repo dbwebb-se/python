@@ -148,7 +148,7 @@ installSshKeys()
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 
     # Bug (?) om Cygwin & win 8
-    echo $IS_CYGWIN
+    #echo $IS_CYGWIN
     if [ $IS_CYGWIN = "yes" ]
     then
         chgrp -vR $CYGWIN_DEFAULT_GROUP $HOME/.ssh
