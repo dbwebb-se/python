@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -12,12 +12,6 @@ import cgitb
 cgitb.enable()    
 
 
-# Send the HTTP header
-print("Content-Type: text/plain;charset=utf-8")
-#print("Content-Type: text/html;charset=utf-8")
-print("")
-
-
 
 # Define a function
 def hello():
@@ -25,6 +19,13 @@ def hello():
     Print out Hello World in a function.
     """
     print("Hello World in a function.")
+
+
+
+# Send the HTTP header
+print("Content-Type: text/plain;charset=utf-8")
+#print("Content-Type: text/html;charset=utf-8")
+print("")
 
 
 
