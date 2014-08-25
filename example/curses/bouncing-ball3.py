@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 
 import curses
 import time
@@ -10,7 +10,7 @@ def main(screen):
 
     max_y, max_x = screen.getmaxyx()
 
-    x = max_x-1
+    x = 15
 
     ball = "o"
     board = "_"*x
@@ -25,14 +25,13 @@ def main(screen):
             plates.append([y, count])
             count += len(plate)+1
 
-    # board_x = max_x//4 - len(board)//2
-    board_x = 0
+    board_x = max_x//4 - len(board)//2
 
     ball_y, ball_x = 4, 2
     y_dir = 1
     x_dir = 1
 
-    delay = 5
+    delay = 30
     delayed = 0
     life = 3
     score = 0
@@ -45,10 +44,6 @@ def main(screen):
         text = "Score: " + str(score)
         screen.addstr(max_y-1,0, text)
         screen.addstr(max_y-1,len(text)+5, "Lives left: " + str(life))
-        # Debug output:
-        #screen.addstr(0,0, str(ball_y)+","+str(ball_x))
-        # screen.addstr(3,0, str(max_y)+","+str(max_x))
-        # screen.addstr(4,0, str(y_dir)+","+str(x_dir))
         screen.addstr(ball_y, ball_x, ball)
         for y, x in plates:
             screen.addstr(y,x, plate)
@@ -84,18 +79,18 @@ def main(screen):
                 # hit a plate
                 plates.remove([next_y, next_x])
                 score += 1
-                # if score > 1 and score%2 == 0 and len(board) > 10:
-                #   board = board[1:]
-                # elif score > 1 and score%2 == 0 and delay > 10:
-                #   delay -= 1
+                if score > 1 and score%2 == 0 and len(board) > 10:
+                  board = board[1:]
+                elif score > 1 and score%2 == 0 and delay > 10:
+                  delay -= 1
                 y_dir = -y_dir # reverse
             elif [next_y, next_x+x_dir] in plates:
                 plates.remove([next_y, next_x+x_dir])
                 score += 1
-                # if score > 1 and score%2 == 0 and len(board) > 10:
-                #   board = board[1:]
-                # elif score > 1 and score%2 == 0 and delay > 10:
-                #   delay -= 1
+                if score > 1 and score%2 == 0 and len(board) > 10:
+                  board = board[1:]
+                elif score > 1 and score%2 == 0 and delay > 10:
+                  delay -= 1
                 y_dir = -y_dir # reverse
             elif ball_y == max_y-2 or ball_y == 0:
                 y_dir = -y_dir # reverse
@@ -106,7 +101,7 @@ def main(screen):
             if ball_y == max_y-3:
                 if ball_x+x_dir < board_x or ball_x+x_dir > board_x+len(board):
                     # ball will miss board
-                    #x_dir = -x_dir
+                    x_dir = -x_dir
                     life -= 1
                     if life == 0:
                         #screen.clear()
@@ -120,13 +115,11 @@ def main(screen):
                 if ball_x+x_dir > board_x and ball_x+x_dir < board_x+len(board):
                     # Ball hit board
                     y_dir = -y_dir
-            # ball_x += x_dir
-            # ball_y += y_dir
 
-            # if ball_x < 0:
-            #   ball_x = 0
-            # elif ball_x >= max_x-len(ball)-1:
-            #   ball_x = max_x-len(ball)-1
+            if ball_x < 0:
+              ball_x = 0
+            elif ball_x >= max_x-len(ball)-1:
+              ball_x = max_x-len(ball)-1
             
             if len(plates) == 0:
                 text = "GAME OVER!"
@@ -139,8 +132,6 @@ def main(screen):
 
         delayed += 1
         curses.napms(3)
-        #time.sleep(0.005)
-        #screen.timeout(5)
         
     
     curses.endwin()
