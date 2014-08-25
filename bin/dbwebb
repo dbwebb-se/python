@@ -70,7 +70,7 @@ executeCommand()
         $ECHO "\nPress a key to continue..."
         read void
     fi
-    
+
     COMMAND=$2
 
     if [ $VERY_VERBOSE = "yes" ]
@@ -80,7 +80,7 @@ executeCommand()
         $ECHO "\n-----------------------------------------"
         $ECHO "\n"
     fi
-    
+
     sh -c "$COMMAND"
     STATUS=$?
 
@@ -93,9 +93,9 @@ executeCommand()
     if [ $STATUS = 0 ]
     then
         $ECHO "\n$MSG_OK $MESSAGE"
-    else 
+    else
         $ECHO "\n$MSG_FAILED $MESSAGE"
-    fi 
+    fi
     $ECHO "\n"
     $ECHO "\n"
 
@@ -140,8 +140,8 @@ installSshKeys()
     if [ ! -d $HOME/.ssh ]
     then
         mkdir $HOME/.ssh
-    fi 
-    
+    fi
+
     INTRO="First we need to create a ssh key and store it locally."
     COMMAND="ssh-keygen -t dsa -f $SSH_KEY -N ''"
     MESSAGE="to create the ssh key."
@@ -172,16 +172,19 @@ createConfig()
 {
     FIRST=$1
 
-    if [ -z "$COURSE" ]; then        
+    if [ -z "$COURSE" ]
+    then
         GUESS_COURSE=${PWD##*/}
     else
         GUESS_COURSE=$COURSE
     fi
 
-    if [ -z $FIRST ]; then
+    if [ -z $FIRST ]
+    then
         $ECHO "Welcome to dbwebb utility! It seems like its your first time here?\n"
         $ECHO "I'm missing the configuration file."
-    elif [ $FIRST = "update" ]; then
+    elif [ $FIRST = "update" ]
+    then
         $ECHO "You need to update your configuration file.\n"
     fi
 
@@ -193,11 +196,6 @@ createConfig()
     $ECHO "\nThe config file \".dbwebb.config\" is now created."
     $ECHO "\nYou can always re-create the config-file by running the command:"
     $ECHO "\n bin/dbwebb config\n"
-    
-    #if [ -z $FIRST -o "$FIRST" = "update" ]
-    #then
-    #    $ECHO "You can now re-run your initial command.\n"
-    #fi
 }
 
 
@@ -298,8 +296,8 @@ publishResults()
     if [ $? -eq 0 ]
     then
         $ECHO "Your files are now"
-    else 
-        $ECHO "Some of your files may might be"
+    else
+        $ECHO "Some of your files might be"
     fi
     $ECHO " published on $BASEURL"
     $ECHO "\n"
@@ -318,7 +316,7 @@ fi
 # Get settings from config-file
 if [ ! -f ".dbwebb.config" ]
 then
-    createConfig 
+    createConfig
     $ECHO "\nYou can now re-run your command.\n"
     exit
 fi
@@ -331,7 +329,7 @@ then
     exit
 fi
 
-UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION" 
+UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION"
 SSH="ssh ${USER}@${HOST} $SSH_KEY_OPTION"
 
 
@@ -344,24 +342,24 @@ VERY_VERBOSE="no"
 while getopts ":hivwy" opt
 do
     case $opt in
-        (h) 
+        (h)
             printUsage
             ;;
 
-        (i) 
+        (i)
             IGNORE_FAULTS="-i"
             ;;
 
-        (v) 
+        (v)
             $ECHO "$VERSION\n"
             exit 0
             ;;
 
-        (w) 
+        (w)
             VERY_VERBOSE="yes"
             ;;
 
-        (y) 
+        (y)
             SKIP_READLINE="yes"
             ;;
 
@@ -381,21 +379,21 @@ shift $((OPTIND - 1))
 # Execute command
 CMD=$1
 case $CMD in
-    
+
     config)
         createConfig "second"
         ;;
 
     test)
-        testConnection 
+        testConnection
         ;;
 
     login)
-        loginToServer 
+        loginToServer
         ;;
 
     sshkey)
-        installSshKeys 
+        installSshKeys
         ;;
 
     init)
@@ -405,11 +403,11 @@ case $CMD in
         ;;
 
     update)
-        updateFromMaster 
+        updateFromMaster
         ;;
 
     upload)
-        uploadToServer 
+        uploadToServer
         ;;
 
     create)
@@ -419,17 +417,17 @@ case $CMD in
             echo "Missing name for lab, perhaps use lab1, lab2 or lab3?"
             exit 1
         fi
-        createLab "$LAB" 
+        createLab "$LAB"
         ;;
 
     validate)
         WHICH=$2
-        validateUploadedResults ${WHICH:=all} 
+        validateUploadedResults ${WHICH:=all}
         ;;
 
     publish)
         WHICH=$2
-        publishResults ${WHICH:=all} 
+        publishResults ${WHICH:=all}
         ;;
 
     *)
