@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3 
 """
 Testing out the curses lib.
 
@@ -50,24 +50,18 @@ def main(scr):
         elif key == 'KEY_RIGHT':
             x += 1
         else:
-            ch = key # change the char to draw to the inputed key
-
-        # --------------------------------------------------------
-        # ASSIGNMENT
-        # Add code so that user can not move outside of the border
-        #
+            ch = key
 
         # As long as key was not spacebar - draw out the char at cursor
         if ch != ' ':
             scr.addstr(ch)
-
+        
         # Move cursor to new position
         scr.move(y, x)
 
-        # Refresh
         scr.refresh()
 
 
 if __name__ == "__main__":
-    print(main.__doc__)
-    curses.wrapper(main)
+        print(main.__doc__)
+        curses.wrapper(main)
