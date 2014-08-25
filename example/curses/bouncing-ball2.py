@@ -1,11 +1,16 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
+"""
+Evolving the bouncing ball to include other items
+"""
 
 import curses
-import time
-from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
+from curses import KEY_RIGHT, KEY_LEFT
 
 
 def main(screen):
+    """
+    Bounce a ball on a board and assign points for each bounce.
+    """
     curses.curs_set(0)
 
     max_y, max_x = screen.getmaxyx()
@@ -28,8 +33,8 @@ def main(screen):
     while True:
         screen.clear()
 
-        screen.addstr(0,0, "Score: " + str(score))
-        screen.addstr(1,0, "Lives left: " + str(life))
+        screen.addstr(0, 0, "Score: " + str(score))
+        screen.addstr(1, 0, "Lives left: " + str(life))
         screen.addstr(ball_y, ball_x, ball)
         screen.addstr(max_y-1, board_x, board)
         
@@ -59,9 +64,9 @@ def main(screen):
                 if ball_x > board_x and ball_x < board_x+len(board):
                     vert_dir = -vert_dir # reverse top
                     score += 1
-                    if score > 1 and score%5 == 0 and len(board) > 8:
+                    if score > 1 and score % 5 == 0 and len(board) > 8:
                         board = board[1:]
-                    elif score > 1 and score%5 == 0 and delay > 8:
+                    elif score > 1 and score % 5 == 0 and delay > 8:
                         delay -= 1
                     screen.refresh()
                 # potential board bounce
@@ -79,9 +84,9 @@ def main(screen):
                         break
                 elif ball_x > board_x and ball_x < board_x+len(board):
                     score += 1
-                    if score > 1 and score%5 == 0 and len(board) > 8:
+                    if score > 1 and score % 5 == 0 and len(board) > 8:
                         board = board[1:]
-                    elif score > 1 and score%5 == 0 and delay > 8:
+                    elif score > 1 and score % 5 == 0 and delay > 8:
                         delay -= 1
                     screen.refresh()
             ball_x += hori_dir
@@ -97,5 +102,5 @@ def main(screen):
 
 
 if __name__ == "__main__":
-        print(main.__doc__)
-        curses.wrapper(main)
+    print(main.__doc__)
+    curses.wrapper(main)

@@ -1,9 +1,15 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
+"""
+Testing out some animation in curses
+"""
 
 import curses
 import time
 
 def main(screen):
+    """
+    Draw a ball that bounces off the sides
+    """
     # Don't stop the while-loop while waiting for input
     screen.nodelay(1)
 
@@ -23,7 +29,7 @@ def main(screen):
         # Draw the ball
         screen.addstr(y, x, my_str)
         # Move cursor out of the way
-        screen.move(0,0)
+        screen.move(0, 0)
         screen.refresh()
 
         # Move x and y in the current directions

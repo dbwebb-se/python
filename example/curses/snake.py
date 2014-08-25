@@ -5,7 +5,6 @@ Testing out the curses lib.
 """
 
 #from curses import wrapper
-import time
 import curses
 import random
 from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
@@ -41,7 +40,7 @@ def main(screen):
     #screen.move(0, 0);
     screen.refresh()
 
-    snake = [[y,x], [y,x-1], [y,x-2]]
+    snake = [[y, x], [y, x-1], [y, x-2]]
 
     apple = [random.randint(1, dims[0]-2), random.randint(1, dims[1]-2)]
     appleCh = "ö"
@@ -77,8 +76,6 @@ def main(screen):
         elif key == KEY_RIGHT:
             dirs["x"] = 1
             dirs["y"] = 0
-
-        # TODO: Can't go in opposite direction
 
         x += dirs["x"]
         y += dirs["y"]
