@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Example of how to use format on a string that contains {}
+"""
 
 import random
 

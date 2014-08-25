@@ -1,7 +1,6 @@
 #!/usr/bin/env python3 
 """
 Testing out the curses lib.
-
 """
 
 #from curses import wrapper
@@ -63,5 +62,5 @@ def main(scr):
 
 
 if __name__ == "__main__":
-        print(main.__doc__)
-        curses.wrapper(main)
+    print(main.__doc__)
+    curses.wrapper(main)
