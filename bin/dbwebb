@@ -148,7 +148,7 @@ installSshKeys()
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 
     # Bug (?) om Cygwin & win 8
-    echo $IS_CYGWIN
+    #echo $IS_CYGWIN
     if [ $IS_CYGWIN = "yes" ]
     then
         chgrp -vR $CYGWIN_DEFAULT_GROUP $HOME/.ssh
@@ -190,12 +190,14 @@ createConfig()
     read ACRONYM
     cat bin/dbwebb-config-sample | sed s/DEFAULT_USER/$ACRONYM/g | sed s/DEFAULT_COURSE/$GUESS_COURSE/g > .dbwebb.config
 
-    $ECHO "\nThe config file \".dbwebb.config\" is now created.\n"
+    $ECHO "\nThe config file \".dbwebb.config\" is now created."
+    $ECHO "\nYou can always re-create the config-file by running the command:"
+    $ECHO "\n bin/dbwebb config\n"
     
-    if [ -z $FIRST -o  $FIRST = "update"]
-    then
-        $ECHO "You can now re-run your initial command.\n"
-    fi
+    #if [ -z $FIRST -o "$FIRST" = "update" ]
+    #then
+    #    $ECHO "You can now re-run your initial command.\n"
+    #fi
 }
 
 
@@ -316,7 +318,8 @@ fi
 # Get settings from config-file
 if [ ! -f ".dbwebb.config" ]
 then
-    createConfig
+    createConfig 
+    $ECHO "\nYou can now re-run your command.\n"
     exit
 fi
 

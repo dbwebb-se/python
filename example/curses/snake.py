@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 """
 Testing out the curses lib.
 
@@ -11,117 +11,131 @@ import random
 from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
 
 def main(screen):
-	"""
-	Snake
-	"""
-	screen.clear()
+    """
+    Snake
+    """
+    screen.clear()
 
-	curses.curs_set(0)
+    # Remove cursor
+    curses.curs_set(0)
+    # Don't wait for input
+    screen.nodelay(1)
 
-	screen.nodelay(1)
+    # Set some colorpairs
+    curses.start_color()
+    # --------------------------------------------------------
+    # ASSIGNMENT
+    # Add more colorpairs for later use
+    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
 
-	curses.start_color()
-	curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-	curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    # Border
+    screen.border()
 
-	# Get the y,x of the window
-	dims = screen.getmaxyx()
+    # Get the y,x of the window
+    max_y, max_x = screen.getmaxyx()
+    # Get the center of the window as tuple
+    center = (max_y//2), (max_x//2)
+    # Snake starting position
+    x = center[1]
+    y = center[0]
 
-	# Get the center of the window
-	center = (dims[0]//2), (dims[1]//2)
+    # Direction as dictionary
+    dirs = {"x": 1, "y": 0}
 
-	screen.border()
+    # Snake
+    snake_ch = "O"
+    snake = [[y,x], [y,x-1], [y,x-2]]
 
-	# Main loop
-	x = center[1]
-	y = center[0]
+    # Apple
+    apple = [random.randint(1, max_y-2), random.randint(1, max_x-2)]
+    apple_ch = "ö"
 
-	dirs = {"x": 1, "y": 0}
+    # Game values
+    score = 0
 
-	#screen.move(0, 0);
-	screen.refresh()
+    # --------------------------------------------------------
+    # ASSIGNMENT
+    # Use a colorpair
+    screen.addstr(snake[0][0], snake[0][1], snake_ch)
 
-	snake = [[y,x], [y,x-1], [y,x-2]]
+    # --------------------------------------------------------
+    # ASSIGNMENT
+    # Use a colorpair
+    screen.addstr(apple[0], apple[1], apple_ch)
 
-	apple = [random.randint(1, dims[0]-2), random.randint(1, dims[1]-2)]
-	appleCh = "ö"
+    screen.refresh()
 
-	screen.addstr(apple[0], apple[1], appleCh, curses.color_pair(1))
+    while True:
+        # Add score text
+        screen.addstr(0, 2, "Score : " + str(score) + " ")
 
-	ch = "O"
+        key = screen.getch()
+        if key == ord("q"):
+            text = "GAME OVER!"
+            screen.addstr(max_y//2, max_x//2-len(text)//2, text)
+            screen.refresh()
+            curses.napms(2500)
+            break
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Add elif's for handling arrow-keys for snake movement
+        # Remember to:
+        #   Change the direction-values in dirs-dictionary depening on what key was pressed
 
-	screen.addstr(snake[0][0], snake[0][1], ch, curses.color_pair(2))
 
-	score = 0
+        # Move
+        x += dirs["x"]
+        y += dirs["y"]
 
-	while True:
-		screen.border()
-		screen.addstr(0, 2, "Score : " + str(score) + " ")
-		key = screen.getch()
-		if key == ord("q"):
-			#screen.clear()
-			text = "GAME OVER!"
-			screen.addstr(dims[0]//2, dims[1]//2-len(text)//2, text)
-			screen.refresh()
-			curses.napms(2500)
-			break
-		elif key == KEY_UP:
-			dirs["y"] = -1
-			dirs["x"] = 0
-		elif key == KEY_DOWN:
-			dirs["y"] = 1
-			dirs["x"] = 0
-		elif key == KEY_LEFT:
-			dirs["x"] = -1
-			dirs["y"] = 0
-		elif key == KEY_RIGHT:
-			dirs["x"] = 1
-			dirs["y"] = 0
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Make sure the head of the snake is inside border
+        # Remember to:
+        #   Count for the border
+        #   End game if hit border
 
-		# TODO: Can't go in opposite direction
 
-		x += dirs["x"]
-		y += dirs["y"]
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Insert new position of snake's head into the snake-list
+        # Remember to:
+        #   Insert it first, not last
 
-		# head of snake
-		if y <= 0:
-			y = 1
-		elif y >= dims[0]-1:
-			y = dims[0] - 2
-		if x <= 0:
-			x = 1
-		elif x >= dims[1]-1:
-			x = dims[1] - 2
 
-		snake.insert(0, [y, x])
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Check if snake at itself
+        # TIP: Check if the head at pos 0 in the snake-list can be found in the rest of the list
+        # Remember to:
+        #   End game if ate self
 
-		if(snake[0] in snake[1:]):
-			#screen.clear()
-			text = "GAME OVER!"
-			screen.addstr(dims[0]//2, dims[1]//2-len(text)//2, text)
-			screen.refresh()
-			curses.napms(2500)
-			break
 
-		if snake[0] == apple:
-			score += 1
-			while apple in snake:
-				apple = [random.randint(2, dims[0]-3), random.randint(2, dims[1]-3)]
-			screen.addstr(apple[0], apple[1], appleCh, curses.color_pair(1))
-		else:
-			last = snake.pop()
-			screen.addch(last[0], last[1], " ", curses.color_pair(2))
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Check if snake's head ate apple
+        # Remember to:
+        #   Get a new position for apple
+        #   Add the new apple to the screen
+        #   Add point to score for apple eaten
 
-		screen.addch(snake[0][0], snake[0][1], ch, curses.color_pair(2))
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # If snake did not eat apple, pop the last position of the snake and remove the char at that positon
+        # It will make the snake appear to move forward instead of just getting longer and longer
 
-		#time.sleep(0.1)
-		nap_time = 100 - len(snake)//2
-		curses.napms(nap_time)
 
-	curses.endwin()
-	print("Final score:", score)
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Use a colorpair
+        screen.addch(snake[0][0], snake[0][1], snake_ch)
+
+        # Move snake every 0.1 sec (100ms)
+        curses.napms(100)
+
+    curses.endwin()
+    print("Final score:", score)
 
 
 if __name__ == "__main__":
-	print(main.__doc__)
-	curses.wrapper(main)
+    print(main.__doc__)
+    curses.wrapper(main)

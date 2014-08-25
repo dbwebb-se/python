@@ -9,22 +9,24 @@ def menu():
     """
     Display the menu with options that Marvin can do.
     """
-    print(chr(27) + "[2J" + chr(27) + "[;H");
+    print(chr(27) + "[2J" + chr(27) + "[;H")
     print("""
-     ,     ,
-    (\____/)
-     (_oo_)
-       (O)
-     __||__    \)
-  []/______\[] /
-  / \______/ \/
- /    /__\ 
-(\   /____\ 
+          ,     ,
+         (\____/)
+          (_oo_)
+            (O)
+          __||__    \)
+       []/______\[] /
+       / \______/ \/
+      /    /__\ 
+     (\   /____\ 
 
 Hi, I'm Marvin. I know it all. What can I do you for?
+
     """)
     print("1) State your name and meet Marvin.")
     print("q) Quit.")
+
 
 
 def main():
@@ -39,7 +41,7 @@ def main():
             break
         else:
             print(choice)
-        input("Press enter to continue...")
+            input("Press enter to continue...")
 
 
 

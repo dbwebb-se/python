@@ -60,7 +60,7 @@ BUILD="$BUILD2/$PROJECT"
 #
 # dbwebb-create
 #
-SERVICE="http://www.student.bth.se/~mosstud/kod-exempel/javascript1/exercises/lab"
+SERVICE="http://www.student.bth.se/~mosstud/kod-exempel/lab"
 GET_KEY="action=only-key&acronym=$USER&course=$COURSE&doGenerate=Submit"
 GET_LAB="lab.php?lab"
 GET_ANSWERS="lab.php?answers"

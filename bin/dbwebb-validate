@@ -27,7 +27,7 @@ UGLIFYJS_OPTIONS="-m -c --screw-ie8 --comments"
 
 CLEANCSS="cleancss --s1"
 
-PYLINT="pylint"
+PYLINT="pylint -r n --rcfile ./.pylintrc"
 
 
 
@@ -125,15 +125,16 @@ mapCmdToDir()
                 flag5)      RES="me/kmom06/flag5" ;;
 
                 baddie1)    RES="me/kmom02/baddie1" ;;
-                baddie1)    RES="me/kmom03/baddie2" ;;
-                baddie1)    RES="me/kmom04/baddie3" ;;
-                baddie1)    RES="me/kmom05/baddie4" ;;
-                baddie1)    RES="me/kmom06/baddie5" ;;
+                baddie2)    RES="me/kmom03/baddie2" ;;
+                baddie3)    RES="me/kmom04/baddie3" ;;
+                baddie4)    RES="me/kmom05/baddie4" ;;
+                baddie5)    RES="me/kmom06/baddie5" ;;
             esac
             ;;
         python)
             case "$CMD" in
-                intro)      RES="me/kmom01/intro" ;;
+                hello)      RES="me/kmom01/hello" ;;
+                plane)      RES="me/kmom01/plane" ;;
 
                 lab1)       RES="me/kmom02/lab1" ;;
                 lab2)       RES="me/kmom03/lab2" ;;
@@ -194,13 +195,13 @@ testMe()
             ;;
 
         python)      
-            FILES="me.cgi redovisning.cgi" 
-            KMOM01="kmom01 kmom01/intro"
+            FILES="me.cgi me.py redovisning.cgi redovisning.py" 
+            KMOM01="kmom01 kmom01/hello kmom01/plane"
             KMOM02="kmom02 kmom02/marvin1 kmom02/lab1"
             KMOM03="kmom03 kmom03/marvin2 kmom03/lab2"
             KMOM04="kmom04 kmom04/marvin3 kmom04/lab3 kmom04/game1"
             KMOM05="kmom05 kmom05/marvin4 kmom05/lab4 kmom05/game2"
-            KMOM06="kmom06 kmom06/marvin5 kmom05/lab5 kmom06/game3"
+            KMOM06="kmom06 kmom06/marvin5 kmom06/lab5 kmom06/game3"
             KMOM10="kmom10"
             ;;
 
@@ -369,10 +370,14 @@ validatePython()
     assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
 
     $ECHO "\n *.py using Pylint."
-    #find $TARGET/$DIR -type f -name '*.py' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
+    for filename in $(find "$TARGET/$DIR/" -type f -name '*.py'); do
+        assert 0 "$PYLINT $filename" "pylint failed: $filename"
+    done
 
     $ECHO "\n *.cgi using Pylint."
-    #find $TARGET/$DIR -type f -name '*.cgi' | while read filename; do assert 0 "$PYLINT $filename" "Pylint failed: $filename"; done
+    for filename in $(find "$TARGET/$DIR/" -type f -name '*.cgi'); do
+        assert 0 "$PYLINT $filename" "pylint failed: $filename"
+    done
 }
 
 
@@ -412,7 +417,7 @@ initBuildDir()
     fi
 
     ME="$BUILD/me"
-    for dir in $BUILD1 $BUILD2 $BUILD3 $BUILD $ME/kmom01 $ME/kmom02 $ME/kmom03 $ME/kmom04 $ME/kmom05 $ME/kmom06 $ME/kmom10; do
+    for dir in $BUILD1 $BUILD2 $BUILD3 $BUILD $ME $ME/kmom01 $ME/kmom02 $ME/kmom03 $ME/kmom04 $ME/kmom05 $ME/kmom06 $ME/kmom10; do
         if [ ! -d $dir ]; then mkdir $dir; fi
     done
 }
@@ -440,7 +445,12 @@ publish()
         *)          DIRS="$DIR" ;;
     esac
 
-    rsync -a --delete -f '- /*/' $TARGET/me/ $BUILD/me/
+    rsync -a --delete --exclude 'me/default' -f '- /*/' $TARGET/me/ $BUILD/me/
+    
+    find $BUILD/me/ -type d -print0 | xargs -0 chmod 755 
+    find $BUILD/me/ -type f -print0 | xargs -0 chmod 644
+    find $BUILD/me/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
+    find $BUILD/me/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
 
     for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
         assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
@@ -463,6 +473,11 @@ publish()
 
         $ECHO "\n $dir:"
         rsync -a --delete $TARGET/$dir/ $BUILD/$dir/ 
+        
+        find $BUILD/$dir/ -type d -print0 | xargs -0 chmod 755 
+        find $BUILD/$dir/ -type f -print0 | xargs -0 chmod 644
+        find $BUILD/$dir/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
+        find $BUILD/$dir/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
 
         if [ -z "$SILENT" ]; then $ECHO " minify *.html"; fi
         #find "$BUILD/$dir/" -type f -name '*.html' | while read filename; do assert "0" "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"; done

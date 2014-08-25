@@ -1,50 +1,57 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 
 import curses
 import time
 
 def main(screen):
-	# Don't stop the while-loop while waiting for input
-	screen.nodelay(1)
+    # Don't stop the while-loop while waiting for input
+    screen.nodelay(1)
 
-	# Get dimensions
-	max_y, max_x = screen.getmaxyx()
+    # Get dimensions
+    max_y, max_x = screen.getmaxyx()
 
-	# The ball
-	my_str = "O"
+    # The ball
+    my_str = "O"
 
-	# Starting position
-	x, y = 0, 0
-	# Directions
-	vert, hori = 1, 1
+    # Starting position
+    x, y = 0, 0
+    # Directions
+    vert, hori = 1, 1
 
-	while True:
-		screen.clear()
-		# Draw the ball
-		screen.addstr(y, x, my_str)
-		# Move cursor out of the way
-		screen.move(0,0)
-		screen.refresh()
+    while True:
+        screen.clear()
+        # Draw the ball
+        screen.addstr(y, x, my_str)
+        # Move cursor out of the way
+        screen.move(0,0)
 
-		# Move x and y in the current directions
-		x += hori
-		y += vert
+        screen.refresh()
 
-		# Check if new x and y is at any edge and bounce it if it is
-		if y == max_y-1 or y == 0: # top and bottom
-			vert = -vert # reverse
-		if x == max_x-len(my_str)-1 or x == 0: # left and right
-			hori = -hori # reverse
+        # Move x and y in the current directions
+        x += hori
+        y += vert
 
-		# Animate only every 0.1 sec so that you can acutally see the ball move
-		time.sleep(0.1)
+        # --------------------------------------------------------
+        # ASSIGNMENT
+        # Remove current if-statements and instead check if new x and y is at any edge
+        # Bounce ball if it is (reverse vertical or horizontal direction depending on which edge)
+        # Remember to:
+        #   Subtract 1 on max because the first position is 0
+        #   Count for the lenght of the ball in horizontal check
+        if y == max_y:
+            y = 0
+        if x == max_x:
+            x = 0
 
-		# Allow for an exit-key - any key pressed
-		q = screen.getch()
-		if q > -1:
-			break
+        # Animate only every 0.1 sec so that you can actually see the ball move
+        time.sleep(0.1)
+
+        # Allow for an exit-key - any key pressed
+        q = screen.getch()
+        if q > -1:
+            break
 
 
 if __name__ == "__main__":
-	print(main.__doc__)
-	curses.wrapper(main)
+    print(main.__doc__)
+    curses.wrapper(main)

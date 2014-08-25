@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
-Calling the function what says hello from a main-method and using docstrings to
-document it all. Showing how to import a file (module) with an external function.
+Calling the function what says hello from a main-method and using docstrings
+to document it all. Showing how to import a file (module) with an external
+function.
 
 Import it and run it by calling the main function or run it as a script.
 
@@ -37,6 +39,6 @@ def main():
 
 
 if __name__ == "__main__":
-        print(main.__doc__)
-        main()
+    print(main.__doc__)
+    main()
 
