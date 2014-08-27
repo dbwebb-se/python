@@ -3,13 +3,17 @@
 Testing out the curses lib.
 """
 
-#from curses import wrapper
 import curses
 
 
 def main(scr):
     """
-    Draw a border around the screen.
+    Draw a border around the screen, move around using the cursor and leave a mark
+    of the latest pressed character on the keyboard.
+
+    Perhaps you could make a nice painting using asciart? 
+
+    Quit using 'q'.
     """
     # Clear the screen of any output
     scr.clear()
@@ -51,16 +55,19 @@ def main(scr):
         else:
             ch = key
 
-        # As long as key was not spacebar - draw out the char at cursor
-        if ch != ' ':
-            scr.addstr(ch)
+        # Draw out the char at cursor positino
+        scr.addstr(ch)
         
         # Move cursor to new position
         scr.move(y, x)
 
+        # Redraw all items on the screen
         scr.refresh()
 
 
+
 if __name__ == "__main__":
+    print(__doc__)
     print(main.__doc__)
+    input("Press enter to begin playing...")
     curses.wrapper(main)
