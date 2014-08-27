@@ -15,6 +15,7 @@ def main(scr):
 
     Quit using 'q'.
     """
+    
     # Clear the screen of any output
     scr.clear()
 
@@ -24,6 +25,7 @@ def main(scr):
     x1 -= 1
 
     y0, x0 = 0, 0
+    
     # Get center position
     yc, xc = (y1-y0)//2, (x1-x0)//2
 
@@ -40,6 +42,7 @@ def main(scr):
     x = xc
     y = yc
     ch = 'o'
+    
     while True:
         key = scr.getkey()
         if key == 'q':
