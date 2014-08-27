@@ -13,4 +13,4 @@ mood = random.choice(moods)
 smilies = [":)", ":(", ":D", ":/", ":|", ":'(", ":O", ":@", ":P", ":3"]
 smiley = random.choice(smilies)
 
-print(line.format(mood=mood, smiley=smiley))history
+print(line.format(mood=mood, smiley=smiley))
