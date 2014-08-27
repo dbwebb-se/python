@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Example of how to use format on a string that contains {}
+Example of how to use format on a string that contains placeholders {}
 """
 
 import random
