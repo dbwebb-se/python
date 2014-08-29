@@ -427,6 +427,37 @@ initBuildDir()
 #
 # Publish all
 #
+publishChmod()
+{
+    DIR="$1"
+
+    #find $BUILD/$dir/ -type d -print0 | xargs -0 chmod 755 
+    #find $BUILD/$dir/ -type f -print0 | xargs -0 chmod 644
+    #find $BUILD/$dir/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
+    #find $BUILD/$dir/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
+
+    for filename in $(find "$DIR" -type d); do
+        chmod 755 "$filename"
+    done
+
+    for filename in $(find "$DIR" -type f); do
+        chmod 644 "$filename"
+    done
+
+    for filename in $(find "$DIR" -type f -name '*.cgi'); do
+        chmod 755 "$filename"
+    done
+
+    for filename in $(find "$DIR" -type f -name '*.py'); do
+        chmod 600 "$filename"
+    done
+}
+
+
+
+#
+# Publish all
+#
 publish()
 {
     DIR="$1"
@@ -447,10 +478,7 @@ publish()
 
     rsync -a --delete --exclude 'me/default' -f '- /*/' $TARGET/me/ $BUILD/me/
     
-    find $BUILD/me/ -type d -print0 | xargs -0 chmod 755 
-    find $BUILD/me/ -type f -print0 | xargs -0 chmod 644
-    find $BUILD/me/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
-    find $BUILD/me/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
+    publishChmod "$BUILD/me/"
 
     for filename in $(find $BUILD/me/ -maxdepth 1 -type f -name '*.html'); do
         assert 0 "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"
@@ -474,10 +502,7 @@ publish()
         $ECHO "\n $dir:"
         rsync -a --delete $TARGET/$dir/ $BUILD/$dir/ 
         
-        find $BUILD/$dir/ -type d -print0 | xargs -0 chmod 755 
-        find $BUILD/$dir/ -type f -print0 | xargs -0 chmod 644
-        find $BUILD/$dir/ -type f -name '*.cgi' -print0 | xargs -0 chmod 755
-        find $BUILD/$dir/ -type f -name '*.py'  -print0 | xargs -0 chmod 600
+        publishChmod "$BUILD/$dir/"
 
         if [ -z "$SILENT" ]; then $ECHO " minify *.html"; fi
         #find "$BUILD/$dir/" -type f -name '*.html' | while read filename; do assert "0" "$HTML_MINIFIER $HTML_MINIFIER_OPTIONS $filename --output $filename" "HTMLMinifier failed: $filename"; done
