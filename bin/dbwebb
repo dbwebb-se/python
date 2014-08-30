@@ -31,6 +31,7 @@ printUsage()
     $ECHO "\n  init      Init the remote server and create a destination directory."
     $ECHO "\n  update    Update the courselibb (repo) with latest updates from master repo."
     $ECHO "\n  upload    Upload all files to the server."
+    $ECHO "\n  download  Download all personal files in the me-directory from the server."
     $ECHO "\n  create    Create a laboration, use additional argument for naming what lab to create."
     $ECHO "\n  validate  Upload your files and validate that your results passes automatic tests."
     $ECHO "\n            Send in kmom01, kmom02, etc to validate only one kmom."
@@ -47,6 +48,7 @@ printUsage()
     $ECHO "\n  $ dbwebb login"
     $ECHO "\n  $ dbwebb init"
     $ECHO "\n  $ dbwebb -y upload"
+    $ECHO "\n  $ dbwebb download"
     $ECHO "\n  $ dbwebb create lab1"
     $ECHO "\n  $ dbwebb -y validate kmom01"
     $ECHO "\n  $ dbwebb -y publish lab1"
@@ -255,6 +257,21 @@ uploadToServer()
 
 
 #
+# Download from the server
+#
+downloadFromServer()
+{
+    INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
+    COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
+    #COMMAND="rsync -avu --delete --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
+    #COMMAND="rsync -avu --delete --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION\" \"$SOURCE\""
+    MESSAGE="to download the me-directory from the server."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
 # Create a lab
 #
 createLab()
@@ -408,6 +425,10 @@ case $CMD in
 
     upload)
         uploadToServer
+        ;;
+
+    download)
+        downloadFromServer
         ;;
 
     create)
