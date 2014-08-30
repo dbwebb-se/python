@@ -44,6 +44,11 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
+v1.0.x (latest)
+
+* Updated readme-files in the tutorial map.
+
+
 v1.0.0 (2014-08-30)
 
 * First official release, used in a University course at BTH, Sweden.
