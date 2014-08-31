@@ -6,6 +6,12 @@ Execute as cgi-skript and send a correct HTTP header.
 Send result as HTML.
 """
 
+
+# To write pagecontent to sys.stdout as bytes instead of string
+import sys
+import codecs
+
+
 #Enable debugging of cgi-.scripts
 import cgitb
 cgitb.enable()
@@ -16,8 +22,9 @@ cgitb.enable()
 print("Content-Type: text/html;charset=utf-8")
 print("")
 
+
 # Here comes the content of the webpage 
-print("""<!doctype html>
+content = """<!doctype html>
 <meta charset="utf-8">
 <title>Min me-sida</title>
 <pre>
@@ -61,4 +68,9 @@ http://dbwebb.se/blogg/forsmak-infor-hosten-2014#hobby
 Vi syns och hörs i forum och chatt!
 
 </pre>
-""")
+"""
+
+
+# Write page content
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+sys.stdout.write(content)

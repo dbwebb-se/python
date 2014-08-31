@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -6,6 +6,12 @@ Me-page redovisning, texts from each course moment.
 As cgi.
 
 """
+
+
+# To write pagecontent to sys.stdout as bytes instead of string
+import sys
+import codecs
+
 
 #Enable debugging of cgi-.scripts
 import cgitb
@@ -19,7 +25,7 @@ print("")
 
 
 # Here comes the content of the webpage 
-print("""
+content = """
 Min Redovisnings-sida
 ==============================================================================
 
@@ -38,4 +44,9 @@ Här skriver du redovisningstext för kursmoment 02.
 Osv.
 
 
-""")
+"""
+
+
+# Write page content
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+sys.stdout.write(content)

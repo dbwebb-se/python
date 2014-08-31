@@ -9,8 +9,11 @@ a webpage.
 
 """
 
-import os
+
+# To write pagecontent to sys.stdout as bytes instead of string
 import sys
+import codecs
+import os
 
 
 #Enable debugging of cgi-.scripts
@@ -26,8 +29,15 @@ print("")
 
 # Here comes the content of the webpage 
 # As a result from executin another python-script
-#exec(open(os.path.dirname(os.path.realpath(__file__)) + "/mos-me.py").read())
-#exec(open(os.path.splitext(__file__)[0] + ".py").read())
 filename = os.path.splitext(__file__)[0] + ".py"
 fullpath = os.path.realpath(filename)
-exec(open(fullpath).read())
+
+if os.path.isfile(fullpath) and os.access(fullpath, os.R_OK):
+    
+    # Write page content
+    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+    
+    exec(open(fullpath).read())
+
+else:
+    print("The file %s is not available, check if its there and set chmod to 644." % filename)

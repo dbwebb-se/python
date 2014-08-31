@@ -1,10 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 Execute as cgi-skript and send a correct HTTP header.
 
 """
+
+
+# To write pagecontent to sys.stdout as bytes instead of string
+import sys
+import codecs
+
 
 #Enable debugging of cgi-.scripts
 import cgitb
@@ -18,7 +24,7 @@ print("")
 
 
 # Here comes the content of the webpage 
-print("""
+content = """
 Min Me-sida
 ==============================================================================
 
@@ -58,4 +64,9 @@ http://dbwebb.se/blogg/forsmak-infor-hosten-2014#hobby
 
 Vi syns och hörs i forum och chatt!
 
-""")
+"""
+
+
+# Write page content
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+sys.stdout.write(content)
