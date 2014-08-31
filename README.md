@@ -44,7 +44,7 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v1.0.x (latest)
+v1.0.1 (2014-08-31)
 
 * Updated readme-files in the tutorial map.
 * Corrected all cgi-scripts to proper output using utf-8 as encoding and writing bytes to sys.stdout.
