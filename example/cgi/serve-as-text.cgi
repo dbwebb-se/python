@@ -8,7 +8,7 @@ Send result as plain text.
 
 #Enable debugging of cgi-.scripts
 import cgitb
-cgitb.enable()    
+cgitb.enable()
 
 
 # Send the HTTP header
