@@ -47,6 +47,7 @@ History
 v1.0.x (latest)
 
 * Updated readme-files in the tutorial map.
+* Corrected all cgi-scripts to proper output using utf-8 as encoding and writing bytes to sys.stdout.
 
 
 v1.0.0 (2014-08-30)
