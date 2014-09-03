@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 TESTS=0
 ASSERTS=0
@@ -17,6 +17,7 @@ JSHINT="jshint"
 
 HTMLHINT="htmlhint"
 
+# Change this to csshint?
 CSSHINT="htmlhint"
 
 HTML_MINIFIER="html-minifier"
@@ -141,6 +142,7 @@ mapCmdToDir()
                 lab3)       RES="me/kmom04/lab3" ;;
                 lab4)       RES="me/kmom05/lab4" ;;
                 lab5)       RES="me/kmom06/lab5" ;;
+                lab6)       RES="me/kmom06/lab6" ;;
 
                 marvin1)    RES="me/kmom02/marvin1" ;;
                 marvin2)    RES="me/kmom03/marvin2" ;;
@@ -313,8 +315,8 @@ checkTools()
     checkCommand $PYLINT
 
     checkCommand $HTMLHINT
-    checkCommand $JSHINT
     checkCommand $CSSHINT
+    checkCommand $JSHINT
 
     [ $PUBLISH = "yes" -o $IGNORE_FAULTS = "yes" ] || return
 
@@ -344,7 +346,7 @@ validateHtmlCssJs()
         assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"
     done
 
-    $ECHO "\n *.css using HTMLHint."
+    #$ECHO "\n *.css using HTMLHint."
     #find $TARGET/$DIR -type f -name '*.css' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
 
     $ECHO "\n *.js using JSHint."

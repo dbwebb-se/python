@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.0"
+VERSION_CONFIG="1.0.1"
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
 MSG_FAILED="\033[0;37;41mFAILED.\033[0m"
@@ -69,4 +69,5 @@ GET_ANSWER_JS="lab.php?answer-js"
 GET_ANSWER_JSON="lab.php?answer-json"
 GET_ANSWER_PY="lab.php?answer-py"
 GET_ANSWER_PYDBWEBB="lab.php?answer-py-assert"
+GET_ANSWER_EXTRA="lab.php?answer-extra"
 
