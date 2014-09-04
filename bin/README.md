@@ -1,14 +1,40 @@
 Utility `bin/dbwebb` to work with course repositories
 ============================================================
 
-To be moved to its own repository further down the road.
+Part of course repos as a admin utility.
 
-Has its own version history until then, documented here.
+
+
+License
+-------------------
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+
+
+Validate using external cli-programs
+-------------------
+
+lrwxrwxrwx 1 mosstud 500   38 jun 12 16:07 cleancss -> ../node_modules/clean-css/bin/cleancss*   
+-rwxr-xr-x 1 mosstud 500 1231 jun 12 17:59 htmlhint*                                             
+lrwxrwxrwx 1 mosstud 500   36 jun 12 16:06 html-minifier -> ../node_modules/html-minifier/cli.js*
+lrwxrwxrwx 1 mosstud 500   33 jun 12 15:50 jshint -> ../node_modules/jshint/bin/jshint*          
+lrwxrwxrwx 1 mosstud 500   38 jun 12 16:30 uglifyjs -> ../node_modules/uglify-js/bin/uglifyjs*   
 
 
 
 History
 -------------------
+
+v1.0.2 (2014-09-05)
+
+* Check for autoupdate `.dbwebb.config` on `bin/dbwebb update`.
+* Adding command `version` to display version of `bin/dbwebb` and latest commit to course repo.
+* Adding file for version number `bin/.dbwebb.version`.
+* Re-using user as default value when recreating config-file.
+* Autocreating config-file when version number is changed.
+* Now its own repo.
+
 
 v1.0.1 (2014-09-03)
 
