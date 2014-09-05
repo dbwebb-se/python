@@ -46,11 +46,7 @@ History
 
 v1.0.x (latest)
 
-* Updated `bin/dbwebb` to version v1.0.6.
-* Updated `bin/dbwebb` to version v1.0.5.
-* Updated `bin/dbwebb` to version v1.0.4.
-* Updated `bin/dbwebb` to version v1.0.3.
-* Updated `bin/dbwebb` to version v1.0.2.
+* Updated `bin/dbwebb` to version v1.0.8.
 
 
 v1.0.1 (2014-08-31)

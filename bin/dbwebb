@@ -295,7 +295,8 @@ updateFromMaster()
     MESSAGE="to update course repo."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 
-    . "$SCRIPTPATH/.dbwebb.version"
+    #. "$SCRIPTPATH/.dbwebb.version"
+    . "bin/.dbwebb.version"
     updateConfigIfNeeded "upgrade"
 }
 
