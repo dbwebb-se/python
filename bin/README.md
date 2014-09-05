@@ -27,6 +27,11 @@ History
 -------------------
 
 
+v1.0.5 (2014-09-05)
+
+* Find name of Users group on Cygwin in swedish installations.
+
+
 v1.0.4 (2014-09-05)
 
 * Failed detecting if curl or wget was available.
