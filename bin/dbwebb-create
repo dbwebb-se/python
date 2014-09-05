@@ -68,20 +68,20 @@ createLabJavaScript1()
     fi
 
     # Create the key
-    KEY="`wget -qO- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
+    KEY="`${WGET}- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
 
     # The lab description & the answers
     $ECHO "\ninstruction.html"
-    wget  -qO "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
+    $WGET "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
 
     $ECHO "\nanswer.html"
-    wget  -qO "$WHERE/answer.html" "$SERVICE/$GET_ANSWER_HTML&key=$KEY"
+    $WGET "$WHERE/answer.html" "$SERVICE/$GET_ANSWER_HTML&key=$KEY"
 
     $ECHO "\nanswer.js"
-    wget  -qO "$WHERE/answer.js" "$SERVICE/$GET_ANSWER_JS&key=$KEY"
+    $WGET "$WHERE/answer.js" "$SERVICE/$GET_ANSWER_JS&key=$KEY"
 
     $ECHO "\nExtras\n"
-    wget  -qO "$WHERE/extra.tar" "$SERVICE/$GET_ANSWER_EXTRA&key=$KEY"
+    $WGET "$WHERE/extra.tar" "$SERVICE/$GET_ANSWER_EXTRA&key=$KEY"
     tar -xvf "$WHERE/extra.tar" -C "$WHERE"
     rm -f "$WHERE/extra.tar"
 
@@ -116,24 +116,24 @@ createLabPython()
     fi
 
     # Create the key
-    KEY="`wget -qO- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
+    KEY="`${WGET}- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
 
     # The lab description & the answers
     $ECHO "\ninstruction.html"
-    wget  -qO "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
+    $WGET "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
 
     $ECHO "\nanswer.json"
-    wget  -qO "$WHERE/answer.json" "$SERVICE/$GET_ANSWER_JSON&key=$KEY"
+    $WGET "$WHERE/answer.json" "$SERVICE/$GET_ANSWER_JSON&key=$KEY"
 
     $ECHO "\nanswer.py"
-    wget  -qO "$WHERE/answer.py" "$SERVICE/$GET_ANSWER_PY&key=$KEY"
+    $WGET "$WHERE/answer.py" "$SERVICE/$GET_ANSWER_PY&key=$KEY"
     chmod 755 "$WHERE/answer.py"
 
     $ECHO "\nDbwebb.py"
-    wget  -qO "$WHERE/Dbwebb.py" "$SERVICE/$GET_ANSWER_PYDBWEBB&key=$KEY"
+    $WGET "$WHERE/Dbwebb.py" "$SERVICE/$GET_ANSWER_PYDBWEBB&key=$KEY"
 
     $ECHO "\nExtras\n"
-    wget  -qO "$WHERE/extra.tar" "$SERVICE/$GET_ANSWER_EXTRA&key=$KEY"
+    $WGET "$WHERE/extra.tar" "$SERVICE/$GET_ANSWER_EXTRA&key=$KEY"
     tar -xvf "$WHERE/extra.tar" -C "$WHERE"
     rm -f "$WHERE/extra.tar"
 

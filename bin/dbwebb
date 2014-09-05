@@ -475,7 +475,7 @@ case $CMD in
     init)
         initServer
         createDefaultFiles
-        #uploadToServer
+        uploadToServer
         ;;
 
     update)

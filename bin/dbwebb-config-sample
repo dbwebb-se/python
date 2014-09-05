@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.2"
+VERSION_CONFIG="1.0.3"
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
@@ -61,6 +61,17 @@ BUILD="$BUILD2/$PROJECT"
 #
 # dbwebb-create
 #
+WGET="wget -qO"
+CURL="curl -so"
+
+if hash "$WGET" 2> /dev/null 
+then
+    WGET="$WGET"
+elif hash "$WGET" 2> /dev/null
+then 
+    WGET="$CURL"
+fi
+
 SERVICE="http://www.student.bth.se/~mosstud/kod-exempel/lab"
 GET_KEY="action=only-key&acronym=$USER&course=$COURSE&doGenerate=Submit"
 GET_LAB="lab.php?lab"

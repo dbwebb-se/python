@@ -26,6 +26,13 @@ lrwxrwxrwx 1 mosstud 500   38 jun 12 16:30 uglifyjs -> ../node_modules/uglify-js
 History
 -------------------
 
+
+v1.0.3 (2014-09-05)
+
+* Support for curl where wget is not available (Mac).
+* `bin/dbwebb init` now does upload to server again.
+
+
 v1.0.2 (2014-09-05)
 
 * Check for autoupdate `.dbwebb.config` on `bin/dbwebb update`.
