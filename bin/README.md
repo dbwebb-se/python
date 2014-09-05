@@ -27,6 +27,11 @@ History
 -------------------
 
 
+v1.0.4 (2014-09-05)
+
+* Failed detecting if curl or wget was available.
+
+
 v1.0.3 (2014-09-05)
 
 * Support for curl where wget is not available (Mac).
