@@ -27,6 +27,11 @@ History
 -------------------
 
 
+v1.0.6 (2014-09-05)
+
+* readlink -f fails on Mac.
+
+
 v1.0.5 (2014-09-05)
 
 * Find name of Users group on Cygwin in swedish installations.
