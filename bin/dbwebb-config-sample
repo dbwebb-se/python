@@ -44,7 +44,15 @@ case "`uname`" in
    CYGWIN*) IS_CYGWIN="yes" ;;
    *)       IS_CYGWIN="no" ;;
 esac
-CYGWIN_DEFAULT_GROUP="Users"
+
+if [ $IS_CYGWIN = "yes" ]
+then
+    CYGWIN_DEFAULT_GROUP="Users"
+    if [ $( grep "^Användare:" /etc/group ) ]
+    then
+        CYGWIN_DEFAULT_GROUP="Användare"
+    fi
+fi
 
 
 
