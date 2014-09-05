@@ -64,10 +64,10 @@ BUILD="$BUILD2/$PROJECT"
 WGET="wget -qO"
 CURL="curl -so"
 
-if hash "$WGET" 2> /dev/null 
+if hash wget 2> /dev/null 
 then
     WGET="$WGET"
-elif hash "$WGET" 2> /dev/null
+elif hash curl 2> /dev/null
 then 
     WGET="$CURL"
 fi
