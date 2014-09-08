@@ -335,16 +335,14 @@ checkTools()
 #
 setChmod()
 {
-    DIR="$TARGET"
-
     $ECHO "\nUpdating chmod on file and dir."
 
-    for filename in $(find "$DIR" -type d); do
+    for filename in $(find "$TARGET" -type d); do
         chmod 755 "$filename"
     done
 
-    chmod -R u+rw "$DIR" 
-    chmod -R go+r "$DIR"
+    chmod -R u+rw "$TARGET" 
+    chmod -R go+r "$TARGET"
 }
 
 

@@ -27,6 +27,11 @@ History
 -------------------
 
 
+v1.0.10 (2014-09-08)
+
+* v1.0.9 introduced a problem with validate. Fixed.
+
+
 v1.0.9 (2014-09-08)
 
 * `dbwebb-validate` changes chmod to make all dirs and files readable since cygwin may set 000 as rights (for some yet unknown reason).
