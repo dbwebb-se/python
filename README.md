@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* Updated `bin/dbwebb` to version v1.0.9. Cygwin fix for readable files and directories.
 * Updated `bin/dbwebb` to version v1.0.8.
 
 
