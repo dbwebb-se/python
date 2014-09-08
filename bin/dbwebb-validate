@@ -331,6 +331,25 @@ checkTools()
 
 
 #
+# Set proper rights for files and directories
+#
+setChmod()
+{
+    DIR="$TARGET"
+
+    $ECHO "\nUpdating chmod on file and dir."
+
+    for filename in $(find "$DIR" -type d); do
+        chmod 755 "$filename"
+    done
+
+    chmod -R u+rw "$DIR" 
+    chmod -R go+r "$DIR"
+}
+
+
+
+#
 # Perform validation tests
 #
 validateHtmlCssJs()
@@ -607,6 +626,7 @@ fi
 
 # Execute command
 checkTools
+setChmod
 testMe "$CMD"
 validate "$DIR"
 
