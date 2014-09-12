@@ -23,6 +23,20 @@ print("Content-Type: text/html;charset=utf-8")
 print("")
 
 
+# Store my ascii image in a separat variabel as a raw string
+meImage = r"""
+          ,     ,
+         (\____/)
+          (_oo_)
+            (O)
+          __||__    \)
+       []/______\[] /
+       / \______/ \/
+      /    /__\ 
+     (\   /____\ 
+"""
+
+
 # Here comes the content of the webpage 
 content = """<!doctype html>
 <meta charset="utf-8">
@@ -34,15 +48,8 @@ Min Me-sida
 Hej, 
 
 Jag heter Mikael Roos och är lärare på denna kurs i Python. 
-          ,     ,
-         (\____/)
-          (_oo_)
-            (O)
-          __||__    \)
-       []/______\[] /
-       / \______/ \/
-      /    /__\ 
-     (\   /____\ 
+
+{image} 
 
 Detta är min me-sida i kursen. Denna sidan innehåller en presentation av mig
 själv. Underhåll denna sidan under hela kursen och uppdatera den efter hand
@@ -73,4 +80,4 @@ Vi syns och hörs i forum och chatt!
 
 # Write page content
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-sys.stdout.write(content)
+sys.stdout.write(content.format(image=meImage))

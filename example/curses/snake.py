@@ -92,7 +92,7 @@ def main(screen):
 
         snake.insert(0, [y, x])
 
-        if(snake[0] in snake[1:]):
+        if snake[0] in snake[1:]:
             #screen.clear()
             text = "GAME OVER!"
             screen.addstr(dims[0]//2, dims[1]//2-len(text)//2, text)

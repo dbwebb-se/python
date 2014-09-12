@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.10"
+VERSION_CONFIG="1.0.11"
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
@@ -29,7 +29,7 @@ DESTINATION="${USER}@${HOST}:$BASEDIR/$PROJECT/"
 # Detect if ssh-key is available
 SSH_KEY=""
 SSH_KEY_OPTIONS=""
-if [ -f $HOME/.ssh/dbwebb ]
+if [ -f "$HOME/.ssh/dbwebb" ]
 then
     SSH_KEY="$HOME/.ssh/dbwebb"
     SSH_KEY_OPTION="-i $SSH_KEY"

@@ -235,12 +235,12 @@ testMe()
     $ECHO "\n\nTesting Me-directory items."
 
     for dir in $DIRS; do
-        $ECHO "\n $dir"
+        #$ECHO "\n $dir"
         assert 0 "[ -d $ME/$dir ]"  "Missing directory: me/$dir"
     done
 
     for file in $FILES; do
-        $ECHO "\n $file"
+        #$ECHO "\n $file"
         assert 0 "[ -f $ME/$file ]" "Missing file: me/$file" 
     done
 }
@@ -293,7 +293,7 @@ checkCommand()
     COMMAND=$1
     #$ECHO "\nChecking $COMMAND"
 
-    if ! hash $COMMAND 2>/dev/null; then
+    if ! hash "$COMMAND" 2>/dev/null; then
         $ECHO "\n I require $COMMAND but it's not installed. Ignoring."
         #$ECHO >&2 "\nI require $COMMAND but it's not installed. Ignoring for now."
         #$ECHO >&2 "\nUse the following command to see what is required to run this script"

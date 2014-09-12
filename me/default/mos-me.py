@@ -6,13 +6,8 @@ Me-page, presentation of mos as a sample of a me-page.
 
 """
 
-print("""
-Min Me-sida
-==============================================================================
-
-Hej, 
-
-Jag heter Mikael Roos och är lärare på denna kurs i Python. 
+# Store my ascii image in a separat variabel as a raw string
+meImage = r"""
           ,     ,
          (\____/)
           (_oo_)
@@ -22,6 +17,18 @@ Jag heter Mikael Roos och är lärare på denna kurs i Python.
        / \______/ \/
       /    /__\ 
      (\   /____\ 
+"""
+
+
+print("""
+Min Me-sida
+==============================================================================
+
+Hej, 
+
+Jag heter Mikael Roos och är lärare på denna kurs i Python. 
+
+{image} 
 
 Detta är min me-sida i kursen. Denna sidan innehåller en presentation av mig
 själv. Underhåll denna sidan under hela kursen och uppdatera den efter hand
@@ -46,4 +53,4 @@ http://dbwebb.se/blogg/forsmak-infor-hosten-2014#hobby
 
 Vi syns och hörs i forum och chatt!
 
-""")
+""".format(image=meImage))

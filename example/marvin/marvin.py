@@ -9,13 +9,11 @@ You should add functinoality to Marvin.
 """
 
 
-
-def menu():
+def meImage():
     """
-    Display the menu with the options that Marvin can do.
+    Store my ascii image in a separat variabel as a raw string
     """
-    print(chr(27) + "[2J" + chr(27) + "[;H")
-    print("""
+    return r"""
           ,     ,
          (\____/)
           (_oo_)
@@ -25,10 +23,16 @@ def menu():
        / \______/ \/
       /    /__\ 
      (\   /____\ 
+    """
 
-Hi, I'm Marvin. I know it all. What can I do you for?
 
-    """)
+def menu():
+    """
+    Display the menu with the options that Marvin can do.
+    """
+    print(chr(27) + "[2J" + chr(27) + "[;H")
+    print(meImage()) 
+    print("Hi, I'm Marvin. I know it all. What can I do you for?") 
     print("1) Present yourself to Marvin.")
     print("q) Quit.")
 

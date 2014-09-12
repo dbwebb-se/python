@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
 Testing out some animation in curses
 """
@@ -6,18 +8,28 @@ Testing out some animation in curses
 import curses
 import time
 
-def main(screen):
+
+def main(scr):
     """
-    Draw a ball that bounces off the sides
+    Draw a ball that bounces and changes direction when hitting the sides.
+
+    Press any key to quit.
     """
+
     # Don't stop the while-loop while waiting for input
-    screen.nodelay(1)
+    scr.nodelay(1)
 
     # Get dimensions
-    max_y, max_x = screen.getmaxyx()
+    max_y, max_x = scr.getmaxyx()
 
     # The ball
     my_str = "O"
+
+    # Draw a border
+    scr.border()
+
+    # Refresh to draw out
+    scr.refresh()
 
     # Starting position
     x, y = 0, 0
@@ -25,12 +37,14 @@ def main(screen):
     vert, hori = 1, 1
 
     while True:
-        screen.clear()
+        #scr.clear()
+        
         # Draw the ball
-        screen.addstr(y, x, my_str)
+        scr.addstr(y, x, my_str)
+        
         # Move cursor out of the way
-        screen.move(0, 0)
-        screen.refresh()
+        scr.move(0, 0)
+        scr.refresh()
 
         # Move x and y in the current directions
         x += hori
@@ -46,11 +60,14 @@ def main(screen):
         time.sleep(0.1)
 
         # Allow for an exit-key - any key pressed
-        q = screen.getch()
+        q = scr.getch()
         if q > -1:
             break
 
 
+
 if __name__ == "__main__":
+    print(__doc__)
     print(main.__doc__)
+    input("Press enter to begin playing...")
     curses.wrapper(main)

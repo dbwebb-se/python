@@ -63,7 +63,7 @@ createLabJavaScript1()
     # Check if lab is already there
     if [ -f "$WHERE/answer.js" ]
     then
-        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove its content if you want to create a new lab."
         exit 1
     fi
 
@@ -111,7 +111,7 @@ createLabPython()
     # Check if lab is already there
     if [ -f "$WHERE/answer.py" ]
     then
-        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove it if you want to create a new lab."
+        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove its content if you want to create a new lab."
         exit 1
     fi
 

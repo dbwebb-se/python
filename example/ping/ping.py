@@ -18,7 +18,7 @@ try:
     # request header from url
     r = requests.head(url)
     # print result
-    print ("Request to", url, "sent at", rTime)
+    print("Request to", url, "sent at", rTime)
     print("\t", r.status_code)
 except requests.ConnectionError:
-    print ("Failed to connect")
+    print("Failed to connect")

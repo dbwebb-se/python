@@ -34,5 +34,6 @@ if confirm.lower() == "y":
     # Open the file for writing ("w" will replace the file contents)
     fhand = open("json.txt", "w")
     # Encode json with pretty output (indent)
-    fhand.write(json.dumps(stuff, indent = 4))
+    fhand.write(json.dumps(stuff, indent=4))
     fhand.close()
+

@@ -27,6 +27,14 @@ History
 -------------------
 
 
+v1.0.11 (2014-09-12)
+
+* `bin/dbwebb upload` now changes mod on files and directories before uploading.
+* `bin/dbwebb init` does NOT upload to server per default (preparing to improve `download`).
+* `dbwebb-config-sample` to allow directory names with spaces.
+* Minor spelling errors.
+
+
 v1.0.10 (2014-09-08)
 
 * v1.0.9 introduced a problem with validate. Fixed.

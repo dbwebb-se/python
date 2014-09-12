@@ -264,7 +264,7 @@ createDefaultFiles()
 {
     DEFAULT="$TARGET/me/default/"
 
-    INTRO="Initiating course repo by creating course specific files."
+    INTRO="Initiating me-directory by copying files from me/default to me/ (will not overwrite existing)."
     COMMAND="rsync -a --ignore-existing $DEFAULT $TARGET/me/"
     MESSAGE="to create course specific files in me-directory."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
@@ -298,6 +298,23 @@ updateFromMaster()
     #. "$SCRIPTPATH/.dbwebb.version"
     . "bin/.dbwebb.version"
     updateConfigIfNeeded "upgrade"
+}
+
+
+
+#
+# Set proper rights for files and directories
+#
+setChmod()
+{
+    $ECHO "\nUpdating chmod on file and dir."
+
+    for filename in $(find "$SOURCE/me" -type d); do
+        chmod 755 "$filename"
+    done
+
+    chmod -R u+rw "$SOURCE/me" 
+    chmod -R go+r "$SOURCE/me"
 }
 
 
@@ -476,7 +493,7 @@ case $CMD in
     init)
         initServer
         createDefaultFiles
-        uploadToServer
+        #uploadToServer
         ;;
 
     update)
@@ -484,6 +501,7 @@ case $CMD in
         ;;
 
     upload)
+        setChmod
         uploadToServer
         ;;
 
