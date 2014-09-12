@@ -31,29 +31,35 @@ def main(scr):
     # Refresh to draw out
     scr.refresh()
 
+    # Make cursor invisible
+    curses.curs_set(0)
+
     # Starting position
     x, y = 0, 0
+
     # Directions
     vert, hori = 1, 1
 
+    # Do until exit
     while True:
-        #scr.clear()
-        
+
         # Draw the ball
         scr.addstr(y, x, my_str)
+        scr.refresh()
         
         # Move cursor out of the way
-        scr.move(0, 0)
-        scr.refresh()
 
         # Move x and y in the current directions
         x += hori
         y += vert
 
         # Check if new x and y is at any edge and bounce it if it is
-        if y == max_y-1 or y == 0: # top and bottom
+        # top and bottom
+        if y == max_y-1 or y == 0: 
             vert = -vert # reverse
-        if x == max_x-len(my_str)-1 or x == 0: # left and right
+        
+        # left and right
+        if x == max_x-len(my_str) or x == 0: 
             hori = -hori # reverse
 
         # Animate only every 0.1 sec so that you can acutally see the ball move
