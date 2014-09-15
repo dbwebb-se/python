@@ -12,6 +12,8 @@ from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
 def main(screen):
     """
     Snake
+
+    Press 'q' to quit the game.
     """
     screen.clear()
 
@@ -120,5 +122,7 @@ def main(screen):
 
 
 if __name__ == "__main__":
+    print(__doc__)
     print(main.__doc__)
+    input("Press enter to begin playing...")
     curses.wrapper(main)
