@@ -19,20 +19,17 @@ def main(scr):
     # Don't stop the while-loop while waiting for input
     scr.nodelay(1)
 
+    # Draw a border
+    scr.border()
+
+    # Make cursor invisible
+    curses.curs_set(0)
+
     # Get dimensions
     max_y, max_x = scr.getmaxyx()
 
     # The ball
     my_str = "O"
-
-    # Draw a border
-    scr.border()
-
-    # Refresh to draw out
-    scr.refresh()
-
-    # Make cursor invisible
-    curses.curs_set(0)
 
     # Starting position
     x, y = 0, 0
@@ -43,32 +40,30 @@ def main(scr):
     # Do until exit
     while True:
 
-        # Draw the ball
-        scr.addstr(y, x, my_str)
-        scr.refresh()
-        
-        # Move cursor out of the way
-
         # Move x and y in the current directions
         x += hori
         y += vert
 
         # Check if new x and y is at any edge and bounce it if it is
         # top and bottom
-        if y == max_y-1 or y == 0: 
+        if y == max_y - 1 or y == 0: 
             vert = -vert # reverse
         
         # left and right
-        if x == max_x-len(my_str) or x == 0: 
+        if x == max_x - len(my_str) or x == 0: 
             hori = -hori # reverse
 
-        # Animate only every 0.1 sec so that you can acutally see the ball move
-        time.sleep(0.1)
-
+        # Draw the ball
+        scr.addstr(y, x, my_str)
+        scr.refresh()
+        
         # Allow for an exit-key - any key pressed
         q = scr.getch()
         if q > -1:
             break
+
+        # Animate only every 0.1 sec so that you can acutally see the ball move
+        time.sleep(0.05)
 
 
 
