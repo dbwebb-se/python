@@ -6,10 +6,10 @@ Testing out reading and writing json to a file
 import json
 
 
-# Open file and read all its contents
+# Create a file object
 jsonfile = open("json.txt", "r")
 
-# Decode json
+# Read from file and decode as json
 jsonobject = json.load(jsonfile)
 
 
