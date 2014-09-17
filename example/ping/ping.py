@@ -2,25 +2,43 @@
 # -*- coding: utf-8 -*-
 
 """
-Simple test example of how to ping a website for a status code
-http://stackoverflow.com/a/13641613
+Example of how to ping a webpage for a status code, basically just
+to check that the page is there and the webserver is replying with 
+a positive code, such as 200.
+
+More information: http://stackoverflow.com/a/13641613
+
+The module requests needs to be installed with pip
+http://docs.python-requests.org/en/latest/
+pip install requests
 """
 
-url = "http://google.com/"
+print(__doc__)
 
-# module requests needs to be installed with pip
-# http://docs.python-requests.org/en/latest/
-# pip install requests
 import requests
 import time
 
+
+url = "http://dbwebb.se/humans.txt"
+
+
 try:
-    # get current time
+
+    # Get current time
     rTime = time.ctime(time.time())
-    # request header from url
-    r = requests.head(url)
-    # print result
-    print("Request to", url, "sent at", rTime)
-    print("\t", r.status_code)
+
+    # Request header from url
+    print("Ready to send HTTP request to ", url, "\n(press return)", end='')
+    input()
+    req = requests.head(url)
+
+    # Print result
+    print("Request to ", url, " sent at ", rTime)
+    print("Recieved status code: ", req.status_code)
+    print("Page was last modified: ", req.headers["Last-Modified"])
+
+
+
 except requests.ConnectionError:
+
     print("Failed to connect")
