@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* Updated example files in `example/json`, changed loads to load and dumps to dump.
 * Exercise games2 ready and `example/curses/bouncing-ball.py` updated as example program.
 * Updated `bin/dbwebb` to version v1.0.11.
 * Updating `.pylintrc` with new version of pylint.
