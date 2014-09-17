@@ -5,11 +5,20 @@
 Testing out reading and writing json to a file
 """
 
+import os.path
 import json
 
 
 # Create a file object
-jsonfile = open("json.txt", "r")
+filename = "json.txt"
+filenameMy = "json-mine.txt"
+
+# Check if my own file exists, else use the default one
+if os.path.isfile(filenameMy):
+    filename = filenameMy
+
+jsonfile = open(filename, "r")
+
 
 # Read from file and decode as json
 jsonobject = json.load(jsonfile)
@@ -37,7 +46,7 @@ if confirm.lower() == "y":
     })
 
     # Open the file for writing ("w" will replace the file contents)
-    jsonfile = open("json.txt", "w")
+    jsonfile = open(filenameMy, "w")
 
     # Encode json with pretty output (indent)
     json.dump(jsonobject, jsonfile, indent=4)
