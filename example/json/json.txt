@@ -1,40 +1,40 @@
 {
     "colorsArray": [
         {
-            "colorName": "red", 
-            "hexValue": "#f00"
-        }, 
+            "hexValue": "#f00",
+            "colorName": "red"
+        },
         {
-            "colorName": "green", 
-            "hexValue": "#0f0"
-        }, 
+            "hexValue": "#0f0",
+            "colorName": "green"
+        },
         {
-            "colorName": "blue", 
-            "hexValue": "#00f"
-        }, 
+            "hexValue": "#00f",
+            "colorName": "blue"
+        },
         {
-            "colorName": "cyan", 
-            "hexValue": "#0ff"
-        }, 
+            "hexValue": "#0ff",
+            "colorName": "cyan"
+        },
         {
-            "colorName": "magenta", 
-            "hexValue": "#f0f"
-        }, 
+            "hexValue": "#f0f",
+            "colorName": "magenta"
+        },
         {
-            "colorName": "yellow", 
-            "hexValue": "#ff0"
-        }, 
+            "hexValue": "#ff0",
+            "colorName": "yellow"
+        },
         {
-            "colorName": "black", 
-            "hexValue": "#000"
-        }, 
+            "hexValue": "#000",
+            "colorName": "black"
+        },
         {
-            "colorName": "purple", 
-            "hexValue": "#f0f"
-        }, 
+            "hexValue": "#f0f",
+            "colorName": "purple"
+        },
         {
-            "colorName": "pink", 
-            "hexValue": "#f9f"
+            "hexValue": "#f9f",
+            "colorName": "pink"
         }
     ]
 }
