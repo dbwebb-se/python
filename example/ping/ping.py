@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
 Simple test example of how to ping a website for a status code
 http://stackoverflow.com/a/13641613
