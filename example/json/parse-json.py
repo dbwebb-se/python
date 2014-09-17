@@ -24,7 +24,7 @@ confirm = input("Do you want to add a color (y/n)? ")
 
 if confirm.lower() == "y":
 
-    # get new color
+    # Get new color
     colorName = input("Enter color name: ")
     hexValue = input("Enter hex value (with #): ")
 
