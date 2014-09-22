@@ -193,7 +193,7 @@ pythonmarvin2()
     target="$1"
 
     dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash studID"
 
     filename="$THEDIR/$target/marvin.py"
     assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
