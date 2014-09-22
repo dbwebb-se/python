@@ -1,0 +1,456 @@
+#!/bin/sh
+
+#SCRIPT=$(readlink -f "$0")
+#SCRIPTPATH=$(dirname "$SCRIPT")
+#. "$SCRIPTPATH/.dbwebb.version"
+. "bin/.dbwebb.version"
+
+TESTS=0
+ASSERTS=0
+FAULTS=0
+
+ECHO="printf"
+TMPFILE="/tmp/dbwebb-error$$"
+
+
+
+#
+# Print usage of script
+#
+printUsage()
+{
+    $ECHO "\nUtility dbwebb-inspect $VERSION by Mikael Roos, to inspect course results as a teacher."
+    $ECHO "\n"
+    $ECHO "\nUsage: dbwebb-inspect [options] <item> <user>"
+    $ECHO "\n"
+    $ECHO "Options:"
+    $ECHO "\n"
+    $ECHO "\n  -h         Print this message and exit."
+    $ECHO "\n  -v         Print version and exit."
+    $ECHO "\n"
+    $ECHO "\nItem:"
+    $ECHO "\n"
+    $ECHO "\n  kmom01    Inspect selected kmom."
+    $ECHO "\n  kmom02    Inspect selected kmom."
+    $ECHO "\n  kmom03    Inspect selected kmom."
+    $ECHO "\n  kmom04    Inspect selected kmom."
+    $ECHO "\n  kmom05    Inspect selected kmom."
+    $ECHO "\n  kmom06    Inspect selected kmom."
+    $ECHO "\n  kmom10    Inspect selected kmom."
+    $ECHO "\n"
+    $ECHO "\nExample:"
+    $ECHO "\n"
+    $ECHO "\n  $ dbwebb-inspect kmom01"
+    $ECHO "\n  $ dbwebb-inspect kmom01 mosstud"
+    $ECHO "\n"
+    $ECHO "\n"
+}
+
+
+
+#
+# Check the environment
+#
+checkEnvironment()
+{
+    $ECHO "\n-----------------------------------------"
+    $ECHO "\n----------- dbwebb inspect --------------"
+    $ECHO "\n-----------------------------------------"
+
+    # Check who you are
+    if [ "$USER" = "$THEUSER" ]
+    then
+        $ECHO "\nChecking your own $KMOM, ok."
+    else
+        $ECHO "\nChecking $KMOM for $THEUSER as `whoami`."
+    fi
+
+    dirname="$THEDIR"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+}
+
+
+
+#
+# Test python me
+#
+pythonme()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- me-page ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    filename="$THEDIR/me/me.cgi"
+    assert 0 "test -r $filename -a -f $filename" "CGI-script for me-page is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to me-page: $url/me/me.cgi"
+
+    filename="$THEDIR/me/redovisning.cgi"
+    assert 0 "test -r $filename -a -f $filename" "CGI-script for redovisning-page is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to redovisning-page: $url/me/redovisning.cgi"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test python kmom01
+#
+checkKmomDir()
+{
+    dirname="$1"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+}
+
+
+
+#
+# Test python kmom01
+#
+validateKmom()
+{
+    THEKMOM="$1"
+
+    $ECHO "\nPress enter to validate $THEKMOM..."
+    read void
+    bin/dbwebb-validate -i -n -m -e -t $THEKMOM $THEUSER
+}
+
+
+
+#
+# Test python plane
+#
+pythonplane()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- plane        ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/plane1.py"
+    assert 0 "test -r $filename -a -f $filename" "The file plane.py is missing."
+
+    filename="$THEDIR/$target/plane1.cgi"
+    assert 0 "test -r $filename -a -f $filename" "The file plane.cgi is missing."
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to plane-page: $url/me/kmom01/plane/plane1.cgi"
+
+    $ECHO "\nPress enter to continue to execute the program plane.py..."
+    read void
+
+    "$THEDIR/$target/plane.py"
+}
+
+
+
+#
+# Test python marvin1
+#
+pythonmarvin1()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin1       ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/marvin.py"
+    assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
+
+    $ECHO "\nPress enter to continue to execute the program marvin.py..."
+    read void
+
+    cd "$THEDIR/$target"
+    python3 marvin.py
+    cd "$TARGET"
+}
+
+
+
+#
+# Test python marvin2
+#
+pythonmarvin2()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin2       ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/marvin.py"
+    assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
+
+    filename="$THEDIR/$target/main.py"
+    assert 0 "test -r $filename -a -f $filename" "The file main.py is missing."
+
+    $ECHO "\nPress enter to continue to execute the program main.py..."
+    read void
+
+    cd "$THEDIR/$target"
+    python3 main.py
+    cd "$TARGET"
+}
+
+
+
+#
+# Test python lab
+#
+pythonlab()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- lab         ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/answer.py"
+    assert 0 "test -r $filename -a -f $filename" "The file answer.py is missing."
+
+    $ECHO "\nPress enter to continue to execute the program answer.py..."
+    read void
+
+    cd "$THEDIR/$target"
+    python3 answer.py
+    cd "$TARGET"
+}
+
+
+
+#
+# Test python kmom01
+#
+pythonkmom01()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- python kmom01 ---------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom01"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    pythonme
+    pythonplane "$THETARGET/plane"
+}
+
+
+
+#
+# Test python kmom02
+#
+pythonkmom02()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- python kmom02 ---------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom02"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    pythonme
+    pythonlab "$THETARGET/lab1"
+    pythonmarvin1 "$THETARGET/marvin1"
+}
+
+
+
+#
+# Test python kmom03
+#
+pythonkmom03()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- python kmom03 ---------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom03"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    pythonme
+    pythonlab "$THETARGET/lab2"
+    pythonmarvin2 "$THETARGET/marvin2"
+}
+
+
+
+#
+# Test python kmom04
+#
+pythonkmom04()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- python kmom04 ---------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom04"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    pythonme
+    pythonlab "$THETARGET/lab3"
+    pythonmarvin2 "$THETARGET/marvin3"
+}
+
+
+
+#        javascript1) 
+#            FILES="me.html redovisning.html" 
+#            KMOM01="kmom01 kmom01/sandbox"
+#            KMOM02="kmom02 kmom02/flag1 kmom02/lab1 kmom02/baddie1"
+#            KMOM03="kmom03 kmom03/flag2 kmom03/lab2 kmom03/baddie2"
+#            KMOM04="kmom04 kmom04/flag3 kmom04/lab3 kmom04/lab4 kmom04/baddie3"
+#            KMOM05="kmom05 kmom05/flag4 kmom05/lab5 kmom05/baddie4"
+#            KMOM06="kmom06 kmom06/flag5 kmom06/baddie5"
+#            KMOM10="kmom10"            
+#
+#        python)      
+#            FILES="me.cgi me.py redovisning.cgi redovisning.py" 
+#            KMOM01="kmom01 kmom01/hello kmom01/plane"
+#            KMOM02="kmom02 kmom02/marvin1 kmom02/lab1"
+#            KMOM03="kmom03 kmom03/marvin2 kmom03/lab2"
+#            KMOM04="kmom04 kmom04/marvin3 kmom04/lab3 kmom04/game1"
+#            KMOM05="kmom05 kmom05/marvin4 kmom05/lab4 kmom05/game2"
+#            KMOM06="kmom06 kmom06/marvin5 kmom06/lab5 kmom06/game3"
+#            KMOM10="kmom10"
+
+
+
+#
+# Perform an assert
+#
+assert()
+{
+    EXPECTED=$1
+    TEST=$2
+    MESSAGE=$3
+    ASSERTS=$(( $ASSERTS + 1 ))
+
+    sh -c "$TEST" > "$TMPFILE" 2>&1
+    STATUS=$?
+    ERROR=$(cat $TMPFILE)
+
+    if [ \( ! $STATUS -eq $EXPECTED \) -o \( ! -z "$ERROR" \) ]; then
+        FAULTS=$(( $FAULTS + 1 ))
+
+        MSG="\n\n$MSG_FAILED $MESSAGE\n"
+
+        $ECHO "$MSG" 
+        [ -z "$ERROR" ] || $ECHO "$ERROR\n\n"
+    fi
+
+    return $STATUS
+}
+
+
+
+
+#
+# Main
+#
+if [ $# != 3 ]
+then
+    :
+    #$ECHO
+    #printUsage
+fi
+
+# Get settings from config-file
+. "./.dbwebb.config"
+
+
+# Get options
+while getopts ":hinrv" opt
+do
+    case $opt in
+        (h) 
+            printUsage
+            exit 0
+            ;;
+
+        (v) 
+            $ECHO "$VERSION\n"
+            exit 0
+            ;;
+
+        \?)
+            $ECHO "\nInvalid option: -$OPTARG" >&2
+            $ECHO "\n"
+            $ECHO "\nUse the following to get help."
+            $ECHO "\ndbwebb-validate -h"
+            $ECHO "\n"
+            $ECHO "\n"
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+# Get path to dir to check
+FAULTS=0
+KMOM=$1
+THEUSER=${2:=$USER}
+THEDIR=`eval echo "~$THEUSER/$BASEDIR/$PROJECT"`
+
+checkEnvironment
+
+
+# Execute command
+case "$KMOM" in
+    kmom01)     "${COURSE}${KMOM}" ;;
+    kmom02)     "${COURSE}${KMOM}" ;;
+    kmom03)     "${COURSE}${KMOM}" ;;
+    kmom04)     "${COURSE}${KMOM}" ;;
+    kmom05)     "${COURSE}${KMOM}" ;;
+    kmom06)     "${COURSE}${KMOM}" ;;
+    kmom10)     "${COURSE}${KMOM}" ;;
+    *)          
+        $ECHO "\n$MSG_FAILED Invalid kmom: $KMOM"
+        printUsage
+        exit 1 
+        ;;
+esac
+
+
+
+# Clean up and output results
+if [ $FAULTS -gt 0 ]
+then
+        $ECHO "\n\n$MSG_FAILED"
+        STATUS=1
+
+        $ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+        exit $STATUS
+fi
+
+$ECHO "\n\n$MSG_OK"
+$ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+exit 0

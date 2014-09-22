@@ -56,7 +56,12 @@ printUsage()
     $ECHO "\n  -h         Print this message and exit."
     $ECHO "\n  -i         Ignore validation faults and proceed anyway."
     $ECHO "\n  -n         Only validate, do not publish."
+    $ECHO "\n  -e         Do not check for installed tools.."
+    $ECHO "\n  -m         Do not chmod."
+    $ECHO "\n  -t         Do not test me-structure."
     $ECHO "\n  -r         Print required external commands."
+    #$ECHO "\n  -u user    Validate a specific user."
+    $ECHO "\n  -s         Silent, limited output."
     $ECHO "\n  -v         Print version and exit."
     $ECHO "\n"
     $ECHO "\nItem:"
@@ -358,11 +363,11 @@ validateHtmlCssJs()
 
     if [ -z "$SILENT" ]; then $ECHO "\nValidate $DIR."; fi
 
-    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
+    assert 0 "[ -d $THETARGET/$DIR ]" "Missing directory: $THETARGET/$DIR" || return
 
     $ECHO "\n *.html using HTMLHint."
     #find $TARGET/$DIR -type f -name '*.html' | while read filename; do assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"; done
-    for filename in $(find "$TARGET/$DIR/" -type f -name '*.html'); do
+    for filename in $(find "$THETARGET/$DIR/" -type f -name '*.html'); do
         assert 0 "$HTMLHINT $filename" "HTMLHINT failed: $filename"
     done
 
@@ -371,7 +376,7 @@ validateHtmlCssJs()
 
     $ECHO "\n *.js using JSHint."
     #find $TARGET/$DIR -type f -name '*.js' | while read filename; do assert 0 "$JSHINT $filename" "JSHint failed: $filename"; done
-    for filename in $(find "$TARGET/$DIR/" -type f -name '*.js'); do
+    for filename in $(find "$THETARGET/$DIR/" -type f -name '*.js'); do
         assert 0 "$JSHINT $filename" "JSHint failed: $filename"
     done
 }
@@ -389,15 +394,15 @@ validatePython()
 
     if [ -z "$SILENT" ]; then $ECHO "\nValidate $DIR."; fi
     
-    assert 0 "[ -d $TARGET/$DIR ]" "Missing directory: $TARGET/$DIR" || return
+    assert 0 "[ -d $THETARGET/$DIR ]" "Missing directory: $THETARGET/$DIR" || return
 
     $ECHO "\n *.py using Pylint."
-    for filename in $(find "$TARGET/$DIR/" -type f -name '*.py'); do
+    for filename in $(find "$THETARGET/$DIR/" -type f -name '*.py'); do
         assert 0 "$PYLINT $filename" "pylint failed: $filename"
     done
 
     $ECHO "\n *.cgi using Pylint."
-    for filename in $(find "$TARGET/$DIR/" -type f -name '*.cgi'); do
+    for filename in $(find "$THETARGET/$DIR/" -type f -name '*.cgi'); do
         assert 0 "$PYLINT $filename" "pylint failed: $filename"
     done
 }
@@ -418,10 +423,17 @@ validate()
 
     $ECHO "\n\nValidate $DIR."
 
+    # Validate for another user
+    THETARGET="$TARGET"
+    if [ ! -z "$THEUSER" ]
+    then
+        THETARGET=`eval echo "~$THEUSER/dbwebb-kurser/$COURSE"`
+    fi
+
     for dir in $DIR; do
-        assert 0 "[ -d $TARGET/$dir ]" "Missing directory: $TARGET/$dir" || return
-        validateHtmlCssJs "$dir" "silent"
-        validatePython "$dir" "silent"
+        assert 0 "[ -d $THETARGET/$dir ]" "Missing directory: $THETARGET/$dir" || return
+        validateHtmlCssJs "$dir" "silent" "$THETARGET"
+        validatePython "$dir" "silent" "$THETARGET"
     done
 }
 
@@ -567,10 +579,14 @@ fi
 
 
 # Get options
+OPT_CHMOD="yes"
+OPT_CHECK="yes"
+OPT_ME="yes"
+SILENT="no"
 PUBLISH="yes"
 IGNORE_FAULTS="no"
 
-while getopts ":hinrv" opt
+while getopts ":hinrvmesut" opt
 do
     case $opt in
         (h) 
@@ -586,12 +602,33 @@ do
             PUBLISH="no"
             ;;
 
+        (m) 
+            OPT_CHMOD="no"
+            ;;
+
+        (e) 
+            OPT_CHECK="no"
+            ;;
+
+        (t) 
+            OPT_ME="no"
+            ;;
+
+        #(u) 
+        #    THEUSER="$OPTARG"
+        #    shift
+        #    ;;
+
         (r) 
             $ECHO "\nRequired external tools are:"
             $ECHO "\n  npm install jshint html-minifier uglify-js clean-css htmlhint pylint"
             $ECHO "\n"
             $ECHO "\n"
             exit 0
+            ;;
+
+        (s) 
+            SILENT="yes"
             ;;
 
         (v) 
@@ -616,17 +653,20 @@ shift $((OPTIND - 1))
 # Get path to dir to check
 FAULTS=0
 CMD=$1
+THEUSER=$2
 DIR=$(mapCmdToDir "$CMD") 
 if [ $? -eq 1 ]; then
-    $ECHO "$DIR"; exit 1
+    $ECHO "$DIR"
+    exit 1
 fi
 
 
 # Execute command
-checkTools
-setChmod
-testMe "$CMD"
-validate "$DIR"
+if [ $OPT_CHECK = "yes" ]; then checkTools; fi
+if [ $OPT_CHMOD = "yes" ]; then setChmod; fi
+if [ $OPT_CHMOD = "yes" ]; then testMe "$CMD"; fi
+
+validate "$DIR" 
 
 if [ $PUBLISH = "yes" ]; then
     initBuildDir "silent"

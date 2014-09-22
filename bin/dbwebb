@@ -43,6 +43,8 @@ printUsage()
     $ECHO "\n  publish   Upload, Validate and Publish your course results to the web."
     $ECHO "\n            Send in kmom01, kmom02, etc to publish only one kmom."
     $ECHO "\n            Default is to publish all."
+    $ECHO "\n  inspect   Inspect a kmom for yourself or a specific user, needs teacher privilegies"
+    $ECHO "\n            to check another students kmom."
     $ECHO "\n"
     $ECHO "\nExample:"
     $ECHO "\n"
@@ -56,6 +58,8 @@ printUsage()
     $ECHO "\n  $ dbwebb create lab1"
     $ECHO "\n  $ dbwebb -y validate kmom01"
     $ECHO "\n  $ dbwebb -y publish lab1"
+    $ECHO "\n  $ dbwebb inspect kmom01"
+    $ECHO "\n  $ dbwebb inspect kmom01 mosstud"
     $ECHO "\n"
     $ECHO "\n"
     exit
@@ -399,6 +403,22 @@ publishResults()
 
 
 #
+# Inspect uploaded files
+#
+inspectResults()
+{
+    WHAT=$1
+    WHO=$2
+    INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO'"
+    MESSAGE="to inspect the course results."
+    executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
+}
+
+
+
+
+#
 # Main
 #
 if [ $# -lt 1 ]
@@ -527,6 +547,12 @@ case $CMD in
     publish)
         WHICH=$2
         publishResults ${WHICH:=all}
+        ;;
+
+    inspect)
+        WHICH=$2
+        WHO=$3
+        inspectResults ${WHICH:=all} ${WHO:=$USER}
         ;;
 
     *)

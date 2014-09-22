@@ -27,6 +27,11 @@ History
 -------------------
 
 
+v1.0.12 (2014-09-23)
+
+* Added `bin/dbwebb inspect` that runs tests on a kmom for yourself or selected student.
+* Added tests for python kmom01-04.
+
 v1.0.11 (2014-09-12)
 
 * `bin/dbwebb upload` now changes mod on files and directories before uploading.

@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.11"
+VERSION_CONFIG="1.0.12"
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
@@ -57,9 +57,10 @@ fi
 
 
 #
-# dbwebb-validate
+# dbwebb-validate, dbwebb-inspect
 #
-BASEURL="http://www.student.bth.se/~$USER/$BASEDIR/$PROJECT"
+SERVERURL="http://www.student.bth.se"
+BASEURL="$SERVERURL/~$USER/$BASEDIR/$PROJECT"
 TARGET="$PWD"
 BUILD1="$HOME/www"
 BUILD2="$BUILD1/$BASEDIR"
