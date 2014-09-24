@@ -66,7 +66,7 @@ checkEnvironment()
     fi
 
     dirname="$THEDIR"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash studID"
 }
 
 
@@ -195,7 +195,7 @@ pythonmarvin2()
     target="$1"
 
     dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash studID"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
 
     filename="$THEDIR/$target/marvin.py"
     assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
@@ -319,6 +319,224 @@ pythonkmom04()
     pythonme
     pythonlab "$THETARGET/lab3"
     pythonmarvin2 "$THETARGET/marvin3"
+}
+
+
+
+#
+# Test javascript1 me
+#
+javascript1me()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- me-page ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    filename="$THEDIR/me/me.html"
+    assert 0 "test -r $filename -a -f $filename" "Me file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to me-page: $url/me/me.html"
+
+    filename="$THEDIR/me/redovisning.html"
+    assert 0 "test -r $filename -a -f $filename" "Redovisning file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to redovisning-page: $url/me/redovisning.html"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 sandbox
+#
+javascript1sandbox()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- sandbox ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 flag
+#
+javascript1flag()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- flag ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 baddie
+#
+javascript1baddie()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- baddie ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 lab
+#
+javascript1lab()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- lab         ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/answer.html"
+    assert 0 "test -r $filename -a -f $filename" "Answer file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url/answer.html"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 kmom01
+#
+javascript1kmom01()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- javascript1 kmom01 ------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom01"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1sandbox "$THETARGET/sandbox"
+}
+
+
+
+#
+# Test javascript1 kmom02
+#
+javascript1kmom02()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- javascript1 kmom02 ------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom02"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab1"
+    javascript1flag "$THETARGET/flag1"
+    javascript1baddie "$THETARGET/baddie1"
+}
+
+
+
+#
+# Test javascript1 kmom03
+#
+javascript1kmom03()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- javascript1 kmom03 ------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom03"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab2"
+    javascript1flag "$THETARGET/flag2"
+    javascript1baddie "$THETARGET/baddie2"
+}
+
+
+
+#
+# Test javascript1 kmom04
+#
+javascript1kmom04()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- javascript1 kmom04 ------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom04"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab3"
+    javascript1lab "$THETARGET/lab4"
+    javascript1flag "$THETARGET/flag3"
+    javascript1baddie "$THETARGET/baddie3"
 }
 
 

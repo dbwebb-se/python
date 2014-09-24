@@ -29,6 +29,7 @@ History
 
 v1.0.x (latest)
 
+* Inspect javascript1 kmom01 - 04 added.
 * Inspect plane.py failed when windows style line endings.
 
 
