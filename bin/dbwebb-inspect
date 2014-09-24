@@ -149,7 +149,9 @@ pythonplane()
     $ECHO "\nPress enter to continue to execute the program plane.py..."
     read void
 
-    "$THEDIR/$target/plane.py"
+    cd "$THEDIR/$target"
+    python3 plane.py
+    cd "$TARGET"
 }
 
 

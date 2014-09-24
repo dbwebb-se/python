@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* Inspect `plane.py` failed when windows style line endings.
 * Updated `bin/dbwebb` to version v1.0.12 with first version of dbwebb-inspect.
 * Updated example `example/ping`.
 * Updated example files in `example/json`, changed loads to load and dumps to dump and creates new file.
