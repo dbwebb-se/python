@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* Updated examples in `example/curses` when releasing kmom05.
 * `.pylintrc` to ignore broad-except.
 * Inspect javascript1 kmom01 - 04 added.
 * Inspect `plane.py` failed when windows style line endings.

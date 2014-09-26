@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Testing out some animation in curses
+Testing out some animation in curses with a bouncing ball.
 """
 
 import curses
@@ -62,7 +62,7 @@ def main(scr):
         if q > -1:
             break
 
-        # Animate only every 0.1 sec so that you can acutally see the ball move
+        # Sleep until next round
         time.sleep(0.05)
 
 

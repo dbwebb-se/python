@@ -1,124 +1,82 @@
-#!/usr/bin/env python3 
-"""
-Testing out the curses lib.
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
+A rough outline to a game of snake.
 
-#from curses import wrapper
+Steer using arrow-keys or keys "asdw".
+"""
+
 import curses
-import random
-from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
+import time
 
-def main(screen):
+
+def main(scr):
     """
-    Snake
-
-    Press 'q' to quit the game.
+    Press any key to quit.
     """
-    screen.clear()
 
+    # Don't stop the while-loop while waiting for input
+    scr.nodelay(1)
+
+    # Draw a border
+    scr.border()
+
+    # Make cursor invisible
     curses.curs_set(0)
 
-    screen.nodelay(1)
+    # Get dimensions
+    max_y, max_x = scr.getmaxyx()
 
-    curses.start_color()
-    curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-    curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    # The snake
+    snake =  {
+        "representation": "O",
+        "max-length": 5,
+        "position": [(max_x//2, max_y//2)],
+        "direction": (1, 0)
+    }
 
-    # Get the y,x of the window
-    dims = screen.getmaxyx()
-
-    # Get the center of the window
-    center = (dims[0]//2), (dims[1]//2)
-
-    screen.border()
-
-    # Main loop
-    x = center[1]
-    y = center[0]
-
-    dirs = {"x": 1, "y": 0}
-
-    #screen.move(0, 0);
-    screen.refresh()
-
-    snake = [[y, x], [y, x-1], [y, x-2]]
-
-    apple = [random.randint(1, dims[0]-2), random.randint(1, dims[1]-2)]
-    appleCh = "ö"
-
-    screen.addstr(apple[0], apple[1], appleCh, curses.color_pair(1))
-
-    ch = "O"
-
-    screen.addstr(snake[0][0], snake[0][1], ch, curses.color_pair(2))
-
-    score = 0
-
+    # Do until exit
     while True:
-        screen.border()
-        screen.addstr(0, 2, "Score : " + str(score) + " ")
-        key = screen.getch()
-        if key == ord("q"):
-            #screen.clear()
-            text = "GAME OVER!"
-            screen.addstr(dims[0]//2, dims[1]//2-len(text)//2, text)
-            screen.refresh()
-            curses.napms(2500)
-            break
-        elif key == KEY_UP:
-            dirs["y"] = -1
-            dirs["x"] = 0
-        elif key == KEY_DOWN:
-            dirs["y"] = 1
-            dirs["x"] = 0
-        elif key == KEY_LEFT:
-            dirs["x"] = -1
-            dirs["y"] = 0
-        elif key == KEY_RIGHT:
-            dirs["x"] = 1
-            dirs["y"] = 0
 
-        x += dirs["x"]
-        y += dirs["y"]
+        # Get input from user and flush the input buffer
+        ch = scr.getch()
+        
+        # Check if a key was pressed and update
+        if ch == curses.KEY_LEFT or ch == ord('a'):
+            snake["direction"] = (-1, 0)
 
-        # head of snake
-        if y <= 0:
-            y = 1
-        elif y >= dims[0]-1:
-            y = dims[0] - 2
-        if x <= 0:
-            x = 1
-        elif x >= dims[1]-1:
-            x = dims[1] - 2
+        elif ch == curses.KEY_RIGHT or ch == ord('d'):
+            snake["direction"] = (1, 0)
 
-        snake.insert(0, [y, x])
+        elif ch == curses.KEY_UP or ch == ord('w'):
+            snake["direction"] = (0, -1)
 
-        if snake[0] in snake[1:]:
-            #screen.clear()
-            text = "GAME OVER!"
-            screen.addstr(dims[0]//2, dims[1]//2-len(text)//2, text)
-            screen.refresh()
-            curses.napms(2500)
+        elif ch == curses.KEY_DOWN or ch == ord('s'):
+            snake["direction"] = (0, 1)
+
+        elif ch == ord("q"):
             break
 
-        if snake[0] == apple:
-            score += 1
-            while apple in snake:
-                apple = [random.randint(2, dims[0]-3), random.randint(2, dims[1]-3)]
-            screen.addstr(apple[0], apple[1], appleCh, curses.color_pair(1))
-        else:
-            last = snake.pop()
-            screen.addch(last[0], last[1], " ", curses.color_pair(2))
+       # Move one step forward
+        x, y = snake["position"][0]
+        dx, dy = snake["direction"]
+        snake["position"].insert(0, (x+dx, y+dy))
 
-        screen.addch(snake[0][0], snake[0][1], ch, curses.color_pair(2))
+        # Keep its size and remove tha last item from the snake & screen
+        if len(snake["position"]) >= snake["max-length"]:
+            x, y = snake["position"].pop()
+            scr.addstr(y, x, " ")
 
-        #time.sleep(0.1)
-        nap_time = 100 - len(snake)//2
-        curses.napms(nap_time)
+        # Draw the snake
+        for x, y in snake["position"]:
+            scr.addstr(y, x, snake["representation"])
 
-    curses.endwin()
-    print("Final score:", score)
+        scr.refresh()
+        
+        # Sleep until next round
+        time.sleep(0.1)
+
 
 
 if __name__ == "__main__":
