@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* `.pylintrc` to ignore broad-except.
 * Inspect javascript1 kmom01 - 04 added.
 * Inspect `plane.py` failed when windows style line endings.
 * Updated `bin/dbwebb` to version v1.0.12 with first version of dbwebb-inspect.
