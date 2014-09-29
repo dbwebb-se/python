@@ -30,6 +30,7 @@ History
 v1.0.x (latest)
 
 * Changed place to ignore upload of me/ when checking another user.
+* Publish python cgi with correct chmod.
 
 
 v1.0.14 (2014-09-30)
