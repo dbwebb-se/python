@@ -122,7 +122,7 @@ publishKmom()
     then
         rsync -a --delete "$THEDIR/$target/" "$PUBLISH_STUD/"
         
-        for filename in $(find "$DIR" -type f -name '*.cgi'); do
+        for filename in $(find "$PUBLISH_STUD" -type f -name '*.cgi'); do
             chmod 755 "$filename"
         done
 
