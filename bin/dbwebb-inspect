@@ -67,6 +67,9 @@ checkEnvironment()
 
     dirname="$THEDIR"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash studID"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $dirname"
 }
 
 
@@ -92,6 +95,10 @@ pythonme()
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
     $ECHO "\nLink to redovisning-page: $url/me/redovisning.cgi"
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/me.cgi"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -99,7 +106,34 @@ pythonme()
 
 
 #
-# Test python kmom01
+# Publish kmom to webserver
+#
+publishKmom()
+{
+    target="$1"
+
+    $ECHO "\nPublish $THEKMOM [yN] "
+
+    read answer
+    default="n"
+    answer=${answer:-$default}
+
+    if [ "$answer" = "y" -o "$answer" = "Y" ]
+    then
+        rsync -a --delete "$THEDIR/$target/" "$PUBLISH_STUD/"
+        
+        url="$SERVERURL/~$USER/$BASEDIR/$STUD_DIR"
+        $ECHO "\nLink: $url"
+
+        $ECHO "\nOpen files in an editor:"
+        $ECHO "\n$EDITOR $PUBLISH_STUD/"
+    fi
+}
+
+
+
+#
+# Test check the kmom dir exists
 #
 checkKmomDir()
 {
@@ -110,15 +144,22 @@ checkKmomDir()
 
 
 #
-# Test python kmom01
+# Test validate a kmom
 #
 validateKmom()
 {
     THEKMOM="$1"
 
-    $ECHO "\nPress enter to validate $THEKMOM..."
-    read void
-    bin/dbwebb-validate -i -n -m -e -t $THEKMOM $THEUSER
+    $ECHO "\nValidate $THEKMOM [Yn] "
+
+    read answer
+    default="y"
+    answer=${answer:-$default}
+
+    if [ "$answer" = "y" -o "$answer" = "Y" ]
+    then
+        bin/dbwebb-validate -i -n -m -e -t $THEKMOM $THEUSER
+    fi
 }
 
 
@@ -145,6 +186,10 @@ pythonplane()
 
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
     $ECHO "\nLink to plane-page: $url/me/kmom01/plane/plane1.cgi"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/plane1.cgi"
 
     $ECHO "\nPress enter to continue to execute the program plane.py..."
     read void
@@ -173,6 +218,10 @@ pythonmarvin1()
     filename="$THEDIR/$target/marvin.py"
     assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
+
     $ECHO "\nPress enter to continue to execute the program marvin.py..."
     read void
 
@@ -189,7 +238,7 @@ pythonmarvin1()
 pythonmarvin2()
 {
     $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin2       ----------------"
+    $ECHO "\n----------- marvin2, 3, 4, 5 ----------------"
     $ECHO "\n-----------------------------------------"
 
     target="$1"
@@ -203,11 +252,80 @@ pythonmarvin2()
     filename="$THEDIR/$target/main.py"
     assert 0 "test -r $filename -a -f $filename" "The file main.py is missing."
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
+
     $ECHO "\nPress enter to continue to execute the program main.py..."
     read void
 
     cd "$THEDIR/$target"
     python3 main.py
+    cd "$TARGET"
+}
+
+
+
+#
+# Test python game1
+#
+pythongame1()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- game1       ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/border.py"
+    assert 0 "test -r $filename -a -f $filename" "The file border.py is missing."
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/border.py"
+
+    $ECHO "\nPress enter to continue to execute the program border.py..."
+    read void
+
+    cd "$THEDIR/$target"
+    python3 border.py
+    cd "$TARGET"
+}
+
+
+
+#
+# Test python game2
+#
+pythongame2()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- game2       ----------------"
+    $ECHO "\n-----------------------------------------"
+
+    target="$1"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/retro.py"
+    assert 0 "test -r $filename -a -f $filename" "The file retro.py is missing."
+
+    filename="$THEDIR/$target/retro.py"
+    assert 0 "test -r $filename -a -f $filename" "The file retro.py is missing."
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/retro.py"
+
+    $ECHO "\nPress enter to continue to execute the program retro.py..."
+    read void
+
+    cd "$THEDIR/$target"
+    python3 retro.py
     cd "$TARGET"
 }
 
@@ -229,6 +347,10 @@ pythonlab()
 
     filename="$THEDIR/$target/answer.py"
     assert 0 "test -r $filename -a -f $filename" "The file answer.py is missing."
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/answer.py"
 
     $ECHO "\nPress enter to continue to execute the program answer.py..."
     read void
@@ -253,6 +375,7 @@ pythonkmom01()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
     pythonplane "$THETARGET/plane"
@@ -273,6 +396,7 @@ pythonkmom02()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "$THETARGET/lab1"
@@ -294,6 +418,7 @@ pythonkmom03()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "$THETARGET/lab2"
@@ -315,10 +440,35 @@ pythonkmom04()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "$THETARGET/lab3"
     pythonmarvin2 "$THETARGET/marvin3"
+    pythongame1 "$THETARGET/game1"
+}
+
+
+
+#
+# Test python kmom05
+#
+pythonkmom05()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- python kmom05 ---------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom05"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    pythonme
+    pythonlab "$THETARGET/lab4"
+    pythongame2 "$THETARGET/game2"
+    pythonmarvin2 "$THETARGET/marvin4"
 }
 
 
@@ -396,6 +546,10 @@ javascript1flag()
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
     $ECHO "\nLink to lab-page: $url"
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -422,6 +576,10 @@ javascript1baddie()
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
     $ECHO "\nLink to lab-page: $url"
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -447,6 +605,10 @@ javascript1lab()
 
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
     $ECHO "\nLink to lab-page: $url/answer.html"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/answer.js"
 
     $ECHO "\nPress enter to continue..."
     read void
@@ -487,6 +649,7 @@ javascript1kmom02()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     javascript1me
     javascript1lab "$THETARGET/lab1"
@@ -509,6 +672,7 @@ javascript1kmom03()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     javascript1me
     javascript1lab "$THETARGET/lab2"
@@ -531,6 +695,7 @@ javascript1kmom04()
     THETARGET="me/$THEKMOM"
 
     checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     javascript1me
     javascript1lab "$THETARGET/lab3"

@@ -29,6 +29,19 @@ History
 
 v1.0.x (latest)
 
+* Changed place to ignore upload of me/ when checking another user.
+
+
+v1.0.14 (2014-09-30)
+
+* Added publish to all kmoms.
+* Support for testing game in python
+* Added inspect for python kmom05.
+
+
+v1.0.13 (2014-09-30)
+
+* Fixed issue #7 to publish a students kmom on the web - as part of inspect.
 * Inspect javascript1 kmom01 - 04 added.
 * Inspect plane.py failed when windows style line endings.
 

@@ -313,12 +313,12 @@ setChmod()
 {
     $ECHO "\nUpdating chmod on file and dir."
 
-    for filename in $(find "$SOURCE/me" -type d); do
-        chmod 755 "$filename"
+    for filename in $(find "$SOURCE" -type d); do
+        chmod 750 "$filename"
     done
 
-    chmod -R u+rw "$SOURCE/me" 
-    chmod -R go+r "$SOURCE/me"
+    chmod -R u+rw "$SOURCE" 
+    chmod -R g+r "$SOURCE"
 }
 
 
@@ -412,7 +412,15 @@ inspectResults()
     INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
     COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO'"
     MESSAGE="to inspect the course results."
-    executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
+
+    if [ "$USER" = "$WHO" ]
+    then
+        upload="$UPLOAD"
+    else
+        upload="$UPLOAD_MINIMAL"
+    fi
+
+    executeCommand "$INTRO" "$upload; $COMMAND" "$MESSAGE"
 }
 
 
@@ -440,6 +448,8 @@ updateConfigIfNeeded "update"
 
 
 UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION"
+UPLOAD_MINIMAL="rsync -av --delete --exclude me --exclude tutorial --exclude example --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION"
+
 SSH="ssh ${USER}@${HOST} $SSH_KEY_OPTION"
 
 

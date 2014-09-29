@@ -27,7 +27,7 @@ HTML_MINIFIER="html-minifier"
 HTML_MINIFIER_OPTIONS="--minify-js --minify-css --use-short-doctype --remove-attribute-quotes --collapse-boolean-attributes --conservative-collapse --collapse-whitespace --remove-comments"
 
 UGLIFYJS="uglifyjs"
-UGLIFYJS_OPTIONS="-m -c --screw-ie8 --comments"
+UGLIFYJS_OPTIONS="--mangle --compress --screw-ie8 --comments"
 
 CLEANCSS="cleancss --s1"
 

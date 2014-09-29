@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.12"
+VERSION_CONFIG="1.0.14"
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
@@ -61,10 +61,18 @@ fi
 #
 SERVERURL="http://www.student.bth.se"
 BASEURL="$SERVERURL/~$USER/$BASEDIR/$PROJECT"
+
 TARGET="$PWD"
 BUILD1="$HOME/www"
 BUILD2="$BUILD1/$BASEDIR"
 BUILD="$BUILD2/$PROJECT"
+
+STUD_DIR="stud"
+PUBLISH_STUD="$BUILD2/$STUD_DIR"
+
+EDITOR_DEFAULT="nano"
+EDITOR=${EDITOR:-$EDITOR_DEFAULT}
+
 
 
 #
