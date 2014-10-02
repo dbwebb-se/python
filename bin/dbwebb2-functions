@@ -365,6 +365,23 @@ pullFromServer()
 
 
 
+#
+# Set proper rights for files and directories
+#
+setChmod()
+{
+    $ECHO "\nEnsuring that all files and directories are readable for all."
+
+    for filename in $(find "$SOURCE" -type d); do
+        chmod 755 "$filename"
+    done
+
+    chmod -R u+rw "$SOURCE" 
+    chmod -R go+r "$SOURCE"
+}
+
+
+
 
 
 # --------------------- To be validated -------------------------------
@@ -401,23 +418,6 @@ installSshKeys()
     COMMAND="cat $SSH_KEY.pub | ssh $USER@$HOST 'sh -c \"if [ ! -d .ssh ]; then mkdir .ssh; fi; chmod 700 .ssh; touch .ssh/authorized_keys; cat >> .ssh/authorized_keys\"'"
     MESSAGE="to install the ssh-keys."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
-}
-
-
-
-#
-# Set proper rights for files and directories
-#
-setChmod()
-{
-    $ECHO "\nUpdating chmod on file and dir."
-
-    for filename in $(find "$SOURCE" -type d); do
-        chmod 750 "$filename"
-    done
-
-    chmod -R u+rw "$SOURCE" 
-    chmod -R g+r "$SOURCE"
 }
 
 

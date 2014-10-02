@@ -12,6 +12,8 @@ FAULTS=0
 ECHO="printf"
 TMPFILE="/tmp/dbwebb-error$$"
 
+SUDO="sudo -u dbwebb"
+
 
 
 #
@@ -67,6 +69,21 @@ checkEnvironment()
 
     dirname="$THEDIR"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
+    
+    if [ $? -eq 1 ]; then
+        $ECHO "\nFor debug:"
+        $ECHO "\n`whoami`\n"
+        $ECHO "\n`groups`\n"
+
+        dir="$( dirname $THEDIR )"
+        $ECHO "\n`ls -ld $dir`\n"
+        $ECHO "\n$dir is directory `test -d $dir; echo $?`\n"
+        $ECHO "\n$dir is readable `test -r $dir; echo $?`\n"
+
+        $ECHO "\n`ls -ld $THEDIR`\n"
+        $ECHO "\n$THEDIR is directory `test -d $THEDIR; echo $?`\n"
+        $ECHO "\n$THEDIR is readable `test -r $THEDIR; echo $?`\n"
+    fi 
 
     $ECHO "\nOpen files in an editor:"
     $ECHO "\n$EDITOR $dirname"
@@ -141,7 +158,7 @@ publishKmom()
 #
 checkKmomDir()
 {
-    dirname="$1"
+    dirname="$THEDIR/$1"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
 }
 
@@ -199,7 +216,7 @@ pythonplane()
     read void
 
     cd "$THEDIR/$target"
-    python3 plane.py
+    $SUDO python3 plane.py
     cd "$TARGET"
 }
 
@@ -230,7 +247,7 @@ pythonmarvin1()
     read void
 
     cd "$THEDIR/$target"
-    python3 marvin.py
+    $SUDO python3 marvin.py
     cd "$TARGET"
 }
 
@@ -264,7 +281,7 @@ pythonmarvin2()
     read void
 
     cd "$THEDIR/$target"
-    python3 main.py
+    $SUDO python3 main.py
     cd "$TARGET"
 }
 
@@ -295,7 +312,7 @@ pythongame1()
     read void
 
     cd "$THEDIR/$target"
-    python3 border.py
+    $SUDO python3 border.py
     cd "$TARGET"
 }
 
@@ -329,7 +346,7 @@ pythongame2()
     read void
 
     cd "$THEDIR/$target"
-    python3 retro.py
+    $SUDO python3 retro.py
     cd "$TARGET"
 }
 
@@ -360,7 +377,7 @@ pythonlab()
     read void
 
     cd "$THEDIR/$target"
-    python3 answer.py
+    $SUDO python3 answer.py
     cd "$TARGET"
 }
 
@@ -741,6 +758,7 @@ assert()
     TEST=$2
     MESSAGE=$3
     ASSERTS=$(( $ASSERTS + 1 ))
+    FAILED=0
 
     sh -c "$TEST" > "$TMPFILE" 2>&1
     STATUS=$?
@@ -753,9 +771,11 @@ assert()
 
         $ECHO "$MSG" 
         [ -z "$ERROR" ] || $ECHO "$ERROR\n\n"
+
+        FAILED=1
     fi
 
-    return $STATUS
+    return $FAILED
 }
 
 
