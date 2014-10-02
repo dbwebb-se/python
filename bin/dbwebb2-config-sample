@@ -1,0 +1,107 @@
+#
+# Change this to your own acronym
+#
+DBW_USER="DEFAULT_USER"
+#COURSE="DEFAULT_COURSE"
+
+
+
+#
+# Do not change below unless you are really sure on the effects
+#
+DBW_VERSION_CONFIG="1.0.14"
+
+MSG_OK="\033[0;30;42mOK\033[0m"
+MSG_WARNING="\033[43mWARNING.\033[0m"
+MSG_FAILED="\033[0;37;41mFAILED.\033[0m"
+
+
+
+#
+# all
+#
+DBW_HOST="ssh.student.bth.se"
+DBW_BASEDIR="dbwebb-kurser"
+
+DBW_REMOTE_DESTINATION="${DBW_USER}@${DBW_HOST}:$DBW_BASEDIR/$DBW_COURSE"
+
+
+
+PROJECT=${PWD##*/}
+SOURCE="$PWD/"
+DESTINATION="${USER}@${HOST}:$BASEDIR/$PROJECT/"
+
+# Detect if ssh-key is available
+DBW_SSH_KEY=""
+DBW_SSH_KEY_OPTIONS=""
+if [ -f "$HOME/.ssh/dbwebb" ]
+then
+    DBW_SSH_KEY="$HOME/.ssh/dbwebb"
+    DBW_SSH_KEY_OPTION="-i $DBW_SSH_KEY"
+fi
+
+
+
+#
+# Cygwin specifics
+#
+case "`uname`" in
+   CYGWIN*) IS_CYGWIN="yes" ;;
+   *)       IS_CYGWIN="no" ;;
+esac
+
+if [ $IS_CYGWIN = "yes" ]
+then
+    CYGWIN_DEFAULT_GROUP="Users"
+    if [ $( grep "^Användare:" /etc/group ) ]
+    then
+        CYGWIN_DEFAULT_GROUP="Användare"
+    fi
+fi
+
+
+
+#
+# dbwebb-validate, dbwebb-inspect
+#
+SERVERURL="http://www.student.bth.se"
+BASEURL="$SERVERURL/~$USER/$BASEDIR/$PROJECT"
+
+TARGET="$PWD"
+BUILD1="$HOME/www"
+BUILD2="$BUILD1/$BASEDIR"
+BUILD="$BUILD2/$PROJECT"
+
+STUD_DIR="stud"
+PUBLISH_STUD="$BUILD2/$STUD_DIR"
+
+EDITOR_DEFAULT="nano"
+EDITOR=${EDITOR:-$EDITOR_DEFAULT}
+
+
+
+#
+# dbwebb-create
+#
+WGET="wget -qO"
+CURL="curl -so"
+
+if hash wget 2> /dev/null 
+then
+    WGET="$WGET"
+elif hash curl 2> /dev/null
+then 
+    WGET="$CURL"
+fi
+
+SERVICE="http://www.student.bth.se/~mosstud/kod-exempel/lab"
+GET_KEY="action=only-key&acronym=$USER&course=$COURSE&doGenerate=Submit"
+GET_LAB="lab.php?lab"
+GET_ANSWERS="lab.php?answers"
+GET_ANSWER_HTML="lab.php?answer-html"
+GET_ANSWER_JS="lab.php?answer-js"
+GET_ANSWER_JSON="lab.php?answer-json"
+GET_ANSWER_PY="lab.php?answer-py"
+GET_ANSWER_PYDBWEBB="lab.php?answer-py-assert"
+GET_ANSWER_EXTRA="lab.php?answer-extra"
+

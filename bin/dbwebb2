@@ -1,0 +1,250 @@
+#!/bin/bash
+
+#
+# Specify the utilities used
+#
+ECHO="printf"
+GIT="git"
+RSYNC="rsync"
+SSH="ssh"
+SED="sed"
+
+
+# Revise these
+UPLOAD="$RSYNC -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" \"$SOURCE\" \"$DESTINATION\""
+UPLOAD_MINIMAL="$RSYNC -av --delete --exclude me --exclude tutorial --exclude example --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" \"$SOURCE\" \"$DESTINATION\""
+
+
+
+#
+# Find my environment, before any work can be done
+#
+
+# For early error messages, also exists in .dbwebb.config
+MSG_FAILED="\033[0;37;41mFAILED.\033[0m"
+
+# Whar was the command issued?
+DBW_EXECUTABLE="$( basename "$0" )"
+
+# Where is the executable
+DBW_EXECUTABLE_DIR="$( dirname "$0" )"
+
+# Where is the installation directory
+if [ -f "$DBW_EXECUTABLE_DIR/.dbwebb.version" ]; then
+    DBW_INSTALL_DIR="$DBW_EXECUTABLE_DIR"
+elif [ -d "$DBWEBB_HOME" ]; then
+    DBW_INSTALL_DIR="$DBWEBB_HOME"
+elif [ -d "$HOME/dbwebb-kurser/bin-dbwebb" ]; then
+    DBW_INSTALL_DIR="$HOME/dbwebb-kurser/bin-dbwebb"
+else 
+    $ECHO "$MSG_FAILED Could not determine the installation directory."
+    exit 1
+fi
+
+# Get the current version installed as $DBW_VERSION
+DBW_VERSION_FILE="$DBW_INSTALL_DIR/.dbwebb.version"
+if [ ! -f "$DBW_VERSION_FILE" ]; then
+    $ECHO "$MSG_FAILED Missing file .dbwebb.version. The installation directory does not contain a valid installation."
+    exit 1
+fi
+source "$DBW_VERSION_FILE"
+
+# Include the functions needed
+DBW_FUNCTIONS_FILE="$DBW_INSTALL_DIR/dbwebb2-functions"
+source "$DBW_FUNCTIONS_FILE"
+
+# What is the current directory
+DBW_CURRENT_DIR="$( pwd )"
+
+# What is the directory of the current course repo
+DBW_COURSE_DIR="$DBW_CURRENT_DIR"
+
+# Get the name of the course as $DBW_COURSE
+DBW_COURSE_FILE="$DBW_COURSE_DIR/.dbwebb.course"
+if [ ! -f "$DBW_COURSE_FILE" ]; then
+    $ECHO "$MSG_FAILED Missing file .dbwebb.course, this is not a valid course repo."
+    exit 1
+fi
+source "$DBW_COURSE_FILE"
+
+# Where is the .dbwebb.config-file
+DBW_CONFIG_DEFAULT_FILE="$DBW_INSTALL_DIR/dbwebb2-config-sample"
+DBW_CONFIG_FILE_NAME=".dbwebb2.config"
+DBW_CONFIG_FILE="$DBW_COURSE_DIR/$DBW_CONFIG_FILE_NAME"
+if [ ! -f "$DBW_CONFIG_FILE" ]; then
+
+    # If the command is to init-repo, then execute that and create a config-file
+    if [ "$1" = "init-repo" ]; then
+        createConfig
+        exit 0
+    else
+        $ECHO "$MSG_FAILED Missing the file $DBW_CONFIG_FILE_NAME. This does NOT appear to be a valid course repo.\nHave you initiated this as a course repo? Run the following command in the root of the course repo:\n$DBW_EXECUTABLE init-repo\n\n"
+        exit 1
+    fi
+fi
+source "$DBW_CONFIG_FILE"
+
+
+# Create the ssh-command with details from the config-file
+SSH_CMD="$SSH ${DBW_USER}@${DBW_HOST} $DBW_SSH_KEY_OPTION"
+
+# Create the basis for the upload command
+RSYNC_CMD="$RSYNC -av --delete --exclude .git --exclude .gitignore -e \"ssh $DBW_SSH_KEY_OPTION\""
+
+
+
+#
+# Main
+#
+if [ $# -lt 1 ]
+then
+    dbwebb2PrintUsage
+fi
+
+updateConfigIfNeeded "update"
+
+
+
+#
+# Get options
+#
+SKIP_READLINE="no"
+IGNORE_FAULTS="-i"
+VERY_VERBOSE="no"
+
+while getopts "hivwy" opt
+do
+    case $opt in
+        h)
+            dbwebb2PrintUsage
+            exit 0
+            ;;
+
+        i)
+            IGNORE_FAULTS="-i"
+            ;;
+
+        v)
+            $ECHO "$VERSION\n"
+            exit 0
+            ;;
+
+        w)
+            VERY_VERBOSE="yes"
+            ;;
+
+        y)
+            SKIP_READLINE="yes"
+            ;;
+
+        \?)
+            dbwebb2PrintUsage
+            exit 1
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+
+#
+# Execute command
+#
+CMD=$1
+case $CMD in
+
+    init-repo)
+        createConfig
+        ;;
+
+    init-me)
+        createDefaultFiles
+        ;;
+
+    init-server)
+        initServer
+        ;;
+
+    environment)
+        environment
+        ;;
+
+    config)
+        createConfig "create"
+        ;;
+
+    test)
+        testConnection
+        ;;
+
+    version)
+        version
+        ;;
+
+    login)
+        loginToServer
+        ;;
+
+    push)
+        pushToServer "$DBW_COURSE_DIR" "$DBW_REMOTE_DESTINATION"
+        ;;
+
+    pull)
+        pullFromServer
+        ;;
+
+    sshkey)
+        installSshKeys
+        ;;
+
+    init)
+        initServer
+        createDefaultFiles
+        #uploadToServer
+        ;;
+
+    update)
+        updateFromMaster
+        ;;
+
+    upload)
+        setChmod
+        uploadToServer
+        ;;
+
+    download)
+        downloadFromServer
+        ;;
+
+    create)
+        LAB="$2"
+        if [ -z "$LAB" ]
+        then
+            echo "Missing name for lab, perhaps use lab1, lab2 or lab3?"
+            exit 1
+        fi
+        createLab "$LAB"
+        ;;
+
+    validate)
+        WHICH=$2
+        validateUploadedResults ${WHICH:=all}
+        ;;
+
+    publish)
+        WHICH=$2
+        publishResults ${WHICH:=all}
+        ;;
+
+    inspect)
+        WHICH=$2
+        WHO=$3
+        inspectResults ${WHICH:=all} ${WHO:=$USER}
+        ;;
+
+    *)
+        dbwebb2PrintUsage
+        ;;
+esac
+
+

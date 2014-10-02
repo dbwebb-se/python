@@ -143,6 +143,58 @@ createLabPython()
 
 
 #
+# Create a lab for course htmlphp
+#
+createLabHtmlphp()
+{
+    LAB="$1"
+    WHERE="$TARGET/me/$2/$LAB"
+    HERE="$TARGET/me/$2"
+
+    $ECHO "\nCreating $COURSE $LAB."
+
+    # Check if init was run?
+    if [ ! -d "$HERE" ]
+    then
+        echo "\nThe directory '$HERE' is missing.\nDid you run the command bin/dbwebb init?"
+        exit 1
+    fi
+
+    # Check if lab is already there
+    if [ -f "$WHERE/answer.py" ]
+    then
+        echo "\nYou already have a lab directory with lab-files.\n$WHERE\nUse it or remove its content if you want to create a new lab."
+        exit 1
+    fi
+
+    # Create the key
+    KEY="`${WGET}- \"$SERVICE/?$GET_KEY&lab=$LAB\"`"
+
+    # The lab description & the answers
+    $ECHO "\ninstruction.html"
+    $WGET "$WHERE/instruction.html" "$SERVICE/$GET_LAB&key=$KEY"
+
+    $ECHO "\nanswer.json"
+    $WGET "$WHERE/answer.json" "$SERVICE/$GET_ANSWER_JSON&key=$KEY"
+
+    $ECHO "\nanswer.py"
+    $WGET "$WHERE/answer.py" "$SERVICE/$GET_ANSWER_PY&key=$KEY"
+    chmod 755 "$WHERE/answer.py"
+
+    $ECHO "\nDbwebb.py"
+    $WGET "$WHERE/Dbwebb.py" "$SERVICE/$GET_ANSWER_PYDBWEBB&key=$KEY"
+
+    $ECHO "\nExtras\n"
+    $WGET "$WHERE/extra.tar" "$SERVICE/$GET_ANSWER_EXTRA&key=$KEY"
+    tar -xvf "$WHERE/extra.tar" -C "$WHERE"
+    rm -f "$WHERE/extra.tar"
+
+    $ECHO "\nYou can find the lab and all files here:\n$WHERE"
+}
+
+
+
+#
 # Main
 #
 if [ $# -lt 1 ]
@@ -182,7 +234,9 @@ done
 shift $((OPTIND - 1))
 
 
+#
 # Execute command
+#
 CMD=$1
 if [ $COURSE = "javascript1" ]
 then
@@ -209,6 +263,21 @@ then
         lab5) createLabPython "lab5" "kmom06" ;;
         lab6) createLabPython "lab6" "kmom06" ;;
         labtest) createLabPython "labtest" "kmom01" ;;
+        *)
+            printUsage
+            exit 1
+            ;;
+    esac
+
+elif [ $COURSE = "htmlphp" ]
+then
+    case $CMD in
+        lab1) createLabHtmlphp "lab1" "kmom02" ;;
+        lab2) createLabHtmlphp "lab2" "kmom03" ;;
+        lab3) createLabHtmlphp "lab3" "kmom04" ;;
+        lab4) createLabHtmlphp "lab4" "kmom05" ;;
+        lab5) createLabHtmlphp "lab5" "kmom06" ;;
+        labtest) createLabHtmlphp "labtest" "kmom01" ;;
         *)
             printUsage
             exit 1

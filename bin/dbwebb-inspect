@@ -62,11 +62,11 @@ checkEnvironment()
     then
         $ECHO "\nChecking your own $KMOM, ok."
     else
-        $ECHO "\nChecking $KMOM for $THEUSER as `whoami`."
+        $ECHO "\nChecking $KMOM for $THEUSER as `whoami` at `hostname`."
     fi
 
     dirname="$THEDIR"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash studID"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
 
     $ECHO "\nOpen files in an editor:"
     $ECHO "\n$EDITOR $dirname"

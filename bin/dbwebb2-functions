@@ -1,0 +1,501 @@
+#
+# Print usage of script
+#
+dbwebb2PrintUsage()
+{
+    $ECHO "\nUtility $DBW_EXECUTABLE $DBW_VERSION by Mikael Roos, to upload, verify and publish course results when done."
+    $ECHO "\n"
+    $ECHO "\nUsage: $DBW_EXECUTABLE [options] <command> [arguments]"
+    $ECHO "\n"
+    $ECHO "\nOptions:"
+    $ECHO "\n"
+    $ECHO "\n  -h         Print this message and exit."
+    #$ECHO "\n  -i         Ignore validation faults and proceed anyway."
+    $ECHO "\n  -v         Print the version of this program and exit."
+    $ECHO "\n  -w         Very verbose, print out whats happening."
+    $ECHO "\n  -y         Do not wait for my input, just proceed."
+    $ECHO "\n"
+    $ECHO "\nCommand:"
+    $ECHO "\n"
+    $ECHO "\n  init-repo    Init the repo for the first time and create a config-file."
+    $ECHO "\n  init-me      Init the directory me/ by copying files and directories from me-default/."
+    $ECHO "\n  init-server  Init the server by creating a directory structure on it."
+    $ECHO "\n  environment  Check and print out details oń the environment."
+    $ECHO "\n  config       Create, or re-create the config file."
+    $ECHO "\n  version      Display version information."
+    $ECHO "\n  test         Test the connection by loggin in."
+    $ECHO "\n  login        Login to the server using ssh."
+    $ECHO "\n"
+    $ECHO "\n  sshkey       Create and install ssh-keys to avoid using password.."
+    $ECHO "\n  init         Init the remote server and create a destination directory."
+    $ECHO "\n  update       Update the courselibb (repo) with latest updates from master repo."
+    $ECHO "\n  upload       Upload all files to the server."
+    $ECHO "\n  download     Download all personal files in the me-directory from the server."
+    $ECHO "\n  create       Create a laboration, use additional argument for naming what lab to create."
+    $ECHO "\n  validate     Upload your files and validate that your results passes automatic tests."
+    $ECHO "\n               Send in kmom01, kmom02, etc to validate only one kmom."
+    $ECHO "\n               Default is to validate all."
+    $ECHO "\n  publish      Upload, Validate and Publish your course results to the web."
+    $ECHO "\n               Send in kmom01, kmom02, etc to publish only one kmom."
+    $ECHO "\n               Default is to publish all."
+    $ECHO "\n  inspect      Inspect a kmom for yourself or a specific user, needs teacher privilegies"
+    $ECHO "\n               to check another students kmom."
+    $ECHO "\n"
+    $ECHO "\nExample:"
+    $ECHO "\n"
+    $ECHO "\n  $ dbwebb init-repo"
+    $ECHO "\n  $ dbwebb config"
+    $ECHO "\n  $ dbwebb test"
+    $ECHO "\n  $ dbwebb sshkey"
+    $ECHO "\n  $ dbwebb login"
+    $ECHO "\n  $ dbwebb init"
+    $ECHO "\n  $ dbwebb -y upload"
+    $ECHO "\n  $ dbwebb download"
+    $ECHO "\n  $ dbwebb create lab1"
+    $ECHO "\n  $ dbwebb -y validate kmom01"
+    $ECHO "\n  $ dbwebb -y publish lab1"
+    $ECHO "\n  $ dbwebb inspect kmom01"
+    $ECHO "\n  $ dbwebb inspect kmom01 mosstud"
+    $ECHO "\n"
+    $ECHO "\n"
+    exit
+}
+
+
+
+#
+# Create the config file .dbwebb.config in the root directory of the current course repo.
+#
+createConfig()
+{
+    FIRST=$1
+    NO_INPUT=$2
+
+    if [ -z $FIRST ]
+    then
+
+        $ECHO "The config-file '$DBW_CONFIG_FILE_NAME' will now be created in the root of this course repo."
+
+    elif [ $FIRST = "update" ]
+    then
+
+        $ECHO "Your config file will be automatically updated. Then re-run your command.\n"
+
+    elif [ $FIRST = "upgrade" ]
+    then
+
+        $ECHO "Your config file will be automatically updated."
+
+    elif [ $FIRST = "create" ]
+    then
+
+        $ECHO "I will now re-create the configuration file' $DBW_CONFIG_FILE_NAME'."
+
+    fi
+
+
+    if [ -z "$NO_INPUT" ]
+    then
+
+        $ECHO "\nWhat is your student acronym? [$DBW_USER] "    
+        read ACRONYM
+
+    fi
+
+    ACRONYM=${ACRONYM:-$DBW_USER}
+
+    cat "$DBW_CONFIG_DEFAULT_FILE" | $SED s/DEFAULT_USER/$ACRONYM/g > "$DBW_COURSE_DIR/$DBW_CONFIG_FILE_NAME"
+
+    $ECHO "\nThe config file '$DBW_CONFIG_FILE_NAME' is now up-to-date."
+    $ECHO "\n\n"
+}
+
+
+
+#
+# Update the config-file if needed
+#
+updateConfigIfNeeded()
+{
+    WHAT=$1
+
+    if [ -z "$DBW_VERSION_CONFIG" -o ! "$DBW_VERSION" = "$DBW_VERSION_CONFIG" ]
+    then
+        createConfig "$WHAT" "no-user-input"
+        exit 2
+    fi
+}
+
+
+
+#
+# Display information on the environment
+#
+environment()
+{
+    $ECHO "\nDetails on the dbwebb-environment."
+    $ECHO "\n"
+    $ECHO "\nCommand issued:        $DBW_EXECUTABLE"
+    $ECHO "\nVersion of dbwebb is:  $DBW_VERSION"
+    $ECHO "\nPath to executable:    $DBW_EXECUTABLE_DIR"
+    $ECHO "\nInstall dir:           $DBW_INSTALL_DIR"
+    $ECHO "\n"
+    $ECHO "\nDetails on the course-repo."
+    $ECHO "\n"
+    $ECHO "\nCurrent course-repo:   $DBW_COURSE"
+    $ECHO "\nCourse directory:      $DBW_COURSE_DIR"
+    $ECHO "\nWorking directory:     $DBW_CURRENT_DIR"
+    $ECHO "\nConfig-file:           $DBW_CONFIG_FILE"
+    $ECHO "\n"
+    $ECHO "\nDetails on installed utilities."
+    $ECHO "\n"
+    $ECHO "\ngit:                   %s" "$( checkCommand $GIT )"
+    $ECHO "\nssh:                   %s" "$( checkCommand $SSH )"
+    $ECHO "\nrsync:                 %s" "$( checkCommand $RSYNC )"
+    $ECHO "\n\n"
+}
+
+
+
+#
+# Check for installed commands
+#
+checkCommand()
+{
+    COMMAND=$1
+    #$ECHO "\nChecking $COMMAND"
+
+    if ! hash "$COMMAND" 2>/dev/null; then
+        $ECHO "Command $COMMAND not found"
+    else 
+        $ECHO $( which $COMMAND )
+    fi
+}
+
+
+
+#
+# Display version information
+#
+version()
+{
+    $ECHO "Version of dbwebb is $DBW_VERSION"
+    $ECHO "\n\nLatest update to course repo was:\n"
+    $GIT log -1
+    $ECHO "\n"
+}
+
+
+
+#
+# Execute a command in a controlled manner
+#
+executeCommand()
+{
+    INTRO=$1
+
+    if [ $SKIP_READLINE = "no" ]
+    then
+        $ECHO "\n$INTRO"
+        $ECHO "\nPress a key to continue..."
+        read void
+    fi
+
+    COMMAND=$2
+
+    if [ $VERY_VERBOSE = "yes" ]
+    then
+        $ECHO "\nExecuting command:"
+        $ECHO "\n$COMMAND"
+        $ECHO "\n-----------------------------------------"
+        $ECHO "\n"
+    fi
+
+    bash -c "$COMMAND"
+    STATUS=$?
+
+    if [ $VERY_VERBOSE = "yes" ]
+    then
+        $ECHO "\n-----------------------------------------"
+    fi
+
+    MESSAGE=$3
+    if [ $STATUS = 0 ]
+    then
+        $ECHO "\n$MSG_OK $MESSAGE"
+    else
+        $ECHO "\n$MSG_FAILED $MESSAGE"
+    fi
+    $ECHO "\n"
+    $ECHO "\n"
+
+    return $STATUS
+}
+
+
+
+#
+# Create default files.
+#
+createDefaultFiles()
+{
+    ME_DEFAULT="$DBW_COURSE_DIR/me-default/"
+    ME="$DBW_COURSE_DIR/me/"
+
+    INTRO="Initiating the directory me/ by copying directory structure and files from the directory me-default/ to me/ (will not overwrite existing files)."
+    COMMAND="$RSYNC -av --exclude README.md --ignore-existing \"$ME_DEFAULT\" \"$ME\""
+    MESSAGE="to init the directory me/."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Init directory structure at the server.
+#
+initServer()
+{
+    INTRO="Intiating the remote server '$DBW_HOST' by connecting to it and creating directories (if needed) where all uploaded files will reside."
+    COMMAND="$SSH_CMD 'sh -c \"if [ ! -d dbwebb-kurser ]; then mkdir dbwebb-kurser; fi; chmod 700 dbwebb-kurser; echo; echo \"dbwebb-kurser:\"; ls -l dbwebb-kurser; if [ ! -d www/dbwebb-kurser ]; then mkdir www/dbwebb-kurser; fi; chmod 755 www/dbwebb-kurser; echo; echo \"www/dbwebb-kurser:\"; ls -l www/dbwebb-kurser\"'"
+    MESSAGE="to init the server."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Test the connection to the server
+#
+testConnection()
+{
+    INTRO="I will now try to establish a connection with the server '$DBW_HOST' by connecting to it and logging in as user '$DBW_USER'. I will use ssh-keys if available."
+    COMMAND="$SSH_CMD cat /etc/motd"
+    MESSAGE="to establish the connection."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Login to the server
+#
+loginToServer()
+{
+    INTRO="I will now login to the server '$DBW_HOST' as '$DBW_USER' using ssh-keys if available."
+    COMMAND="$SSH_CMD"
+    MESSAGE="to establish the connection."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Inspect uploaded files
+#
+inspectResults()
+{
+    WHAT=$1
+    WHO=$2
+    INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
+    COMMAND="$SSH_CMD 'cd $DBW_BASEDIR/$DBW_COURSE; bin/dbwebb-inspect $WHAT $WHO'"
+    MESSAGE="to inspect the course results."
+
+    #if [ "$USER" = "$WHO" ]
+    #then
+        #upload="$UPLOAD"
+    #else
+        #upload="$UPLOAD_MINIMAL"
+    #fi
+
+    #executeCommand "$INTRO" "$upload; $COMMAND" "$MESSAGE"
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Upload results to the server
+#
+updateFromMaster()
+{
+    INTRO="Update course-repo with latest changes from its master at GitHub."
+    COMMAND="$GIT pull"
+    MESSAGE="to update course repo."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+
+    # ? really needed
+    source "$DBW_VERSION_FILE"
+    updateConfigIfNeeded "upgrade"
+}
+
+
+
+#
+# Push/upload results to the server
+#
+pushToServer()
+{
+    WHAT="$1"
+    WHERE="$2"
+
+    if [ -z "$WHAT" -o -z "$WHERE" ]; then
+        $ECHO "$MSG_FAILED Missing argument for source or destination. Perhaps re-create the config-file?"
+        $ECHO "\n\n"
+        exit 1
+    fi
+
+    INTRO="Pushing (uploading) the directory '$WHAT/' to '$WHERE/'."
+    COMMAND="$RSYNC_CMD $WHAT/ $WHERE/"
+    MESSAGE="to upload data."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Pull/download from the server
+#
+pullFromServer()
+{
+    INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
+    COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
+    MESSAGE="to download the me-directory from the server."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+
+
+# --------------------- To be validated -------------------------------
+
+
+#
+# Create and use ssh-keys to login.
+#
+installSshKeys()
+{
+    SSH_KEY="$HOME/.ssh/dbwebb"
+
+    if [ ! -d $HOME/.ssh ]
+    then
+        mkdir $HOME/.ssh
+    fi
+
+    INTRO="First we need to create a ssh key and store it locally."
+    COMMAND="ssh-keygen -t dsa -f $SSH_KEY -N ''"
+    MESSAGE="to create the ssh key."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+
+    # Bug (?) om Cygwin & win 8
+    #echo $IS_CYGWIN
+    if [ $IS_CYGWIN = "yes" ]
+    then
+        chgrp -vR $CYGWIN_DEFAULT_GROUP $HOME/.ssh
+    fi
+
+    chmod 700 $HOME/.ssh
+    chmod 600 $SSH_KEY $SSH_KEY.pub
+
+    INTRO="I will now install the ssh-key at the remote server."
+    COMMAND="cat $SSH_KEY.pub | ssh $USER@$HOST 'sh -c \"if [ ! -d .ssh ]; then mkdir .ssh; fi; chmod 700 .ssh; touch .ssh/authorized_keys; cat >> .ssh/authorized_keys\"'"
+    MESSAGE="to install the ssh-keys."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Set proper rights for files and directories
+#
+setChmod()
+{
+    $ECHO "\nUpdating chmod on file and dir."
+
+    for filename in $(find "$SOURCE" -type d); do
+        chmod 750 "$filename"
+    done
+
+    chmod -R u+rw "$SOURCE" 
+    chmod -R g+r "$SOURCE"
+}
+
+
+
+#
+# Upload results to the server
+#
+uploadToServer()
+{
+    INTRO="Your current working directory will now be synced to remote server."
+    COMMAND=$UPLOAD
+    MESSAGE="to upload data."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Download from the server
+#
+downloadFromServer()
+{
+    INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
+    COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
+    MESSAGE="to download the me-directory from the server."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Create a lab
+#
+createLab()
+{
+    LAB="$1"
+    INTRO="Create laboration $LAB."
+    COMMAND="bin/dbwebb-create \"$LAB\""
+    MESSAGE="to create the lab."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Validate the uploaded files
+#
+validateUploadedResults()
+{
+    WHAT=$1
+    INTRO="I will now upload files to the remote server and validate them."
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT'"
+    MESSAGE="to validate course results."
+    executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Validate and Publish the uploaded files
+#
+publishResults()
+{
+    WHAT=$1
+    INTRO="I will now try to init the remote server and create a directory where all uploaded files will reside."
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT'"
+    MESSAGE="to validate and publish all course results."
+    executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
+
+    if [ $? -eq 0 ]
+    then
+        $ECHO "Your files are now"
+    else
+        $ECHO "Some of your files might be"
+    fi
+    $ECHO " published on $BASEURL"
+    $ECHO "\n"
+}
+
+
+

@@ -29,6 +29,9 @@ History
 
 v1.0.x (latest)
 
+* Adding dbwebb2 as development of new major version of dbwebb.
+* Echo hostname at inspect.
+* rsync use "" around the paths.
 * Changed place to ignore upload of me/ when checking another user.
 * Publish python cgi with correct chmod.
 

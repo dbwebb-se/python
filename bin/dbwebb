@@ -269,7 +269,7 @@ createDefaultFiles()
     DEFAULT="$TARGET/me/default/"
 
     INTRO="Initiating me-directory by copying files from me/default to me/ (will not overwrite existing)."
-    COMMAND="rsync -a --ignore-existing $DEFAULT $TARGET/me/"
+    COMMAND="rsync -a --ignore-existing \"$DEFAULT\" \"$TARGET/me/\""
     MESSAGE="to create course specific files in me-directory."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
@@ -343,8 +343,6 @@ downloadFromServer()
 {
     INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
     COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
-    #COMMAND="rsync -avu --delete --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
-    #COMMAND="rsync -avu --delete --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION\" \"$SOURCE\""
     MESSAGE="to download the me-directory from the server."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
@@ -447,8 +445,8 @@ fi
 updateConfigIfNeeded "update"
 
 
-UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION"
-UPLOAD_MINIMAL="rsync -av --delete --exclude me --exclude tutorial --exclude example --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" $SOURCE $DESTINATION"
+UPLOAD="rsync -av --delete --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" \"$SOURCE\" \"$DESTINATION\""
+UPLOAD_MINIMAL="rsync -av --delete --exclude me --exclude tutorial --exclude example --exclude literature --exclude .git -e \"ssh $SSH_KEY_OPTION\" \"$SOURCE\" \"$DESTINATION\""
 
 SSH="ssh ${USER}@${HOST} $SSH_KEY_OPTION"
 
