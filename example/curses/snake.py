@@ -29,7 +29,7 @@ def main(scr):
     max_y, max_x = scr.getmaxyx()
 
     # The snake
-    snake =  {
+    snake = {
         "representation": "O",
         "max-length": 5,
         "position": [(max_x//2, max_y//2)],
