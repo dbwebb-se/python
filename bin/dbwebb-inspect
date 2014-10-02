@@ -96,8 +96,8 @@ pythonme()
     $ECHO "\nLink to redovisning-page: $url/me/redovisning.cgi"
 
     $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/me.cgi"
+    $ECHO "\n$EDITOR $THEDIR/me"
+    $ECHO "\n$EDITOR $THEDIR/me/me.cgi"
 
     $ECHO "\nPress enter to continue..."
     read void
