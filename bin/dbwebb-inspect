@@ -12,7 +12,9 @@ FAULTS=0
 ECHO="printf"
 TMPFILE="/tmp/dbwebb-error$$"
 
-SUDO="sudo -u dbwebb"
+#export SUDO_ASKPASS=askpass
+#SUDO="sudo -A -u dbwebb"
+SUDO=""
 
 
 
@@ -129,7 +131,7 @@ publishKmom()
 {
     target="$1"
 
-    $ECHO "\nPublish $THEKMOM [yN] "
+    $ECHO "\nPublish $THEKMOM [yN]? "
 
     read answer
     default="n"
@@ -165,13 +167,51 @@ checkKmomDir()
 
 
 #
+# Execute a command, maybe as another user
+#
+executeCommand()
+{
+    what="$1"
+    move1="$2"
+    cmd="$3"
+    move2="$4"
+
+    filename="$move1/$what"
+
+    if [ -f "$filename" -o -r "$filename" ]; then
+        $ECHO "\nExecute the program $what [Yn]? "
+        read answer
+        default="y"
+        answer=${answer:-$default}
+
+        if [ "$answer" = "y" -o "$answer" = "Y" ]; then
+
+            cd "$move1"
+            
+            if [ "$USER" = "$THEUSER" ]; then
+                $cmd
+            else
+                $SUDO $cmd
+            fi
+
+            cd "$move2"
+        fi
+    else
+        assert 0 "test" "The file $what is missing or not readable."
+    fi
+}
+
+
+
+
+#
 # Test validate a kmom
 #
 validateKmom()
 {
     THEKMOM="$1"
 
-    $ECHO "\nValidate $THEKMOM [Yn] "
+    $ECHO "\nValidate $THEKMOM [Yn]? "
 
     read answer
     default="y"
@@ -212,12 +252,7 @@ pythonplane()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/plane1.cgi"
 
-    $ECHO "\nPress enter to continue to execute the program plane.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 plane.py
-    cd "$TARGET"
+    executeCommand "plane.py" "$THEDIR/$target" "python3 plane.py" "$TARGET"
 }
 
 
@@ -243,12 +278,7 @@ pythonmarvin1()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
 
-    $ECHO "\nPress enter to continue to execute the program marvin.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 marvin.py
-    cd "$TARGET"
+    executeCommand "marvin.py" "$THEDIR/$target" "python3 marvin.py" "$TARGET"
 }
 
 
@@ -277,12 +307,7 @@ pythonmarvin2()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
 
-    $ECHO "\nPress enter to continue to execute the program main.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 main.py
-    cd "$TARGET"
+    executeCommand "main.py" "$THEDIR/$target" "python3 main.py" "$TARGET"
 }
 
 
@@ -308,12 +333,7 @@ pythongame1()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/border.py"
 
-    $ECHO "\nPress enter to continue to execute the program border.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 border.py
-    cd "$TARGET"
+    executeCommand "border.py" "$THEDIR/$target" "python3 border.py" "$TARGET"
 }
 
 
@@ -342,12 +362,7 @@ pythongame2()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/retro.py"
 
-    $ECHO "\nPress enter to continue to execute the program retro.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 retro.py
-    cd "$TARGET"
+    executeCommand "retro.py" "$THEDIR/$target" "python3 retro.py" "$TARGET"
 }
 
 
@@ -373,12 +388,7 @@ pythonlab()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/answer.py"
 
-    $ECHO "\nPress enter to continue to execute the program answer.py..."
-    read void
-
-    cd "$THEDIR/$target"
-    $SUDO python3 answer.py
-    cd "$TARGET"
+    executeCommand "answer.py" "$THEDIR/$target" "python3 answer.py" "$TARGET"
 }
 
 
