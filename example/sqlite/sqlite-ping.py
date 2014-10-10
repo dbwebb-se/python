@@ -96,7 +96,7 @@ rTime = time.ctime(time.time())
 try:
     # url must start with "http://" or the request fails
     print("Connecting to: {}".format(url))
-    r = requests.head(url)
+    r = requests.head(url, timeout=5)
     code = r.status_code
 
 except requests.ConnectionError:
