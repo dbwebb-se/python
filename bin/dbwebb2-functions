@@ -135,6 +135,7 @@ environment()
 {
     $ECHO "\nDetails on the dbwebb-environment."
     $ECHO "\n"
+    $ECHO "\nOperatingsystem:       $DBW_OS"
     $ECHO "\nCommand issued:        $DBW_EXECUTABLE"
     $ECHO "\nVersion of dbwebb is:  $DBW_VERSION"
     $ECHO "\nPath to executable:    $DBW_EXECUTABLE_DIR"
@@ -143,15 +144,19 @@ environment()
     $ECHO "\nDetails on the course-repo."
     $ECHO "\n"
     $ECHO "\nCurrent course-repo:   $DBW_COURSE"
+    $ECHO "\nCourse-repo version:   `$GIT describe`"
     $ECHO "\nCourse directory:      $DBW_COURSE_DIR"
     $ECHO "\nWorking directory:     $DBW_CURRENT_DIR"
     $ECHO "\nConfig-file:           $DBW_CONFIG_FILE"
     $ECHO "\n"
     $ECHO "\nDetails on installed utilities."
     $ECHO "\n"
+    $ECHO "\nbash:                  %s" "$( checkCommand $BASH )"
     $ECHO "\ngit:                   %s" "$( checkCommand $GIT )"
     $ECHO "\nssh:                   %s" "$( checkCommand $SSH )"
     $ECHO "\nrsync:                 %s" "$( checkCommand $RSYNC )"
+    $ECHO "\nwget:                  %s" "$( checkCommand $WGET )"
+    $ECHO "\ncurl:                  %s" "$( checkCommand $CURL )"
     $ECHO "\n\n"
 }
 
@@ -337,12 +342,15 @@ pushToServer()
 {
     WHAT="$1"
     WHERE="$2"
+    ITEM="$3"
 
     if [ -z "$WHAT" -o -z "$WHERE" ]; then
         $ECHO "$MSG_FAILED Missing argument for source or destination. Perhaps re-create the config-file?"
         $ECHO "\n\n"
         exit 1
     fi
+
+    echo "$ITEM"
 
     INTRO="Pushing (uploading) the directory '$WHAT/' to '$WHERE/'."
     COMMAND="$RSYNC_CMD $WHAT/ $WHERE/"
@@ -360,7 +368,7 @@ pullFromServer()
     INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
     COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
     MESSAGE="to download the me-directory from the server."
-    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+    echo executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
 
 
@@ -370,14 +378,14 @@ pullFromServer()
 #
 setChmod()
 {
-    $ECHO "\nEnsuring that all files and directories are readable for all."
+    $ECHO "\nEnsuring that all files and directories are readable for all, below $DBW_COURSE_DIR."
 
-    for filename in $(find "$SOURCE" -type d); do
+    for filename in $(find "$DBW_COURSE_DIR" -type d); do
         chmod 755 "$filename"
     done
 
-    chmod -R u+rw "$SOURCE" 
-    chmod -R go+r "$SOURCE"
+    chmod -R u+rw "$DBW_COURSE_DIR" 
+    chmod -R go+r "$DBW_COURSE_DIR"
 }
 
 

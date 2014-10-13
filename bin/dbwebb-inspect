@@ -150,6 +150,9 @@ publishKmom()
 
         $ECHO "\nOpen files in an editor:"
         $ECHO "\n$EDITOR $PUBLISH_STUD/"
+
+        $ECHO "\nMove to the directory:"
+        $ECHO "\ncd $PUBLISH_STUD/"
     fi
 }
 

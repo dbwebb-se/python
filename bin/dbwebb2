@@ -8,6 +8,9 @@ GIT="git"
 RSYNC="rsync"
 SSH="ssh"
 SED="sed"
+WGET="wget"
+CURL="curl"
+BASH="bash"
 
 
 # Revise these
@@ -84,6 +87,9 @@ if [ ! -f "$DBW_CONFIG_FILE" ]; then
 fi
 source "$DBW_CONFIG_FILE"
 
+
+# Check OS
+DBW_OS="$( uname -a )"
 
 # Create the ssh-command with details from the config-file
 SSH_CMD="$SSH ${DBW_USER}@${DBW_HOST} $DBW_SSH_KEY_OPTION"
@@ -186,7 +192,7 @@ case $CMD in
         ;;
 
     push)
-        pushToServer "$DBW_COURSE_DIR" "$DBW_REMOTE_DESTINATION"
+        pushToServer "$DBW_COURSE_DIR" "$DBW_REMOTE_DESTINATION" "$2"
         ;;
 
     pull)
