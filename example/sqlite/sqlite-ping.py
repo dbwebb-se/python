@@ -60,7 +60,7 @@ else:
 
 
 print(__doc__)
-_ = input("Press enter to continue.")
+input("Press enter to continue.")
 
 
 
