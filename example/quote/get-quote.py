@@ -22,7 +22,6 @@ url = "http://dbwebb.se/javascript/lekplats/get-marvin-quotes-using-ajax/quote.p
 
 try:
 
-    # Request header from url
     print("\nReady to send HTTP request to ", url, "\nPress enter to continue. ", end='')
     input()
     req = requests.get(url)
@@ -32,7 +31,7 @@ try:
     print("\nThe response body is:\n", req.text)
 
     json = req.json()
-    print("\nQuote of today is:\n\"{}\"\n".format(json["quote"]))
+    print("\nQuote of today is:\n\"{quote}\"\n".format(quote=json["quote"]))
 
 
 except requests.ConnectionError:
