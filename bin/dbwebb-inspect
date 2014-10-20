@@ -10,7 +10,10 @@ ASSERTS=0
 FAULTS=0
 
 ECHO="printf"
-TMPFILE="/tmp/dbwebb-error$$"
+
+TMPFILE="/tmp/dbwebb-error-{$USER}-$$"
+# Remove old tmp files
+find /tmp -maxdepth 1 -name 'dbwebb-error*' -user mosstud -type f -exec rm -f {} \; 
 
 #export SUDO_ASKPASS=askpass
 #SUDO="sudo -A -u dbwebb"
@@ -190,14 +193,22 @@ executeCommand()
         if [ "$answer" = "y" -o "$answer" = "Y" ]; then
 
             cd "$move1"
-            
+
             if [ "$USER" = "$THEUSER" ]; then
                 $cmd
             else
                 $SUDO $cmd
             fi
-
+            
+            status=$?
             cd "$move2"
+
+            if [ $status -eq 0 ]; then
+                assert 1 "test" "Command executed successfully."
+                $ECHO "\n\n$MSG_OK Command executed with a exit status 0  - indicating success."
+            else
+                assert 0 "test" "Command return non-zero exit status which might indicate failure."
+            fi
         fi
     else
         assert 0 "test" "The file $what is missing or not readable."
@@ -265,11 +276,12 @@ pythonplane()
 #
 pythonmarvin1()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin1       ----------------"
-    $ECHO "\n-----------------------------------------"
+    id="$1"
+    target="$2"
 
-    target="$1"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin$id ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -291,11 +303,12 @@ pythonmarvin1()
 #
 pythonmarvin2()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin2, 3, 4, 5 ----------------"
-    $ECHO "\n-----------------------------------------"
+    id="$1"
+    target="$2"
 
-    target="$1"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin$id ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -375,11 +388,13 @@ pythongame2()
 #
 pythonlab()
 {
+    id="$1"
+    target="$2"
+
     $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- lab         ----------------"
+    $ECHO "\n----------- lab$id ------------------------"
     $ECHO "\n-----------------------------------------"
 
-    target="$1"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -433,8 +448,8 @@ pythonkmom02()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "$THETARGET/lab1"
-    pythonmarvin1 "$THETARGET/marvin1"
+    pythonlab "1" "$THETARGET/lab1"
+    pythonmarvin1 "1" "$THETARGET/marvin1"
 }
 
 
@@ -455,8 +470,8 @@ pythonkmom03()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "$THETARGET/lab2"
-    pythonmarvin2 "$THETARGET/marvin2"
+    pythonlab "2" "$THETARGET/lab2"
+    pythonmarvin2 "2" "$THETARGET/marvin2"
 }
 
 
@@ -477,8 +492,8 @@ pythonkmom04()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "$THETARGET/lab3"
-    pythonmarvin2 "$THETARGET/marvin3"
+    pythonlab "3" "$THETARGET/lab3"
+    pythonmarvin2 "3" "$THETARGET/marvin3"
     pythongame1 "$THETARGET/game1"
 }
 
@@ -500,9 +515,9 @@ pythonkmom05()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "$THETARGET/lab4"
+    pythonlab "4" "$THETARGET/lab4"
     pythongame2 "$THETARGET/game2"
-    pythonmarvin2 "$THETARGET/marvin4"
+    pythonmarvin2 "4" "$THETARGET/marvin4"
 }
 
 
@@ -539,8 +554,10 @@ javascript1me()
 #
 javascript1sandbox()
 {
+    label=${2:-"sandbox"}
+
     $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- sandbox ---------------------"
+    $ECHO "\n----------- $label -------------------"
     $ECHO "\n-----------------------------------------"
 
     target="$1"
@@ -554,6 +571,10 @@ javascript1sandbox()
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
     $ECHO "\nLink to lab-page: $url"
 
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -565,8 +586,10 @@ javascript1sandbox()
 #
 javascript1flag()
 {
+    label=${2:-"flag"}
+
     $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- flag ---------------------"
+    $ECHO "\n----------- $label ------------"
     $ECHO "\n-----------------------------------------"
 
     target="$1"
@@ -736,6 +759,28 @@ javascript1kmom04()
     javascript1lab "$THETARGET/lab4"
     javascript1flag "$THETARGET/flag3"
     javascript1baddie "$THETARGET/baddie3"
+}
+
+
+
+#
+# Test javascript1 kmom04
+#
+javascript1kmom05()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- javascript1 kmom05 ------------"
+    $ECHO "\n-----------------------------------------"
+
+    THEKMOM="kmom05"
+    THETARGET="me/$THEKMOM"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1sandbox "$THETARGET/lab5" "lab5"
+    javascript1flag "$THETARGET/flag4" "flag4"
 }
 
 

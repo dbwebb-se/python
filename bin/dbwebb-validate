@@ -136,8 +136,8 @@ mapCmdToDir()
                 baddie1)    RES="me/kmom02/baddie1" ;;
                 baddie2)    RES="me/kmom03/baddie2" ;;
                 baddie3)    RES="me/kmom04/baddie3" ;;
-                baddie4)    RES="me/kmom05/baddie4" ;;
-                baddie5)    RES="me/kmom06/baddie5" ;;
+                #baddie4)    RES="me/kmom05/baddie4" ;;
+                #baddie5)    RES="me/kmom06/baddie5" ;;
             esac
             ;;
         python)
@@ -199,8 +199,8 @@ testMe()
             KMOM02="kmom02 kmom02/flag1 kmom02/lab1 kmom02/baddie1"
             KMOM03="kmom03 kmom03/flag2 kmom03/lab2 kmom03/baddie2"
             KMOM04="kmom04 kmom04/flag3 kmom04/lab3 kmom04/lab4 kmom04/baddie3"
-            KMOM05="kmom05 kmom05/flag4 kmom05/lab5 kmom05/baddie4"
-            KMOM06="kmom06 kmom06/flag5 kmom06/baddie5"
+            KMOM05="kmom05 kmom05/flag4 kmom05/lab5"
+            KMOM06="kmom06 kmom06/flag5"
             KMOM10="kmom10"            
             ;;
 

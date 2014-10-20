@@ -10,6 +10,7 @@ dbwebb2PrintUsage()
     $ECHO "\nOptions:"
     $ECHO "\n"
     $ECHO "\n  -h         Print this message and exit."
+    $ECHO "\n  -i         Prints help with commands for inspect."
     #$ECHO "\n  -i         Ignore validation faults and proceed anyway."
     $ECHO "\n  -v         Print the version of this program and exit."
     $ECHO "\n  -w         Very verbose, print out whats happening."
@@ -58,7 +59,28 @@ dbwebb2PrintUsage()
     $ECHO "\n  $ dbwebb inspect kmom01 mosstud"
     $ECHO "\n"
     $ECHO "\n"
-    exit
+}
+
+
+
+#
+# Print usage of script
+#
+dbwebb2PrintUsageInspect()
+{
+    $ECHO "\nCommands useful at the server with respect to dbwebb inspect."
+    $ECHO "\n"
+    $ECHO "\nOpen up for inspect by setting group and chmod for directories and files."
+    $ECHO "\nsudo /usr/local/sbin/setpre-dbwebb-kurser.bash acronym"
+    $ECHO "\n"
+    $ECHO "\nAdd or delete as member of the dbwebb-group (execute on all servers)"
+    $ECHO "\nsudo update-dbwebb-kurser.bash -a acronym"
+    $ECHO "\nsudo update-dbwebb-kurser.bash -d acronym"
+    $ECHO "\n"
+    $ECHO "\nExecute command as the user dbwebb."
+    $ECHO "\nsudo -u dbwebb script"
+    $ECHO "\n"
+    $ECHO "\n"
 }
 
 
@@ -302,8 +324,12 @@ inspectResults()
     WHAT=$1
     WHO=$2
     INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
-    COMMAND="$SSH_CMD 'cd $DBW_BASEDIR/$DBW_COURSE; bin/dbwebb-inspect $WHAT $WHO'"
-    MESSAGE="to inspect the course results."
+    LOG="$HOME/$BASEDIR/.dbwebb-inspect.log"
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO' | tee $LOG; "
+    MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R $LOG"
+
+    #COMMAND="$SSH_CMD 'cd $DBW_BASEDIR/$DBW_COURSE; bin/dbwebb-inspect $WHAT $WHO'"
+    #MESSAGE="to inspect the course results."
 
     #if [ "$USER" = "$WHO" ]
     #then
@@ -476,9 +502,10 @@ createLab()
 validateUploadedResults()
 {
     WHAT=$1
+    LOG="$HOME/$BASEDIR/.dbwebb-validate.log"
     INTRO="I will now upload files to the remote server and validate them."
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT'"
-    MESSAGE="to validate course results."
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT' | tee $LOG;"
+    MESSAGE="to validate course results. Saved a log of the output, review it as:\nless -R $LOG"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 }
 
@@ -490,9 +517,10 @@ validateUploadedResults()
 publishResults()
 {
     WHAT=$1
+    LOG="$HOME/$BASEDIR/.dbwebb-publish.log"
     INTRO="I will now try to init the remote server and create a directory where all uploaded files will reside."
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT'"
-    MESSAGE="to validate and publish all course results."
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT' | tee $LOG;"
+    MESSAGE="to validate and publish all course results. Saved a log of the output, review it as:\nless -R $LOG"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 
     if [ $? -eq 0 ]

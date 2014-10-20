@@ -29,6 +29,7 @@ History
 
 v1.0.x (latest)
 
+* Adding javascript kmom05 lab5 and removing baddie4 and baddie5.
 * Enhanced debugging in dbwebb-inspect.
 * Fixed issue #8, #9, #10, #11.
 * Adding dbwebb2 as development of new major version of dbwebb.

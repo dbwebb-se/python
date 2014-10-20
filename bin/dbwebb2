@@ -47,7 +47,7 @@ fi
 # Get the current version installed as $DBW_VERSION
 DBW_VERSION_FILE="$DBW_INSTALL_DIR/.dbwebb.version"
 if [ ! -f "$DBW_VERSION_FILE" ]; then
-    $ECHO "$MSG_FAILED Missing file .dbwebb.version. The installation directory does not contain a valid installation."
+    $ECHO "$MSG_FAILED Missing file .dbwebb.version. The installation directory does not contain a valid installation.\n"
     exit 1
 fi
 source "$DBW_VERSION_FILE"
@@ -65,7 +65,7 @@ DBW_COURSE_DIR="$DBW_CURRENT_DIR"
 # Get the name of the course as $DBW_COURSE
 DBW_COURSE_FILE="$DBW_COURSE_DIR/.dbwebb.course"
 if [ ! -f "$DBW_COURSE_FILE" ]; then
-    $ECHO "$MSG_FAILED Missing file .dbwebb.course, this is not a valid course repo."
+    $ECHO "$MSG_FAILED Missing file .dbwebb.course, this is not a valid course repo.\n"
     exit 1
 fi
 source "$DBW_COURSE_FILE"
@@ -105,6 +105,7 @@ RSYNC_CMD="$RSYNC -av --delete --exclude .git --exclude .gitignore -e \"ssh $DBW
 if [ $# -lt 1 ]
 then
     dbwebb2PrintUsage
+    exit 0
 fi
 
 updateConfigIfNeeded "update"
@@ -127,8 +128,13 @@ do
             ;;
 
         i)
-            IGNORE_FAULTS="-i"
+            dbwebb2PrintUsageInspect
+            exit 0
             ;;
+
+#        i)
+#            IGNORE_FAULTS="-i"
+#            ;;
 
         v)
             $ECHO "$VERSION\n"
@@ -250,6 +256,7 @@ case $CMD in
 
     *)
         dbwebb2PrintUsage
+        exit 1
         ;;
 esac
 
