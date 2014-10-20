@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Check and verify locale settings to see if UTF-8 is output correctly.
+"""
 
 import sys
 import locale

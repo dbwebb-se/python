@@ -31,9 +31,9 @@ print("\nThe scraped content (the irclog) is:\n", ircLog)
 
 entries = ircLog("span")
 
-str = "{time} <{user}> {message}"
+str1 = "{time} <{user}> {message}"
 
 print("\nPretty print log details:")
-print(str.format(time=entries[0].text, user=entries[1].text, message=entries[2].text))
-print(str.format(time=entries[3].text, user=entries[4].text, message=entries[5].text))
-print(str.format(time=entries[6].text, user=entries[7].text, message=entries[8].text))
+print(str1.format(time=entries[0].text, user=entries[1].text, message=entries[2].text))
+print(str1.format(time=entries[3].text, user=entries[4].text, message=entries[5].text))
+print(str1.format(time=entries[6].text, user=entries[7].text, message=entries[8].text))

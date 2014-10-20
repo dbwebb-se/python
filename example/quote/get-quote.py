@@ -9,7 +9,6 @@ http://dbwebb.se/javascript/lekplats/get-marvin-quotes-using-ajax/quote.php
 """
 
 import requests
-import sys
 
 
 

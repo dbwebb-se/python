@@ -76,7 +76,7 @@ dbc = db.cursor()
 #
 # Init a new database if needed
 #
-dbc.execute("CREATE TABLE IF NOT EXISTS Pings (url TEXT, time TEXT, repsonse INTEGER)")
+dbc.execute("CREATE TABLE IF NOT EXISTS Pings (url TEXT, time TEXT, response INTEGER)")
 
 
 #
@@ -108,10 +108,11 @@ except requests.ConnectionError:
 # insert values into database
 #
 print("Storing log entry in database")
-dbc.execute("INSERT INTO Pings (url, time, repsonse) VALUES (?, ?, ?)", (url, rTime, code))
+aTuple = (url, rTime, code)
+dbc.execute("INSERT INTO Pings (url, time, response) VALUES (?, ?, ?)", aTuple)
 
 print("Retrieving all rows in database:")
-dbc.execute("SELECT url, time, repsonse FROM Pings")
+dbc.execute("SELECT url, time, response FROM Pings")
 
 # Loop through a resultset from a SELECT query
 for row in dbc:
