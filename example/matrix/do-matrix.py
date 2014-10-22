@@ -13,7 +13,7 @@ input("Press enter to continue.")
 
 
 
-def createMatrix(x, y, filler):
+def createMatrix(y, x, filler):
     """
     Create a two-dimensional array and return it. 
     """
@@ -39,7 +39,7 @@ def main():
     y = int(input("y: "))
     x = int(input("x: "))
 
-    matrix = createMatrix(x, y, "-")
+    matrix = createMatrix(y, x, "-")
 
     counter = 0
     while 1:
@@ -62,7 +62,7 @@ def main():
             break
 
         #Place the character
-        matrix[int(posX)][int(posY)] = char
+        matrix[int(posY)][int(posX)] = char
 
 
 
