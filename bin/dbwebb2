@@ -11,6 +11,7 @@ SED="sed"
 WGET="wget"
 CURL="curl"
 BASH="bash"
+FIND="find"
 
 
 # Revise these

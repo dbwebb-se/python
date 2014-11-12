@@ -406,12 +406,16 @@ setChmod()
 {
     $ECHO "\nEnsuring that all files and directories are readable for all, below $DBW_COURSE_DIR."
 
-    for filename in $(find "$DBW_COURSE_DIR" -type d); do
-        chmod 755 "$filename"
-    done
+    # For others
+    $FIND "$DBW_COURSE_DIR" -type d -exec chmod u+rwx,go+rx {} \;  
+    $FIND "$DBW_COURSE_DIR" -type f -exec chmod u+rw,go+r {} \;   
 
-    chmod -R u+rw "$DBW_COURSE_DIR" 
-    chmod -R go+r "$DBW_COURSE_DIR"
+    #for filename in $(find "$DBW_COURSE_DIR" -type d); do
+    #    chmod 755 "$filename"
+    #done
+
+    #chmod -R u+rw "$DBW_COURSE_DIR" 
+    #chmod -R go+r "$DBW_COURSE_DIR"
 }
 
 
