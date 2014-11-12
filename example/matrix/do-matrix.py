@@ -7,9 +7,7 @@ The "array" is implemented using lists.
 """
 
 
-
-print(__doc__)
-input("Press enter to continue.")
+filename = 'matrix.txt'
 
 
 
@@ -27,6 +25,43 @@ def printMatrix(matrix):
     """
     for row in matrix:
         print("".join(row))
+
+
+
+def saveMatrix(matrix):
+    """
+    Save the content of the matrix to a file. Do this by joining all items in the 
+    list and create a string-representing the row and write that string to the file.
+    Add a newline to each row. 
+    """
+    with open(filename,'w') as f:
+        for row in matrix:
+            f.write("".join(row) + '\n')
+
+    print("Saved the state to the file {}".format(filename))
+
+
+
+def loadMatrix(matrix):
+    """
+    Load the content of the matrix from a file. Do this by reading the lines from the file
+    and splitting them into a list by characters. 
+    Ignore the newline at each row. 
+    """
+    with open(filename,'r') as f:
+
+        # with \n
+        #content = f.readlines()
+        
+        # without \n
+        content = f.read().splitlines()
+
+    # Update each row of the matrix and fill it by using the file content 
+    # (may need som care when file and matrix size does not match)
+    for y in range(0, len(matrix)):
+        matrix[y] = list(content[y])
+
+    print("Loaded the state from the file {}".format(filename))
 
 
 
@@ -61,10 +96,20 @@ def main():
         if posY == "q" or posX == "q":
             break
 
+        elif posY == "s" or posX == "s":
+            saveMatrix(matrix)
+            continue
+
+        elif posY == "l" or posX == "l":
+            loadMatrix(matrix)
+            continue
+
         #Place the character
         matrix[int(posY)][int(posX)] = char
 
 
 
 if __name__ == "__main__":
+    print(__doc__)
+    input("Press enter to continue.")
     main()
