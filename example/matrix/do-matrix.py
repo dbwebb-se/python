@@ -3,7 +3,9 @@
 
 """
 Example to show how a multi dimensional array works in Python.
-The "array" is implemented using lists. 
+The "array" is implemented using lists of lists.
+Press 's' to save the state to the file and press 'l' to load the 
+state from the file. 
 """
 
 
