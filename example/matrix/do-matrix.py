@@ -36,7 +36,7 @@ def saveMatrix(matrix):
     list and create a string-representing the row and write that string to the file.
     Add a newline to each row. 
     """
-    with open(filename,'w') as f:
+    with open(filename, 'w') as f:
         for row in matrix:
             f.write("".join(row) + '\n')
 
@@ -50,7 +50,7 @@ def loadMatrix(matrix):
     and splitting them into a list by characters. 
     Ignore the newline at each row. 
     """
-    with open(filename,'r') as f:
+    with open(filename, 'r') as f:
 
         # with \n
         #content = f.readlines()
