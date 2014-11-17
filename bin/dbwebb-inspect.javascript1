@@ -1,0 +1,307 @@
+#!/bin/sh
+
+
+
+#
+# Test javascript1 me
+#
+javascript1me()
+{
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- me-page ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    filename="$THEDIR/me/me.html"
+    assert 0 "test -r $filename -a -f $filename" "Me file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to me-page: $url/me/me.html"
+
+    filename="$THEDIR/me/redovisning.html"
+    assert 0 "test -r $filename -a -f $filename" "Redovisning file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to redovisning-page: $url/me/redovisning.html"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 sandbox
+#
+javascript1sandbox()
+{
+    target="$1"
+    label=${2:-"sandbox"}
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $label -------------------"
+    $ECHO "\n-----------------------------------------"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 flag
+#
+javascript1flag()
+{
+    target="$1"
+    label=${2:-"flag"}
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $label -----------------------"
+    $ECHO "\n-----------------------------------------"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 baddie
+#
+javascript1baddie()
+{
+    target="$1"
+    label=${2:-"?"}
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $label ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/index.html"
+    assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 lab
+#
+javascript1lab()
+{
+    target="$1"
+    label=${2:-"?"}
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $label    ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/answer.html"
+    assert 0 "test -r $filename -a -f $filename" "Answer file is not readable. $filename"
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
+    $ECHO "\nLink to lab-page: $url/answer.html"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/answer.js"
+
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
+
+
+#
+# Test javascript1 kmom01
+#
+javascript1kmom01()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1sandbox "$THETARGET/sandbox" "sandbox"
+}
+
+
+
+#
+# Test javascript1 kmom02
+#
+javascript1kmom02()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab1" "lab1"
+    javascript1flag "$THETARGET/flag1" "flag1"
+    javascript1baddie "$THETARGET/baddie1" "baddie1"
+}
+
+
+
+#
+# Test javascript1 kmom03
+#
+javascript1kmom03()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab2" "lab2"
+    javascript1flag "$THETARGET/flag2" "flag2"
+    javascript1baddie "$THETARGET/baddie2" "baddie2"
+}
+
+
+
+#
+# Test javascript1 kmom04
+#
+javascript1kmom04()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1lab "$THETARGET/lab3" "lab3"
+    javascript1lab "$THETARGET/lab4" "lab4"
+    javascript1flag "$THETARGET/flag3" "flag3"
+    javascript1baddie "$THETARGET/baddie3" "baddie3"
+}
+
+
+
+#
+# Test javascript1 kmom
+#
+javascript1kmom05()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1sandbox "$THETARGET/lab5" "lab5     "
+    javascript1flag "$THETARGET/flag4" "flag4"
+}
+
+
+
+#
+# Test javascript1 kmom
+#
+javascript1kmom06()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    javascript1sandbox "$THETARGET/hangman" "hangman"
+}
+
+
+
+#
+# Test javascript1 kmom
+#
+javascript1kmom10()
+{
+    THEKMOM="$1"
+    THETARGET="me/$THEKMOM"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ----------"
+    $ECHO "\n-----------------------------------------"
+
+    checkKmomDir "$THETARGET"
+    publishKmom "$THETARGET"
+    validateKmom "$THEKMOM"
+    javascript1me
+    $ECHO "\nNOT IMPLEMENTED"
+}

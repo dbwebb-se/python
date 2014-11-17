@@ -3,7 +3,7 @@
 #
 dbwebb2PrintUsage()
 {
-    $ECHO "\nUtility $DBW_EXECUTABLE $DBW_VERSION by Mikael Roos, to upload, verify and publish course results when done."
+    $ECHO "\nUtility $DBW_EXECUTABLE $DBW_VERSION by Mikael Roos, to work with dbwebb course repositories."
     $ECHO "\n"
     $ECHO "\nUsage: $DBW_EXECUTABLE [options] <command> [arguments]"
     $ECHO "\n"
@@ -21,17 +21,22 @@ dbwebb2PrintUsage()
     $ECHO "\n  init-repo    Init the repo for the first time and create a config-file."
     $ECHO "\n  init-me      Init the directory me/ by copying files and directories from me-default/."
     $ECHO "\n  init-server  Init the server by creating a directory structure on it."
-    $ECHO "\n  environment  Check and print out details oń the environment."
+    $ECHO "\n"
+    $ECHO "\n  environment  Check and print out details on the environment."
     $ECHO "\n  config       Create, or re-create the config file."
-    $ECHO "\n  version      Display version information."
+    $ECHO "\n  status       Display status and version information on this repo."
     $ECHO "\n  test         Test the connection by loggin in."
     $ECHO "\n  login        Login to the server using ssh."
+    $ECHO "\n  update       Update the courserepo with latest updates from the master repo."
     $ECHO "\n"
-    $ECHO "\n  sshkey       Create and install ssh-keys to avoid using password.."
-    $ECHO "\n  init         Init the remote server and create a destination directory."
-    $ECHO "\n  update       Update the courselibb (repo) with latest updates from master repo."
-    $ECHO "\n  upload       Upload all files to the server."
-    $ECHO "\n  download     Download all personal files in the me-directory from the server."
+    $ECHO "\n  upload       Upload current directory to the the server."
+    $ECHO "\n  download     Download current directory from the server."
+    $ECHO "\n"
+    $ECHO "\n  push [part]  Upload all or a specific part of the course repo to the server."
+    $ECHO "\n  pull [part]  Download all or a specific part of the course repo from the server."
+    $ECHO "\n"
+    $ECHO "\n  TBD"
+    $ECHO "\n  sshkey       Create and install ssh-keys to avoid using password."
     $ECHO "\n  create       Create a laboration, use additional argument for naming what lab to create."
     $ECHO "\n  validate     Upload your files and validate that your results passes automatic tests."
     $ECHO "\n               Send in kmom01, kmom02, etc to validate only one kmom."
@@ -41,6 +46,9 @@ dbwebb2PrintUsage()
     $ECHO "\n               Default is to publish all."
     $ECHO "\n  inspect      Inspect a kmom for yourself or a specific user, needs teacher privilegies"
     $ECHO "\n               to check another students kmom."
+    $ECHO "\n"
+    $ECHO "\n  Obsolete?"
+    $ECHO "\n  init         Init the remote server and create a destination directory."
     $ECHO "\n"
     $ECHO "\nExample:"
     $ECHO "\n"
@@ -68,7 +76,7 @@ dbwebb2PrintUsage()
 #
 dbwebb2PrintUsageInspect()
 {
-    $ECHO "\nCommands useful at the server with respect to dbwebb inspect."
+    $ECHO "\nCommands useful at the server with respect to dbwebb inspect, needs extra privilegies."
     $ECHO "\n"
     $ECHO "\nOpen up for inspect by setting group and chmod for directories and files."
     $ECHO "\nsudo /usr/local/sbin/setpre-dbwebb-kurser.bash acronym"
@@ -166,7 +174,7 @@ environment()
     $ECHO "\nDetails on the course-repo."
     $ECHO "\n"
     $ECHO "\nCurrent course-repo:   $DBW_COURSE"
-    $ECHO "\nCourse-repo version:   `$GIT describe`"
+    $ECHO "\nCourse-repo version:   $( $GIT describe )"
     $ECHO "\nCourse directory:      $DBW_COURSE_DIR"
     $ECHO "\nWorking directory:     $DBW_CURRENT_DIR"
     $ECHO "\nConfig-file:           $DBW_CONFIG_FILE"
@@ -202,11 +210,12 @@ checkCommand()
 
 
 #
-# Display version information
+# Display status and version information
 #
-version()
+status()
 {
-    $ECHO "Version of dbwebb is $DBW_VERSION"
+    $ECHO "Course repo is $DBW_COURSE"
+    $ECHO "\n\nVersion of dbwebb-cli is $DBW_VERSION"
     $ECHO "\n\nLatest update to course repo was:\n"
     $GIT log -1
     $ECHO "\n"
@@ -226,6 +235,21 @@ executeCommand()
         $ECHO "\n$INTRO"
         $ECHO "\nPress a key to continue..."
         read void
+    fi
+
+    REALLY=$4
+    if [ ! -z $REALLY ]
+    then
+        $ECHO "\nAre you really sure? [yN] "
+        read answer
+        default="n"
+        answer=${answer:-$default}
+
+        if [ ! "$answer" = "y" -o "$answer" = "Y" ]
+        then
+            $ECHO "Exiting...\n"
+            exit 0
+        fi
     fi
 
     COMMAND=$2
@@ -376,7 +400,7 @@ pushToServer()
         exit 1
     fi
 
-    echo "$ITEM"
+    echo "Item: $ITEM"
 
     INTRO="Pushing (uploading) the directory '$WHAT/' to '$WHERE/'."
     COMMAND="$RSYNC_CMD $WHAT/ $WHERE/"
@@ -404,18 +428,42 @@ pullFromServer()
 #
 setChmod()
 {
-    $ECHO "\nEnsuring that all files and directories are readable for all, below $DBW_COURSE_DIR."
+    if [ $VERY_VERBOSE = "yes" ]; then
+        $ECHO "\nEnsuring that all files and directories are readable for all, below $DBW_COURSE_DIR."
+    fi
 
-    # For others
     $FIND "$DBW_COURSE_DIR" -type d -exec chmod u+rwx,go+rx {} \;  
     $FIND "$DBW_COURSE_DIR" -type f -exec chmod u+rw,go+r {} \;   
+}
 
-    #for filename in $(find "$DBW_COURSE_DIR" -type d); do
-    #    chmod 755 "$filename"
-    #done
 
-    #chmod -R u+rw "$DBW_COURSE_DIR" 
-    #chmod -R go+r "$DBW_COURSE_DIR"
+
+#
+# Upload results to the server
+#
+uploadToServer()
+{
+    subdir=${DBW_CURRENT_DIR#"$DBW_COURSE_DIR/"}
+
+    INTRO="Your current working directory '$DBW_CURRENT_DIR' will now be uploaded to remote server."
+    COMMAND="$RSYNC_CMD $DBW_CURRENT_DIR/ $DBW_REMOTE_DESTINATION/$subdir/"
+    MESSAGE="to upload files."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
+}
+
+
+
+#
+# Download from the server
+#
+downloadFromServer()
+{
+    subdir=${DBW_CURRENT_DIR#"$DBW_COURSE_DIR/"}
+
+    INTRO="WARNING: Downloading remote '$DBW_REMOTE_DESTINATION/$subdir/\n         to the current working directory '$DBW_CURRENT_DIR/'.\nWARNING: Local files MAY BE overwritten."
+    COMMAND="$RSYNC_CMD $DBW_REMOTE_DESTINATION/$subdir/ $DBW_CURRENT_DIR/"
+    MESSAGE="to download files."
+    executeCommand "$INTRO" "$COMMAND" "$MESSAGE" "REALLY?"
 }
 
 
@@ -455,32 +503,6 @@ installSshKeys()
     INTRO="I will now install the ssh-key at the remote server."
     COMMAND="cat $SSH_KEY.pub | ssh $USER@$HOST 'sh -c \"if [ ! -d .ssh ]; then mkdir .ssh; fi; chmod 700 .ssh; touch .ssh/authorized_keys; cat >> .ssh/authorized_keys\"'"
     MESSAGE="to install the ssh-keys."
-    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
-}
-
-
-
-#
-# Upload results to the server
-#
-uploadToServer()
-{
-    INTRO="Your current working directory will now be synced to remote server."
-    COMMAND=$UPLOAD
-    MESSAGE="to upload data."
-    executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
-}
-
-
-
-#
-# Download from the server
-#
-downloadFromServer()
-{
-    INTRO="You will now download the content of youre me-directory FROM the server. Existing local files that are newer will not be overwritten."
-    COMMAND="rsync -avu --exclude default -e \"ssh $SSH_KEY_OPTION\" \"$DESTINATION/me/\" \"$SOURCE/me/\""
-    MESSAGE="to download the me-directory from the server."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
 

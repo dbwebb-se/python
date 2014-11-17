@@ -1,4 +1,4 @@
-Utility `bin/dbwebb` to work with course repositories
+Command-line utility `dbwebb` to work with course repositories
 ============================================================
 
 Part of course repos as a admin utility.

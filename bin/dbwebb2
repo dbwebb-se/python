@@ -27,7 +27,7 @@ UPLOAD_MINIMAL="$RSYNC -av --delete --exclude me --exclude tutorial --exclude ex
 # For early error messages, also exists in .dbwebb.config
 MSG_FAILED="\033[0;37;41mFAILED.\033[0m"
 
-# Whar was the command issued?
+# What was the command issued?
 DBW_EXECUTABLE="$( basename "$0" )"
 
 # Where is the executable
@@ -38,10 +38,10 @@ if [ -f "$DBW_EXECUTABLE_DIR/.dbwebb.version" ]; then
     DBW_INSTALL_DIR="$DBW_EXECUTABLE_DIR"
 elif [ -d "$DBWEBB_HOME" ]; then
     DBW_INSTALL_DIR="$DBWEBB_HOME"
-elif [ -d "$HOME/dbwebb-kurser/bin-dbwebb" ]; then
-    DBW_INSTALL_DIR="$HOME/dbwebb-kurser/bin-dbwebb"
+elif [ -d "$HOME/dbwebb-kurser/dbwebb-cli" ]; then
+    DBW_INSTALL_DIR="$HOME/dbwebb-kurser/dbwebb-cli"
 else 
-    $ECHO "$MSG_FAILED Could not determine the installation directory."
+    $ECHO "$MSG_FAILED Could not determine the installation directory.\n"
     exit 1
 fi
 
@@ -60,13 +60,23 @@ source "$DBW_FUNCTIONS_FILE"
 # What is the current directory
 DBW_CURRENT_DIR="$( pwd )"
 
-# What is the directory of the current course repo
-DBW_COURSE_DIR="$DBW_CURRENT_DIR"
+# What is the directory of the current course repo, find recursivly up the tree
+DBW_COURSE_FILE_NAME=".dbwebb.course"
+
+dir="$DBW_CURRENT_DIR"
+while [ "$dir" != "/" ]; do 
+    dir=$( dirname "$dir" )
+    found="$( find "$dir" -maxdepth 1 -name $DBW_COURSE_FILE_NAME )"
+    if [ "$found" ]; then 
+        DBW_COURSE_DIR="$( dirname $found )"
+        break
+    fi
+done
 
 # Get the name of the course as $DBW_COURSE
-DBW_COURSE_FILE="$DBW_COURSE_DIR/.dbwebb.course"
+DBW_COURSE_FILE="$DBW_COURSE_DIR/$DBW_COURSE_FILE_NAME"
 if [ ! -f "$DBW_COURSE_FILE" ]; then
-    $ECHO "$MSG_FAILED Missing file .dbwebb.course, this is not a valid course repo.\n"
+    $ECHO "$MSG_FAILED Could not find file $DBW_COURSE_FILE_NAME, this is not a valid course repo.\n"
     exit 1
 fi
 source "$DBW_COURSE_FILE"
@@ -190,8 +200,8 @@ case $CMD in
         testConnection
         ;;
 
-    version)
-        version
+    status)
+        status
         ;;
 
     login)

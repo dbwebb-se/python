@@ -164,6 +164,8 @@ mapCmdToDir()
                 game1)      RES="me/kmom04/game1" ;;
                 game2)      RES="me/kmom05/game2" ;;
                 game3)      RES="me/kmom06/game3" ;;
+
+                adventure)  RES="me/kmom10/adventure" ;;
             esac
             ;;
         *)
@@ -216,6 +218,7 @@ testMe()
             KMOM05="kmom05 kmom05/marvin4 kmom05/lab4 kmom05/game2"
             KMOM06="kmom06 kmom06/marvin5 kmom06/lab5 kmom06/game3"
             KMOM10="kmom10"
+            #KMOM10="kmom10 kmom10/adventure"
             ;;
 
         *)           
