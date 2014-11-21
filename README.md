@@ -46,6 +46,7 @@ History
 
 v1.0.x (latest)
 
+* Adding support for kmom10 in `bin/dbwebb`.
 * Adding support for kmom06 in `bin/dbwebb`.
 * Added config file for html-minifier.
 * Added and verified example programs to kmom06.

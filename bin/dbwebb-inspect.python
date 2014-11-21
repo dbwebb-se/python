@@ -152,6 +152,7 @@ pythonmarvin5()
         target_dir="$THEDIR/$target"
     fi
 
+
     # Options
     cmd="marvin-cli.py"
     $ECHO "\n\nTesting various aspects of the command $cmd"
@@ -163,9 +164,11 @@ pythonmarvin5()
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
     
     # Exit status
-    $ECHO "Checking exit status from command."
-    assert 0 "cd $target_dir; python3 marvin-cli.py --version" "Should return exit status 0 but did not."
-    assert 1 "cd $target_dir; python3 marvin-cli.py --MISSINGOPTION" "Should return exit status 1 but did not."
+    $ECHO "\n\nChecking exit status 0 by successful usage."
+    assertExit 0 "cd $target_dir; python3 marvin-cli.py --version" "Should return exit status 0 but did not."
+
+    $ECHO "\n\nChecking exit status 1 by misusage."
+    assertExit 1 "cd $target_dir; python3 marvin-cli.py --MISSINGOPTION" "Should return exit status 1 but did not."
 
     # Ping
     cmd="marvin-cli.py"
@@ -185,8 +188,8 @@ pythonmarvin5()
     opts="--output=humans.txt get http://dbwebb.se/humans.txt"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
     
-    assert 0 "test -f $THEDIR/$target/humans.txt" "File humans.txt is missing."
-    cat "$THEDIR/$target/humans.txt"
+    assert 0 "test -f $target_dir/humans.txt" "File humans.txt is missing."
+    cat "$target_dir/humans.txt"
 
     # Quote
     cmd="marvin-cli.py"
@@ -201,6 +204,62 @@ pythonmarvin5()
     # seo
     cmd="marvin-cli.py"
     opts="--json seo http://dbwebb.se"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+}
+
+
+
+#
+# Test python adventure
+#
+pythonAdventure()
+{
+    target="$1"
+
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- adventure ---------------------"
+    $ECHO "\n-----------------------------------------"
+
+    dirname="$THEDIR/$target"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+
+    filename="$THEDIR/$target/adventure.py"
+    assert 0 "test -r $filename -a -f $filename" "The file adventure.py is missing."
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
+    $ECHO "\n$EDITOR $THEDIR/$target/adventure.py"
+
+    # Make a copy before testing
+    if [ ! "$THEUSER" = "$USER" ]; then
+        $ECHO "\n\nMaking a local copy before testing."
+        publishKmom "$target" "y"
+        target_dir="$PUBLISH_STUD"
+    else 
+        target_dir="$THEDIR/$target"
+    fi
+
+
+    # Options
+    cmd="adventure.py"
+    $ECHO "\n\nTesting various aspects of the command $cmd"
+    opts="--help"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+
+    opts="--version"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    
+    opts="--info"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    
+    opts="--about"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    
+    opts="--cheet"
+    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    
+    # run it
+    opts=""
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
 }
 
@@ -437,5 +496,5 @@ pythonkmom10()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    $ECHO "\nNOT IMPLEMENTED"
+    pythonAdventure "$THETARGET/adventure"
 }

@@ -1,6 +1,21 @@
 #
 # Print usage of script
 #
+dbwebb2PrintShortUsage()
+{
+    $ECHO "\nUtility $DBW_EXECUTABLE $DBW_VERSION by Mikael Roos, to work with dbwebb course repositories."
+    $ECHO "\n"
+    $ECHO "\nFor overview of the command, execute:"
+    $ECHO "\n$DBW_EXECUTABLE help"
+    $ECHO "\n"
+    $ECHO "\n"
+}
+
+
+
+#
+# Print usage of script
+#
 dbwebb2PrintUsage()
 {
     $ECHO "\nUtility $DBW_EXECUTABLE $DBW_VERSION by Mikael Roos, to work with dbwebb course repositories."
@@ -18,22 +33,27 @@ dbwebb2PrintUsage()
     $ECHO "\n"
     $ECHO "\nCommand:"
     $ECHO "\n"
-    $ECHO "\n  init-repo    Init the repo for the first time and create a config-file."
-    $ECHO "\n  init-me      Init the directory me/ by copying files and directories from me-default/."
-    $ECHO "\n  init-server  Init the server by creating a directory structure on it."
+    $ECHO "\n  help           Print this message."
+    $ECHO "\n  create-config  Print this message."
+    $ECHO "\n  init-repo      Init the repo for the first time and create a config-file."
+    $ECHO "\n  init-me        Init the directory me/ by copying files and directories from me-default/."
+    $ECHO "\n  init-server    Init the server by creating a directory structure on it."
     $ECHO "\n"
-    $ECHO "\n  environment  Check and print out details on the environment."
-    $ECHO "\n  config       Create, or re-create the config file."
-    $ECHO "\n  status       Display status and version information on this repo."
-    $ECHO "\n  test         Test the connection by loggin in."
-    $ECHO "\n  login        Login to the server using ssh."
-    $ECHO "\n  update       Update the courserepo with latest updates from the master repo."
+    $ECHO "\n  eenv, environment  Check and print out details on the environment."
+    $ECHO "\n  config             Create, or re-create the config file."
+    $ECHO "\n  status             Display status and version information on this repo."
+    $ECHO "\n  test               Test the connection by loggin in."
+    $ECHO "\n  login              Login to the server using ssh."
+    $ECHO "\n  update             Update the courserepo with latest updates from the master repo."
     $ECHO "\n"
-    $ECHO "\n  upload       Upload current directory to the the server."
-    $ECHO "\n  download     Download current directory from the server."
+    $ECHO "\n  ~upload        Upload current directory to the the server."
+    $ECHO "\n  ~download      Download current directory from the server."
     $ECHO "\n"
-    $ECHO "\n  push [part]  Upload all or a specific part of the course repo to the server."
-    $ECHO "\n  pull [part]  Download all or a specific part of the course repo from the server."
+    $ECHO "\n  ~push [part]   Upload all or a specific part of the course repo to the server."
+    $ECHO "\n  ~pull [part]   Download all or a specific part of the course repo from the server."
+    $ECHO "\n"
+    $ECHO "\n  inspect        Inspect a kmom for yourself or a specific user, needs teacher privilegies"
+    $ECHO "\n                 to check another students kmom."
     $ECHO "\n"
     $ECHO "\n  TBD"
     $ECHO "\n  sshkey       Create and install ssh-keys to avoid using password."
@@ -44,8 +64,6 @@ dbwebb2PrintUsage()
     $ECHO "\n  publish      Upload, Validate and Publish your course results to the web."
     $ECHO "\n               Send in kmom01, kmom02, etc to publish only one kmom."
     $ECHO "\n               Default is to publish all."
-    $ECHO "\n  inspect      Inspect a kmom for yourself or a specific user, needs teacher privilegies"
-    $ECHO "\n               to check another students kmom."
     $ECHO "\n"
     $ECHO "\n  Obsolete?"
     $ECHO "\n  init         Init the remote server and create a destination directory."
@@ -104,7 +122,7 @@ createConfig()
     if [ -z $FIRST ]
     then
 
-        $ECHO "The config-file '$DBW_CONFIG_FILE_NAME' will now be created in the root of this course repo."
+        $ECHO "The config-file '$DBW_CONFIG_FILE_NAME' will now be created in your home directory: $HOME"
 
     elif [ $FIRST = "update" ]
     then
@@ -127,16 +145,17 @@ createConfig()
     if [ -z "$NO_INPUT" ]
     then
 
-        $ECHO "\nWhat is your student acronym? [$DBW_USER] "    
+        DBW_USER=${DBW_USER:-$USER}
+        $ECHO "\nWhat is your student acronym? [$DBW_USER] "
         read ACRONYM
 
     fi
 
     ACRONYM=${ACRONYM:-$DBW_USER}
 
-    cat "$DBW_CONFIG_DEFAULT_FILE" | $SED s/DEFAULT_USER/$ACRONYM/g > "$DBW_COURSE_DIR/$DBW_CONFIG_FILE_NAME"
+    cat "$DBW_CONFIG_DEFAULT_FILE" | $SED s/DEFAULT_USER/$ACRONYM/g > "$DBW_CONFIG_FILE"
 
-    $ECHO "\nThe config file '$DBW_CONFIG_FILE_NAME' is now up-to-date."
+    $ECHO "\nThe config file '$DBW_CONFIG_FILE' is now up-to-date."
     $ECHO "\n\n"
 }
 
@@ -170,15 +189,21 @@ environment()
     $ECHO "\nVersion of dbwebb is:  $DBW_VERSION"
     $ECHO "\nPath to executable:    $DBW_EXECUTABLE_DIR"
     $ECHO "\nInstall dir:           $DBW_INSTALL_DIR"
-    $ECHO "\n"
-    $ECHO "\nDetails on the course-repo."
-    $ECHO "\n"
-    $ECHO "\nCurrent course-repo:   $DBW_COURSE"
-    $ECHO "\nCourse-repo version:   $( $GIT describe )"
-    $ECHO "\nCourse directory:      $DBW_COURSE_DIR"
-    $ECHO "\nWorking directory:     $DBW_CURRENT_DIR"
     $ECHO "\nConfig-file:           $DBW_CONFIG_FILE"
+    $ECHO "\nWorking directory:     $DBW_CURRENT_DIR"
     $ECHO "\n"
+
+    if [ "$DBW_COURSE_REPO_VALID" == "yes" ]; then
+        $ECHO "\nDetails on the course-repo."
+        $ECHO "\n"
+        $ECHO "\nCurrent course-repo:   $DBW_COURSE"
+        $ECHO "\nCourse-repo version:   $( $GIT describe )"
+        $ECHO "\nCourse directory:      $DBW_COURSE_DIR"
+    else 
+        $ECHO "\nThis is not a valid course repo."
+    fi
+    $ECHO "\n"
+
     $ECHO "\nDetails on installed utilities."
     $ECHO "\n"
     $ECHO "\nbash:                  %s" "$( checkCommand $BASH )"
@@ -214,7 +239,8 @@ checkCommand()
 #
 status()
 {
-    $ECHO "Course repo is $DBW_COURSE"
+    $ECHO "This is a valid course repo - $DBW_COURSE_REPO_VALID."
+    $ECHO "\nCourse repo name is '$DBW_COURSE'"
     $ECHO "\n\nVersion of dbwebb-cli is $DBW_VERSION"
     $ECHO "\n\nLatest update to course repo was:\n"
     $GIT log -1
@@ -349,7 +375,7 @@ inspectResults()
     WHO=$2
     INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
     LOG="$HOME/$BASEDIR/.dbwebb-inspect.log"
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO' | tee $LOG; "
+    COMMAND="$SSH_CMD 'cd $DBW_BASEDIR/$DBW_COURSE; bin/dbwebb-inspect $WHAT $WHO' | tee $LOG; "
     MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R $LOG"
 
     #COMMAND="$SSH_CMD 'cd $DBW_BASEDIR/$DBW_COURSE; bin/dbwebb-inspect $WHAT $WHO'"

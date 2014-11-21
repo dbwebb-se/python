@@ -63,7 +63,7 @@ DBW_CURRENT_DIR="$( pwd )"
 # What is the directory of the current course repo, find recursivly up the tree
 DBW_COURSE_FILE_NAME=".dbwebb.course"
 
-dir="$DBW_CURRENT_DIR"
+dir="$DBW_CURRENT_DIR/."
 while [ "$dir" != "/" ]; do 
     dir=$( dirname "$dir" )
     found="$( find "$dir" -maxdepth 1 -name $DBW_COURSE_FILE_NAME )"
@@ -73,30 +73,33 @@ while [ "$dir" != "/" ]; do
     fi
 done
 
+
+
 # Get the name of the course as $DBW_COURSE
 DBW_COURSE_FILE="$DBW_COURSE_DIR/$DBW_COURSE_FILE_NAME"
-if [ ! -f "$DBW_COURSE_FILE" ]; then
-    $ECHO "$MSG_FAILED Could not find file $DBW_COURSE_FILE_NAME, this is not a valid course repo.\n"
-    exit 1
+DBW_COURSE_REPO_VALID="no"
+if [ -f "$DBW_COURSE_FILE" ]; then
+    DBW_COURSE_REPO_VALID="yes"
+    source "$DBW_COURSE_FILE"
 fi
-source "$DBW_COURSE_FILE"
+
+
 
 # Where is the .dbwebb.config-file
 DBW_CONFIG_DEFAULT_FILE="$DBW_INSTALL_DIR/dbwebb2-config-sample"
 DBW_CONFIG_FILE_NAME=".dbwebb2.config"
-DBW_CONFIG_FILE="$DBW_COURSE_DIR/$DBW_CONFIG_FILE_NAME"
+DBW_CONFIG_FILE="$HOME/$DBW_CONFIG_FILE_NAME"
 if [ ! -f "$DBW_CONFIG_FILE" ]; then
 
     # If the command is to init-repo, then execute that and create a config-file
     if [ "$1" = "init-repo" ]; then
         createConfig
         exit 0
-    else
-        $ECHO "$MSG_FAILED Missing the file $DBW_CONFIG_FILE_NAME. This does NOT appear to be a valid course repo.\nHave you initiated this as a course repo? Run the following command in the root of the course repo:\n$DBW_EXECUTABLE init-repo\n\n"
-        exit 1
     fi
+else
+    source "$DBW_CONFIG_FILE"
 fi
-source "$DBW_CONFIG_FILE"
+
 
 
 # Check OS
@@ -111,14 +114,22 @@ RSYNC_CMD="$RSYNC -av --delete --exclude .git --exclude .gitignore -e \"ssh $DBW
 
 
 #
-# Main
+# Main, start by checking basic usage
 #
 if [ $# -lt 1 ]
 then
+    dbwebb2PrintShortUsage
+    exit 0
+elif [ "$1" == "help" ]; then
     dbwebb2PrintUsage
+    exit 0
+elif [ "$1" == "create-config" ]; then
+    createConfig
     exit 0
 fi
 
+
+# Check if config file is up to date
 updateConfigIfNeeded "update"
 
 
@@ -161,13 +172,22 @@ do
             ;;
 
         \?)
-            dbwebb2PrintUsage
+            dbwebb2Usage
             exit 1
             ;;
     esac
 done
 shift $((OPTIND - 1))
 
+
+
+
+
+#$ECHO "$MSG_FAILED Could not find file $DBW_COURSE_FILE_NAME, this is not a valid course repo.\n"
+#exit 1
+
+#$ECHO "$MSG_FAILED Missing the file $DBW_CONFIG_FILE_NAME. This does NOT appear to be a valid course repo.\nHave you initiated this as a course repo? Run the following command in the root of the course repo:\n$DBW_EXECUTABLE init-repo\n\n"
+#exit 1
 
 
 #
@@ -188,7 +208,7 @@ case $CMD in
         initServer
         ;;
 
-    environment)
+    env|environment)
         environment
         ;;
 
@@ -266,7 +286,7 @@ case $CMD in
         ;;
 
     *)
-        dbwebb2PrintUsage
+        dbwebb2PrintShortUsage
         exit 1
         ;;
 esac

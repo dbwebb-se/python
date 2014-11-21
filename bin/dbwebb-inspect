@@ -153,7 +153,7 @@ executeCommand()
 {
     what="$1"
     move1="$2"
-    cmd="$3"
+    acmd="$3"
     move2="$4"
     opts="$5"
 
@@ -170,9 +170,9 @@ executeCommand()
             cd "$move1"
 
             if [ "$USER" = "$THEUSER" ]; then
-                $cmd
+                $cmda
             else
-                $SUDO $cmd
+                $SUDO $cmda
             fi
             
             status=$?
@@ -180,9 +180,9 @@ executeCommand()
 
             if [ $status -eq 0 ]; then
                 assert 1 "test" "Command executed successfully."
-                $ECHO "\n\n$MSG_OK Command executed with a exit status 0  - indicating success."
+                $ECHO "\n\n$MSG_OK Command executed with a exit status 0  - indicating success.\n"
             else
-                assert 0 "test" "Command return non-zero exit status which might indicate failure."
+                assert 0 "test" "Command return non-zero exit status which might indicate failure.\n"
             fi
         fi
     else
@@ -238,6 +238,36 @@ assert()
         [ -z "$ERROR" ] || $ECHO "$ERROR\n\n"
 
         FAILED=1
+    fi
+
+    return $FAILED
+}
+
+
+
+
+#
+# Perform an assert on exit value returned
+#
+assertExit()
+{
+    EXPECTED=$1
+    TEST=$2
+    MESSAGE=$3
+    ASSERTS=$(( $ASSERTS + 1 ))
+    FAILED=0
+
+    sh -c "$TEST" > "/dev/null" 2>&1
+    STATUS=$?
+
+    if [ $STATUS -ne $EXPECTED ]; then
+        FAULTS=$(( $FAULTS + 1 ))
+
+        $ECHO "\n\n$MSG_FAILED $MESSAGE\n"
+
+        FAILED=1
+    else 
+        $ECHO "\n\n$MSG_OK\n"
     fi
 
     return $FAILED
