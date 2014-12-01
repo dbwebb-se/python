@@ -145,7 +145,8 @@ def parseOptions():
         print(err)
         print(MSG_USAGE)
         # Prints the callstack, good for debugging, comment out for production
-        traceback.print_stack()
+        #traceback.print_exception()
+        #traceback.print_stack()
         sys.exit(EXIT_USAGE)
 
 
