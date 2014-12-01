@@ -144,6 +144,7 @@ def parseOptions():
     except Exception as err:
         print(err)
         print(MSG_USAGE)
+        # Prints the callstack, good for debugging, comment out for production
         traceback.print_stack()
         sys.exit(EXIT_USAGE)
 
