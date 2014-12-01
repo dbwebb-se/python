@@ -8,6 +8,7 @@ Example to show how command-line options can be handled by a script.
 
 
 import sys
+import traceback
 import os
 from datetime import datetime
 import getopt
@@ -143,6 +144,7 @@ def parseOptions():
     except Exception as err:
         print(err)
         print(MSG_USAGE)
+        traceback.print_stack()
         sys.exit(EXIT_USAGE)
 
 
