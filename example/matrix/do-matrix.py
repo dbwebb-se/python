@@ -58,10 +58,10 @@ def loadMatrix(matrix):
         # without \n
         content = f.read().splitlines()
 
-    # Update each row of the matrix and fill it by using the file content 
-    # (may need som care when file and matrix size does not match)
-    for y in range(0, len(matrix)):
-        matrix[y] = list(content[y])
+        # Update each row of the matrix and fill it by using the file content 
+        # (may need som care when file and matrix size does not match)
+        for y in range(0, len(matrix)):
+            matrix[y] = list(content[y])
 
     print("Loaded the state from the file {}".format(filename))
 
