@@ -7,13 +7,13 @@ Testing out the curses lib.
 
 import curses
 
-def debug(str):
+def debug(msg):
     """
-    Ease debugging with curese by writing string to file.
+    Ease debugging with curses by writing a message to file.
     """
 
     with open("debug.txt", "a") as f:
-        f.write(str + "\n")
+        f.write(msg + "\n")
 
 
 
@@ -30,8 +30,8 @@ def dump(scr, startX, startY, endX, endY):
                 ch = scr.inch(y, x)
                 debug(str(x) + " - " + str(y) + ": " + str(ch))
 
-                # Output only if not space 
-                if(ch != 32):
+                # Output only if not space
+                if ch != 32:
                     ch = chr(ch & 0x00ff)
                     f.write(ch)
 
@@ -42,11 +42,11 @@ def main(scr):
     Draw a border around the screen, move around using the cursor and leave a mark
     of the latest pressed character on the keyboard.
 
-    Perhaps you could make a nice painting using asciart? 
+    Perhaps you could make a nice painting using asciart?
 
     Quit using 'q'.
     """
-    
+
     # Clear the screen of any output
     scr.clear()
 
@@ -56,7 +56,7 @@ def main(scr):
     x1 -= 1
 
     y0, x0 = 0, 0
-    
+
     # Get center position
     yc, xc = (y1-y0)//2, (x1-x0)//2
 
@@ -73,7 +73,7 @@ def main(scr):
     x = xc
     y = yc
     ch = 'o'
-    
+
     while True:
         key = scr.getkey()
         if key == 'q':
@@ -94,7 +94,7 @@ def main(scr):
 
         # Draw out the char at cursor positino
         scr.addstr(ch)
-        
+
         # Move cursor to new position
         scr.move(y, x)
 

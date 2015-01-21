@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Example to show how command-line options can be handled by a script. 
+Example to show how command-line options can be handled by a script.
 """
 
 
 
 import sys
-import traceback
 import os
 from datetime import datetime
 import getopt
@@ -28,7 +27,7 @@ Usage:
   {program} [options] name
 
 Options:
-  -d <number> --drums=<number>   Make a drum sound when writeing the name.
+  -d <number> --drums=<number>   Make a drum sound when writing the name.
   -h --help                      Display this help message.
   -r <number> --repeat=<number>  Print the name several times.
   -s --silent                    Do not display any details or statistics about the execution.
@@ -71,7 +70,7 @@ def printVersion():
     """
     Print version information and exit.
     """
-    print(MSG_VERSION) 
+    print(MSG_VERSION)
     sys.exit(EXIT_SUCCESS)
 
 
@@ -109,7 +108,7 @@ def parseOptions():
                     assert False, "-d, --drum: {arg} is not a numeric value".format(arg=arg)
 
                 DRUM = int(arg)
-                    
+
                 if VERBOSE:
                     print("Setting DRUM to ", DRUM)
 
@@ -121,7 +120,7 @@ def parseOptions():
                     assert False, "-r, --repeat: {arg} is not a numeric value".format(arg=arg)
 
                 REPEAT = int(arg)
-                
+
                 if VERBOSE:
                     print("Setting REPEAT to ", REPEAT)
 
@@ -133,7 +132,7 @@ def parseOptions():
 
             else:
                 assert False, "Unhandled option"
-    
+
         if len(args) != 1:
             assert False, "Missing name"
 
@@ -156,15 +155,15 @@ def main():
     Main function to carry out the work.
     """
     startTime = datetime.now()
-    
+
     parseOptions()
 
     printMyName()
-    
+
     timediff = datetime.now()-startTime
     if VERBOSE:
         sys.stderr.write("Script executed in {}.{} seconds\n".format(timediff.seconds, timediff.microseconds))
-    
+
     sys.exit(EXIT_SUCCESS)
 
 

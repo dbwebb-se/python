@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Some various ways of saying Hello World in Python
+Some various ways of saying Hello World in Python.
 """
 
 def hello():
@@ -10,6 +10,7 @@ def hello():
     Print out Hello World in a function.
     """
     print("Hello World in a function.")
+
 
 # Call a function that prints out Hello World
 hello()

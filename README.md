@@ -1,7 +1,7 @@
 Programming and Problemsolving in Python - python
 ===================
 
-Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level. 
+Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level.
 
 The course will have a high enough level to satisfy those who are familiar with another programming language and has the need to learn python.
 
@@ -27,7 +27,7 @@ Items in the literature folder have their own licences.
 Acknowledgement
 -------------------
 
-This is a co-effort of several people using freely available documentation and tools from the open source community. 
+This is a co-effort of several people using freely available documentation and tools from the open source community.
 
 The major contributors are:
 
@@ -44,14 +44,19 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v1.0.x (latest)
+v1.1.x (latest)
+
+* Fixing validation errors.
+
+
+v1.1.0 (2015-01-14)
 
 * Disabling too-many-instance-attributes in pylint.
 * Adding support for kmom10 in `bin/dbwebb`.
 * Adding support for kmom06 in `bin/dbwebb`.
 * Added config file for html-minifier.
 * Added and verified example programs to kmom06.
-* Updated `bin/dbwebb` to version v1.0.14. 
+* Updated `bin/dbwebb` to version v1.0.14.
 * Updated examples in `example/curses` when releasing kmom05.
 * `.pylintrc` to ignore broad-except.
 * Inspect javascript1 kmom01 - 04 added.
@@ -81,7 +86,7 @@ v1.0.0 (2014-08-30)
 
 
 
-```                                                            
- .                                                             
-..:  Copyright (c) 2014 Mikael Roos, me@mikaelroos.se   
-```                                                            
+```
+ .
+..:  Copyright (c) 2014 Mikael Roos, me@mikaelroos.se
+```
