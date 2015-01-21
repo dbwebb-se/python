@@ -54,6 +54,9 @@ javascript1sandbox()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
 
+    $ECHO "\nChange directory to:"
+    $ECHO "\ncd $THEDIR/$target/"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -85,6 +88,9 @@ javascript1flag()
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
 
+    $ECHO "\nChange directory to:"
+    $ECHO "\ncd $THEDIR/$target/"
+
     $ECHO "\nPress enter to continue..."
     read void
 }
@@ -110,11 +116,14 @@ javascript1baddie()
     assert 0 "test -r $filename -a -f $filename" "Index file is not readable. $filename"
 
     url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT/$target"
-    $ECHO "\nLink to lab-page: $url"
+    $ECHO "\nLink to page: $url"
 
     $ECHO "\nOpen files in an editor:"
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/js/main.js"
+
+    $ECHO "\nChange directory to:"
+    $ECHO "\ncd $THEDIR/$target/"
 
     $ECHO "\nPress enter to continue..."
     read void
@@ -146,6 +155,9 @@ javascript1lab()
     $ECHO "\nOpen files in an editor:"
     $ECHO "\n$EDITOR $THEDIR/$target/"
     $ECHO "\n$EDITOR $THEDIR/$target/answer.js"
+
+    $ECHO "\nChange directory to:"
+    $ECHO "\ncd $THEDIR/$target/"
 
     $ECHO "\nPress enter to continue..."
     read void
@@ -303,5 +315,5 @@ javascript1kmom10()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     javascript1me
-    $ECHO "\nNOT IMPLEMENTED"
+    javascript1sandbox "$THETARGET/intelligence" "intelligence"
 }

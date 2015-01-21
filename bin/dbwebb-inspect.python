@@ -6,9 +6,7 @@
 #
 pythonme()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- me-page ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- me-page ---------------------"
 
     filename="$THEDIR/me/me.cgi"
     assert 0 "test -r $filename -a -f $filename" "CGI-script for me-page is not readable. $filename"
@@ -37,11 +35,9 @@ pythonme()
 #
 pythonplane()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- plane        ----------------"
-    $ECHO "\n-----------------------------------------"
-
     target="$1"
+
+    headerForTest "----------- plane        ----------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -72,9 +68,7 @@ pythonmarvin1()
     id="$1"
     target="$2"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- marvin$id ---------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -99,9 +93,7 @@ pythonmarvin2()
     id="$1"
     target="$2"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- marvin$id ---------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -129,9 +121,7 @@ pythonmarvin5()
     id="$1"
     target="$2"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- marvin$id ---------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -216,9 +206,7 @@ pythonAdventure()
 {
     target="$1"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- adventure ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- adventure ---------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -270,11 +258,9 @@ pythonAdventure()
 #
 pythongame1()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- game1       -----------------"
-    $ECHO "\n-----------------------------------------"
-
     target="$1"
+
+    headerForTest "----------- game1       -----------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -296,11 +282,9 @@ pythongame1()
 #
 pythongame2()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- game2       -----------------"
-    $ECHO "\n-----------------------------------------"
-
     target="$1"
+
+    headerForTest "----------- game2       -----------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -328,10 +312,7 @@ pythonlab()
     id="$1"
     target="$2"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- lab$id ------------------------"
-    $ECHO "\n-----------------------------------------"
-
+    headerForTest "----------- lab$id ------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -356,9 +337,7 @@ pythonkmom01()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -377,9 +356,7 @@ pythonkmom02()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -399,9 +376,7 @@ pythonkmom03()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -421,9 +396,7 @@ pythonkmom04()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -444,9 +417,7 @@ pythonkmom05()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -467,9 +438,7 @@ pythonkmom06()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -488,9 +457,7 @@ pythonkmom10()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "----------- $COURSE $THEKMOM ---------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"

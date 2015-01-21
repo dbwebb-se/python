@@ -19,6 +19,9 @@ find /tmp -maxdepth 1 -name 'dbwebb-error*' -user mosstud -type f -exec rm -f {}
 #SUDO="sudo -A -u dbwebb"
 SUDO=""
 
+WRAP_HEADER="\n\n\n-----------------------------------------"
+WRAP_FOOTER="\n-----------------------------------------"
+
 
 
 #
@@ -56,10 +59,24 @@ printUsage()
 
 
 #
+# Write header for each test
+#
+headerForTest()
+{
+    what="$1"
+
+    $ECHO "$WRAP_HEADER"
+    $ECHO "\n$what"
+    $ECHO "$WRAP_FOOTER"
+}
+
+
+#
 # Check the environment
 #
 checkEnvironment()
 {
+    $ECHO "\n"
     $ECHO "\n-----------------------------------------"
     $ECHO "\n----------- dbwebb inspect --------------"
     $ECHO "\n-----------------------------------------"
@@ -73,25 +90,34 @@ checkEnvironment()
     fi
 
     dirname="$THEDIR"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable.\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
-    
-    if [ $? -eq 1 ]; then
-        $ECHO "\nFor debug:"
-        $ECHO "\n`whoami`\n"
-        $ECHO "\n`groups`\n"
+    if [ ! -d "$dirname" ] 
+    then 
+        $ECHO "\n\n$MSG_FAILED Directory $dirname not readable.\n\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
 
-        dir="$( dirname $THEDIR )"
-        $ECHO "\n`ls -ld $dir`\n"
-        $ECHO "\n$dir is directory `test -d $dir; echo $?`\n"
-        $ECHO "\n$dir is readable `test -r $dir; echo $?`\n"
+        #$ECHO "\nFor debug:"
+        #$ECHO "\n`whoami`\n"
+        #$ECHO "\n`groups`\n"
 
-        $ECHO "\n`ls -ld $THEDIR`\n"
-        $ECHO "\n$THEDIR is directory `test -d $THEDIR; echo $?`\n"
-        $ECHO "\n$THEDIR is readable `test -r $THEDIR; echo $?`\n"
+        #dir="$( dirname $THEDIR )"
+        #$ECHO "\n`ls -ld $dir`\n"
+        #$ECHO "\n$dir is directory `test -d $dir; echo $?`\n"
+        #$ECHO "\n$dir is readable `test -r $dir; echo $?`\n"
+
+        #$ECHO "\n`ls -ld $THEDIR`\n"
+        #$ECHO "\n$THEDIR is directory `test -d $THEDIR; echo $?`\n"
+        #$ECHO "\n$THEDIR is readable `test -r $THEDIR; echo $?`\n"
+
+        $ECHO "\n\nPress CTRL-C and fix it."
+        read answer
     fi 
 
+    $ECHO "\n"
     $ECHO "\nOpen files in an editor:"
     $ECHO "\n$EDITOR $dirname"
+
+    $ECHO "\n"
+    $ECHO "\nChange to directory:"
+    $ECHO "\ncd $dirname"
 }
 
 
@@ -170,9 +196,9 @@ executeCommand()
             cd "$move1"
 
             if [ "$USER" = "$THEUSER" ]; then
-                $cmda
+                $acmd
             else
-                $SUDO $cmda
+                $SUDO $acmd
             fi
             
             status=$?
