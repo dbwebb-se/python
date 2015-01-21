@@ -312,11 +312,13 @@ updateFromMaster()
 setChmod()
 {
     $ECHO "\nEnsuring that all files and directories are readable for all."
+    $ECHO "\n"
 
-    for filename in $(find "$SOURCE" -type d); do
-        chmod 755 "$filename"
-    done
+    #for filename in $(find "$SOURCE" -type d); do
+    #    chmod 755 "$filename"
+    #done
 
+    find "$SOURCE" -type d -exec chmod 755 {} \;
     chmod -R u+rw "$SOURCE" 
     chmod -R go+r "$SOURCE"
 }
