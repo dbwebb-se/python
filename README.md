@@ -46,6 +46,7 @@ History
 
 v1.1.x (latest)
 
+* Fix error message from bin/dbwebb when not using default path to dbwebb-kurser.
 * Fixing validation errors.
 
 
