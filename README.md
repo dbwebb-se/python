@@ -46,6 +46,7 @@ History
 
 v1.1.x (latest)
 
+* To allow space in file and directory names in bin/dbwebb.
 * Fixed error in inspect where program wasnt executed correctly.
 * Fix error message from bin/dbwebb when not using default path to dbwebb-kurser.
 * Fixing validation errors.
