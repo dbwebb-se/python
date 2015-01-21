@@ -373,7 +373,7 @@ validateUploadedResults()
     LOG="$( pwd )/.dbwebb-validate.log"
     INTRO="I will now upload files to the remote server and validate them."
     COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT' | tee '$LOG';"
-    MESSAGE="to validate course results. Saved a log of the output, review it as:\nless -R $LOG"
+    MESSAGE="to validate course results. Saved a log of the output, review it as:\nless -R '$LOG'"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 }
 
@@ -389,7 +389,7 @@ publishResults()
     LOG="$( pwd )/.dbwebb-validate.log"
     INTRO="I will now try to init the remote server and create a directory where all uploaded files will reside."
     COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT' | tee '$LOG';"
-    MESSAGE="to validate and publish all course results. Saved a log of the output, review it as:\nless -R $LOG"
+    MESSAGE="to validate and publish all course results. Saved a log of the output, review it as:\nless -R '$LOG'"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 
     if [ $? -eq 0 ]
@@ -415,7 +415,7 @@ inspectResults()
     LOG="$( pwd )/.dbwebb-validate.log"
     INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
     COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO' | tee '$LOG'; "
-    MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R $LOG"
+    MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R '$LOG'"
 
     if [ "$USER" = "$WHO" ]
     then
