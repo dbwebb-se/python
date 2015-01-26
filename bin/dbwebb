@@ -176,13 +176,13 @@ installSshKeys()
 {
     SSH_KEY="$HOME/.ssh/dbwebb"
 
-    if [ ! -d $HOME/.ssh ]
+    if [ ! -d "$HOME/.ssh" ]
     then
-        mkdir $HOME/.ssh
+        mkdir "$HOME/.ssh"
     fi
 
     INTRO="First we need to create a ssh key and store it locally."
-    COMMAND="ssh-keygen -t dsa -f $SSH_KEY -N ''"
+    COMMAND="ssh-keygen -t dsa -f \"$SSH_KEY\" -N ''"
     MESSAGE="to create the ssh key."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 
@@ -190,14 +190,14 @@ installSshKeys()
     #echo $IS_CYGWIN
     if [ $IS_CYGWIN = "yes" ]
     then
-        chgrp -vR $CYGWIN_DEFAULT_GROUP $HOME/.ssh
+        chgrp -vR $CYGWIN_DEFAULT_GROUP "$HOME/.ssh"
     fi
 
-    chmod 700 $HOME/.ssh
-    chmod 600 $SSH_KEY $SSH_KEY.pub
+    chmod 700 "$HOME/.ssh"
+    chmod 600 "$SSH_KEY" "$SSH_KEY.pub"
 
     INTRO="I will now install the ssh-key at the remote server."
-    COMMAND="cat $SSH_KEY.pub | ssh $USER@$HOST 'sh -c \"if [ ! -d .ssh ]; then mkdir .ssh; fi; chmod 700 .ssh; touch .ssh/authorized_keys; cat >> .ssh/authorized_keys\"'"
+    COMMAND="cat \"$SSH_KEY.pub\" | ssh $USER@$HOST 'sh -c \"if [ ! -d .ssh ]; then mkdir .ssh; fi; chmod 700 .ssh; touch .ssh/authorized_keys; cat >> .ssh/authorized_keys\"'"
     MESSAGE="to install the ssh-keys."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
@@ -247,7 +247,7 @@ createConfig()
     if [ -z "$NO_INPUT" ]
     then
 
-        $ECHO "\nWhat is your student acronym? [$USER] "    
+        $ECHO "\nWhat is your student acronym? [$USER] "
         read ACRONYM
 
     fi
@@ -312,14 +312,12 @@ updateFromMaster()
 setChmod()
 {
     $ECHO "\nEnsuring that all files and directories are readable for all."
-    $ECHO "\n"
 
-    #for filename in $(find "$SOURCE" -type d); do
-    #    chmod 755 "$filename"
-    #done
+    for filename in $(find "$SOURCE" -type d); do
+        chmod 755 "$filename"
+    done
 
-    find "$SOURCE" -type d -exec chmod 755 {} \;
-    chmod -R u+rw "$SOURCE" 
+    chmod -R u+rw "$SOURCE"
     chmod -R go+r "$SOURCE"
 }
 
@@ -331,7 +329,7 @@ setChmod()
 uploadToServer()
 {
     INTRO="Your current working directory will now be synced to remote server."
-    COMMAND="$UPLOAD"
+    COMMAND=$UPLOAD
     MESSAGE="to upload data."
     executeCommand "$INTRO" "$COMMAND" "$MESSAGE"
 }
@@ -371,11 +369,10 @@ createLab()
 validateUploadedResults()
 {
     WHAT=$1
-    #LOG="$HOME/$BASEDIR/.dbwebb-validate.log"
-    LOG="$( pwd )/.dbwebb-validate.log"
+    LOG="$HOME/$BASEDIR/.dbwebb-validate.log"
     INTRO="I will now upload files to the remote server and validate them."
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT' | tee '$LOG';"
-    MESSAGE="to validate course results. Saved a log of the output, review it as:\nless -R '$LOG'"
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate -n $IGNORE_FAULTS $WHAT' | tee $LOG;"
+    MESSAGE="to validate course results. Saved a log of the output, review it as:\nless -R $LOG"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 }
 
@@ -387,11 +384,10 @@ validateUploadedResults()
 publishResults()
 {
     WHAT=$1
-    #LOG="$HOME/$BASEDIR/.dbwebb-validate.log"
-    LOG="$( pwd )/.dbwebb-validate.log"
+    LOG="$HOME/$BASEDIR/.dbwebb-publish.log"
     INTRO="I will now try to init the remote server and create a directory where all uploaded files will reside."
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT' | tee '$LOG';"
-    MESSAGE="to validate and publish all course results. Saved a log of the output, review it as:\nless -R '$LOG'"
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-validate $IGNORE_FAULTS $WHAT' | tee $LOG;"
+    MESSAGE="to validate and publish all course results. Saved a log of the output, review it as:\nless -R $LOG"
     executeCommand "$INTRO" "$UPLOAD; $COMMAND" "$MESSAGE"
 
     if [ $? -eq 0 ]
@@ -413,11 +409,10 @@ inspectResults()
 {
     WHAT=$1
     WHO=$2
-    #LOG="$HOME/$BASEDIR/.dbwebb-validate.log"
-    LOG="$( pwd )/.dbwebb-validate.log"
+    LOG="$HOME/$BASEDIR/.dbwebb-inspect.log"
     INTRO="I will now inspect the choosen kmom for the choosen user, if you have privilegies to do that."
-    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO' | tee '$LOG'; "
-    MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R '$LOG'"
+    COMMAND="$SSH 'cd $BASEDIR/$PROJECT; bin/dbwebb-inspect $WHAT $WHO' | tee $LOG; "
+    MESSAGE="to inspect the course results. Saved a log of the output, review it as:\nless -R $LOG"
 
     if [ "$USER" = "$WHO" ]
     then
@@ -575,5 +570,3 @@ case $CMD in
         printUsage
         ;;
 esac
-
-

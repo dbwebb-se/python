@@ -9,7 +9,7 @@ COURSE="DEFAULT_COURSE"
 #
 # Do not change below unless you are really sure on the effects
 #
-VERSION_CONFIG="1.0.14"
+VERSION_CONFIG="1.1.1"
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_WARNING="\033[43mWARNING.\033[0m"
@@ -28,11 +28,11 @@ DESTINATION="${USER}@${HOST}:$BASEDIR/$PROJECT/"
 
 # Detect if ssh-key is available
 SSH_KEY=""
-SSH_KEY_OPTIONS=""
+SSH_KEY_OPTION=""
 if [ -f "$HOME/.ssh/dbwebb" ]
 then
     SSH_KEY="$HOME/.ssh/dbwebb"
-    SSH_KEY_OPTION="-i $SSH_KEY"
+    SSH_KEY_OPTION="-i '$SSH_KEY'"
 fi
 
 
@@ -81,11 +81,11 @@ EDITOR=${EDITOR:-$EDITOR_DEFAULT}
 WGET="wget -qO"
 CURL="curl -so"
 
-if hash wget 2> /dev/null 
+if hash wget 2> /dev/null
 then
     WGET="$WGET"
 elif hash curl 2> /dev/null
-then 
+then
     WGET="$CURL"
 fi
 
@@ -99,4 +99,3 @@ GET_ANSWER_JSON="lab.php?answer-json"
 GET_ANSWER_PY="lab.php?answer-py"
 GET_ANSWER_PYDBWEBB="lab.php?answer-py-assert"
 GET_ANSWER_EXTRA="lab.php?answer-extra"
-

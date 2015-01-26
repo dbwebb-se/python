@@ -44,8 +44,9 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v1.1.x (latest)
+v1.1.1 (2015-01-26)
 
+* To allow spaces in username for sshkeys.
 * To allow space in file and directory names in bin/dbwebb.
 * Fixed error in inspect where program wasnt executed correctly.
 * Fix error message from bin/dbwebb when not using default path to dbwebb-kurser.
