@@ -6,7 +6,9 @@
 #
 pythonme()
 {
-    headerForTest "----------- me-page ---------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- me-page ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     filename="$THEDIR/me/me.cgi"
     assert 0 "test -r $filename -a -f $filename" "CGI-script for me-page is not readable. $filename"
@@ -35,27 +37,42 @@ pythonme()
 #
 pythonplane()
 {
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- plane        ----------------"
+    $ECHO "\n-----------------------------------------"
+
     target="$1"
 
-    headerForTest "----------- plane        ----------------"
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR $THEDIR/$target/"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
 
-    filename="$THEDIR/$target/plane1.py"
-    assert 0 "test -r $filename -a -f $filename" "The file plane.py is missing."
+    # Test plane.py
+    $ECHO "\n\n[TEST] Execute plane.py with user interactions (reading input from user)."
 
-    filename="$THEDIR/$target/plane1.cgi"
-    assert 0 "test -r $filename -a -f $filename" "The file plane.cgi is missing."
-
-    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
-    $ECHO "\nLink to plane-page: $url/me/kmom01/plane/plane1.cgi"
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/plane1.cgi"
+    #filename="$THEDIR/$target/plane.py"
+    #assert 0 "test -r $filename -a -f $filename" "The file plane.py is missing."
 
     executeCommand "plane.py" "$THEDIR/$target" "python3 plane.py" "$TARGET"
+
+    # Test plane1.py
+    $ECHO "\n\n[TEST] Execute plane1.py without user interaction."
+
+    #filename="$THEDIR/$target/plane1.py"
+    #assert 0 "test -r $filename -a -f $filename" "The file plane1.py is missing."
+
+    executeCommand "plane1.py" "$THEDIR/$target" "python3 plane1.py" "$TARGET"
+
+    # Test plane1.cgi
+    $ECHO "\n\n[TEST] Check that the cgi-version plane1.cgi works."
+
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    $ECHO "\nLink to plane1 cgi-script: $url/me/kmom01/plane/plane1.cgi"
+
+    filename="$THEDIR/$target/plane1.cgi"
+    assert 0 "test -r $filename -a -f $filename" "The file plane1.cgi is missing."
 }
 
 
@@ -68,7 +85,9 @@ pythonmarvin1()
     id="$1"
     target="$2"
 
-    headerForTest "----------- marvin$id ---------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin$id ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -93,7 +112,9 @@ pythonmarvin2()
     id="$1"
     target="$2"
 
-    headerForTest "----------- marvin$id ---------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin$id ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -121,7 +142,9 @@ pythonmarvin5()
     id="$1"
     target="$2"
 
-    headerForTest "----------- marvin$id ---------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- marvin$id ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -138,7 +161,7 @@ pythonmarvin5()
         $ECHO "\n\nMaking a local copy before testing."
         publishKmom "$target" "y"
         target_dir="$PUBLISH_STUD"
-    else 
+    else
         target_dir="$THEDIR/$target"
     fi
 
@@ -152,7 +175,7 @@ pythonmarvin5()
     cmd="marvin-cli.py"
     opts="--version"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     # Exit status
     $ECHO "\n\nChecking exit status 0 by successful usage."
     assertExit 0 "cd $target_dir; python3 marvin-cli.py --version" "Should return exit status 0 but did not."
@@ -164,7 +187,7 @@ pythonmarvin5()
     cmd="marvin-cli.py"
     opts="ping http://dbwebb.se/humans.txt"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     cmd="marvin-cli.py"
     opts="ping-history"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
@@ -173,11 +196,11 @@ pythonmarvin5()
     cmd="marvin-cli.py"
     opts="get http://dbwebb.se/humans.txt"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     cmd="marvin-cli.py"
     opts="--output=humans.txt get http://dbwebb.se/humans.txt"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     assert 0 "test -f $target_dir/humans.txt" "File humans.txt is missing."
     cat "$target_dir/humans.txt"
 
@@ -206,7 +229,9 @@ pythonAdventure()
 {
     target="$1"
 
-    headerForTest "----------- adventure ---------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- adventure ---------------------"
+    $ECHO "\n-----------------------------------------"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -223,7 +248,7 @@ pythonAdventure()
         $ECHO "\n\nMaking a local copy before testing."
         publishKmom "$target" "y"
         target_dir="$PUBLISH_STUD"
-    else 
+    else
         target_dir="$THEDIR/$target"
     fi
 
@@ -236,16 +261,16 @@ pythonAdventure()
 
     opts="--version"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     opts="--info"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     opts="--about"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     opts="--cheet"
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-    
+
     # run it
     opts=""
     executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
@@ -258,9 +283,11 @@ pythonAdventure()
 #
 pythongame1()
 {
-    target="$1"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- game1       -----------------"
+    $ECHO "\n-----------------------------------------"
 
-    headerForTest "----------- game1       -----------------"
+    target="$1"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -282,9 +309,11 @@ pythongame1()
 #
 pythongame2()
 {
-    target="$1"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- game2       -----------------"
+    $ECHO "\n-----------------------------------------"
 
-    headerForTest "----------- game2       -----------------"
+    target="$1"
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -312,7 +341,10 @@ pythonlab()
     id="$1"
     target="$2"
 
-    headerForTest "----------- lab$id ------------------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- lab$id ------------------------"
+    $ECHO "\n-----------------------------------------"
+
 
     dirname="$THEDIR/$target"
     assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
@@ -337,7 +369,9 @@ pythonkmom01()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -356,7 +390,9 @@ pythonkmom02()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -376,7 +412,9 @@ pythonkmom03()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -396,7 +434,9 @@ pythonkmom04()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -417,7 +457,9 @@ pythonkmom05()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -438,7 +480,9 @@ pythonkmom06()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -457,7 +501,9 @@ pythonkmom10()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    headerForTest "----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n\n-----------------------------------------"
+    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
+    $ECHO "\n-----------------------------------------"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
