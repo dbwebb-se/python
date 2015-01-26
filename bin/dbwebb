@@ -313,12 +313,15 @@ setChmod()
 {
     $ECHO "\nEnsuring that all files and directories are readable for all."
 
-    for filename in $(find "$SOURCE" -type d); do
-        chmod 755 "$filename"
-    done
+    #for filename in $(find "$SOURCE" -type d); do
+    #    chmod 755 "$filename"
+    #done
 
-    chmod -R u+rw "$SOURCE"
-    chmod -R go+r "$SOURCE"
+    #chmod -R u+rw "$SOURCE"
+    #chmod -R go+r "$SOURCE"
+
+    find "$SOURCE" -type d -exec chmod u+rwx,go+rx {} \;
+    find "$SOURCE" -type f -exec chmod u+rw,go+r {} \;
 }
 
 
