@@ -6,7 +6,7 @@
 #
 pythonme()
 {
-    headerForTest "-- me-page" "-- http://dbwebb.se/python/kmom01#resultat_redovisning" 
+    headerForTest "-- me-page" "-- http://dbwebb.se/python/$THEKMOM#resultat_redovisning" 
     openFilesInEditor "me"
     checkKmomDir "me"
 
