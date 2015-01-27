@@ -6,28 +6,14 @@
 #
 pythonme()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- me-page ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- me-page" "-- http://dbwebb.se/python/kmom01#resultat_redovisning" 
+    openFilesInEditor "me"
+    checkKmomDir "me"
 
-    filename="$THEDIR/me/me.cgi"
-    assert 0 "test -r $filename -a -f $filename" "CGI-script for me-page is not readable. $filename"
+    printUrl "me.cgi" "me"  
+    printUrl "redovisning.cgi" "me"  
 
-    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
-    $ECHO "\nLink to me-page: $url/me/me.cgi"
-
-    filename="$THEDIR/me/redovisning.cgi"
-    assert 0 "test -r $filename -a -f $filename" "CGI-script for redovisning-page is not readable. $filename"
-
-    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
-    $ECHO "\nLink to redovisning-page: $url/me/redovisning.cgi"
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/me"
-    $ECHO "\n$EDITOR $THEDIR/me/me.cgi"
-
-    $ECHO "\nPress enter to continue..."
-    read void
+    pressEnterToContinue
 }
 
 
@@ -37,99 +23,38 @@ pythonme()
 #
 pythonplane()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- plane        ----------------"
-    $ECHO "\n-----------------------------------------"
-
     target="$1"
 
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    # Test plane.py
-    $ECHO "\n\n[TEST] Execute plane.py with user interactions (reading input from user)."
-
-    #filename="$THEDIR/$target/plane.py"
-    #assert 0 "test -r $filename -a -f $filename" "The file plane.py is missing."
+    headerForTest "-- plane" "-- http://dbwebb.se/uppgift/ditt-forsta-python-skript"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
 
     executeCommand "plane.py" "$THEDIR/$target" "python3 plane.py" "$TARGET"
-
-    # Test plane1.py
-    $ECHO "\n\n[TEST] Execute plane1.py without user interaction."
-
-    #filename="$THEDIR/$target/plane1.py"
-    #assert 0 "test -r $filename -a -f $filename" "The file plane1.py is missing."
-
     executeCommand "plane1.py" "$THEDIR/$target" "python3 plane1.py" "$TARGET"
+    
+    printUrl "plane1.cgi" "$target"  
 
-    # Test plane1.cgi
-    $ECHO "\n\n[TEST] Check that the cgi-version plane1.cgi works."
-
-    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
-    $ECHO "\nLink to plane1 cgi-script: $url/me/kmom01/plane/plane1.cgi"
-
-    filename="$THEDIR/$target/plane1.cgi"
-    assert 0 "test -r $filename -a -f $filename" "The file plane1.cgi is missing."
+    pressEnterToContinue
 }
 
 
 
 #
-# Test python marvin1
+# Test python marvin
 #
-pythonmarvin1()
+pythonmarvin()
 {
     id="$1"
     target="$2"
+    main="$3"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- marvin$id" "-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-$id"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
 
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+    executeCommand "$main" "$THEDIR/$target" "python3 $main" "$TARGET"
 
-    filename="$THEDIR/$target/marvin.py"
-    assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
-
-    executeCommand "marvin.py" "$THEDIR/$target" "python3 marvin.py" "$TARGET"
-}
-
-
-
-#
-# Test python marvin2
-#
-pythonmarvin2()
-{
-    id="$1"
-    target="$2"
-
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    filename="$THEDIR/$target/marvin.py"
-    assert 0 "test -r $filename -a -f $filename" "The file marvin.py is missing."
-
-    filename="$THEDIR/$target/main.py"
-    assert 0 "test -r $filename -a -f $filename" "The file main.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/marvin.py"
-
-    executeCommand "main.py" "$THEDIR/$target" "python3 main.py" "$TARGET"
+    pressEnterToContinue
 }
 
 
@@ -139,85 +64,56 @@ pythonmarvin2()
 #
 pythonmarvin5()
 {
-    id="$1"
-    target="$2"
+    local cmd="marvin-cli.py"
+    local id="$1"
+    local target="$2"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- marvin$id ---------------------"
-    $ECHO "\n-----------------------------------------"
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    filename="$THEDIR/$target/marvin-cli.py"
-    assert 0 "test -r $filename -a -f $filename" "The file marvin-cli.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/marvin-cli.py"
-
-    # Make a copy before testing
-    if [ ! "$THEUSER" = "$USER" ]; then
-        $ECHO "\n\nMaking a local copy before testing."
-        publishKmom "$target" "y"
-        target_dir="$PUBLISH_STUD"
-    else
-        target_dir="$THEDIR/$target"
-    fi
-
-
-    # Options
-    cmd="marvin-cli.py"
-    $ECHO "\n\nTesting various aspects of the command $cmd"
-    opts="--help"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
-    cmd="marvin-cli.py"
-    opts="--version"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    headerForTest "-- marvin$id" "-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-$id"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
+    publishPath "$target"
 
     # Exit status
-    $ECHO "\n\nChecking exit status 0 by successful usage."
-    assertExit 0 "cd $target_dir; python3 marvin-cli.py --version" "Should return exit status 0 but did not."
+    assertExit 0 "cd $TARGET_DIR; python3 marvin-cli.py --version" "Should return exit status 0 but did not."
+    assertExit 1 "cd $TARGET_DIR; python3 marvin-cli.py --MISSINGOPTION" "Should return exit status 1 but did not."
 
-    $ECHO "\n\nChecking exit status 1 by misusage."
-    assertExit 1 "cd $target_dir; python3 marvin-cli.py --MISSINGOPTION" "Should return exit status 1 but did not."
+    # General options
+    opts="--help"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
 
+    opts="--version"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     # Ping
-    cmd="marvin-cli.py"
     opts="ping http://dbwebb.se/humans.txt"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
-    cmd="marvin-cli.py"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     opts="ping-history"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
 
     # Get
-    cmd="marvin-cli.py"
     opts="get http://dbwebb.se/humans.txt"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
-    cmd="marvin-cli.py"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     opts="--output=humans.txt get http://dbwebb.se/humans.txt"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
-    assert 0 "test -f $target_dir/humans.txt" "File humans.txt is missing."
-    cat "$target_dir/humans.txt"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
+    assert 0 "test -f $TARGET_DIR/humans.txt" "File humans.txt is missing."
+    cat "$TARGET_DIR/humans.txt"
 
     # Quote
-    cmd="marvin-cli.py"
     opts="quote"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
 
     # <title>
-    cmd="marvin-cli.py"
     opts="title http://dbwebb.se"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
 
     # seo
-    cmd="marvin-cli.py"
     opts="--json seo http://dbwebb.se"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+
+    pressEnterToContinue
 }
 
 
@@ -227,108 +123,67 @@ pythonmarvin5()
 #
 pythonAdventure()
 {
-    target="$1"
+    local cmd="adventure.py"
+    local target="$1"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- adventure ---------------------"
-    $ECHO "\n-----------------------------------------"
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    filename="$THEDIR/$target/adventure.py"
-    assert 0 "test -r $filename -a -f $filename" "The file adventure.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/adventure.py"
-
-    # Make a copy before testing
-    if [ ! "$THEUSER" = "$USER" ]; then
-        $ECHO "\n\nMaking a local copy before testing."
-        publishKmom "$target" "y"
-        target_dir="$PUBLISH_STUD"
-    else
-        target_dir="$THEDIR/$target"
-    fi
-
+    headerForTest "-- adventure" "-- http://dbwebb.se/python/kmom10"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
+    publishPath "$target"
 
     # Options
-    cmd="adventure.py"
-    $ECHO "\n\nTesting various aspects of the command $cmd"
     opts="--help"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
 
     opts="--version"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     opts="--info"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     opts="--about"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     opts="--cheet"
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
-
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+    
     # run it
     opts=""
-    executeCommand "$cmd" "$target_dir" "python3 $cmd $opts" "$TARGET" "$opts"
+    executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
+
+    pressEnterToContinue
 }
 
 
 
 #
-# Test python game1
+# Test python game
 #
-pythongame1()
+pythongame()
 {
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- game1       -----------------"
-    $ECHO "\n-----------------------------------------"
+    id="$1"
+    target="$2"
+    main="$3"
+    task="$4"
 
-    target="$1"
+    headerForTest "-- game$id" "-- $task"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
 
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+    fileIsReadable "$target/$main"
 
-    filename="$THEDIR/$target/border.py"
-    assert 0 "test -r $filename -a -f $filename" "The file border.py is missing."
+    if [ -f "$THEDIR/$target/$main" ]; then
+        $ECHO "\nThe file $main is available, indicating this task is fulfilled."
+        $ECHO "\n"
 
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/border.py"
+        publishPath "$target"
 
-    executeCommand "border.py" "$THEDIR/$target" "python3 border.py" "$TARGET"
-}
+        $ECHO "\nYou need to execute retro.py outside of this script."
+        $ECHO "\ncd \"$TARGET_DIR\"; python3 $main"
+        $ECHO "\n"
+    fi
 
-
-
-#
-# Test python game2
-#
-pythongame2()
-{
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- game2       -----------------"
-    $ECHO "\n-----------------------------------------"
-
-    target="$1"
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    filename="$THEDIR/$target/retro.py"
-    assert 0 "test -r $filename -a -f $filename" "The file retro.py is missing."
-
-    filename="$THEDIR/$target/retro.py"
-    assert 0 "test -r $filename -a -f $filename" "The file retro.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/retro.py"
-
-    executeCommand "retro.py" "$THEDIR/$target" "python3 retro.py" "$TARGET"
+    pressEnterToContinue
 }
 
 
@@ -340,25 +195,17 @@ pythonlab()
 {
     id="$1"
     target="$2"
+    lab="$3"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- lab$id ------------------------"
-    $ECHO "\n-----------------------------------------"
-
-
-    dirname="$THEDIR/$target"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-
-    filename="$THEDIR/$target/answer.py"
-    assert 0 "test -r $filename -a -f $filename" "The file answer.py is missing."
-
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $THEDIR/$target/"
-    $ECHO "\n$EDITOR $THEDIR/$target/answer.py"
+    headerForTest "-- lab$id" "-- $lab"
+    openFilesInEditor "$target"
+    checkKmomDir "$target"
 
     executeCommand "answer.py" "$THEDIR/$target" "python3 answer.py" "$TARGET"
-}
 
+    pressEnterToContinue
+}
+    
 
 
 #
@@ -369,9 +216,7 @@ pythonkmom01()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -390,16 +235,14 @@ pythonkmom02()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "1" "$THETARGET/lab1"
-    pythonmarvin1 "1" "$THETARGET/marvin1"
+    pythonlab "1" "$THETARGET/lab1" "http://dbwebb.se/uppgift/python-med-variabler-villkor-funktioner-och-loopar"
+    pythonmarvin "1" "$THETARGET/marvin1" "marvin.py"
 }
 
 
@@ -412,16 +255,14 @@ pythonkmom03()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "2" "$THETARGET/lab2"
-    pythonmarvin2 "2" "$THETARGET/marvin2"
+    pythonlab "2" "$THETARGET/lab2" "http://dbwebb.se/uppgift/python-med-strangar-och-filer"
+    pythonmarvin "2" "$THETARGET/marvin2" "main.py"
 }
 
 
@@ -434,19 +275,16 @@ pythonkmom04()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "3" "$THETARGET/lab3"
-    pythonmarvin2 "3" "$THETARGET/marvin3"
-    pythongame1 "$THETARGET/game1"
+    pythonlab "3" "$THETARGET/lab3" "http://dbwebb.se/uppgift/python-och-listor"
+    pythonmarvin "3" "$THETARGET/marvin3" "main.py"
+    pythongame "1" "$THETARGET/game1" "border.py" "http://dbwebb.se/uppgift/ett-terminal-baserat-spel-i-python-steg1"
 }
-
 
 
 #
@@ -457,17 +295,15 @@ pythonkmom05()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonlab "4" "$THETARGET/lab4"
-    pythongame2 "$THETARGET/game2"
-    pythonmarvin2 "4" "$THETARGET/marvin4"
+    pythonlab "4" "$THETARGET/lab4" "http://dbwebb.se/uppgift/python-med-dictionaries-och-tupler"
+    pythonmarvin "4" "$THETARGET/marvin4" "main.py"
+    pythongame "2" "$THETARGET/game2" "retro.py" "http://dbwebb.se/uppgift/ett-terminal-baserat-spel-i-python-steg2"
 }
 
 
@@ -480,9 +316,7 @@ pythonkmom06()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"
@@ -501,9 +335,7 @@ pythonkmom10()
     THEKMOM="$1"
     THETARGET="me/$THEKMOM"
 
-    $ECHO "\n\n-----------------------------------------"
-    $ECHO "\n----------- $COURSE $THEKMOM ---------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
     publishKmom "$THETARGET"

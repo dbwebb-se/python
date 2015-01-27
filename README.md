@@ -44,6 +44,11 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
+v1.1.x (latest)
+
+* Updated inspect for.
+
+
 v1.1.1 (2015-01-26)
 
 * To allow spaces in username for sshkeys.

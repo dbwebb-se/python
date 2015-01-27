@@ -68,6 +68,21 @@ printUsage()
 
 
 #
+# Print usage of script
+#
+dbwebb2PrintShortUsage()
+{
+    $ECHO "\nUtility dbwebb $VERSION by Mikael Roos, to upload, verify and publish course results when done."
+    $ECHO "\n"
+    $ECHO "\nFor overview of the command, execute:"
+    $ECHO "\ndbwebb help"
+    $ECHO "\n"
+    $ECHO "\n"
+}
+
+
+
+#
 # Login to the server
 #
 executeCommand()
@@ -570,6 +585,7 @@ case $CMD in
         ;;
 
     *)
-        printUsage
+        $ECHO "Unknown command.\n"
+        dbwebb2PrintShortUsage
         ;;
 esac

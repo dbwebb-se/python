@@ -19,8 +19,8 @@ find /tmp -maxdepth 1 -name 'dbwebb-error*' -user mosstud -type f -exec rm -f {}
 #SUDO="sudo -A -u dbwebb"
 SUDO=""
 
-WRAP_HEADER="\n\n\n-----------------------------------------"
-WRAP_FOOTER="\n-----------------------------------------"
+WRAP_HEADER="\n\n\n-------------------------------------------------------------"
+WRAP_FOOTER="\n-------------------------------------------------------------"
 
 
 
@@ -64,11 +64,97 @@ printUsage()
 headerForTest()
 {
     what="$1"
+    task="$2"
 
     $ECHO "$WRAP_HEADER"
     $ECHO "\n$what"
+    if [ ! -z "$task" ]; then
+        $ECHO "\n$task"
+    fi
     $ECHO "$WRAP_FOOTER"
 }
+
+
+#
+# Open viles in editor
+#
+openFilesInEditor()
+{
+    where="$THEDIR/$1"
+
+    $ECHO "\nOpen files in an editor:"
+    $ECHO "\n$EDITOR \"$where\""
+    $ECHO "\n"
+}
+
+
+#
+# Change to directory
+#
+changeToDirectory()
+{
+    where="$1"
+
+    $ECHO "\nChange to directory:"
+    $ECHO "\ncd \"$where\""
+    $ECHO "\n"
+}
+
+
+
+#
+# Print url and check if it exists
+#
+printUrl()
+{
+    what="$1"
+    where="$2"
+    url="$SERVERURL/~$THEUSER/$BASEDIR/$PROJECT"
+    
+    $ECHO "\nURL to $what: $url/$where/$what"
+
+    if [ -z "$what" ]; then
+        assert 0 "test -d \"$THEDIR/$where\"" "The directory $where is missing or not readable."
+    else
+        assert 0 "test -f \"$THEDIR/$where/$what\"" "The file $what is missing or not readable."
+    fi
+
+    $ECHO "\n"
+}
+
+
+
+#
+# Test check the kmom dir exists
+#
+checkKmomDir()
+{
+    dirname="$THEDIR/$1"
+    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
+}
+
+
+
+#
+# Test check the file exists and is readable
+#
+fileIsReadable()
+{
+    filename="$THEDIR/$1"
+    assert 0 "test -r $filename" "The file $filename is not readable."
+}
+
+
+
+#
+# Press enter to continue
+#
+pressEnterToContinue()
+{
+    $ECHO "\nPress enter to continue..."
+    read void
+}
+
 
 
 #
@@ -76,10 +162,7 @@ headerForTest()
 #
 checkEnvironment()
 {
-    $ECHO "\n"
-    $ECHO "\n-----------------------------------------"
-    $ECHO "\n----------- dbwebb inspect --------------"
-    $ECHO "\n-----------------------------------------"
+    headerForTest "-- dbwebb inspect"
 
     # Check who you are
     if [ "$USER" = "$THEUSER" ]
@@ -89,10 +172,12 @@ checkEnvironment()
         $ECHO "\nChecking $KMOM for $THEUSER as `whoami` at `hostname`."
     fi
 
+    $ECHO "\n"
+
     dirname="$THEDIR"
     if [ ! -d "$dirname" ] 
     then 
-        $ECHO "\n\n$MSG_FAILED Directory $dirname not readable.\n\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
+        $ECHO "\n$MSG_FAILED Directory $dirname not readable.\n\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
 
         #$ECHO "\nFor debug:"
         #$ECHO "\n`whoami`\n"
@@ -111,13 +196,30 @@ checkEnvironment()
         read answer
     fi 
 
-    $ECHO "\n"
-    $ECHO "\nOpen files in an editor:"
-    $ECHO "\n$EDITOR $dirname"
+    printUrl "" "me"
+    openFilesInEditor ""
+    changeToDirectory "$dirname"
+}
 
-    $ECHO "\n"
-    $ECHO "\nChange to directory:"
-    $ECHO "\ncd $dirname"
+
+
+#
+# Publish task if needed 
+#
+publishPath()
+{
+    if [ ! "$THEUSER" = "$USER" ]; then
+        $ECHO "\nMaking a local copy before testing..."
+        $ECHO "\n"
+
+        publishKmom "$1" "y"
+        TARGET_DIR="$PUBLISH_STUD"
+
+        $ECHO "\n...done."
+        $ECHO "\n"
+    else 
+        TARGET_DIR="$THEDIR/$1"
+    fi
 }
 
 
@@ -131,13 +233,13 @@ publishKmom()
     answer="$2"
 
     if [ -z "$answer" ]; then 
-        $ECHO "\nPublish $THEKMOM [yN]? "
+        $ECHO "\nPublish $THEKMOM $target [yN]? "
 
         read answer
         default="n"
         answer=${answer:-$default}
     else 
-        $ECHO "\nPublishing $THEKMOM."
+        $ECHO "\nPublishing $THEKMOM $target."
     fi;
 
     if [ "$answer" = "y" -o "$answer" = "Y" ]
@@ -149,73 +251,13 @@ publishKmom()
         done
 
         url="$SERVERURL/~$USER/$BASEDIR/$STUD_DIR"
-        $ECHO "\nLink: $url"
+        $ECHO "\nURL: $url"
+        $ECHO "\n"
 
-        $ECHO "\nOpen files in an editor:"
-        $ECHO "\n$EDITOR $PUBLISH_STUD/"
-
-        $ECHO "\nMove to the directory:"
-        $ECHO "\ncd $PUBLISH_STUD/"
+        openFilesInEditor "$target"
+        changeToDirectory "$PUBLISH_STUD"
     fi
 }
-
-
-
-#
-# Test check the kmom dir exists
-#
-checkKmomDir()
-{
-    dirname="$THEDIR/$1"
-    assert 0 "test -r $dirname -a -d $dirname" "Directory $dirname not readable."
-}
-
-
-
-#
-# Execute a command, maybe as another user
-#
-executeCommand()
-{
-    what="$1"
-    move1="$2"
-    acmd="$3"
-    move2="$4"
-    opts="$5"
-
-    filename="$move1/$what"
-
-    if [ -f "$filename" -o -r "$filename" ]; then
-        $ECHO "\nExecute the program $what $opts [Yn]? "
-        read answer
-        default="y"
-        answer=${answer:-$default}
-
-        if [ "$answer" = "y" -o "$answer" = "Y" ]; then
-
-            cd "$move1"
-
-            if [ "$USER" = "$THEUSER" ]; then
-                $acmd
-            else
-                $SUDO $acmd
-            fi
-            
-            status=$?
-            cd "$move2"
-
-            if [ $status -eq 0 ]; then
-                assert 1 "test" "Command executed successfully."
-                $ECHO "\n\n$MSG_OK Command executed with a exit status 0  - indicating success.\n"
-            else
-                assert 0 "test" "Command return non-zero exit status which might indicate failure.\n"
-            fi
-        fi
-    else
-        assert 0 "test" "The file $what is missing or not readable."
-    fi
-}
-
 
 
 
@@ -241,6 +283,54 @@ validateKmom()
 
 
 #
+# Execute a command, maybe as another user
+#
+executeCommand()
+{
+    what="$1"
+    move1="$2"
+    acmd="$3"
+    move2="$4"
+    opts="$5"
+
+    filename="$move1/$what"
+
+    if [ -f "$filename" -o -r "$filename" ]; then
+        $ECHO "\nExecute: $what $opts [Yn]? "
+        read answer
+        default="y"
+        answer=${answer:-$default}
+
+        if [ "$answer" = "y" -o "$answer" = "Y" ]; then
+
+            cd "$move1"
+
+            if [ "$USER" = "$THEUSER" ]; then
+                $acmd
+            else
+                $SUDO $acmd
+            fi
+            
+            status=$?
+            cd "$move2"
+
+            if [ $status -eq 0 ]; then
+                assert 1 "test" "Command executed successfully."
+                $ECHO "\n$MSG_OK Command executed with a exit status 0  - indicating success."
+                $ECHO "\n"
+            else
+                assert 0 "test" "Command return non-zero exit status which might indicate failure."
+            fi
+        fi
+    else
+        assert 0 "test" "The file $what is missing or not readable."
+    fi
+}
+
+
+
+
+#
 # Perform an assert
 #
 assert()
@@ -258,7 +348,7 @@ assert()
     if [ \( ! $STATUS -eq $EXPECTED \) -o \( ! -z "$ERROR" \) ]; then
         FAULTS=$(( $FAULTS + 1 ))
 
-        MSG="\n\n$MSG_FAILED $MESSAGE\n"
+        MSG="\n$MSG_FAILED $MESSAGE\n"
 
         $ECHO "$MSG" 
         [ -z "$ERROR" ] || $ECHO "$ERROR\n\n"
@@ -289,11 +379,10 @@ assertExit()
     if [ $STATUS -ne $EXPECTED ]; then
         FAULTS=$(( $FAULTS + 1 ))
 
-        $ECHO "\n\n$MSG_FAILED $MESSAGE\n"
+        $ECHO "\n$TEST"
+        $ECHO "\n$MSG_FAILED $MESSAGE\n"
 
         FAILED=1
-    else 
-        $ECHO "\n\n$MSG_OK\n"
     fi
 
     return $FAILED
@@ -373,17 +462,20 @@ case "$KMOM" in
 esac
 
 
-
+#
 # Clean up and output results
-if [ $FAULTS -gt 0 ]
-then
+#
+headerForTest "-- dbwebb inspect summary"
+
+if [ $FAULTS -gt 0 ]; then
         $ECHO "\n\n$MSG_FAILED"
         STATUS=1
-
-        $ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
-        exit $STATUS
+else 
+        $ECHO "\n\n$MSG_OK"
+        STATUS=0
 fi
 
-$ECHO "\n\n$MSG_OK"
-$ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
-exit 0
+#$ECHO " Tests: $TESTS Asserts: $ASSERTS Faults: $FAULTS\n"
+$ECHO " Tests: $ASSERTS Faults: $FAULTS\n"
+pressEnterToContinue
+exit $STATUS
