@@ -144,7 +144,7 @@ pythonAdventure()
     opts="--about"
     executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
     
-    opts="--cheet"
+    opts="--cheat"
     executeCommand "$cmd" "$TARGET_DIR" "python3 $cmd $opts" "$TARGET" "$opts"
     
     # run it
