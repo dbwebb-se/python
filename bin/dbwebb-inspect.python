@@ -51,6 +51,7 @@ pythonmarvin()
     headerForTest "-- marvin$id" "-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-$id"
     openFilesInEditor "$target"
     checkKmomDir "$target"
+    publishPath "$target"
 
     executeCommand "$main" "$THEDIR/$target" "python3 $main" "$TARGET"
 
