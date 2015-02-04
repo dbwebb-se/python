@@ -47,8 +47,9 @@ pythonmarvin()
     id="$1"
     target="$2"
     main="$3"
+    url="$4"
 
-    headerForTest "-- marvin$id" "-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-$id"
+    headerForTest "-- marvin$id" "-- $url"
     openFilesInEditor "$target"
     checkKmomDir "$target"
     publishPath "$target"
@@ -243,7 +244,7 @@ pythonkmom02()
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "1" "$THETARGET/lab1" "http://dbwebb.se/uppgift/python-med-variabler-villkor-funktioner-och-loopar"
-    pythonmarvin "1" "$THETARGET/marvin1" "marvin.py"
+    pythonmarvin "1" "$THETARGET/marvin1" "marvin.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-1"
 }
 
 
@@ -263,7 +264,7 @@ pythonkmom03()
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "2" "$THETARGET/lab2" "http://dbwebb.se/uppgift/python-med-strangar-och-filer"
-    pythonmarvin "2" "$THETARGET/marvin2" "main.py"
+    pythonmarvin "2" "$THETARGET/marvin2" "main.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-2"
 }
 
 
@@ -283,7 +284,7 @@ pythonkmom04()
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "3" "$THETARGET/lab3" "http://dbwebb.se/uppgift/python-och-listor"
-    pythonmarvin "3" "$THETARGET/marvin3" "main.py"
+    pythonmarvin "3" "$THETARGET/marvin3" "main.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-3\n-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-inventarie"
     pythongame "1" "$THETARGET/game1" "border.py" "http://dbwebb.se/uppgift/ett-terminal-baserat-spel-i-python-steg1"
 }
 
@@ -303,7 +304,7 @@ pythonkmom05()
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "4" "$THETARGET/lab4" "http://dbwebb.se/uppgift/python-med-dictionaries-och-tupler"
-    pythonmarvin "4" "$THETARGET/marvin4" "main.py"
+    pythonmarvin "4" "$THETARGET/marvin4" "main.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-4"
     pythongame "2" "$THETARGET/game2" "retro.py" "http://dbwebb.se/uppgift/ett-terminal-baserat-spel-i-python-steg2"
 }
 
@@ -323,7 +324,7 @@ pythonkmom06()
     publishKmom "$THETARGET"
     validateKmom "$THEKMOM"
     pythonme
-    pythonmarvin5 "5" "$THETARGET/marvin5"
+    pythonmarvin5 "5" "$THETARGET/marvin5" 
 }
 
 
