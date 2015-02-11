@@ -231,6 +231,7 @@ publishKmom()
 {
     target="$1"
     answer="$2"
+    exclude="$3"
 
     if [ -z "$answer" ]; then 
         $ECHO "\nPublish $THEKMOM $target [yN]? "
@@ -244,7 +245,16 @@ publishKmom()
 
     if [ "$answer" = "y" -o "$answer" = "Y" ]
     then
-        rsync -a --delete "$THEDIR/$target/" "$PUBLISH_STUD/"
+        RSYNC_EXCLUDE=""
+        if [ ! -z "$exclude" ]; then
+            
+            RSYNC_EXCLUDE="--delete-excluded"
+            for part in $exclude; do
+                RSYNC_EXCLUDE="$RSYNC_EXCLUDE --exclude $part"
+            done
+        fi
+
+        rsync -a $RSYNC_EXCLUDE --delete "$THEDIR/$target/" "$PUBLISH_STUD/"
         
         for filename in $(find "$PUBLISH_STUD" -type f -name '*.cgi'); do
             chmod 755 "$filename"

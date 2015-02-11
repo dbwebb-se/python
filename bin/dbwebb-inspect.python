@@ -221,7 +221,7 @@ pythonkmom01()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom02 kmom03 kmom04 kmom05 kmom06 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonplane "$THETARGET/plane"
@@ -240,7 +240,7 @@ pythonkmom02()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom03 kmom04 kmom05 kmom06 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "1" "$THETARGET/lab1" "http://dbwebb.se/uppgift/python-med-variabler-villkor-funktioner-och-loopar"
@@ -260,7 +260,7 @@ pythonkmom03()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom02 kmom04 kmom05 kmom06 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "2" "$THETARGET/lab2" "http://dbwebb.se/uppgift/python-med-strangar-och-filer"
@@ -280,7 +280,7 @@ pythonkmom04()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom02 kmom03 kmom05 kmom06 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "3" "$THETARGET/lab3" "http://dbwebb.se/uppgift/python-och-listor"
@@ -300,11 +300,11 @@ pythonkmom05()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom02 kmom03 kmom04 kmom06 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonlab "4" "$THETARGET/lab4" "http://dbwebb.se/uppgift/python-med-dictionaries-och-tupler"
-    pythonmarvin "4" "$THETARGET/marvin4" "main.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-4"
+    pythonmarvin "4" "$THETARGET/marvin4" "main.py" "http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-analysera-text-och-ord\n-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-tictactoe\n-- http://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-4"
     pythongame "2" "$THETARGET/game2" "retro.py" "http://dbwebb.se/uppgift/ett-terminal-baserat-spel-i-python-steg2"
 }
 
@@ -321,7 +321,7 @@ pythonkmom06()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom02 kmom03 kmom04 kmom05 kmom10" 
     validateKmom "$THEKMOM"
     pythonme
     pythonmarvin5 "5" "$THETARGET/marvin5" 
@@ -340,7 +340,7 @@ pythonkmom10()
     headerForTest "-- $COURSE $THEKMOM" "-- http://dbwebb.se/python/$THEKMOM"
 
     checkKmomDir "$THETARGET"
-    publishKmom "$THETARGET"
+    publishKmom "me" "" "default kmom01 kmom02 kmom03 kmom04 kmom05 kmom06" 
     validateKmom "$THEKMOM"
     pythonme
     pythonAdventure "$THETARGET/adventure"
