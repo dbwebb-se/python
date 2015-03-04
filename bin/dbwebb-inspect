@@ -175,9 +175,19 @@ checkEnvironment()
     $ECHO "\n"
 
     dirname="$THEDIR"
-    if [ ! -d "$dirname" ] 
-    then 
-        $ECHO "\n$MSG_FAILED Directory $dirname not readable.\n\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"
+    if [ ! -d "$dirname" ]; then 
+        
+        $ECHO "\n$MSG_FAILED Directory $dirname not readable.\n"
+
+        dirname=$( dirname "$dirname" )
+        if [ ! -r "$dirname" ]; then 
+            $ECHO "\n$MSG_FAILED Directory $dirname not readable.\n"
+        else
+            $ECHO "\nDirectory $dirname exists, doing an ls.\n"
+            ls "$dirname"
+        fi
+        
+        $ECHO "\nPerhaps login to the studserver and execute the command:\nsudo setpre-dbwebb-kurser.bash $THEUSER"        
 
         #$ECHO "\nFor debug:"
         #$ECHO "\n`whoami`\n"
@@ -234,10 +244,10 @@ publishKmom()
     exclude="$3"
 
     if [ -z "$answer" ]; then 
-        $ECHO "\nPublish $THEKMOM $target [yN]? "
+        $ECHO "\nPublish $THEKMOM $target [Yn]? "
 
         read answer
-        default="n"
+        default="y"
         answer=${answer:-$default}
     else 
         $ECHO "\nPublishing $THEKMOM $target."
