@@ -15,6 +15,9 @@ x = "Five"
 y = 4
 print("{0} ants are more than {1} elephants".format(x, y))
 
+# With named parameters
+print("My name is {name} and I am {age} years old.".format(age=18, name="Mumintrollet"))
+
 # Add thousands separator
 print("{:,}".format(1000000))
 
