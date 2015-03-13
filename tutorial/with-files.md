@@ -1,4 +1,4 @@
-files and lists
+Read files using with
 ==============================
 
 
@@ -19,9 +19,10 @@ with open("test.txt", "w") as fhand:
 ```
 
 
+
 Reference and read more
 ------------------------------
 
-[Reading and Writing Files](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files)
-
 [The with statement](https://docs.python.org/3/reference/compound_stmts.html#with)
+
+[Reading and Writing Files](https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files)
