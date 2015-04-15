@@ -13,7 +13,7 @@ ECHO="printf"
 
 TMPFILE="/tmp/dbwebb-error-{$USER}-$$"
 # Remove old tmp files
-find /tmp -maxdepth 1 -name 'dbwebb-error*' -user mosstud -type f -exec rm -f {} \; 
+find /tmp -maxdepth 1 -name 'dbwebb-error*' -user "$USER" -type f -exec rm -f {} \; 
 
 #export SUDO_ASKPASS=askpass
 #SUDO="sudo -A -u dbwebb"
