@@ -8,7 +8,7 @@ filename = "items.txt"
 
 # with - as for reading a file automatically closes it after reading is done
 with open(filename) as filehandle:
-    line = filehandle.readline();
+    line = filehandle.readline()
 # print the line read from the file
 print(line)
 
