@@ -20,14 +20,14 @@ import getopt
 PROGRAM = os.path.basename(sys.argv[0])
 AUTHOR = "Mikael Roos"
 EMAIL = "mikael.t.h.roos@gmail.com"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 USAGE = """{program} - Print my name. By {author} ({email}), version {version}.
 
 Usage:
   {program} [options] name
 
 Options:
-  -d <number> --drums=<number>   Make a drum sound when writing the name.
+  -d <number> --drum=<number>   Make a drum sound when writing the name.
   -h --help                      Display this help message.
   -r <number> --repeat=<number>  Print the name several times.
   -s --silent                    Do not display any details or statistics about the execution.
