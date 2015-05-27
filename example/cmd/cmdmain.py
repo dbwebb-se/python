@@ -18,7 +18,6 @@ https://docs.python.org/3.4/library/turtle.html
 
 import cmd
 #import sys
-#from turtle import *
 import turtle
 
 
