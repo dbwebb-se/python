@@ -46,6 +46,7 @@ History
 
 v1.1.x (latest)
 
+* pylintrc disable no-self-use,unused-wildcard-import
 * Added example on cmd in `example/cmd`.
 * Updated inspect for.
 
