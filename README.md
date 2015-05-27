@@ -46,6 +46,7 @@ History
 
 v1.1.x (latest)
 
+* Added example on cmd in `example/cmd`.
 * Updated inspect for.
 
 

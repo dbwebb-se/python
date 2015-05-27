@@ -158,7 +158,7 @@ def parseOptions():
                 assert False, "Unhandled option"
 
         if len(args) != 1:
-            assert False, "Missing name"
+            assert False, "Missing name as argument"
 
         # The name passed as a required argument
         NAME = args[0]
