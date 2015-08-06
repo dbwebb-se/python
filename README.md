@@ -44,12 +44,17 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
+v2.0.0 (2015-08-06)
+
+* Changed structure of repo to match dbwebb-cli version 2.
+
+
 v1.1.2 (2015-08-06)
 
 * Last version supporting dbwebb-cli version 1.
 * pylintrc disable no-self-use
 * Added example on cmd in `example/cmd`.
-* Updated inspect for.
+* Updated inspect phase.
 
 
 v1.1.1 (2015-01-26)
