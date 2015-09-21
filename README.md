@@ -46,7 +46,8 @@ History
 
 v1.1.x (latest)
 
-* pylintrc disable no-self-use
+* Adding example program for `encoding/test_input.py`.
+* pylintrc disable no-self-use.
 * Added example on cmd in `example/cmd`.
 * Updated inspect for.
 

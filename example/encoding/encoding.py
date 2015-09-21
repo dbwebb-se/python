@@ -19,6 +19,4 @@ print("Environment variable PYTHONIOENCODING: ", os.environ.get("PYTHONIOENCODIN
 print("Environment variable LANG:             ", os.environ.get("LANG")) 
 print("Environment variable LC_CTYPE:         ", os.environ.get("LC_CTYPE"))
 
-print("\u03b1\u03b2\u03b3")
-print("░")
-
+print("The letters alpha, beta, gamma:         \u03b1\u03b2\u03b3")
