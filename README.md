@@ -44,12 +44,25 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v1.1.x (latest)
+v2.0.0x (2015-09-21)
 
 * Adding example program for `encoding/test_input.py`.
+
+
+v2.0.0 (2015-08-06)
+
 * pylintrc disable no-self-use.
+* Changed structure of repo to match dbwebb-cli version 2.
+* Moving me/default to .default.
+* Removing dbwebb-cli version 1 (everything) from bin/.
+
+
+v1.1.2 (2015-08-06)
+
+* Last version supporting dbwebb-cli version 1.
+* pylintrc disable no-self-use
 * Added example on cmd in `example/cmd`.
-* Updated inspect for.
+* Updated inspect phase.
 
 
 v1.1.1 (2015-01-26)
@@ -100,5 +113,5 @@ v1.0.0 (2014-08-30)
 
 ```
  .
-..:  Copyright (c) 2014 Mikael Roos, me@mikaelroos.se
+..:  Copyright (c) 2014-15 Mikael Roos, me@mikaelroos.se
 ```
