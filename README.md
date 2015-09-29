@@ -44,8 +44,9 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v2.0.0x (2015-09-21)
+v2.0.0x (2015-09-29)
 
+* Adding example `cli/print-opt-arg.py`.
 * Adding example program for `encoding/test_input.py`.
 
 
