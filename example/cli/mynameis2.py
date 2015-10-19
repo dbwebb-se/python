@@ -33,7 +33,7 @@ Options:
                                      about the execution.
   -d <number>, --drums=<number>      Make a drum sound when writing the name.
   -r <number>, --repeat=<number>     Print the name several times.
-  -o <filename>, --output=<filename> Print the name several times.
+  -o <filename>, --output=<filename> Save output to file.
  
   name                               Your name.
 """.format(program=PROGRAM, author=AUTHOR, email=EMAIL, version=VERSION)
