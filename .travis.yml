@@ -32,7 +32,7 @@ git:
 addons:
     apt:
         packages:
-            - pylint
+            #- pylint
             #- php-codesniffer
             #- phpmd
             #- shellcheck
@@ -47,6 +47,9 @@ before_script:
     - install --directory build/webroot
     - export PATH=$PATH:$PWD/build/bin/
 
+    # install pylint
+    - pip3 install pylint
+ 
     # Install validation tools
     - npm install -g htmlhint csslint jshint jscs jsonlint js-yaml html-minifier@0.8.0 clean-css uglify-js
     
