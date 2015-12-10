@@ -1,6 +1,9 @@
 Programming and Problemsolving in Python - python
 ===================
 
+[![Join the chat at https://gitter.im/mosbth/python](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mosbth/python?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/mosbth/python.svg)](https://travis-ci.org/mosbth/python)
+
 Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level.
 
 The course will have a high enough level to satisfy those who are familiar with another programming language and has the need to learn python.
@@ -44,8 +47,9 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v2.0.0x (2015-09-29)
+v2.0.0x (2015-12-08)
 
+* Adding to Travis.
 * Adding example `cli/print-opt-arg.py`.
 * Adding example program for `encoding/test_input.py`.
 

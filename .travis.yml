@@ -1,0 +1,106 @@
+language: python
+
+python:
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.5-dev" # 3.5 development branch
+  - "nightly" # currently points to 3.6-dev
+
+
+
+# command to install dependencies
+#install: "pip install -r requirements.txt"
+
+
+
+# command to run tests
+#script: nosetests
+
+
+
+sudo: false
+
+
+
+git:
+    submodules: false
+
+
+
+addons:
+    apt:
+        packages:
+            #- pylint
+            #- php-codesniffer
+            #- phpmd
+            #- shellcheck
+
+
+
+before_script:
+
+    # Create a build directory for output
+    # Store all files in your own bin
+    - install --directory build/bin
+    - install --directory build/webroot
+    - export PATH=$PATH:$PWD/build/bin/
+
+    # install pylint
+    - pip3 install pylint
+ 
+    # Install validation tools
+    - npm install -g htmlhint csslint jshint jscs jsonlint js-yaml html-minifier@0.8.0 clean-css uglify-js
+    
+    # Install phpcs
+    #- curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+    #- install --mode 0755 phpcs.phar $PWD/bin/phpcs
+
+    # Install phpmd
+    #- wget -c http://static.phpmd.org/php/latest/phpmd.phar
+    #- install --mode 0755 phpmd.phar $PWD/bin/phpmd
+    
+    # Download dbwebb-validate
+    - wget -O dbwebb-validate https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-validate
+    - install --mode 0755 dbwebb-validate $PWD/build/bin/dbwebb-validate
+
+
+
+script:
+    # Check versions of validation tools
+    - node --version
+    - npm --version
+    
+    - pylint --version
+    - htmlhint --version
+    - csslint --version
+    #- jscs --version
+    #- jshint --version
+    #- phpcs --version
+    #- phpmd --version
+    #- jsonlint --version
+    - js-yaml --version
+    #- shellcheck --version
+    
+    - html-minifier --version
+    - cleancss --version
+    - uglifyjs --version
+    
+    # Run validation & publish
+    - dbwebb-validate --version
+    - dbwebb-validate --check
+    - dbwebb-validate --publish --publish-to build/webroot/ example
+
+
+notifications:
+    irc: "irc.freenode.org#dbwebb"
+
+    webhooks:
+        urls:
+            - https://webhooks.gitter.im/e/e9644e16dba8fa098005
+
+        # options: [always|never|change] default: always
+        on_success: change
+        on_failure: always
+        on_start: never
