@@ -39,6 +39,13 @@ addons:
 
 
 
+matrix:
+    allow_failures:
+        - python: "3.2"
+        - python: "nightly"
+
+
+
 before_script:
 
     # Create a build directory for output
