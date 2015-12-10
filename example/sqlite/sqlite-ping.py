@@ -39,11 +39,12 @@ def isSQLite3(filename):
         Header = fd.read(100)
         fd.close()
 
-        if Header[0:16] == b'SQLite format 3\000':
-            return True
-        else:
-            return False
+        isFileSQLite = False
 
+        if Header[0:16] == b'SQLite format 3\000':
+            isFileSQLite = True
+
+        return isFileSQLite
 
 #
 # Get argument if there is one and use that as url
