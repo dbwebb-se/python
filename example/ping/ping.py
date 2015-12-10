@@ -3,7 +3,7 @@
 
 """
 Example of how to ping a webpage for a status code, basically just
-to check that the page is there and the webserver is replying with 
+to check that the page is there and the webserver is replying with
 a positive code, such as 200.
 
 More information: http://stackoverflow.com/a/13641613
@@ -15,8 +15,8 @@ pip install requests
 
 print(__doc__)
 
-import requests
 import time
+import requests
 
 
 url = "http://dbwebb.se/humans.txt"

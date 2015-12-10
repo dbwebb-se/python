@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Is the website alive? This could be tested at a regular interval by retrieving 
+Is the website alive? This could be tested at a regular interval by retrieving
 a url and checking its status. These tests can be stored in a database which makes
 it easy to accumulate statistics and to query for various patterns.
 
@@ -11,18 +11,16 @@ Manual:
 
 The database is named "ping.db" and is stored in the current directory.
 
-If you have the command "sqlite3" installed you could use that to connect to the 
+If you have the command "sqlite3" installed you could use that to connect to the
 database and inspect it.
 
-$ sqlite3 ping.db 
+$ sqlite3 ping.db
 
 """
-
-import requests
 import sqlite3
 import time
 import sys
-
+import requests
 
 
 def isSQLite3(filename):
@@ -41,11 +39,12 @@ def isSQLite3(filename):
         Header = fd.read(100)
         fd.close()
 
-        if Header[0:16] == b'SQLite format 3\000':
-            return True
-        else:
-            return False
+        isFileSQLite = False
 
+        if Header[0:16] == b'SQLite format 3\000':
+            isFileSQLite = True
+
+        return isFileSQLite
 
 #
 # Get argument if there is one and use that as url
