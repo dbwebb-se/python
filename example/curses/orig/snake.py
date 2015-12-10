@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 """
 Testing out the curses lib.
 
@@ -7,7 +7,6 @@ Testing out the curses lib.
 #from curses import wrapper
 import curses
 import random
-from curses import KEY_RIGHT, KEY_LEFT, KEY_UP, KEY_DOWN
 
 def main(screen):
     """
@@ -66,16 +65,16 @@ def main(screen):
             screen.refresh()
             curses.napms(2500)
             break
-        elif key == KEY_UP:
+        elif key == curses.KEY_UP:
             dirs["y"] = -1
             dirs["x"] = 0
-        elif key == KEY_DOWN:
+        elif key == curses.KEY_DOWN:
             dirs["y"] = 1
             dirs["x"] = 0
-        elif key == KEY_LEFT:
+        elif key == curses.KEY_LEFT:
             dirs["x"] = -1
             dirs["y"] = 0
-        elif key == KEY_RIGHT:
+        elif key == curses.KEY_RIGHT:
             dirs["x"] = 1
             dirs["y"] = 0
 
