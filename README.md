@@ -47,8 +47,9 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
-v2.0.0x (2015-12-08)
+v2.0.1 (2015-12-16)
 
+* Disable pylint for superfluous-parens,locally-disabled,locally-enabled
 * Adding to Travis.
 * Adding example `cli/print-opt-arg.py`.
 * Adding example program for `encoding/test_input.py`.
