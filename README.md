@@ -47,6 +47,11 @@ Feel free to help builing up the repository with more content suited for trainin
 History
 -------------------
 
+v2.0.1* (2016-01-21)
+
+* Added example program for try catch `example/try-catch`.
+
+
 v2.0.1 (2015-12-16)
 
 * Disable pylint for superfluous-parens,locally-disabled,locally-enabled
