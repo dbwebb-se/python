@@ -14,7 +14,7 @@ print(x, "is of type", type(x))
 try:
 	x = int(x)
 	print(x, "is of type", type(x))
-except:
+except Exception:
 	print("Could not convert", x, "to integer")
 
 print(x, "is the answer to everything\n")
@@ -27,7 +27,7 @@ print(x, "is of type", type(x))
 try:
 	x = int(x)
 	print(x, "is of type", type(x))
-except:
+except Exception:
 	print("Could not convert", x, "to integer")
 
 print(x, "is the answer to everything")
