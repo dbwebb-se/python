@@ -40,7 +40,7 @@ The major contributors are:
 
 For more contributors, see the commit history and the issues.
 
-Feel free to help builing up the repository with more content suited for training and education.
+Feel free to help buidling up the repository with more content suited for training and education.
 
 
 
