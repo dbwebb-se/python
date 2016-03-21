@@ -79,7 +79,7 @@ def main():
 
         position = input("Enter position (1-9) to place you X (or q for quit): ")
 
-        if position == "q" or position == "q":
+        if position == "q":
             break
 
         elif isInt(position):
