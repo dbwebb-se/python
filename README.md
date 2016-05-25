@@ -41,7 +41,7 @@ The major contributors are:
 
 For more contributors, see the commit history and the issues.
 
-Feel free to help buidling up the repository with more content suited for training and education.
+Feel free to help building up the repository with more content suited for training and education.
 
 
 
@@ -126,5 +126,5 @@ v1.0.0 (2014-08-30)
 
 ```
  .
-..:  Copyright (c) 2014-15 Mikael Roos, me@mikaelroos.se
+..:  Copyright (c) 2014-2016 Mikael Roos, mos@dbwebb.se
 ```
