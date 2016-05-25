@@ -3,6 +3,7 @@ Programming and Problemsolving in Python - python
 
 [![Join the chat at https://gitter.im/mosbth/python](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mosbth/python?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/mosbth/python.svg)](https://travis-ci.org/mosbth/python)
+[![CircleCI](https://circleci.com/gh/dbwebb-se/python.svg?style=svg)](https://circleci.com/gh/dbwebb-se/python)
 
 Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level.
 
@@ -47,8 +48,9 @@ Feel free to help buidling up the repository with more content suited for traini
 History
 -------------------
 
-v2.0.1* (2016-01-21)
+v2.0.1* (2016-05-25)
 
+* Added files for local dev environment.
 * Added example program for try catch `example/try-catch`.
 
 

@@ -1,3 +1,10 @@
+me/
+bin/
+build/
+vendor/
+node_modules/
+example/sqlite/ping.db
+
 __pycache__
 
 # Mac OS
