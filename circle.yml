@@ -9,7 +9,7 @@ dependencies:
 #        - pylint --version
 
     override:
-        - pip3 install
+        #- pip3 install
         #- pyenv global 3.5.1
         #- pyenv global
         #- pyenv which python
@@ -38,6 +38,6 @@ dependencies:
 
 test:
     override:
-        - alias pylint=/opt/circleci/.pyenv/shims/pylint
-        - pylint --version
+        #- alias pylint=/opt/circleci/.pyenv/shims/pylint
+        #- pylint --version
         - make test
