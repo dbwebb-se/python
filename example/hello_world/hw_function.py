@@ -18,7 +18,6 @@ pydoc sys
 """
 
 
-
 def say_it():
     """
     Just sayin to the world that we are here and now know python.
@@ -26,4 +25,3 @@ def say_it():
     Ths function is currently defined in a module named __name__.
     """
     print("\nHello World in module %s\n" % __name__)
-

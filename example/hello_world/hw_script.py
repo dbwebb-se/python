@@ -6,4 +6,3 @@ Just print out a line of hello.
 """
 
 print("\nHello Word\n")
-

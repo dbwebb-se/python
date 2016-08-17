@@ -13,11 +13,10 @@ http://docs.python-requests.org/en/latest/
 pip install requests
 """
 
-print(__doc__)
-
 import time
 import requests
 
+print(__doc__)
 
 url = "https://dbwebb.se/humans.txt"
 
@@ -36,7 +35,6 @@ try:
     print("Request to ", url, " sent at ", rTime)
     print("Recieved status code: ", req.status_code)
     print("Page was last modified: ", req.headers["Last-Modified"])
-
 
 
 except requests.ConnectionError:
