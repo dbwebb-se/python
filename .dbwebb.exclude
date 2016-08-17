@@ -1,0 +1,43 @@
+/slide/
+/tutorial/
+/literature/
+/.solution/
+/.solutions/
+/.default/
+/bin
+/build
+/node_modules/
+/vendor/
+/circle.yml
+/package.json
+/composer.json
+/composer.lock
+/Makefile
+/LICENSE
+/README.md
+/.travis.yml
+/.dbwebb.exclude
+/.dbwebb.include
+/.dbwebb.tests
+/.dbwebb.version
+/.git/
+/.gitmodules/
+/.gitignore
+
+# Limit vendor uploads
+vendor/**/.git/
+vendor/**/.gitmodules/
+vendor/**/.gitignore
+
+# Anywhere ignore this
+old/
+npm-debug.log
+
+# Mac OS
+.DS_Store
+
+# webapp
+/me/**/platforms/
+
+# phpmvc
+/me/**/coverage/
