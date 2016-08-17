@@ -19,7 +19,7 @@ import time
 import requests
 
 
-url = "http://dbwebb.se/humans.txt"
+url = "https://dbwebb.se/humans.txt"
 
 
 try:

@@ -48,8 +48,9 @@ Feel free to help building up the repository with more content suited for traini
 History
 -------------------
 
-v2.0.1* (2016-05-25)
+v2.0.1* (2016-08-17)
 
+* Updated url in example/ping to match https instead of http.
 * Added files for local dev environment.
 * Added example program for try catch `example/try-catch`.
 
