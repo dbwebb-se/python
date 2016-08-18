@@ -19,3 +19,7 @@
 *.jpg binary
 *.jpeg binary
 *.sqlite binary
+*.mp3 binary
+*.mp4 binary
+*.ogg binary
+*.pdf binary
