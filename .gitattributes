@@ -1,1 +1,21 @@
+# Force LF as lineendings, on textfiles
 * text eol=lf
+
+# Autodetect text files
+* text=auto
+
+# ...Unless the name matches the following
+# overriding patterns
+
+# Definitively text files 
+#*.txt text
+#*.c text
+#*.h text
+
+# Ensure those won't be messed up with
+*.webm binary
+*.gif binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.sqlite binary
