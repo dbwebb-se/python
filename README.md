@@ -50,6 +50,7 @@ History
 
 v2.0.1* (2016-08-17)
 
+* Executing file with UTF-8 coding, fix #20.
 * Corrected validation errors displayed on travis.
 * Updated url in example/ping to match https instead of http.
 * Added files for local dev environment.
