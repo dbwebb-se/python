@@ -37,7 +37,7 @@ if os.path.isfile(fullpath) and os.access(fullpath, os.R_OK):
     # Write page content
     sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
     
-    exec(open(fullpath).read())
+    exec(open(fullpath, encoding="utf-8").read())
 
 else:
     print("The file %s is not available, check if its there and set chmod to 644." % filename)
