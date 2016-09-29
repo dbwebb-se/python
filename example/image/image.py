@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Example to show how to make an ascii image from a jpg-image.
+Example to show how to make an ascii image from a jpg-image using
+Pillow (PIL).
+http://pillow.readthedocs.io/
 
 Algorithm from:
 http://a-eter.blogspot.se/2010/04/image-to-ascii-art-in-python.html
