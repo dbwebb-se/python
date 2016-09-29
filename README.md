@@ -48,7 +48,6 @@ Feel free to help building up the repository with more content suited for traini
 History
 -------------------
 
-v2.0.3 (2016-09-29)
 v2.0.2 (2016-09-29)
 
 * Adding `example/image` with example creating ascii image.
