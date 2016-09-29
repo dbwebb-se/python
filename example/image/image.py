@@ -121,7 +121,7 @@ def imageToAscii(image):
     """
     Convert image to ASCII image and return as list.
     """
-    asciiChars = [ '#', 'A', '@', '%', 'S', '+', '<', '*', ':', ',', '.']
+    asciiChars = ['#', 'A', '@', '%', 'S', '+', '<', '*', ':', ',', '.']
     imageAsAscii = []
     allPixels = list(image.getdata())
 
