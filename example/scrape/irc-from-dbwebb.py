@@ -15,7 +15,7 @@ input("Press enter to continue. ")
 
 
 # Get webpage
-url = "http://dbwebb.se/"
+url = "http://cc1.dbwebb.se/"
 print("\nReady to send HTTP request to ", url, "\nPress enter to continue. ", end='')
 input()
 req = requests.get(url)
