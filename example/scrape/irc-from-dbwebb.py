@@ -26,10 +26,11 @@ print("\nThe response status code is:\n", req.status_code)
 
 
 # Get the webpage content as a soup
-soup = BeautifulSoup(req.text, "html5lib")
+#soup = BeautifulSoup(req.text, "html5lib")
+soup = BeautifulSoup(req.text)
 
 # Find the intresting parts in the soup
-ircLog = soup.find("tbody")
+ircLog = soup.find("table")
 logText = [element.text for element in ircLog.tr.findAll("td")] 
 
 # Print out the content
