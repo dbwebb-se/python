@@ -11,14 +11,26 @@ import random
 
 class Dice():
     """
-    Example of class  with command actions.
+    Example of dice class.
     """
+    faces = 6
+
+
     def __init__(self):
         random.seed()
+        self.rollsMade = 0
 
 
     def roll(self):
         """
-        Move the turtle forward by the specified distance:  FORWARD 10
+        Roll a dice once and return the value.
         """
-        return random.randint(1, 6)
+        self.rollsMade += 1
+        return random.randint(1, self.faces)
+
+
+    def getRollsMade(self):
+        """
+        Get number of rolls made.
+        """
+        return self.rollsMade

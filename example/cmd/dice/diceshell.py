@@ -23,27 +23,36 @@ class Shell(cmd.Cmd):
     prompt = '(dice) '
 
 
+    def __init__(self):
+        super(Shell, self).__init__()
+        self.dice = dice.Dice()
+
+
     def do_roll(self, arg):
         """
         Roll one dice one time.
         """
-        myDice = dice.Dice()
-        print("Rolling a... {}".format(myDice.roll()))
+        print("Rolling a... {}".format(self.dice.roll()))
 
 
     def do_rolls(self, arg):
         """
         Roll one dice several times, supply argument how many times to roll.
         """
-        myDice = dice.Dice()
-        
         if not arg:
             print("Missing argument on how many times to roll the dice.")
             return
 
         times = int(arg)
         for _ in range(times):
-            print("Rolling a... {}".format(myDice.roll()))
+            print("Rolling a... {}".format(self.dice.roll()))
+
+
+    def do_total(self, arg):
+        """
+        How many rolls have been made in total?
+        """
+        print("You have rolled the dice {} times.".format(self.dice.getRollsMade()))
 
 
     def do_exit(self, arg):
