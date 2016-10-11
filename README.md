@@ -56,7 +56,7 @@ v2.0.5 (2016-10-11)
 v2.0.4 (2016-10-07)
 
 * Updating example `example/scrape` to without specifying parser.
-* Updating example `example/scrape` to <table>.
+* Updating example `example/scrape` to `<table>`.
 
 
 v2.0.3 (2016-10-05)
