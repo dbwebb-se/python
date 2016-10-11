@@ -2,7 +2,7 @@ Programming and Problemsolving in Python - python
 ===================
 
 [![Join the chat at https://gitter.im/mosbth/python](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/mosbth/python?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/mosbth/python.svg)](https://travis-ci.org/mosbth/python)
+[![Build Status](https://travis-ci.org/dbwebb-se/python.svg)](https://travis-ci.org/dbwebb-se/python)
 [![CircleCI](https://circleci.com/gh/dbwebb-se/python.svg?style=svg)](https://circleci.com/gh/dbwebb-se/python)
 
 Course material for python-course, aimed at a swedish target audience as the first course in programming and computer science on University level.
