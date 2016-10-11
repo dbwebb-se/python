@@ -48,9 +48,20 @@ Feel free to help building up the repository with more content suited for traini
 History
 -------------------
 
-v2.0.3 (2016-10-10)
+v2.0.5 (2016-10-11)
 
 * Adding `example/cmd/dice` to show module cmd together with classes.
+
+
+v2.0.4 (2016-10-07)
+
+* Updating example `example/scrape` to without specifying parser.
+* Updating example `example/scrape` to <table>.
+
+
+v2.0.3 (2016-10-05)
+
+* Updating example `example/scrape` to work with new website.
 
 
 v2.0.2 (2016-09-29)
