@@ -12,7 +12,7 @@ WARN_COLOR	= \033[33;01m
 HELPTEXT 	= /bin/echo -e "$(ACTION)--->" `egrep "^\# target: $(1) " Makefile | sed "s/\# target: $(1)[ ]\+- / /g"` "$(NO_COLOR)"
 
 # Add local bin path for test tools
-PATH_ORIG = "$(PATH)"
+PATH_ORIG = $(PATH)
 PATH := "$(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)"
 
 
