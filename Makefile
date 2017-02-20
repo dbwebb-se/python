@@ -135,6 +135,36 @@ dbwebb-validate-run:
 
 
 
+# target: dbwebb-inspect-install  - Download and install dbwebb-inspect.
+.PHONY: dbwebb-inspect-install
+dbwebb-inspect-install: build-prepare
+	@$(call HELPTEXT,$@)
+	wget --quiet -O bin/dbwebb-inspect https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-inspect
+	chmod 755 bin/dbwebb-inspect
+	export PATH=$(PATH) && dbwebb-inspect --version
+	export PATH=$(PATH_ORIG)
+
+
+
+# target: dbwebb-inspect-check    - Check version and environment for dbwebb-inspect.
+.PHONY: dbwebb-inspect-check
+dbwebb-inspect-check:
+	@$(call HELPTEXT,$@)
+	export PATH=$(PATH) && dbwebb-inspect --version
+	export PATH=$(PATH_ORIG)
+
+
+
+# target: dbwebb-inspect          - Run tests with dbwebb-inspect where arg kmom=kmom01 or selected kmom.
+.PHONY: dbwebb-inspect
+dbwebb-inspect:
+	@$(call HELPTEXT,$@)
+	export PATH=$(PATH) && dbwebb-inspect . $(kmom)
+	export PATH=$(PATH_ORIG)
+
+
+
+
 # target: npm-install-dev         - Install npm packages for development.
 .PHONY: npm-install-dev
 npm-install-dev: build-prepare
@@ -183,7 +213,7 @@ tools-update-dev: composer-update-dev npm-update-dev
 
 # target: automated-tests-prepare - Prepare for automated tests.
 .PHONY: automated-tests-prepare
-automated-tests-prepare: build-prepare dbwebb-validate-install dbwebb-install npm-install-dev composer-install-dev
+automated-tests-prepare: build-prepare dbwebb-validate-install dbwebb-inspect-install dbwebb-install npm-install-dev composer-install-dev
 	@$(call HELPTEXT,$@)
 
 
