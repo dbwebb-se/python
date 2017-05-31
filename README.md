@@ -11,6 +11,8 @@ The course will have a high enough level to satisfy those who are familiar with 
 
 Relased as part of a University course: https://dbwebb.se/kurser/python
 
+The course repo is managed by a [dbwebb command line utility](https://dbwebb.se/dbwebb-cli).
+
 
 
 Literature
