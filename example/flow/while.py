@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+Example script showing usage of while-loop for article
+Villkor och loopar
+"""
+
 number = 2
 
 while number < 20:
@@ -8,13 +13,17 @@ while number < 20:
     number = number + number
 
 
-mega_sum = 0
-
 while True:
-    user_input = input("Skriv in en siffra (eller q för avslut): ")
+    user_input = input("Skriv in antal äpplen (eller q för avslut): ")
     if user_input == "q":
-        print("MegaSum: " + str(mega_sum))
+        print("Du är nu klar med att äta äpplen.")
+        print("Hej då!")
         break
     else:
-        number = int(user_input)
-        mega_sum += number
+        number_of_apples = int(user_input)
+        if number_of_apples > 10:
+            print("Du har mer än 10 äpplen")
+        elif number_of_apples <= 10 and number_of_apples > 5:
+            print("Du blev snabbt mätt och åt bara upp några av dina äpplen")
+        else:
+            print("Du har nog varit hungrig och ätit upp dina äpplen")

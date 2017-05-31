@@ -1,0 +1,27 @@
+[MASTER]
+
+#init-hook='import sys; import os; sys.path.append(os.getcwd() + "/example/hello_world")'
+
+
+
+[MESSAGES CONTROL]
+
+#disable=superfluous-parens,anomalous-backslash-in-string,bad-builtin,invalid-name
+disable=W0105,W0141,C0103,R0903,F0401,R0912,R0914,R0915,E0611,E1101,E1103,W0122,C0303,broad-except,global-statement,too-many-instance-attributes,no-self-use,superfluous-parens,locally-disabled,locally-enabled
+
+
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=120
+
+# Maximum number of lines in a module
+#max-module-lines=1000
+max-module-lines=5000
+
+
+[REPORTS]
+
+reports=no
+#include-ids=yes

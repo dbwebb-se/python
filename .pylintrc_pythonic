@@ -1,0 +1,14 @@
+[MESSAGES CONTROL]
+
+disable=locally-disabled,locally-enabled
+
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=79
+
+
+[REPORTS]
+
+#reports=no

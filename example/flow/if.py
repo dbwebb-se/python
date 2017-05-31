@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+"""
+Example script showing usage of if-statements for article
+Villkor och loopar
+"""
+
+
 number_of_apples = 13
 
 if number_of_apples > 10:
