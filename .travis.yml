@@ -29,9 +29,8 @@ addons:
 
 matrix:
     allow_failures:
-        python: 
-            - "3.7-dev"
-            - "nightly"
+        - python: "3.7-dev"
+        - python: "nightly"
 
 
 
