@@ -1,7 +1,23 @@
-#!/usr/bin/make -f
+#!/usr/bin/env make -f
 #
 # Makefile for course repos
 #
+
+# ---------------------------------------------------------------------------
+#
+# General setup
+#
+
+# Detect OS
+OS = $(shell uname -s)
+
+# Defaults
+ECHO = echo
+
+# Make adjustments based on OS
+ifneq (, $(findstring CYGWIN, $(OS)))
+	ECHO = /bin/echo -e
+endif
 
 # Colors and helptext
 NO_COLOR	= \033[0m
@@ -9,15 +25,15 @@ ACTION		= \033[32;01m
 OK_COLOR	= \033[32;01m
 ERROR_COLOR	= \033[31;01m
 WARN_COLOR	= \033[33;01m
-HELPTEXT 	= /bin/echo -e "$(ACTION)--->" `egrep "^\# target: $(1) " Makefile | sed "s/\# target: $(1)[ ]\+- / /g"` "$(NO_COLOR)"
 
-# Add local bin path for test tools
-PATH_ORIG = $(PATH)
-PATH := "$(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)"
+# Which makefile am I in?
+WHERE-AM-I = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+THIS_MAKEFILE := $(call WHERE-AM-I)
 
+# Echo some nice helptext based on the target comment
+HELPTEXT = $(ECHO) "$(ACTION)--->" `egrep "^\# target: $(1) " $(THIS_MAKEFILE) | sed "s/\# target: $(1)[ ]*-[ ]* / /g"` "$(NO_COLOR)"
 
-
-# target: help                    - Displays help.
+# target: help                    - Displays help with targets available.
 .PHONY:  help
 help:
 	@$(call HELPTEXT,$@)
@@ -28,34 +44,64 @@ help:
 
 
 
+# ---------------------------------------------------------------------------
+#
+# Specifics
+# 
+
+# Add local bin path for test tools
+PATH := "$(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)"
+
+# Tools
+DBWEBB   		:= bin/dbwebb
+DBWEBB_VALIDATE := bin/dbwebb-validate
+DBWEBB_INSPECT  := bin/dbwebb-inspect
+PHPCS   := bin/phpcs
+PHPMD   := bin/phpmd
+
+
+
+# ----------------------------------------------------------------------------
+# 
+# Highlevel targets 
+#
+# target: prepare                 - Prepare the build directory.
+.PHONY: prepare
+prepare:
+	@$(call HELPTEXT,$@)
+	[ -d build ]   || install -d build/webroot
+	[ -d bin/pip ] || install -d bin/pip
+
+
+
 # target: install                 - Install needed utilities locally.
 .PHONY: install
-install: automated-tests-prepare
+install: prepare dbwebb-validate-install dbwebb-inspect-install dbwebb-install npm-install composer-install
 	@$(call HELPTEXT,$@)
+
+	@# Disable PHP tools with arguments
+	curl -Lso $(PHPCS) https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar && chmod 755 $(PHPCS)
+
+	curl -Lso $(PHPMD) http://static.phpmd.org/php/latest/phpmd.phar && chmod 755 $(PHPMD)
+
+	@# Shellcheck 
+	@# tree (inspect) 
+	@# python through reqs and venv
+	@# Add to check on dbwebb-cli to try all parts php in path, make, composer, node, npm, python3, python, mm.
 
 
 
 # target: check                   - Check installed utilities.
 .PHONY: check
-check: automated-tests-check
+check: dbwebb-validate-check
 	@$(call HELPTEXT,$@)
-
 
 
 
 # target: test                    - Install test tools & run tests.
 .PHONY: test
-test: automated-tests-prepare automated-tests-check automated-tests-run dbwebb-testrepo
+test: check dbwebb-publish-run dbwebb-testrepo
 	@$(call HELPTEXT,$@)
-
-
-
-# target: build-prepare           - Prepare the build directory.
-.PHONY: build-prepare
-build-prepare:
-	@$(call HELPTEXT,$@)
-	install -d build
-	install -d bin/pip
 
 
 
@@ -86,34 +132,63 @@ clean-all: clean
 
 
 
+# ----------------------------------------------------------------------------
+# 
+# Shortcuts for frequent usage 
+#
+# target: validate                - Execute dbwebb validate what=part-to-validate.
+.PHONY: validate
+validate: dbwebb-validate
+	@$(call HELPTEXT,$@)
+
+
+
+# target: publish                 - Execute dbwebb publish what=part-to-validate.
+.PHONY: publish
+publish: dbwebb-publish
+	@$(call HELPTEXT,$@)
+
+
+
+# target: inspect                 - Execute dbwebb inspect what=kmom01.
+.PHONY: inspect
+inspect: dbwebb-inspect
+	@$(call HELPTEXT,$@)
+
+
+
+# ----------------------------------------------------------------------------
+# 
+# dbwebb cli 
+#
 # target: dbwebb-install          - Download and install dbwebb-cli.
 .PHONY: dbwebb-install
-dbwebb-install: build-prepare
+dbwebb-install: prepare
 	@$(call HELPTEXT,$@)
-	wget --quiet -O bin/dbwebb https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2
-	chmod 755 bin/dbwebb
-	export PATH=$(PATH) && dbwebb config create noinput && dbwebb --version
-	export PATH=$(PATH_ORIG)
+	wget --quiet -O $(DBWEBB) https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2
+	chmod 755 $(DBWEBB)
+	$(DBWEBB) config create noinput
 
 
 
 # target: dbwebb-testrepo         - Test course repo.
 .PHONY: dbwebb-testrepo
-dbwebb-testrepo: dbwebb-install
+dbwebb-testrepo:
 	@$(call HELPTEXT,$@)
-	export PATH=$(PATH) && dbwebb --silent --local testrepo
-	export PATH=$(PATH_ORIG)
+	env PATH=$(PATH) $(DBWEBB) --silent --local testrepo
 
 
 
+# ----------------------------------------------------------------------------
+# 
+# dbwebb validate & publish
+#
 # target: dbwebb-validate-install - Download and install dbwebb-validate.
 .PHONY: dbwebb-validate-install
-dbwebb-validate-install: build-prepare
+dbwebb-validate-install: prepare
 	@$(call HELPTEXT,$@)
-	wget --quiet -O bin/dbwebb-validate https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-validate
-	chmod 755 bin/dbwebb-validate
-	export PATH=$(PATH) && dbwebb-validate --version
-	export PATH=$(PATH_ORIG)
+	wget --quiet -O $(DBWEBB_VALIDATE) https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-validate
+	chmod 755 $(DBWEBB_VALIDATE)
 
 
 
@@ -121,28 +196,52 @@ dbwebb-validate-install: build-prepare
 .PHONY: dbwebb-validate-check
 dbwebb-validate-check:
 	@$(call HELPTEXT,$@)
-	export PATH=$(PATH) && dbwebb-validate --version && dbwebb-validate --check
-	export PATH=$(PATH_ORIG)
+	env PATH=$(PATH) $(DBWEBB_VALIDATE) --check
 
 
 
-# target: dbwebb-validate-run     - Run tests with dbwebb-validate.
+# target: dbwebb-validate-run     - Run tests on /example with dbwebb-validate.
 .PHONY: dbwebb-validate-run
 dbwebb-validate-run:
 	@$(call HELPTEXT,$@)
-	export PATH=$(PATH) && dbwebb-validate --publish --publish-to build/webroot/ example
-	export PATH=$(PATH_ORIG)
+	env PATH=$(PATH) $(DBWEBB_VALIDATE) example
 
 
 
+# target: dbwebb-validate         - Execute dbwebb validate what=part-to-validate.
+.PHONY: dbwebb-validate
+dbwebb-validate:
+	@$(call HELPTEXT,$@)
+	env PATH=$(PATH) $(DBWEBB_VALIDATE) $(what) $(arg1) $(kmom)
+
+
+
+# target: dbwebb-publish-run      - Run tests on /example with dbwebb-publish.
+.PHONY: dbwebb-publish-run
+dbwebb-publish-run:
+	@$(call HELPTEXT,$@)
+	env PATH=$(PATH) $(DBWEBB_VALIDATE) --publish --publish-to build/webroot/ example
+
+
+
+# target: dbwebb-publish          - Execute dbwebb publish what=part-to-validate-publish.
+.PHONY: dbwebb-publish
+dbwebb-publish:
+	@$(call HELPTEXT,$@)
+	env PATH=$(PATH) $(DBWEBB_VALIDATE) --publish --publish-to build/webroot/ $(what) $(arg1) $(kmom)
+
+
+
+# ----------------------------------------------------------------------------
+# 
+# dbwebb inspect 
+#
 # target: dbwebb-inspect-install  - Download and install dbwebb-inspect.
 .PHONY: dbwebb-inspect-install
-dbwebb-inspect-install: build-prepare
+dbwebb-inspect-install: prepare
 	@$(call HELPTEXT,$@)
-	wget --quiet -O bin/dbwebb-inspect https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-inspect
-	chmod 755 bin/dbwebb-inspect
-	export PATH=$(PATH) && dbwebb-inspect --version
-	export PATH=$(PATH_ORIG)
+	wget --quiet -O $(DBWEBB_INSPECT) https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2-inspect
+	chmod 755 $(DBWEBB_INSPECT)
 
 
 
@@ -150,89 +249,52 @@ dbwebb-inspect-install: build-prepare
 .PHONY: dbwebb-inspect-check
 dbwebb-inspect-check:
 	@$(call HELPTEXT,$@)
-	export PATH=$(PATH) && dbwebb-inspect --version
-	export PATH=$(PATH_ORIG)
+	$(DBWEBB_INSPECT) --version
 
 
 
-# target: dbwebb-inspect          - Run tests with dbwebb-inspect where arg kmom=kmom01 or selected kmom.
+# target: dbwebb-inspect          - Execute dbwebb inspect what=kmom01.
 .PHONY: dbwebb-inspect
 dbwebb-inspect:
 	@$(call HELPTEXT,$@)
-	export PATH=$(PATH) && dbwebb-inspect . $(kmom)
-	export PATH=$(PATH_ORIG)
+	env PATH=$(PATH) $(DBWEBB_INSPECT) . $(what) $(arg1) $(kmom)
 
 
 
-
-# target: npm-install-dev         - Install npm packages for development.
-.PHONY: npm-install-dev
-npm-install-dev: build-prepare
+# ----------------------------------------------------------------------------
+# 
+# npm
+#
+# target: npm-install             - Install npm packages for development.
+.PHONY: npm-install
+npm-install: prepare
 	@$(call HELPTEXT,$@)
 	if [ -f package.json ]; then npm install --only=dev; fi
 
 
 
-# target: npm-update-dev          - Update npm packages for development.
-.PHONY: npm-update-dev
-npm-update-dev:
+# target: npm-update              - Update npm packages for development.
+.PHONY: npm-update
+npm-update:
 	@$(call HELPTEXT,$@)
 	if [ -f package.json ]; then npm update --only=dev; fi
 
 
 
-# target: composer-install-dev    - Install composer packages for development.
-.PHONY: composer-install-dev
-composer-install-dev: build-prepare
+# ----------------------------------------------------------------------------
+# 
+# composer 
+#
+# target: composer-install        - Install composer packages for development.
+.PHONY: composer-install
+composer-install: prepare
 	@$(call HELPTEXT,$@)
 	if [ -f composer.json ]; then composer install; fi
 
 
 
-# target: composer-update-dev     - Update composer packages for development.
-.PHONY: composer-update-dev
-composer-update-dev:
+# target: composer-update         - Update composer packages for development.
+.PHONY: composer-update
+composer-update:
 	@$(call HELPTEXT,$@)
 	if [ -f composer.json ]; composer update; fi
-
-
-
-# target: tools-install-dev       - Install tools for development.
-.PHONY: tools-install-dev
-tools-install-dev: build-prepare composer-install-dev npm-install-dev
-	@$(call HELPTEXT,$@)
-
-
-
-# target: tools-update-dev        - Update tools for development.
-.PHONY: tools-update-dev
-tools-update-dev: composer-update-dev npm-update-dev
-	@$(call HELPTEXT,$@)
-
-
-
-# target: automated-tests-prepare - Prepare for automated tests.
-.PHONY: automated-tests-prepare
-automated-tests-prepare: build-prepare dbwebb-validate-install dbwebb-inspect-install dbwebb-install npm-install-dev composer-install-dev
-	@$(call HELPTEXT,$@)
-
-
-
-# target: automated-tests-check   - Check version and environment for automated tests.
-.PHONY: automated-tests-check
-automated-tests-check: dbwebb-validate-check
-	@$(call HELPTEXT,$@)
-
-
-
-# target: automated-tests-run     - Run all automated tests.
-.PHONY: automated-tests-run
-automated-tests-run: dbwebb-validate-run dbwebb-testrepo
-	@$(call HELPTEXT,$@)
-
-
-# target: dbwebb-validate         - Execute dbwebb validate with arg1=what.
-.PHONY: dbwebb-validate
-dbwebb-validate:
-	@$(call HELPTEXT,$@)
-	bin/dbwebb-validate --publish --publish-to build/webroot/ $(arg1)
