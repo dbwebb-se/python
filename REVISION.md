@@ -4,6 +4,7 @@ Revision History
 v3.0.* (2017-05-31)
 -------------------
 
+* Prepare to raise version constraint of dbwebb-cli.
 * Add config dir .dbwebb.
 * Removed the folder literature and moved an overview of it to the file README.md.
 
