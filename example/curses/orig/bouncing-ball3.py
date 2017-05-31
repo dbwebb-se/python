@@ -126,7 +126,7 @@ def main(screen):
             elif ball_x >= max_x-len(ball)-1:
                 ball_x = max_x-len(ball)-1
             
-            if len(plates) == 0:
+            if len(plates) == 0: # pylint: disable=len-as-condition
                 text = "GAME OVER!"
                 screen.addstr(max_y//2, max_x//2-len(text)//2, text)
                 screen.refresh()

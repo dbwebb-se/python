@@ -1,6 +1,7 @@
 me/
 bin/
 build/
+.venv/
 vendor/
 node_modules/
 example/sqlite/ping.db

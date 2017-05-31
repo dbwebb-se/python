@@ -4,6 +4,7 @@ Revision History
 v3.0.* (2017-05-31)
 -------------------
 
+* Make use of python locally installed tools in a virtual environment.
 * Update settings for travis and circle.
 * Prepare to raise version constraint of dbwebb-cli.
 * Add config dir .dbwebb.
