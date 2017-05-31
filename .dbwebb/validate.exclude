@@ -1,0 +1,26 @@
+#
+# dbwebb validate exclude and include files for validate and publish.
+# 
+# Paths start from courserepo, so path to me is "./me".
+#
+
+# Start by removing some common -files and add some +subdirs
+-*/.git/*
+-*/build/*
+-*/cache/*
+-*/docs/*
+-*/lib/*
+-*.min.*
+-*.png
+-*.jpg
+
+-./me/*/vendor/*
+-./me/*/node_modules/*
+
+#-./me/*/platforms/*
+#+./me/*/platforms/browser/www/*.html
+#+./me/*/platforms/browser/www/css/*.css
+#+./me/*/platforms/browser/www/js/*.js
+
+# -- Really remove files, even if found below +subdirs
+#--*font-awesome*
