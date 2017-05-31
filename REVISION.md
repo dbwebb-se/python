@@ -1,6 +1,12 @@
 Revision History
 ===================
 
+v3.0.* (2017-05-31)
+-------------------
+
+* Removed the folder literature and moved an overview of it to the file README.md.
+
+
 v3.0.0 (2017-05-31)
 -------------------
 
