@@ -20,7 +20,12 @@ while True:
         print("Hej då!")
         break
     else:
-        number_of_apples = int(user_input)
+        try:
+            number_of_apples = int(user_input)
+        except ValueError:
+            print("Oj! Du skrev inte in en siffra.")
+            continue
+            
         if number_of_apples > 10:
             print("Du har mer än 10 äpplen")
         elif number_of_apples <= 10 and number_of_apples > 5:
