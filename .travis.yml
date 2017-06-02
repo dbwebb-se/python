@@ -1,24 +1,12 @@
 language: python
 
 python:
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
-
-
-
-# command to install dependencies
-#install: "pip install -r requirements.txt"
-
-
-
-# command to run tests
-#script: nosetests
-
-
+    - "3.3"
+    - "3.4"
+    - "3.5"
+    - "3.6"
+    - "3.7-dev"
+    - "nightly"
 
 sudo: false
 
@@ -41,25 +29,17 @@ addons:
 
 matrix:
     allow_failures:
-        - python: "3.2"
+        - python: "3.7-dev"
         - python: "nightly"
 
 
 
 before_script:
-    # install pylint
-    - pip3 install pylint
- 
-    # Prepare for automated tests
-    - make automated-tests-prepare
+    - make install
 
 
 script:
-    # Check version and environment
-    - make automated-tests-check
-
-    # Run tests
-    - make automated-tests-run
+    - make test
 
 
 

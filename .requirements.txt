@@ -1,0 +1,8 @@
+pylint >= 1.4.4
+#coverage
+#flake8
+#flake8-docstrings
+#pycodestyle
+
+# Obsolete
+#pep8
