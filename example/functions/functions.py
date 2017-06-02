@@ -82,3 +82,9 @@ emil_energy = calculate_energy_return(emil_time)
 emil_cost = calculate_cost(emil_energy)
 
 print("Emil använder " + str(emil_energy) + " kWh och detta kostar " + str(emil_cost) + " kr")
+
+nice_string = "Emil använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
+                energy=emil_energy,
+                cost=emil_cost
+)
+print(nice_string)
