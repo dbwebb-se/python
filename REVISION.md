@@ -1,7 +1,7 @@
 Revision History
 ===================
 
-v3.0.* (2017-05-31)
+v3.0.1 (2017-06-09)
 -------------------
 
 * Make use of python locally installed tools in a virtual environment.
@@ -9,6 +9,7 @@ v3.0.* (2017-05-31)
 * Prepare to raise version constraint of dbwebb-cli.
 * Add config dir .dbwebb.
 * Removed the folder literature and moved an overview of it to the file README.md.
+* Enable verisoning of labs.
 
 
 v3.0.0 (2017-05-31)
