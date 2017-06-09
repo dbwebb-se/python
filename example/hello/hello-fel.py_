@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+"""
+Showing off som errors in Python.
+"""
+
+# Print out Hello World
+prin("Just saying Hello World")
+
+# Assign the string Hello World to a variable and print it out
+str1 = "Hello World in a variable"
+print(str2)
+
+# Combine two strings and print them out
+str2 = "Hello World!"
+str3 = "Its a nice day today!"
+print(str2 + " " + str4)
+
+# Combine string and values
+a = 40
+b = 2
+c = a + b
+str4 = "Summan är " + c + "."
+print(str2 + " " + str4)
