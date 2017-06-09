@@ -21,23 +21,23 @@ mikael_cost = energy_calculation.calculate_cost(mikael_energy)
 kenneth_cost = energy_calculation.calculate_cost(kenneth_energy)
 
 emil_string = "Emil använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-                energy=emil_energy,
-                cost=emil_cost
+    energy=emil_energy,
+    cost=emil_cost
 )
 
 andreas_string = "Andreas använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-                energy=andreas_energy,
-                cost=andreas_cost
+    energy=andreas_energy,
+    cost=andreas_cost
 )
 
 mikael_string = "Mikael använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-                energy=mikael_energy,
-                cost=mikael_cost
+    energy=mikael_energy,
+    cost=mikael_cost
 )
 
 kenneth_string = "Kenneth använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-                energy=kenneth_energy,
-                cost=kenneth_cost
+    energy=kenneth_energy,
+    cost=kenneth_cost
 )
 
 print(emil_string)

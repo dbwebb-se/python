@@ -10,5 +10,7 @@ age = input("Skriv en ålder, klicka sen enter: ") # Ber användaren mata in en 
 
 year_born = str(year - int(age)) # Födelse år räknas ut. Gör om age från string till integer med int()
 
-greeting = "Hej " + name + ", du är " + age + " år gammal och föddes år " + year_born # Sätter ihop "Hej", name, ", du är ", age och " år gammal." till ett värde.
+
+# Sätter ihop "Hej", name, ", du är ", age och " år gammal." till ett värde.
+greeting = "Hej " + name + ", du är " + age + " år gammal och föddes år " + year_born 
 print(greeting) # Skriver ut ett string värde
