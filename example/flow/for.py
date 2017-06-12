@@ -10,7 +10,7 @@ for i in range(10):
     print(i)
 
 
-for number_of_apples in range(13):
+for number_of_apples in range(3, 15):
     if number_of_apples > 10:
         print("Du har mer än 10 äpplen")
     elif number_of_apples <= 10 and number_of_apples > 5:
