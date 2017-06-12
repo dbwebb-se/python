@@ -9,9 +9,9 @@ pylint --list-msgs | while read line ;
 do
     if [[ $line == :* ]];then
         echo "___"
-        printf "## "
-        echo "$line"|awk '{print $1}'
-        printf "##### "
+        printf "### "
+        echo "$line"|awk '{print $1}' | cut -c2- 
+        printf "###### "
         echo "$line"|awk '{$1=""; print $0}'
     else
         echo $line
