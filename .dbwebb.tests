@@ -11,6 +11,10 @@ dbwebb init-me
 # Kmom01
 #
 
+# lab1
+cd me/kmom01 && dbwebb recreate lab1
+cd me/kmom01/lab1 && python3 answer.py; [[ $? = 42 ]]
+dbwebb validate lab1
 
 
 
@@ -19,6 +23,10 @@ dbwebb init-me
 # Kmom02
 #
 
+# lab2
+cd me/kmom02 && dbwebb recreate lab2
+cd me/kmom02/lab2 && python3 answer.py; [[ $? = 42 ]]
+dbwebb validate lab2
 
 
 
@@ -27,6 +35,10 @@ dbwebb init-me
 # Kmom03
 #
 
+# lab3
+cd me/kmom03 && dbwebb recreate lab3
+cd me/kmom03/lab3 && python3 answer.py; [[ $? = 42 ]]
+dbwebb validate lab3
 
 
 # --------------------------------------------------------------------------
@@ -34,6 +46,10 @@ dbwebb init-me
 # Kmom04
 #
 
+# lab4
+cd me/kmom04 && dbwebb recreate lab4
+cd me/kmom04/lab4 && python3 answer.py; [[ $? = 42 ]]
+dbwebb validate lab4
 
 
 
@@ -42,6 +58,10 @@ dbwebb init-me
 # Kmom05
 #
 
+# lab5
+cd me/kmom05 && dbwebb recreate lab5
+cd me/kmom05/lab5 && python3 answer.py; [[ $? = 42 ]]
+dbwebb validate lab5
 
 
 
