@@ -16,6 +16,15 @@ cd me/kmom01 && dbwebb recreate lab1
 cd me/kmom01/lab1 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab1
 
+
+
+# hello
+cp example/hello/hello.py me/kmom01/hello
+cd me/kmom01/hello && python3 hello.py
+dbwebb validate hello
+
+
+
 # plane
 cd me/kmom01/ && cp -i hello/hello.py plane/plane.py && cd plane
 dbwebb validate plane
@@ -31,6 +40,8 @@ dbwebb validate plane
 cd me/kmom02 && dbwebb recreate lab2
 cd me/kmom02/lab2 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab2
+
+
 
 # marvin1
 cp -i example/marvin/marvin.py me/kmom02/marvin1/
