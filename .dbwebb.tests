@@ -61,6 +61,13 @@ cd me/kmom03/lab3 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab3
 
 
+
+# marvin2
+cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/ && cd kmom03/marvin2
+dbwebb validate marvin2
+
+
+
 # --------------------------------------------------------------------------
 #
 # Kmom04
