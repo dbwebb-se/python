@@ -77,6 +77,9 @@ dbwebb validate marvin2
 cd me/kmom04 && dbwebb recreate lab4
 cd me/kmom04/lab4 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab4
+dbwebb validate me/kmom04/list
+dbwebb validate me/kmom04/file
+
 
 
 
