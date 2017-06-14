@@ -1,0 +1,28 @@
+# dbwebb config files
+- /.dbwebb.exclude
+- /.dbwebb.include
+- /.dbwebb.tests
+- /.dbwebb.version
+/.dbwebb/*
+/.dbwebb*
+
+# Validator config files
+/.*rc
+/.*.xml
+/.*.conf
+
+/example/
+/example/**
+
+/me/
+- /me/anax-lite/.bin
+- /me/anax-lite/cache/cimage/*
+- vendor/mos/cimage/webroot
+- vendor/**/config
+- vendor/**/docs
+- vendor/**/test
+- node_modules/
+/me/**
+
+- */
+- *
