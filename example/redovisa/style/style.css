@@ -1,0 +1,21 @@
+/**
+ * Style
+ */
+body {
+    margin: 8px auto;
+    color: #333;
+    max-width: 600px;
+    overflow-y: scroll;
+}
+
+h1 {
+    border-bottom: 1px solid #666;
+}
+
+h2 {
+    border-bottom: 1px solid #ccc;
+}
+
+pre {
+    white-space: pre-wrap;
+}

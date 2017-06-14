@@ -26,8 +26,15 @@ dbwebb validate hello
 
 
 # plane
-cd me/kmom01/ && cp -i hello/hello.py plane/plane.py && cd plane
+#cd me/kmom01/ && cp -i hello/hello.py plane/plane.py && cd plane
+cd me/kmom01/ && cp hello/hello.py plane/plane.py
 dbwebb validate plane
+
+
+
+# redovisa
+cp -r example/redovisa/* me/redovisa
+dbwebb validate redovisa
 
 
 
