@@ -13,7 +13,7 @@
 -*.min.*
 -*.png
 -*.jpg
--/.venv
+-./.venv/
 
 -./me/*/vendor/*
 -./me/*/node_modules/*
