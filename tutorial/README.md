@@ -47,7 +47,7 @@ Tutorial on Python
 
 [Exceptions try / except](try-except.md)
 
-[Tupler](tuple.md)
+[Tuples](tuple.md)
 
 [Types](types.md)
 
@@ -55,13 +55,14 @@ Tutorial on Python
 
 [While-loop](while.md)
 
+[Read files using with](with-files.md)
+
 
 
 
 Revision history
 ------------------------------
 
-2014-08-30 Rev C (mos) Added all examples on this readme.
-2014-07-16 Rev B (sylvanas) Added more links.
-2014-06-02 Rev A (mos) PA1 First try.
-
+2014-08-30 Rev C (mos) Added all examples on this readme.  
+2014-07-16 Rev B (sylvanas) Added more links.  
+2014-06-02 Rev A (mos) PA1 First try.  
