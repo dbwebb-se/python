@@ -52,7 +52,7 @@ dbwebb validate lab2
 
 # marvin1
 cp -i example/marvin/marvin.py me/kmom02/marvin1/
-cd me/kmom02/marvin1/ && ./marvin.py
+cd me/kmom02/marvin1/
 dbwebb validate marvin1
 
 

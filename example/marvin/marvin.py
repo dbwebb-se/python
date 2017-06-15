@@ -35,7 +35,7 @@ while True:
 
     if choice == "q":
         print("Bye, bye - and welcome back anytime!")
-        return
+        break
 
     elif choice == "1":
         name = input("What is your name? ")
