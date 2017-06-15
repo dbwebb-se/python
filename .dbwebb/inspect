@@ -22,7 +22,7 @@ python()
 #
 # Test general, always executed last in sequence
 #
-function pythonlast()
+pythonlast()
 {
     inspectMe "me/redovisa" "me.html" "redovisning.html" "" "redovisa"
 }
@@ -200,31 +200,6 @@ pythonAdventure()
     # run it
     opts=""
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
-}
-
-
-
-#
-# Test python game
-#
-pythongame()
-{
-    local lab="$1"
-    local main="$2"
-    local url="$3"
-    local target="me/$KMOM/$lab"
-
-    headerForTest "-- $lab" "-- ${DBW_WWW}$url"
-    openFilesInEditor "$target"
-    checkKmomDir "$target"
-    fileIsReadable "$target/$main"
-
-    if [ -f "$THEDIR/$target/$main" ]; then
-        printf "\nThe file $main is available, indicating this task is fulfilled."
-        printf "\nYou need to execute '$main' outside of this script."
-        printf "\ncd \"$EXEC_DIR/$KMOM/$lab\"; python3 $main"
-        printf "\n"
-    fi
 }
 
 
