@@ -5,10 +5,7 @@
 Parse CLI options and return as dict.
 
 Present usage and version information.
-"""
 
-
-"""
 Usage and parsing options.
 
 Exit status:
@@ -20,6 +17,7 @@ Exit status:
 import os
 import sys
 import getopt
+
 
 
 #
