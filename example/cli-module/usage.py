@@ -2,6 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
+Parse CLI options and return as dict.
+
+Present usage and version information.
+"""
+
+
+"""
 Usage and parsing options.
 
 Exit status:
@@ -29,7 +36,7 @@ By {author} ({email}), version {version}.
 Usage:
   {program} [options] <command>
 
-Options:
+options:
   -h, --help                         Display this help message.
   -v, --version                      Print version and exit.
   --silent                           Decrease verbose output.
@@ -54,67 +61,60 @@ EXIT_USAGE = 1
 EXIT_FAILED = 2
 
 
-class Usage(object):
+
+default_options = {
+    "verbose": False,
+    "silent": False,
+    "commands": None
+}
+
+options = default_options.copy()
+
+def print_usage(exit_status=0):
+    """Print usage information about the script and exit."""
+    print(MSG_USAGE)
+    sys.exit(exit_status)
+
+def print_version():
+    """Print version information and exit."""
+    print(MSG_VERSION)
+    sys.exit()
+
+def parse_options(argv=None):
     """
-    Parse CLI options and return as dict.
+    Parse all command line options and arguments.
 
-    Present usage and version information.
+    Return them as a dictionary.
     """
+    
+    
+    argv = argv if argv is not None else sys.argv[1:]
+    try:
+        opts, args = getopt.getopt(argv, "hv", [
+            "help",
+            "version",
+            "silent",
+            "verbose"
+        ])
 
-    # pylint: disable=R0201
+        for opt, _ in opts:
+            if opt in ("-h", "--help"):
+                print_usage()
 
-    default_options = {
-        "verbose": False,
-        "silent": False,
-    }
+            elif opt in ("-v", "--version"):
+                print_version()
 
-    options = {}
+            elif opt in "--silent":
+                options["silent"] = True
 
-    def __init__(self):
-        """Initiate."""
-        self.options = self.default_options.copy()
+            elif opt in "--verbose":
+                options["verbose"] = True
+        
+        
+        options["commands"] = args
+            
 
-    def print_usage(self, exit_status=0):
-        """Print usage information about the script and exit."""
-        print(MSG_USAGE)
-        sys.exit(exit_status)
-
-    def print_version(self):
-        """Print version information and exit."""
-        print(MSG_VERSION)
-        sys.exit()
-
-    def parse_options(self, argv=None):
-        """
-        Parse all command line options and arguments.
-
-        Return them as a dictionary.
-        """
-        argv = argv if argv is not None else sys.argv[1:]
-        try:
-            opts, _ = getopt.getopt(argv, "hv", [
-                "help",
-                "version",
-                "silent",
-                "verbose"
-            ])
-
-            for opt, _ in opts:
-                if opt in ("-h", "--help"):
-                    self.print_usage()
-
-                elif opt in ("-v", "--version"):
-                    self.print_version()
-
-                elif opt in "--silent":
-                    self.options["silent"] = True
-
-                elif opt in "--verbose":
-                    self.options["verbose"] = True
-
-        except getopt.GetoptError as err:
-            print(err)
-            print(MSG_HELP)
-            sys.exit(EXIT_USAGE)
-
-        return self.options
+    except getopt.GetoptError as err:
+        print(err)
+        print(MSG_HELP)
+        sys.exit(EXIT_USAGE)

@@ -16,12 +16,13 @@ $ pydoc usage
 """
 
 import sys
-from usage import Usage
+import usage
 
 
 def main():
-    """Main function where it all starts."""
-    usage = Usage()
+    """
+    Main function where it all starts.
+    """
     usage.parse_options()
 
     print("Default options:")
