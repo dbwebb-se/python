@@ -36,7 +36,7 @@ pythonkmom01()
 {
     inspectLab "uppgift/python-med-varden-och-variabler" "lab1" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "plane" "uppgift/bygg-en-faktureringsmotor-for-batklubben" "$KMOM/plane"
+    inspectExerciseHeader "plane" "uppgift/ditt-forsta-python-skript" "$KMOM/plane"
     inspectCommand "plane.py" "$EXEC_DIR/$KMOM/plane" "python3 plane.py"
 }
 
