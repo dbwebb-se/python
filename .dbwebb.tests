@@ -70,7 +70,7 @@ dbwebb validate lab3
 
 
 # marvin2
-cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/ && cd kmom03/marvin2
+cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/main.py && cd kmom03/marvin2
 dbwebb validate marvin2
 
 
@@ -84,6 +84,10 @@ dbwebb validate marvin2
 cd me/kmom04 && dbwebb recreate lab4
 cd me/kmom04/lab4 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab4
+
+cd me && cp -ri kmom03/marvin2/main.py kmom04/marvin3/ && cd kmom04/marvin3
+dbwebb validate marvin3
+
 dbwebb validate me/kmom04/list
 dbwebb validate me/kmom04/file
 
