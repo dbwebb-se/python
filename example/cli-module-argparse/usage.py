@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Parse CLI options and return as dict.
-
-Present usage and version information.
+Parse CLI options. This is a standalone file.
 
 Using argparse to parse options.
 
