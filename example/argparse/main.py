@@ -23,13 +23,11 @@ def main():
     """
     Main function where it all starts.
     """
+    
     usage.parse_options()
-
-    print("Default options:")
-    print(usage.default_options)
-
-    print("Active options:")
+    
     print(usage.options)
+    
     print()
 
     sys.exit()
