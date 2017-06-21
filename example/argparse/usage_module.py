@@ -12,14 +12,15 @@ Exit status:
 2 EXIT_FAILED  Execution error
 """
 
-import os
-import sys
+# import os
+# import sys
 import argparse
 
 #
 # Add basics about this program
 #
-PROGRAM = os.path.basename(sys.argv[0])
+# PROGRAM = os.path.basename(sys.argv[0])
+PROGRAM = "This is a cli-module"
 AUTHOR = "Your Name"
 EMAIL = "your@email"
 VERSION = "v1.0.0 (2017-06-16)"
@@ -53,6 +54,8 @@ def parse_options():
     group.add_argument("--silent", dest="silent", help="decrease output verbosity", action="store_true")
 
     parser.add_argument("-v", "--version", action="version", version=VERSION)
+    parser.add_argument("--output", dest="output")
+
 
     args, unknownargs = parser.parse_known_args()
 
@@ -63,5 +66,7 @@ def parse_options():
         options["silent"] = True
     
     options["commands"] = unknownargs
+    
+    print(args.output)
 
     return options
