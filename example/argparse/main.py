@@ -16,20 +16,20 @@ $ pydoc usage
 """
 
 import sys
-import usage_module
+import usage
 
 
 def main():
     """
     Main function where it all starts.
     """
-    usage_module.parse_options()
+    usage.parse_options()
 
     print("Default options:")
-    print(usage_module.default_options)
+    print(usage.default_options)
 
     print("Active options:")
-    print(usage_module.options)
+    print(usage.options)
     print()
 
     sys.exit()
