@@ -114,7 +114,7 @@ cd me/kmom05 && cp -ri argparse/*.py analyzer/
 cd me/kmom05 && cp -ri ../../example/text/phil.txt analyzer/ && cd analyzer/
 dbwebb validate analyzer
 
-
+dbwebb validate warehouse
 
 # --------------------------------------------------------------------------
 #
