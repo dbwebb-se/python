@@ -26,20 +26,20 @@ for key in sorted(warehouse.keys()):
     print(key, warehouse[key])
 
 warehouse_deluxe = {
-    "köttfärs" : { "stock" : 20, "price" : 50 },
-    "grädde" : { "stock" : 80, "price" : 20 },
-    "krossade tomater": { "stock" : 33, "price" : 10 },
-    "gul lök" : { "stock" : 42, "price" : 5 }
+    "köttfärs" :{"stock" : 20, "price" : 50},
+    "grädde" :{"stock" : 80, "price" : 20},
+    "krossade tomater" :{"stock" : 33, "price" : 10},
+    "gul lök" :{"stock" : 42, "price" : 5}
 }
 
 for key in sorted(warehouse_deluxe.keys()):
     print(key, warehouse_deluxe[key]["price"])
 
 warehouse_deluxe = {
-    "köttfärs" : { "stock" : 20, "price" : 50, "ids" : (1234, "K14") },
-    "grädde" : { "stock" : 80, "price" : 20, "ids" : (3141, "L12") },
-    "krossade tomater": { "stock" : 33, "price" : 10, "ids" : (4224, "E13") },
-    "gul lök" : { "stock" : 42, "price" : 5, "ids" : (2742, "D02") }
+    "köttfärs" :{"stock" : 20, "price" : 50, "ids" : (1234, "K14")},
+    "grädde" :{"stock" : 80, "price" : 20, "ids" : (3141, "L12")},
+    "krossade tomater":{"stock" : 33, "price" : 10, "ids" : (4224, "E13")},
+    "gul lök" :{"stock" : 42, "price" : 5, "ids" : (2742, "D02")}
 }
 
 warehouse_deluxe["röd lök"] = {}
@@ -48,10 +48,11 @@ warehouse_deluxe["röd lök"]["price"] = 9
 warehouse_deluxe["röd lök"]["ids"] = (6314, "D04")
 
 for key in sorted(warehouse_deluxe.keys()):
-    print("{product} costs {price} and we have {stock} in stock. It has barcode {barcode} and stock id {stock_id}.".format(
-        product=key,
-        price=warehouse_deluxe[key]["price"],
-        stock=warehouse_deluxe[key]["stock"],
-        barcode=warehouse_deluxe[key]["ids"][0],
-        stock_id=warehouse_deluxe[key]["ids"][1]
-    ))
+    print("{product} costs {price} and we have {stock} in stock. It has barcode {barcode} and stock id {stock_id}."\
+          .format(
+              product=key,
+              price=warehouse_deluxe[key]["price"],
+              stock=warehouse_deluxe[key]["stock"],
+              barcode=warehouse_deluxe[key]["ids"][0],
+              stock_id=warehouse_deluxe[key]["ids"][1]
+          ))
