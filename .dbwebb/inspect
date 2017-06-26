@@ -85,9 +85,12 @@ pythonkmom04()
 #
 pythonkmom05()
 {
-    pythonexercise "lab4" "answer.py" "uppgift/python-med-dictionaries-och-tupler"
-    pythonexercise "marvin4" "main.py" "uppgift/din-egen-chattbot-marvin-steg-analysera-text-och-ord\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-tictactoe\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-steg-4"
-    pythongame "game2" "retro.py" "uppgift/ett-terminal-baserat-spel-i-python-steg2"
+    inspectLab "uppgift/python-med-dictionaries-och-tupler" "lab5" "answer.py" "python3 answer.py"
+    
+    inspectExerciseHeader "analyzer" "uppgift/analysera-text-och-ord" "$KMOM/analyzer"
+    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer" "python3 main.py"
+
+    pythonexercise "marvin4" "main.py" "uppgift/din-egen-chattbot-marvin-tictactoe\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-steg-4"
 }
 
 
@@ -97,7 +100,10 @@ pythonkmom05()
 #
 pythonkmom06()
 {
-    pythonmarvin5 "marvin5" "marvin-cli.py" "uppgift/din-egen-chattbot-marvin-steg-5"
+    inspectExerciseHeader "analyzer2" "uppgift/din-egen-chattbot-marvin-steg-5" "$KMOM/analyzer2"
+    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer2" "python3 main.py"
+    
+    pythonmarvin5 "analyzer2" "main.py" "uppgift/din-egen-chattbot-marvin-steg-5"
 }
 
 
@@ -147,10 +153,10 @@ pythonmarvin5()
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
     # Get
-    opts="get ${DBW_WWW}humans.txt"
+    opts="get ${DBW_WWW}blogg/grillcon-2017-var-i-utokad-version"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
-    opts="--output=humans.txt get ${DBW_WWW}humans.txt"
+    opts="--output=humans.txt get ${DBW_WWW}blogg/grillcon-2017-var-i-utokad-version"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
     assert 0 "test -f $where/humans.txt" "File humans.txt is missing."
@@ -164,8 +170,12 @@ pythonmarvin5()
     opts="title http://dbwebb.se"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
-    # seo
-    opts="--json seo http://dbwebb.se"
+    # analyzer2
+    opts="humans.txt"
+    inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
+    
+    # analyzer2 lines
+    opts="humans.txt lines"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 }
 

@@ -19,6 +19,7 @@ dbwebb validate lab1
 
 
 # hello
+test -d me/kmom01/hello
 cp example/hello/hello.py me/kmom01/hello
 cd me/kmom01/hello && python3 hello.py
 dbwebb validate hello
@@ -26,6 +27,7 @@ dbwebb validate hello
 
 
 # plane
+test -d me/kmom01/plane
 #cd me/kmom01/ && cp -i hello/hello.py plane/plane.py && cd plane
 cd me/kmom01/ && cp hello/hello.py plane/plane.py
 dbwebb validate plane
@@ -33,6 +35,7 @@ dbwebb validate plane
 
 
 # redovisa
+test -d me/redovisa
 cp -r example/redovisa/* me/redovisa
 dbwebb validate redovisa
 
@@ -51,6 +54,7 @@ dbwebb validate lab2
 
 
 # marvin1
+test -d me/kmom02/marvin1
 cp -i example/marvin/marvin.py me/kmom02/marvin1/
 cd me/kmom02/marvin1/
 dbwebb validate marvin1
@@ -70,6 +74,7 @@ dbwebb validate lab3
 
 
 # marvin2
+test -d me/kmom03/marvin2
 cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/main.py && cd kmom03/marvin2
 dbwebb validate marvin2
 
@@ -85,10 +90,17 @@ cd me/kmom04 && dbwebb recreate lab4
 cd me/kmom04/lab4 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab4
 
+
+
+# marvin3
+test -d me/kmom04/marvin3
 cd me && cp -ri kmom03/marvin2/main.py kmom04/marvin3/ && cd kmom04/marvin3
 dbwebb validate marvin3
 
+test -d me/kmom04/list
 dbwebb validate me/kmom04/list
+
+test -d me/kmom04/file
 dbwebb validate me/kmom04/file
 
 
@@ -105,15 +117,17 @@ cd me/kmom05/lab5 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab5
 
 # argparse
-cd me/kmom05/argparse && cp -ri ../../../example/argparse/main.py .
-cd me/kmom05/argparse && cp -ri ../../../example/argparse/usage.py cli_parser.py
+test -d me/kmom05/argparse
+cp -ri example/argparse/* me/kmom05/argparse/
 dbwebb validate argparse
 
 # analyzer
+test -d me/kmom05/analyzer
 cd me/kmom05 && cp -ri argparse/*.py analyzer/
 cd me/kmom05 && cp -ri ../../example/text/phil.txt analyzer/ && cd analyzer/
 dbwebb validate analyzer
 
+test -d me/kmom05/warehouse
 dbwebb validate warehouse
 
 # --------------------------------------------------------------------------
@@ -122,6 +136,7 @@ dbwebb validate warehouse
 #
 
 # analyzer2
+test -d me/kmom06/analyzer2
 cd me/ && cp -ri kmom05/analyzer/*.py kmom06/analyzer2/
 dbwebb validate analyzer2
 
