@@ -20,8 +20,10 @@ def parse_options():
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group()
 
-    group.add_argument("-v", "--verbose", dest="verbose", default="False", help="increase output verbosity", action="store_true")
-    group.add_argument("-s", "--silent", dest="silent", default="False", help="decrease output verbosity", action="store_true")
+    group.add_argument("-v", "--verbose", dest="verbose", default="False",
+                       help="increase output verbosity", action="store_true")
+    group.add_argument("-s", "--silent", dest="silent", default="False",
+                       help="decrease output verbosity", action="store_true")
 
     parser.add_argument("-V", "--version", action="version", version=VERSION)
 
