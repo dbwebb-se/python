@@ -6,17 +6,17 @@ Main cli-program, to start it all up by reading command line
 options and arguments and the executing whats to be executed.
 
 See usage.py for details how to use program.
->>> import usage
->>> help(usage)
+>>> import cli_parser
+>>> help(cli_parser)
 
 or 
 
-$ pydoc usage
+$ pydoc cli_parser
 
 """
 
 import sys
-import usage
+import cli_parser
 
 
 def main():
@@ -24,9 +24,9 @@ def main():
     Main function where it all starts.
     """
     
-    usage.parse_options()
+    cli_parser.parse_options()
     
-    print(usage.options)
+    print(cli_parser.options)
     
     print()
 
