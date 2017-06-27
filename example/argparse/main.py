@@ -28,6 +28,8 @@ def main():
     
     print(cli_parser.options)
     
+    print(cli_parser.options["known_args"]["command"])
+    
     print()
 
     sys.exit()

@@ -32,30 +32,32 @@ def print_info():
         version=VERSION
     )
 
-parser = argparse.ArgumentParser(prog=PROGRAM, description=print_info())
-group = parser.add_mutually_exclusive_group()
+parser = argparse.ArgumentParser(prog=PROGRAM, description=print_info(), formatter_class=argparse.RawTextHelpFormatter)
 
-parser.add_argument('integers', metavar='N', type=int, nargs='+',
-                    help='integers to use in calculation')
+subparsers = parser.add_subparsers(title="commands (positional arguments)", help='Available commands', dest="command")
+subparsers.add_parser("sum", help="[integers]   display the sum of the given numbers")
+subparsers.add_parser("sub", help="[integers]   display the subtraction of the first two given numbers")
+subparsers.add_parser("square", help="[integers]   display the square of the given numbers")
 
-group.add_argument("--sum", dest="accumulate", help="display the sum of the given numbers", action="store_true")
-group.add_argument("--square", help="display the square of the given numbers", action="store_true")
-group.add_argument("--sub", help="display the subtraction of the first two given numbers", action="store_true")
+parser.add_argument("-s", "--silent", help="decrease output verbosity", action="store_true")
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-V", "--version", action="version", version=VERSION)
 
-args = parser.parse_args()
+
+args, unknown_args = parser.parse_known_args()
 
 answer = ""
 
-if args.accumulate and args.integers:
-    result = str(sum(args.integers))
+unknown_args = list(map(int, unknown_args))
+
+if args.command == "sum" and unknown_args:
+    result = str(sum(unknown_args))
     answer = result
     if args.verbose:
-        answer = "The sum of {} is: {}".format(", ".join(str(number) for number in args.integers), result)
+        answer = "The sum of {} is: {}".format(", ".join(str(number) for number in unknown_args), result)
 
-if args.square and args.integers:
-    for square_me in args.integers:
+elif args.command == "square" and unknown_args:
+    for square_me in unknown_args:
         result = str(square_me**2)
         square_me = str(square_me)
         if args.verbose:
@@ -63,9 +65,9 @@ if args.square and args.integers:
         else:
             answer += result + "\n"
 
-if args.sub and args.integers:
-    left_hand = args.integers[0]
-    right_hand = args.integers[1]
+elif args.command == "sub" and unknown_args:
+    left_hand = unknown_args[0]
+    right_hand = unknown_args[1]
     result = left_hand - right_hand
     
     if args.verbose:
@@ -74,3 +76,5 @@ if args.sub and args.integers:
         answer = result
 
 print(answer)
+
+
