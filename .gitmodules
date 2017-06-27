@@ -1,0 +1,3 @@
+[submodule ".solutions"]
+	path = .solutions
+	url = git@bitbucket.org:mosbth/python-solutions.git
