@@ -27,7 +27,10 @@ def parse_options():
 
     parser.add_argument("-V", "--version", action="version", version=VERSION)
     
-    subparsers = parser.add_subparsers(title="commands (positional arguments)", help='Available commands', dest="command")
+    subparsers = parser.add_subparsers(
+        title="commands (positional arguments)", 
+        help='Available commands', 
+        dest="command")
     subparsers.add_parser("command1", help="information on command1")
     subparsers.add_parser("command2", help="information on command2")
 
@@ -39,4 +42,3 @@ def parse_options():
     options["unknown_args"] = unknownargs
     
     return options
-

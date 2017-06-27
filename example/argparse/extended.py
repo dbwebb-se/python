@@ -76,5 +76,3 @@ elif args.command == "sub" and unknown_args:
         answer = result
 
 print(answer)
-
-
