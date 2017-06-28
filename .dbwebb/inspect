@@ -88,7 +88,8 @@ pythonkmom05()
     inspectLab "uppgift/python-med-dictionaries-och-tupler" "lab5" "answer.py" "python3 answer.py"
     
     inspectExerciseHeader "analyzer" "uppgift/analysera-text-och-ord" "$KMOM/analyzer"
-    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer" "python3 main.py"
+    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer" "python3 main.py lines phil.txt"
+    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer" "python3 main.py all phil.txt"
 
     pythonexercise "marvin4" "main.py" "uppgift/din-egen-chattbot-marvin-tictactoe\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-steg-4"
 }
@@ -101,7 +102,7 @@ pythonkmom05()
 pythonkmom06()
 {
     inspectExerciseHeader "analyzer2" "uppgift/din-egen-chattbot-marvin-steg-5" "$KMOM/analyzer2"
-    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer2" "python3 main.py"
+    # inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer2" "python3 main.py"
     
     pythonmarvin5 "analyzer2" "main.py" "uppgift/din-egen-chattbot-marvin-steg-5"
 }
@@ -135,8 +136,8 @@ pythonmarvin5()
     checkKmomDir "$target"
 
     # Exit status
-    assertExit 0 "cd $where; python3 $main --version" "Should return exit status 0 but did not."
-    assertExit 1 "cd $where; python3 $main --MISSINGOPTION" "Should return exit status 1 but did not."
+    # assertExit 0 "cd $where; python3 $main --version" "Should return exit status 0 but did not."
+    # assertExit 1 "cd $where; python3 $main --MISSINGOPTION" "Should return exit status 1 but did not."
 
     # General options
     opts="--help"
@@ -153,10 +154,10 @@ pythonmarvin5()
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
     # Get
-    opts="get ${DBW_WWW}blogg/grillcon-2017-var-i-utokad-version"
+    opts="get ${DBW_WWW}blogg/introduktionsveckan-2017"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
-    opts="--output=humans.txt get ${DBW_WWW}blogg/grillcon-2017-var-i-utokad-version"
+    opts="--output=humans.txt get ${DBW_WWW}blogg/introduktionsveckan-2017"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
     assert 0 "test -f $where/humans.txt" "File humans.txt is missing."
@@ -171,11 +172,11 @@ pythonmarvin5()
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 
     # analyzer2
-    opts="humans.txt"
+    opts="all humans.txt"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
     
     # analyzer2 lines
-    opts="humans.txt lines"
+    opts="lines humans.txt"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
 }
 
