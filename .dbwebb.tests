@@ -135,9 +135,12 @@ dbwebb validate warehouse
 # Kmom06
 #
 
+# external
+test -d me/kmom06/external
+
 # analyzer2
 test -d me/kmom06/analyzer2
-cd me/ && cp -ri kmom05/analyzer/*.py kmom06/analyzer2/
+cd me/ && cp -ri kmom05/analyzer/{*.py,*.txt} kmom06/analyzer2/
 dbwebb validate analyzer2
 
 
