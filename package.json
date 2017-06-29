@@ -8,9 +8,11 @@
     "html-minifier": "^0.8.0",
     "htmlhint": "0.9.12",
     "js-yaml": "^3.6.1",
-    "jscs": "^3.0.0",
-    "jshint": "^2.9.2",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.5",
     "jsonlint": "^1.6.2",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "eslint": "^4.1.1",
+    "eslint-plugin-react": "^7.1.0"
   }
 }
