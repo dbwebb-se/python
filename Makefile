@@ -76,7 +76,7 @@ prepare:
 
 # target: install                 - Install needed utilities locally.
 .PHONY: install
-install: prepare dbwebb-validate-install dbwebb-inspect-install dbwebb-install npm-install composer-install python-install
+install: prepare dbwebb-validate-install dbwebb-inspect-install dbwebb-install npm-install composer-install
 	@$(call HELPTEXT,$@)
 
 	@# Disable PHP tools with arguments
@@ -154,34 +154,6 @@ publish: dbwebb-publish
 .PHONY: inspect
 inspect: dbwebb-inspect
 	@$(call HELPTEXT,$@)
-
-
-
-# ----------------------------------------------------------------------------
-# 
-# Python 
-#
-# target: python-install          - Install Python utilities locally.
-.PHONY: python-install
-python-install: prepare
-	@$(call HELPTEXT,$@)
-	python3 -m pip install --requirement .requirements.txt 
-
-
-
-# target: python-upgrade          - Upgrade Python utilities locally.
-.PHONY: python-upgrade
-python-upgrade: prepare
-	@$(call HELPTEXT,$@)
-	python3 -m pip install --upgrade --requirement .requirements.txt 
-
-
-
-# target: python-venv             - Create Python virtual environment .venv.
-.PHONY: python-venv
-python-venv:
-	@$(call HELPTEXT,$@)
-	python3 -m venv .venv 
 
 
 
