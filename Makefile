@@ -159,6 +159,34 @@ inspect: dbwebb-inspect
 
 # ----------------------------------------------------------------------------
 # 
+# Python 
+#
+# target: python-install          - Install Python utilities locally.
+.PHONY: python-install
+python-install: prepare
+	@$(call HELPTEXT,$@)
+	[ ! -f .requirements.txt ] || python3 -m pip install --requirement .requirements.txt 
+
+
+
+# target: python-upgrade          - Upgrade Python utilities locally.
+.PHONY: python-upgrade
+python-upgrade: prepare
+	@$(call HELPTEXT,$@)
+	[ ! -f .requirements.txt ] || python3 -m pip install --upgrade --requirement .requirements.txt 
+
+
+
+# target: python-venv             - Create Python virtual environment .venv.
+.PHONY: python-venv
+python-venv:
+	@$(call HELPTEXT,$@)
+	python3 -m venv .venv 
+
+
+
+# ----------------------------------------------------------------------------
+# 
 # dbwebb cli 
 #
 # target: dbwebb-install          - Download and install dbwebb-cli.
