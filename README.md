@@ -5,9 +5,9 @@ Programming and Problemsolving in Python - python
 [![Build Status](https://travis-ci.org/dbwebb-se/python.svg)](https://travis-ci.org/dbwebb-se/python)
 [![CircleCI](https://circleci.com/gh/dbwebb-se/python.svg?style=svg)](https://circleci.com/gh/dbwebb-se/python)
 
-Course material for a programming and problemsolving in Python course, aimed at a swedish target audience as the first course in programming and computer science on University level.
+Course material for a programming and problemsolving in Python course, aimed at a Swedish target audience as a first course in programming and computer science on University level.
 
-The course will have a high enough level to satisfy those who are familiar with another programming language and has the need to learn python.
+The course will have a high enough level to satisfy those who are familiar with another programming language and have the need to learn python.
 
 Relased as part of a University course: https://dbwebb.se/kurser/python
 
@@ -18,11 +18,11 @@ The course repo is managed by a [dbwebb command line utility](https://dbwebb.se/
 Literature
 -------------------
 
-The following is a list of (free) literature one can use to get aqauinted with programming in Python.
+The following is a list of (free) literature one can use to get acquainted with programming in Python.
 
 * [Python for Everybody: Exploring Data In Python 3](https://www.py4e.com/book)
 * [Think Pythonbook: How to think like a computer scientist (edition 2)](http://greenteapress.com/wp/think-python-2e/).
-* [Dive intro Python 3](http://www.diveintopython3.net/)
+* [Dive into Python 3](http://www.diveintopython3.net/)
 * [Invent Your Own Computer Games with Python](http://inventwithpython.com/chapters/)
 
 
