@@ -12,3 +12,7 @@ In the folder "movies" there are five folders. Three of them has a plot.txt file
 ### Challenge 2 - books
 
 1. The writer Gabe Hudson has gone into stealth mode. Can you bring him back?
+
+2. "The collection of released secrets" (synonyms) is on the loose, find it and move it to it's proper folder, The Stormlight Archive.
+
+3. Use "man cp" to find which option is needed to copy a folder. Find the description "copy directories recursively" and use "cp" with the option to copy Scott Meyer to Fantasy.
