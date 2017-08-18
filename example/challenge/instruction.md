@@ -12,3 +12,4 @@ In the folder "movies" there are five folders. Three of them has a plot.txt file
 ### Challenge 2 - books
 
 1. The writer Gabe Hudson has gone into stealth mode. Can you bring him back?
+2. The book "The Hidden City" belong in the serie "The Tamuli". Put it back in the correct folder.
