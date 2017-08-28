@@ -15,10 +15,10 @@ andreas_energy = 800 * andreas_time / 1000
 print("Emil använder " + str(emil_energy) + " kWh")
 print("Andreas använder " + str(andreas_energy) + " kWh")
 
-prize_per_kwh = 78.04
+price_per_kwh = 78.04
 
-emil_cost = emil_energy * prize_per_kwh / 100
-andreas_cost = andreas_energy * prize_per_kwh / 100
+emil_cost = emil_energy * price_per_kwh / 100
+andreas_cost = andreas_energy * price_per_kwh / 100
 
 print("Emils lunch kostar " + str(emil_cost) + " kr")
 print("Andreas lunch kostar " + str(andreas_cost) + " kr")
@@ -69,12 +69,12 @@ def calculate_energy_return(time_in_microwave, effect=800):
     energy = effect * time_in_microwave / 1000
     return energy
 
-def calculate_cost(energy, prize_p_kwh=78.04):
+def calculate_cost(energy, price_p_kwh=78.04):
     """
     Calculates the cost for a given energy consumption
     Returns the cost in kr
     """
-    cost = energy * prize_p_kwh / 100
+    cost = energy * price_p_kwh / 100
     return cost
 
 emil_time = 2.5 / 60
