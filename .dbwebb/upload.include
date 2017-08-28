@@ -11,6 +11,9 @@
 /.*.xml
 /.*.conf
 
+# Python generated file
+- __pycache__/
+
 /example/
 /example/**
 
