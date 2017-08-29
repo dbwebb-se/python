@@ -10,6 +10,7 @@
 /.*rc
 /.*.xml
 /.*.conf
+/.*.json
 
 # Python generated file
 - __pycache__/
