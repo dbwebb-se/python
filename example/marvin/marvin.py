@@ -27,7 +27,7 @@ function.
 while True:
     print(chr(27) + "[2J" + chr(27) + "[;H")
     print(marvin_image)
-    print("Hi, I'm Marvin. I know it all. What can I do you for?")
+    print("Hi, I'm Marvin. I know it all. What can I do for you?")
     print("1) Present yourself to Marvin.")
     print("q) Quit.")
 
