@@ -75,7 +75,7 @@ pythonkmom04()
 {
     inspectLab "uppgift/python-listor" "lab4" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "marvin3" "uppgift/din-egen-chattbot-marvin-steg-3\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-inventarie" "$KMOM/marvin2"
+    inspectExerciseHeader "marvin3" "uppgift/din-egen-chattbot-marvin-steg-3\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-inventarie" "$KMOM/marvin3"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin3" "python3 main.py"
 }
 
