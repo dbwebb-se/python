@@ -4,7 +4,7 @@
 """
 Keep a list of ASCII avatars and offer functions to use to present them.
 
-All avatars are stored in variables, these variables are accessable
+The avatars are stored in a list that is accessable
 from outside of this module. That is how Python works.
 
 You can run this script directly, and sending an extra argument on
