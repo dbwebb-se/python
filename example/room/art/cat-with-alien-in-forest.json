@@ -1,0 +1,25 @@
+{
+    "title": "Cat meets alien in a forest.",
+    "parts": [
+        {
+            "file": "graphic/base.txt",
+            "pos_x": 0,
+            "pos_y": 0 
+        },
+        {
+            "file": "graphic/tree.txt",
+            "pos_x": 15,
+            "pos_y": 1
+        },
+        {
+            "file": "graphic/alien.txt",
+            "pos_x": 2,
+            "pos_y": 7 
+        },
+        {
+            "file": "graphic/cat.txt",
+            "pos_x": 60,
+            "pos_y": 10 
+        }
+    ]
+}

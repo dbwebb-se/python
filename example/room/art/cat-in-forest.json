@@ -1,0 +1,20 @@
+{
+    "title": "Cat sits in a forest.",
+    "parts": [
+        {
+            "file": "graphic/base.txt",
+            "pos_x": 0,
+            "pos_y": 0 
+        },
+        {
+            "file": "graphic/tree.txt",
+            "pos_x": 5,
+            "pos_y": 5
+        },
+        {
+            "file": "graphic/cat.txt",
+            "pos_x": 60,
+            "pos_y": 10 
+        }
+    ]
+}

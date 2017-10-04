@@ -1,0 +1,15 @@
+{
+    "title": "Cat on a background.",
+    "parts": [
+        {
+            "file": "graphic/base.txt",
+            "pos_x": 0,
+            "pos_y": 0 
+        },
+        {
+            "file": "graphic/cat.txt",
+            "pos_x": 10,
+            "pos_y": 10 
+        }
+    ]
+}
