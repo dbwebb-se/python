@@ -17,3 +17,8 @@ def calculate_cost(energy, price_per_kwh=78.04):
     """
     cost = energy * price_per_kwh / 100
     return cost
+    
+if __name__ == "__main__":
+    print("Test av calculate energy:")
+    print(calculate_energy(800))
+    print("name: " + __name__)
