@@ -4,6 +4,8 @@
 Code examples for dictioanries
 """
 
+from operator import itemgetter
+
 warehouse = {
     "köttfärs" : 20,
     "grädde" : 80,
@@ -24,6 +26,9 @@ for key, value in warehouse.items():
 
 for key in sorted(warehouse.keys()):
     print(key, warehouse[key])
+
+for key, value in sorted(warehouse.items(), key=itemgetter(1), reverse=True):
+    print(key, value)
 
 warehouse_deluxe = {
     "köttfärs" :{"stock" : 20, "price" : 50},
