@@ -22,22 +22,22 @@ me/kmom03/functions
 # kmom04
 me/kmom04/lab4
 me/kmom04/marvin3
-me/kmom04/list
+me/kmom04/modules
 me/kmom04/file
 
 # kmom05
 me/kmom05/lab5
-me/kmom05/analyzer
-me/kmom05/argparse
-me/kmom05/warehouse
+me/kmom05/list
+me/kmom05/file
 me/kmom05/marvin4
 
 # kmom06
-me/kmom06/analyzer2
-me/kmom06/external
+me/kmom06/lab6
+me/kmom06/analyzer
+me/kmom06/warehouse
 
 # kmom10
-me/kmom10/adventure
+me/kmom10/exam
 
 # redovisa
 me/redovisa
