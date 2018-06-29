@@ -11,6 +11,9 @@ import argparse
 options = {}
 
 def parse_options():
+    """
+    parse arguments and commands sent at start up.
+    """
 
     parser = argparse.ArgumentParser()
 
