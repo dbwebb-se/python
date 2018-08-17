@@ -112,7 +112,7 @@ pythonkmom06()
 #
 pythonkmom10()
 {
-    pythonAdventure "adventure" "adventure.py" "python/kmom10"
+    :
 }
 
 
