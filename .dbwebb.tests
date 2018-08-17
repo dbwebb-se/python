@@ -75,7 +75,7 @@ dbwebb validate lab3
 
 # marvin2
 test -d me/kmom03/marvin2
-cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/main.py && cd kmom03/marvin2
+cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/ && cd kmom03/marvin2
 dbwebb validate marvin2
 
 
@@ -92,7 +92,7 @@ dbwebb validate lab4
 
 # marvin3
 test -d me/kmom04/marvin3
-cd me && cp -ri kmom03/marvin2/main.py kmom04/marvin3/ && cd kmom04/marvin3
+cd me && cp -ri kmom03/marvin2/marvin.py kmom04/marvin3/main.py && cd kmom04/marvin3
 cd me && cp -i ../example/marvin/quotes_lgtg.txt kmom04/marvin3/quotes.txt
 dbwebb validate marvin3
 
@@ -145,6 +145,7 @@ test -d me/kmom06/warehouse
 # analyzer
 test -d me/kmom06/analyzer
 cd me && cp -i ../example/text/phil.txt kmom06/analyzer/ && cd kmom06/analyzer/
+touch me/kmom06/analyzer/main.py
 dbwebb validate analyzer
 
 # --------------------------------------------------------------------------
