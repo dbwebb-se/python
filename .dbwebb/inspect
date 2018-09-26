@@ -86,7 +86,7 @@ pythonkmom04()
 pythonkmom05()
 {
     inspectLab "uppgift/python-med-dictionaries-och-tupler" "lab5" "answer.py" "python3 answer.py"
-    
+
     inspectExerciseHeader "marvin4" "uppgift/din-egen-chattbot-marvin-inventarie\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-tictactoe-v2\n-- ${DBW_WWW}uppgift/din-egen-chattbot-marvin-krypt" "$KMOM/marvin4"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin4" "python3 main.py"
 }
@@ -112,7 +112,40 @@ pythonkmom06()
 #
 pythonkmom10()
 {
-    :
+    inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/try1/.dbwebb/" "./correct.bash $EXEC_DIR/$KMOM/try1"
+
+    viewFileContent "exam.py" "me/$KMOM/try1"
+
+    viewFileContent "RECEIPT.md" "me/$KMOM/try1/.dbwebb_exam"
+
+    pythonexamchecksum
+}
+
+
+
+#
+# Test checksum for test_dbwebb.py and correct.bash
+#
+pythonexamchecksum()
+{
+    local real_sha="4b8954ac5721cffd7cfcf8f5cc31bc80294fee2146f3768b769f893a06ee8ad25cb3820a64937acf"
+    local their_sha="$(cat $EXEC_DIR/$KMOM/try1/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/try1/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
+
+
+
+    if [ "$real_sha" = "$their_sha" ];then
+        echo "SHA1 matches!"
+        assert 1 "test" "Command executed successfully."
+        printf "\n$MSG_OK Command executed with a exit status 0  - indicating success."
+        printf "\n"
+    else
+        echo "SHA1 does not match!"
+        echo $real_sha
+        echo $their_sha
+        viewFileContent "test_dbwebb.py" "me/$KMOM/try1/.dbwebb"
+        viewFileContent "correct.bash" "me/$KMOM/try1/.dbwebb"
+        assert 0 "test" "Command returned non-zero exit status which might indicate failure."
+    fi
 }
 
 
@@ -172,7 +205,7 @@ pythonmarvin5()
     # analyzer2
     opts="all humans.txt"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
-    
+
     # analyzer2 lines
     opts="lines humans.txt"
     inspectCommand "$main" "$where" "python3 $main $opts" "$opts"
