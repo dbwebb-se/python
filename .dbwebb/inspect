@@ -112,13 +112,18 @@ pythonkmom06()
 #
 pythonkmom10()
 {
-    inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/try1/.dbwebb/" "./correct.bash $EXEC_DIR/$KMOM/try1"
+    # Uppdatera exam vid ny examination
+    local exam="prep"
 
-    viewFileContent "exam.py" "me/$KMOM/try1"
 
-    viewFileContent "RECEIPT.md" "me/$KMOM/try1/.dbwebb_exam"
 
-    pythonexamchecksum
+    inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/$exam/.dbwebb/" "./correct.bash"
+
+    viewFileContent "exam.py" "me/$KMOM/$exam"
+
+    viewFileContent "RECEIPT.md" "me/$KMOM/$exam/.dbwebb_exam"
+
+    sha1sum --version >/dev/null 2>&1 && pythonexamchecksum $exam
 }
 
 
@@ -128,10 +133,19 @@ pythonkmom10()
 #
 pythonexamchecksum()
 {
-    local real_sha="4b8954ac5721cffd7cfcf8f5cc31bc80294fee2146f3768b769f893a06ee8ad25cb3820a64937acf"
-    local their_sha="$(cat $EXEC_DIR/$KMOM/try1/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/try1/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
+    local exam=$1
 
 
+
+    # Uppdatera real_sha för ny examination
+    local real_sha="06582baa7a82dc2a770588c578d810f72505769113667f0cdf8e921e909c92a563ea56dff0a6ab3c" # prep
+    #local real_sha="504af8f8ad54b6104c4c694373bc5f17c3d0637b0508f39dd3c531bb3bbae7e35a61ca4b6d2ca139" # try1
+
+    local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
+
+
+
+    echo ""
 
     if [ "$real_sha" = "$their_sha" ];then
         echo "SHA1 matches!"
@@ -140,11 +154,11 @@ pythonexamchecksum()
         printf "\n"
     else
         echo "SHA1 does not match!"
-        echo $real_sha
-        echo $their_sha
-        viewFileContent "test_dbwebb.py" "me/$KMOM/try1/.dbwebb"
-        viewFileContent "correct.bash" "me/$KMOM/try1/.dbwebb"
+        echo "Real:  $real_sha"
+        echo "Their: $their_sha"
         assert 0 "test" "Command returned non-zero exit status which might indicate failure."
+        viewFileContent "test_dbwebb.py" "me/$KMOM/$exam/.dbwebb"
+        viewFileContent "correct.bash" "me/$KMOM/$exam/.dbwebb"
     fi
 }
 
