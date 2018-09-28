@@ -112,8 +112,8 @@ pythonkmom06()
 #
 pythonkmom10()
 {
-    # Uppdatera exam vid ny examination
-    local exam="prep"
+    # Uppdated "exam" when new examination
+    local exam="try1"
 
 
 
@@ -123,6 +123,7 @@ pythonkmom10()
 
     viewFileContent "RECEIPT.md" "me/$KMOM/$exam/.dbwebb_exam"
 
+    # If sha1sum is installed
     sha1sum --version >/dev/null 2>&1 && pythonexamchecksum $exam
 }
 
@@ -138,8 +139,8 @@ pythonexamchecksum()
 
 
     # Uppdatera real_sha för ny examination
-    local real_sha="06582baa7a82dc2a770588c578d810f72505769113667f0cdf8e921e909c92a563ea56dff0a6ab3c" # prep
-    #local real_sha="504af8f8ad54b6104c4c694373bc5f17c3d0637b0508f39dd3c531bb3bbae7e35a61ca4b6d2ca139" # try1
+    # local real_sha="06582baa7a82dc2a770588c578d810f72505769113667f0cdf8e921e909c92a563ea56dff0a6ab3c" # prep
+    local real_sha="504af8f8ad54b6104c4c694373bc5f17c3d0637b0508f39dd3c531bb3bbae7e35a61ca4b6d2ca139" # try1
 
     local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
 
