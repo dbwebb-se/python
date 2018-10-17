@@ -44,6 +44,9 @@ def suit():
     print("My name is Bond, James Bond!")
 
 def main():
+    """
+    Starting point of program
+    """
     print("I will now print information about shoes and clothes:")
     print()
 

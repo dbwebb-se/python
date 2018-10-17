@@ -7,6 +7,9 @@ from clothes import rain_coat
 from clothes import suit
 
 def main():
+    """
+    Starting point of program
+    """
     print("I will now print information about shoes and clothes:")
     print()
 

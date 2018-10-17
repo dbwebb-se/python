@@ -21,6 +21,6 @@ def suit():
     print("My name is Bond, James Bond!")
 
 if __name__ == "__main__":
-    jeans("Emil")
+    jeans()
     rain_coat()
     suit()
