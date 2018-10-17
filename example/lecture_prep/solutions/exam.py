@@ -4,6 +4,8 @@ Write your code in this file. Fill out the defined functions with your solutions
 You are free to write additional functions and modules as you see fit.
 """
 import analyze_functions_andreas as analyze_functions
+# Uncomment to use Emils code
+# import analyze_functions_emil as analyze_functions
 
 def analyze_text():
     """
@@ -15,7 +17,7 @@ def analyze_text():
         if choice == "s":
             analyze_functions.count_sentences()
         elif choice == "g":
-            analyze_functions.count_Bgods()
+            analyze_functions.count_gods()
         elif choice in ("q", "quit"):
             break
         else:
