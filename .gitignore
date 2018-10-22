@@ -11,5 +11,8 @@ example/sqlite/ping.db
 __pycache__
 *.pyc
 
+# VSCode
+.vscode/
+
 # Mac OS
 .DS_Store
