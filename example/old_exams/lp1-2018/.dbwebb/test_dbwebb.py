@@ -13,7 +13,7 @@ proj_path = os.path.dirname(os.path.realpath(__file__ + "/.."))
 if proj_path not in sys.path:
     sys.path.insert(0, proj_path)
 #pylint: disable=wrong-import-position
-import exam
+import solution as exam
 #pylint: enable=wrong-import-position
 
 class TestFunc(unittest.TestCase):
@@ -40,7 +40,7 @@ class TestFunc(unittest.TestCase):
         Test assignment 1
         """
         self.assertNotEqual(exam.analyze_text.__doc__.strip(), "Assignment 1")
-        self.assertIsNotNone(util.find_spec("analyze_functions"))
+        self.assertIsNotNone(util.find_spec("analyze_functions_solution"))
         inp = ["s", "spaces", "l", "letters", "c", "specials", "Gobble gobble", "q"]
         with patch('builtins.input', side_effect=inp):
             with patch('sys.stdout', new=StringIO()) as fake_out:
@@ -114,7 +114,7 @@ class TestFunc(unittest.TestCase):
         Test assignment 5
         """
         self.assertNotEqual(exam.validate_date_time.__doc__.strip(), "Assignment 5")
-        self.assertIsNotNone(util.find_spec("date_time_functions"))
+        self.assertIsNotNone(util.find_spec("date_time_functions_solution"))
 
         inp = ["d", "date", "t", "time", "Gobble gobble", "q"]
         with patch('builtins.input', side_effect=inp):
