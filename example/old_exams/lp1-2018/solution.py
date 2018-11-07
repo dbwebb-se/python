@@ -4,7 +4,7 @@ Write your code in this file. Fill out the defined functions with your solutions
 You are free to write additional functions and modules as you see fit.
 """
 import analyze_functions_solution as analyze_functions
-import date_time_functions_solution as datetime_functions
+import date_time_functions_solution as date_time_functions
 
 
 
