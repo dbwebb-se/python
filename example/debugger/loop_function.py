@@ -4,7 +4,7 @@
 Example script showing usage of while-loop for article
 Villkor och loopar
 """
-# import pdb
+import pdb
 def print_apples(number_of_apples):
     """
     Print based on number of apples left
@@ -25,10 +25,10 @@ while True:
         break
     else:
         try:
-            number_of_apples = int(user_input)
+            number_of_apples_ = int(user_input)
         except ValueError:
             pdb.set_trace()
             print("Oj! Du skrev inte in en siffra.")
             continue
 
-        print_apples(number_of_apples)
+        print_apples(number_of_apples_)
