@@ -102,7 +102,10 @@ pythonkmom06()
 
 
     inspectExerciseHeader "analyzer" "uppgift/analysera-text-och-ord-v2" "$KMOM/analyzer"
-    inspectCommand "main.py" "$EXEC_DIR/$KMOM/analyzer" "python3 main.py"
+    inspectCommand "../main.py" "$EXEC_DIR/$KMOM/analyzer/.dbwebb" "./correct.bash"
+
+    viewFileContent "main.py" "me/$KMOM/analyzer"
+    viewFileContent "analyzer.py" "me/$KMOM/analyzer"
 }
 
 
