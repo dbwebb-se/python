@@ -40,23 +40,20 @@ class TestFunc(unittest.TestCase):
         with patch('builtins.input', side_effect=["lines", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
-                str_data = fake_out.getvalue().strip("\n")
-                list_data = str_data.split("\n")
-                self.assertIn("17", list_data[0])
+                str_data = fake_out.getvalue()
+                self.assertIn("17", str_data)
 
         with patch('builtins.input', side_effect=["words", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
-                str_data = fake_out.getvalue().strip("\n")
-                list_data = str_data.split("\n")
-                self.assertIn("199", list_data[0])
+                str_data = fake_out.getvalue()
+                self.assertIn("199", str_data)
 
         with patch('builtins.input', side_effect=["letters", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
-                str_data = fake_out.getvalue().strip("\n")
-                list_data = str_data.split("\n")
-                self.assertIn("907", list_data[0])
+                str_data = fake_out.getvalue()
+                self.assertIn("907", str_data)
 
         with patch('builtins.input', side_effect=["word_frequency", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
