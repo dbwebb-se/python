@@ -13,4 +13,8 @@ This is the instructions for the terminal challenge. Start in the folder "intro-
 * Move the folder "temp" from "folder2" to "folder1".
 * Display the content in "folder2/file1".
 * Redirect the output from last command to the file "folder1/file2".
-* Echo the string "some text" and redirect it into "folder1/file3".
+* Echo the string "some text" and redirect the output into "folder1/file3.txt".
+* Remove the file "folder1/file2"
+* Remove the folder "folder1/temp"
+
+* Make sure you are in the folder "intro-challenge". List all files with the long-listing option. Pipe the output and use "grep" to filter out only the folders. Redirect the result to the file "folder1/file1".
