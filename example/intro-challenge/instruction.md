@@ -1,6 +1,6 @@
 # Challenge
 
-Write all your commands on separate lines in challenge/answer.txt. Start from the folder "challenge".
+Write all your commands on separate lines in intro-challenge/answer.txt. Start from the folder "intro-challenge".
 
 ### Challenge 1 - movies
 In the folder "movies" there are five folders. Three of them has a plot.txt file inside and two has not.
