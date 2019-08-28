@@ -3,10 +3,12 @@
 Write all your commands on separate lines in intro-challenge/answer.txt. Start from the folder "intro-challenge".
 
 ### Challenge 1 - movies
-In the folder "movies" there are five folders. Three of them has a plot.txt file inside and two has not.
 
-* Add the content of the two missing_plot-files in the correct folders and in a file called "plot.txt".
-* Delete all files in the movie-folders except the plot-files.
+1. List all files, including the hidden, in the movie Braveheart.
+
+2. In the folder "movies" there are five folders. Three of them has a plot.txt file inside and two has not.
+    * Add the content of the two missing_plot-files in the correct folders and in a file called "plot.txt".
+    * Delete all files in the movie-folders except the plot-files.
 
 
 ### Challenge 2 - books
