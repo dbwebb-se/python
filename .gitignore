@@ -7,7 +7,7 @@ node_modules/
 package-lock.json
 
 example/sqlite/ping.db
-example/intro-challenge/answer.txt
+example/intro-challenge/folder*
 
 __pycache__
 *.pyc
