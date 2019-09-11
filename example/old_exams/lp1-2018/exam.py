@@ -33,7 +33,7 @@ def find_difference(items, items2):
     """
     Assignment 4
     """
-    return items
+    return items, items2
 
 
 
