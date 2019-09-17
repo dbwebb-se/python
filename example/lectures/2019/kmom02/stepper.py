@@ -1,3 +1,6 @@
+"""
+Stepper variable example
+"""
 multiplier = 1
 
 while multiplier <= 10:

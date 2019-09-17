@@ -1,3 +1,6 @@
+"""
+See which word is longer
+"""
 previous = input("Write another word: ")
 current = input("Write a word: ")
 

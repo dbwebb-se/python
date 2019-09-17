@@ -1,3 +1,6 @@
+"""
+Calculate interset on savings
+"""
 # Skriv ett program som räknar på sparande.
 # ta emot tre värden: start kapital, ränta och slutvärde.
 start = float(input("Enter starting capital: "))

@@ -1,3 +1,6 @@
+"""
+Nested if cases
+"""
 number_one = int(input("Siffra 1: "))
 number_two = int(input("Siffra 2: "))
 

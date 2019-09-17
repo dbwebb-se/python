@@ -1,3 +1,6 @@
+"""
+A simple while-loop
+"""
 loop = True
 
 while loop:

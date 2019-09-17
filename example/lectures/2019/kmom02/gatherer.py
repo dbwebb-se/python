@@ -1,3 +1,6 @@
+"""
+Calc average of numbers
+"""
 count = 0
 total = 0
 number = 0
