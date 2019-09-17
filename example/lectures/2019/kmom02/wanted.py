@@ -1,3 +1,6 @@
+"""
+Finds a number
+"""
 smallest = 99999
 
 while True:
