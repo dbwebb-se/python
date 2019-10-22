@@ -30,7 +30,7 @@ class TestFunc(unittest.TestCase):
         """
         self.assertIsNotNone(util.find_spec("exam"))
         self.assertTrue(hasattr(exam, "analyze_text"))
-        self.assertTrue(hasattr(exam, "count_animals"))
+        self.assertTrue(hasattr(exam, "verify_hex"))
 
     def test_b_analyze_text(self):
         """
@@ -38,14 +38,14 @@ class TestFunc(unittest.TestCase):
         """
         self.assertIsNotNone(util.find_spec("analyze_functions"))
 
-        inp = ["s", "g", "q"]
+        inp = ["s", "g", "h", "q"]
         with patch('builtins.input', side_effect=inp):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 exam.analyze_text()
                 str_data = fake_out.getvalue().strip("\n")
                 list_data = str_data.split("\n")
-                self.assertEqual(float(list_data[0]), results[ind])
-    
+                self.assertEqual(list_data, ["6", "5", "5", "20", "8", "1", "Not an option!"])
+
     def test_c_verify_hex(self):
         """
         Test assignment 2

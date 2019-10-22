@@ -69,13 +69,13 @@ fi
 # Checks for completion of first assignment
 if [[ $SECOND_LINE = *"... ok"* ]]; then
     echo "Du har löst uppgift 1."
-    POINTS=$((POINTS+20))
+    POINTS=$((POINTS+10))
 else
     echo "Du har inte löst uppgift 1."
 fi
 
 # Outputs whether an assignment is solved or not.
-for i in `seq 3 6`; do
+for i in `seq 3 3`; do
     ASSIGNMENT=$(($i-1))
     if [[ $(cat "$LOG_PATH" | head -$i | tail -1) = *"... ok"* ]]; then
         echo "Du har löst uppgift $ASSIGNMENT."
