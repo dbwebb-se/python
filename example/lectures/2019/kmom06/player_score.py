@@ -35,5 +35,5 @@ def print_soreted_dict(players):
         print(player, "has", players[player], "points")
 
 if __name__ == "__main__":
-    players = calc_player_score()
-    print_soreted_dict(players)
+    players_score = calc_player_score()
+    print_soreted_dict(players_score)
