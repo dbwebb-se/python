@@ -50,7 +50,16 @@ class TestFunc(unittest.TestCase):
         """
         Test assignment 2
         """
-        pass
+        self.assertTrue(exam.verify_hex("#fff"))
+        self.assertTrue(exam.verify_hex("#fff000"))
+        self.assertTrue(exam.verify_hex("#0f0f0f"))
+
+        self.assertFalse(exam.verify_hex("#ffff"))
+        self.assertFalse(exam.verify_hex("#FFF"))
+        self.assertFalse(exam.verify_hex("fff"))
+        self.assertTrue(exam.verify_hex("#0F0F0F"))
+        self.assertFalse(exam.verify_hex("#fff000f"))
+        self.assertFalse(exam.verify_hex("#orange"))
 
 
 
