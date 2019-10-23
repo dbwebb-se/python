@@ -44,7 +44,7 @@ class TestFunc(unittest.TestCase):
                 exam.analyze_text()
                 str_data = fake_out.getvalue().strip("\n")
                 list_data = str_data.split("\n")
-                self.assertEqual(list_data, ["6", "5", "5", "20", "8", "1", "Not an option!"])
+                self.assertEqual(list_data, ["6", "5", "5", "21", "8", "1", "Not an option!"])
 
     def test_c_verify_hex(self):
         """
@@ -57,7 +57,7 @@ class TestFunc(unittest.TestCase):
         self.assertFalse(exam.verify_hex("#ffff"))
         self.assertFalse(exam.verify_hex("#FFF"))
         self.assertFalse(exam.verify_hex("fff"))
-        self.assertTrue(exam.verify_hex("#0F0F0F"))
+        self.assertFalse(exam.verify_hex("#0F0F0F"))
         self.assertFalse(exam.verify_hex("#fff000f"))
         self.assertFalse(exam.verify_hex("#orange"))
 
