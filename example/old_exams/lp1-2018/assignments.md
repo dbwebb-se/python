@@ -49,7 +49,7 @@ Uppgifter
 
 2. **Validera mobilnummer**. Den här uppgiften går ut på att du ska validera om en sträng är ett giltigt mobilnummer. Ett giltigt mobilnummer följer formatet "xxx-xxx xx xx" där de tre första siffrorna (de tre första x) måste vara något av följande: 070, 072, 073, 076 eller 079. Sedan ska det följa ett bindestreck och sju siffror 0-9 enligt formateringen ovan med tre siffror, ett mellanslag, två siffror, ett mellanslag och två siffror. Din funktion ska returnera sant, True, eller falskt, False, beroende på om strängen är ett korrekt formaterat mobiltelefonnummer.
 
-3. **Verifiera kreditkort**. Fyll i funktionen `verify_credit_card`. Funktionen ska ta emot ett argument som är en sträng på 16 heltal och returnera True eller False. Ett korrekt kreditkortsnummer uppfyller följande krav:
+3. **Verifiera kreditkort**. Fyll i funktionen `verify_credit_card`. Funktionen ska ta emot ett argument som är en sträng på 16 eller 14 heltal och returnera True eller False. Ett korrekt kreditkortsnummer uppfyller följande krav:
     - Sista siffran är vår kontrollsiffra.
     - Ta resten av sekvensen och dubbla varannan siffra.
     - Om ett tal blir störren än 9 räkna ut dess tvärsumma/siffersumma dvs. summera talets siffror. Exempel, 12 -> 1 + 2 = 3
