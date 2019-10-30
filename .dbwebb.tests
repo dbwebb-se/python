@@ -100,7 +100,7 @@ dbwebb validate marvin3
 test -d me/kmom04/modules
 dbwebb validate me/kmom04/modules
 
-# file 
+# file
 test -d me/kmom04/file
 cd me && cp ../example/file/string/items.txt kmom04/file
 dbwebb validate me/kmom04/file
@@ -123,7 +123,7 @@ dbwebb validate marvin4
 # list
 test -d me/kmom05/list
 
-# file 
+# file
 test -d me/kmom05/file
 cd me && cp -i ../example/file/string/items.txt kmom05/file
 dbwebb validate me/kmom05/file
@@ -154,4 +154,7 @@ dbwebb validate analyzer
 #
 
 # exam
-test -d me/kmom10/exam
+test -d me/kmom10/try1
+test -d me/kmom10/try2
+test -d me/kmom10/try3
+test -d me/kmom10/prep
