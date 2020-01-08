@@ -115,16 +115,16 @@ pythonkmom06()
 #
 pythonkmom10()
 {
-    # Uppdated "exam" when new examination
-    local exam="try1"
-
-
+    # Updated "exam" when new examination
+    local exam="try2"
 
     inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/$exam/.dbwebb/" "./correct.bash"
 
     viewFileContent "exam.py" "me/$KMOM/$exam"
 
-    viewFileContent "RECEIPT.md" "me/$KMOM/$exam/.dbwebb_exam"
+    RECEIPT_FILE=$(ls -t $EXEC_DIR/$KMOM/$exam/.dbwebb/exam/receipt | head -1)
+
+    viewFileContent "$RECEIPT_FILE" "me/$KMOM/$exam/.dbwebb/exam/receipt"
 
     # If sha1sum is installed
     sha1sum --version >/dev/null 2>&1 && pythonexamchecksum $exam
@@ -147,6 +147,8 @@ pythonexamchecksum()
     # local real_sha="6ae09055de67eeee449508cfa03abc1be597bb240f51475610acc29cd133a92ff491499d3dc6f4f7" # try2
     # local real_sha="137de528cc2f281b0bd9c091e19d47dc854e5c360be1ef26aa845cc6ba0d94acc2eb1ddfe43f2100" # try3
     local real_sha="4b9a0dc304c2e3b0fb51e6d2399d535c62f7aa58e6adfa79ab2eab1dae2b87e802e42f2a1bc4c981" # try1
+
+    local real_sha="083126dc7aa532f01afa46dc8769d031b3b594e69d717aa3b2b7a8d2fd91d4753596d0d1ee26f3ad" # try2
 
     local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
 
