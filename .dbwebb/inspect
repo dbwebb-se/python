@@ -38,6 +38,8 @@ pythonkmom01()
 
     inspectExerciseHeader "plane" "uppgift/ditt-forsta-python-skript" "$KMOM/plane"
     inspectCommand "plane.py" "$EXEC_DIR/$KMOM/plane" "python3 plane.py"
+    viewFileContent "plane.py" "me/$KMOM/plane"
+
 }
 
 
