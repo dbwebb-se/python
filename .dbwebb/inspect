@@ -53,6 +53,7 @@ pythonkmom02()
 
     inspectExerciseHeader "marvin1" "uppgift/din-egen-chattbot-marvin-steg-1" "$KMOM/marvin1"
     inspectCommand "marvin.py" "$EXEC_DIR/$KMOM/marvin1" "python3 marvin.py"
+    viewFileContent "marvin.py" "me/$KMOM/marvin1"
 }
 
 
