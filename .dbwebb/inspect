@@ -119,13 +119,13 @@ pythonkmom06()
 pythonkmom10()
 {
     # Updated "exam" when new examination
-    local exam="try2"
+    local exam="try3"
 
     inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/$exam/.dbwebb/" "./correct.bash"
 
     viewFileContent "exam.py" "me/$KMOM/$exam"
 
-    RECEIPT_FILE=$(ls -t $EXEC_DIR/$KMOM/$exam/.dbwebb/exam/receipt | head -1)
+    RECEIPT_FILE=$(ls -t $EXEC_DIR/$KMOM/$exam/.dbwebb/exam/receipt | head -2 | tail -1)
 
     viewFileContent "$RECEIPT_FILE" "me/$KMOM/$exam/.dbwebb/exam/receipt"
 
@@ -149,9 +149,10 @@ pythonexamchecksum()
     # local real_sha="fa1bae3ddede93768751943589c02c4de413720002ff34ebe55e75d36a272e0c259683ee81a0dd65" # try1
     # local real_sha="6ae09055de67eeee449508cfa03abc1be597bb240f51475610acc29cd133a92ff491499d3dc6f4f7" # try2
     # local real_sha="137de528cc2f281b0bd9c091e19d47dc854e5c360be1ef26aa845cc6ba0d94acc2eb1ddfe43f2100" # try3
-    local real_sha="4b9a0dc304c2e3b0fb51e6d2399d535c62f7aa58e6adfa79ab2eab1dae2b87e802e42f2a1bc4c981" # try1
+    # local real_sha="4b9a0dc304c2e3b0fb51e6d2399d535c62f7aa58e6adfa79ab2eab1dae2b87e802e42f2a1bc4c981" # try1
+    # local real_sha="083126dc7aa532f01afa46dc8769d031b3b594e69d717aa3b2b7a8d2fd91d4753596d0d1ee26f3ad" # try2
 
-    local real_sha="083126dc7aa532f01afa46dc8769d031b3b594e69d717aa3b2b7a8d2fd91d4753596d0d1ee26f3ad" # try2
+    local real_sha="96366da688fe7787ca6731a371055f5a6b7ade8daea35e693dfd0e2bf631cf6f60b67fa9208235cf" # try3
 
     local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
 
