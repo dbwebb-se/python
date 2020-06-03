@@ -75,14 +75,14 @@ def find_difference(items, items2):
 
 
 
-def check_dup(items, items2):
+def check_dup(items_, items2_):
     """
     check for duplicates in lists
     """
     result = {}
-    for item in items:
+    for item in items_:
         is_dup = False
-        for item2 in items2:
+        for item2 in items2_:
             if item.lower() == item2.lower():
                 is_dup = True
         if not is_dup:
@@ -97,12 +97,12 @@ def validate_date_time():
     """
     while True:
         c = input("Enter a choice: ")
-        if c in ("q", "quit"):
-            return True
-        elif c in ("d", "date"):
+        if c in ("d", "date"):
             date_time_functions.find_dates()
         elif c in ("t", "time"):
             date_time_functions.find_times()
+        elif c in ("q", "quit"):
+            return True
         else:
             print("Not an option!")
     return True
