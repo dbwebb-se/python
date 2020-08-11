@@ -1,6 +1,6 @@
 """
-Program calculating energy consumption and cost
-by using the module energy_calculation
+Program to display functions.
+Creates strings from lists.
 """
 
 import sandwich
