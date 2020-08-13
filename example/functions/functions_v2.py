@@ -19,6 +19,7 @@ print("En BLT innehåller " + blt_ingredients_string + ".")
 print("För den perfekta BLT-mackan skall dessa steg följas: " + blt_recipe_string + ".")
 
 
+
 def print_sandwich_string(ingredients, presentation):
     """
     Formats ingredience and recipe lists in a representable string.
@@ -33,6 +34,7 @@ grilled_cheese_ingredients = ["vitlökssmör", "riven ost"]
 print_sandwich_string(grilled_cheese_ingredients, "En Grilled Cheese innehåller ")
 
 
+
 def print_sandwich(ingredients, presentation="Prova vår nya sandwich som innehåller "):
     """
     Formats ingredience and recipe lists in a representable string.
@@ -44,6 +46,8 @@ print_sandwich(blt_ingredients, "En BLT innehåller ")
 
 unknown_ingredients = ["sallad", "tonfiskröra"]
 print_sandwich(unknown_ingredients)
+
+
 
 def create_sandwich_string(ingredients, presentation="Prova vår sandwich som innehåller "):
     """
@@ -60,6 +64,8 @@ def create_sandwich_string(ingredients, presentation="Prova vår sandwich som in
 
 blt_ingredients_string = create_sandwich_string(blt_ingredients, "En BLT innehåller ")
 print(blt_ingredients_string)
+
+
 
 def formatted_sandwich_string(ingredients, presentation="Prova vår sandwich som innehåller"):
     """
