@@ -1,92 +1,103 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 """
 Example code for the LEGB-rule and scopes
 """
 
-x_one = "global"
+example_one_x = "global"
 
-def global_one():
-    """Example 1"""
-    print("x_one inside:", x_one)
+def example_one():
+    """Exaple 1"""
+    print("x inside:", example_one_x)
 
-global_one()
-print("x_one outside:", x_one)
-# Prints:
-# x_one inside: global
-# x_one outside: global
-
-
-
-x_two = "global"
-
-def global_two():
-    """Example 2"""
-    x_two = x_two * 2 #pylint: disable=used-before-assignment
-    print(x_two)
-
-global_two()
-# Prints:
-# UnboundLocalError: local variable 'x_two' referenced before assignment
+example_one()
+print("x outside:", example_one_x)
+# skriver ut:
+# x inside: global
+# x outside: global
 
 
 
-def local_one():
-    """Example 3"""
-    y_three = "local" #pylint: disable=unused-variable
+# example_two_x = "global"
 
-local_one()
-print(y_three) #pylint: disable=undefined-variable
-# Prints:
-# NameError: name 'y_three' is not defined
+# def example_two():
+#     """Exaple 2"""
+#     example_two_x = example_two_x * 2
+#     print(x)
+
+# example_two()
+# # skriver ut:
+# # UnboundLocalError: local variable 'example_two_x' referenced before assignment
 
 
 
-def local_two():
-    """Example 4"""
-    y_four = "local"
-    print(y_four)
+# def example_three():
+#     """Exaple 3"""
+#     example_three_y = "local"
 
-local_two()
-# Prints:
+# example_three()
+# print(example_three_y)
+# # skriver ut:
+# # NameError: name 'example_three_y' is not defined
+
+
+
+def example_four():
+    """Exaple 4"""
+    example_four_y = "local"
+    print(example_four_y)
+
+example_four()
+# skriver ut:
 # local
 
 
 
-x_five = "global "
-y_five = "global"
+example_five_y = "global"
 
-def local_and_global_one():
-    """Example 5"""
-    global x_five
-    y_five = "local"
-    x_five = x_five * 2
-    print("x_five inside:", x_five)
-    print("y_five inside:", y_five)
+def example_five():
+    """Exaple 5"""
+    example_five_y = "local"
+    print("y local:", example_five_y)
 
-local_and_global_one()
-print("x_five outside:", x_five)
-print("y_five outside:", y_five)
+example_five()
+print("y global:", example_five_y)
 # skriver ut:
-# x_five inside: global global
-# y_five inside: local
-# x_five outside: global global
-# y_five outside: global
+# y local: local
+# y global: global
+
+
+
+example_six_x = "global"
+
+def example_six():
+    global example_six_x
+    example_six_x = example_six_x * 2
+    print("x inside:", example_six_x)
+
+example_six()
+print("x outside:", example_six_x)
+# skriver ut:
+# x inside: globalglobal
+# x outside: globalglobal
 
 
 
 def outer():
-    """Example 6"""
-    x_six = "local"
+    """Example 7 has local scope acts as an enclosed scope for inner()"""
+    x = "local"
 
     def inner():
-        nonlocal x_six
-        x_six = "nonlocal"
-        print("inner:", x_six)
+        """Example 7 has local scope"""
+        nonlocal x
+        x = "nonlocal"
+        print("x inner:", x)
 
     inner()
-    print("outer:", x_six)
+    print("x outer:", x)
 
 outer()
 # skriver ut:
-# inner: nonlocal
-# outer: nonlocal
+# x inner: nonlocal
+# x outer: nonlocal
