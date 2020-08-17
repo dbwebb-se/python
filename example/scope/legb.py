@@ -72,6 +72,7 @@ print("y global:", example_five_y)
 example_six_x = "global"
 
 def example_six():
+    """Exaple 5"""
     global example_six_x
     example_six_x = example_six_x * 2
     print("x inside:", example_six_x)
