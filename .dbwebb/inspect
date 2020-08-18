@@ -51,7 +51,7 @@ pythonkmom02()
 {
     inspectLab "uppgift/python-med-villkor-och-loopar" "lab2" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "marvin1" "uppgift/din-egen-chattbot-marvin-steg-1" "$KMOM/marvin1"
+    inspectExerciseHeader "marvin1" "uppgift/din-egen-chattbot-marvin-steg-1-v2" "$KMOM/marvin1"
     inspectCommand "marvin.py" "$EXEC_DIR/$KMOM/marvin1" "python3 marvin.py"
     viewFileContent "marvin.py" "me/$KMOM/marvin1"
 }
@@ -63,9 +63,9 @@ pythonkmom02()
 #
 pythonkmom03()
 {
-    inspectLab "uppgift/python-med-funktioner" "lab3" "answer.py" "python3 answer.py"
+    inspectLab "uppgift/python-listor-v2" "lab3" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "marvin2" "uppgift/din-egen-chattbot-marvin-steg-2" "$KMOM/marvin2"
+    inspectExerciseHeader "marvin2" "uppgift/din-egen-chattbot-marvin-steg-2-v3" "$KMOM/marvin2"
     inspectCommand "marvin.py" "$EXEC_DIR/$KMOM/marvin2" "python3 marvin.py"
 }
 
@@ -76,9 +76,9 @@ pythonkmom03()
 #
 pythonkmom04()
 {
-    inspectLab "uppgift/python-listor" "lab4" "answer.py" "python3 answer.py"
+    inspectLab "uppgift/python-med-funktioner-och-moduler-v2" "lab4" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "marvin3" "uppgift/din-egen-chattbot-marvin-steg-3" "$KMOM/marvin3"
+    inspectExerciseHeader "marvin3" "uppgift/din-egen-chattbot-marvin-steg-3-v3" "$KMOM/marvin3"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin3" "python3 main.py"
 }
 
@@ -88,9 +88,9 @@ pythonkmom04()
 #
 pythonkmom05()
 {
-    inspectLab "uppgift/python-med-dictionaries-och-tupler" "lab5" "answer.py" "python3 answer.py"
+    inspectLab "uppgift/python-med-dictionaries-och-tupler-v2" "lab5" "answer.py" "python3 answer.py"
 
-    inspectExerciseHeader "marvin4" "uppgift/din-egen-chattbot-marvin-utslappv2" "$KMOM/marvin4"
+    inspectExerciseHeader "marvin4" "uppgift/din-egen-chattbot-marvin-utslapp" "$KMOM/marvin4"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin4" "python3 main.py"
 }
 
