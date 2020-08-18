@@ -17,24 +17,22 @@ me/kmom02/flow
 # kmom03
 me/kmom03/lab3
 me/kmom03/marvin2
-me/kmom03/functions
+me/kmom03/list
 
 # kmom04
 me/kmom04/lab4
 me/kmom04/marvin3
-me/kmom04/modules
-me/kmom04/file
+me/kmom04/functions
 
 # kmom05
 me/kmom05/lab5
-me/kmom05/list
-me/kmom05/file
+me/kmom05/warehouse
 me/kmom05/marvin4
 
 # kmom06
 me/kmom06/lab6
+me/kmom06/file
 me/kmom06/analyzer
-me/kmom06/warehouse
 
 # kmom10
 me/kmom10/prep
