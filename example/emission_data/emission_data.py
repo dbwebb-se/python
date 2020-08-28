@@ -1,7 +1,11 @@
 """
-Contains data about countries Fossil CO2 emission (in megatonnes, multiply with 1 000 000), area (in KM2) and population size.
-There is one dictionary for each year of emission data, emission_1990, emission_2005 and emission_2017. Each dictionary contain a key and value pair.
-The key is an integer id that can be connected to a country in the dictionary "country_data". The value is that countries CO2 emission (in megatonnes) for that year, 1990, 2005 or 2017 depending on the variable with corresponding name. 
+Contains data about countries Fossil CO2 emission (in megatonnes, multiply with 1 000 000),
+area (in KM2) and population size.
+There is one dictionary for each year of emission data, emission_1990, emission_2005 and emission_2017.
+Each dictionary contain a key and value pair.
+The key is an integer id that can be connected to a country in the dictionary "country_data".
+The value is that countries CO2 emission (in megatonnes) for that year, 1990, 2005 or 2017 depending on
+the variable with corresponding name. 
 
 Example:
 emission_1990 = {
@@ -11,7 +15,12 @@ emission_1990 = {
 
 
 
-The variable `country_data` is a nested dictionary, meaning a dictionary inside a dictionary. Each countries data is a dictionary inside the dictionary. The country name is the key and the value is a dictionary that has the follwing keys id, area and population. "id" is used to connect the key from the emission dictionaries to a country. "area" is the countries area in KM2 and population is a tuple with three elements. The first element is the population data for 1990, second is for 2005 and the last is for 2017.
+The variable `country_data` is a nested dictionary, meaning a dictionary inside a dictionary.
+Each countries data is a dictionary inside the dictionary. The country name is the key and the value is
+a dictionary that has the follwing keys id, area and population. "id" is used to connect the key from 
+the emission dictionaries to a country. "area" is the countries area in KM2 and population is a 
+tuple with three elements. The first element is the population data for 1990, second is for 2005 and
+the last is for 2017.
 
 Example:
 country_data = {
@@ -32,7 +41,8 @@ country_data = {
 
 
 Sources:
-emission data: https://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions#Fossil_CO2_emissions_by_country/region
+emission data: 
+    https://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions#Fossil_CO2_emissions_by_country/region
 Country area: https://en.wikipedia.org/wiki/List_of_countries_by_population_in_2015
 Population size:
     https://www.populationpyramid.net/population-size-per-country/1990/
@@ -40,6 +50,7 @@ Population size:
     https://www.populationpyramid.net/population-size-per-country/2017/
     https://data.worldbank.org/indicator/SP.POP.TOTL?locations=EU
 """
+# pylint: disable=bad-continuation
 emission_1990 = {0: 2.546,
  1: 6.583,
  2: 65.677,

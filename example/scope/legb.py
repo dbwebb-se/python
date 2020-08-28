@@ -4,7 +4,7 @@
 """
 Example code for the LEGB-rule and scopes
 """
-
+# pylint: disable=redefined-outer-name
 example_one_x = "global"
 
 def example_one():
