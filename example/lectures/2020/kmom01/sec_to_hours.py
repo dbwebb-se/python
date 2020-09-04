@@ -1,5 +1,6 @@
 """
-Gör ett program där användaren kan skriva in ett antal sekunder. Konvertera sekunderna till timmar och överblivna sekunder och skriv ut resultatet.
+Gör ett program där användaren kan skriva in ett antal sekunder. Konvertera sekunderna till timmar och
+överblivna sekunder och skriv ut resultatet.
 """
 
 tot_sec = int(input("Hur mångar sekunder har du?"))

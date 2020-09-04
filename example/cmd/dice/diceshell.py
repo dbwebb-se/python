@@ -24,7 +24,7 @@ class Shell(cmd.Cmd):
 
 
     def __init__(self):
-        super(Shell, self).__init__()
+        super().__init__()
         self.dice = dice.Dice()
 
 

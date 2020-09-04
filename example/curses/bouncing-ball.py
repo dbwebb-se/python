@@ -46,11 +46,11 @@ def main(scr):
 
         # Check if new x and y is at any edge and bounce it if it is
         # top and bottom
-        if y == max_y - 1 or y == 0: 
+        if y in (max_y - 1, 0): 
             vert = -vert # reverse
         
         # left and right
-        if x == max_x - len(my_str) or x == 0: 
+        if x in (max_x - len(my_str), 0): 
             hori = -hori # reverse
 
         # Draw the ball

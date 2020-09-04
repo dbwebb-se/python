@@ -7,6 +7,7 @@ The "array" is implemented using lists of lists.
 Press 's' to save the state to the file and press 'l' to load the 
 state from the file. 
 """
+# pylint: disable=consider-using-enumerate
 
 
 filename = 'matrix.txt'

@@ -97,10 +97,10 @@ def main(screen):
                 elif score > 1 and score % 2 == 0 and delay > 10:
                     delay -= 1
                 y_dir = -y_dir # reverse
-            elif ball_y == max_y-2 or ball_y == 0:
+            elif ball_y in (max_y-2, 0):
                 y_dir = -y_dir # reverse
             # side-bunce
-            if ball_x == max_x-len(ball)-1 or ball_x == 0:
+            if ball_x in (max_x-len(ball)-1, 0):
                 x_dir = -x_dir # reverse
             # potential next board-bounce
             if ball_y == max_y-3:

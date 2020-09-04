@@ -1,7 +1,9 @@
 """
 Calculates remaining money after buying candy
 
-Skriv ett program där du använder funktionen input() för att ta emot två värden allowance och cost_of_candy. Dra sedan cost_of_candy från allowance. Programmet ska sedan skriva ut hur mycket man har kvar efter att ha handlat godis tillsammans med strängen " kr".
+Skriv ett program där du använder funktionen input() för att ta emot två värden allowance och cost_of_candy.
+Dra sedan cost_of_candy från allowance. Programmet ska sedan skriva ut hur mycket man har kvar efter 
+att ha handlat godis tillsammans med strängen " kr".
 """
 
 

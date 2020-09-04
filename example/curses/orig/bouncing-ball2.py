@@ -56,12 +56,12 @@ def main(screen):
 
         if delayed >= delay:
             # check where ball is and reverse dir if needed
-            if ball_y == max_y-1 or ball_y == 0:
+            if ball_y in (max_y-1, 0):
                 vert_dir = -vert_dir # reverse top
-            if ball_x == max_x-len(ball)-1 or ball_x == 0:
+            if ball_x in (max_x-len(ball)-1, 0):
                 hori_dir = -hori_dir # reverse
             if ball_y == max_y-2:
-                if ball_x > board_x and ball_x < board_x+len(board):
+                if board_x < ball_x < board_x+len(board):
                     vert_dir = -vert_dir # reverse top
                     score += 1
                     if score > 1 and score % 5 == 0 and len(board) > 8:
@@ -82,7 +82,7 @@ def main(screen):
                         screen.refresh()
                         curses.napms(2500)
                         break
-                elif ball_x > board_x and ball_x < board_x+len(board):
+                elif board_x < ball_x < board_x+len(board):
                     score += 1
                     if score > 1 and score % 5 == 0 and len(board) > 8:
                         board = board[1:]

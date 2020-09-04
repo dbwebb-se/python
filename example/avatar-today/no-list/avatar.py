@@ -137,14 +137,16 @@ def getAvatar(avatarId):
     """Get an avatar based on incoming avatarId."""
     if avatarId == 1:
         return(piglet)
-    elif avatarId == 2:
+    if avatarId == 2:
         return (muppet)
-    elif avatarId == 3:
+    if avatarId == 3:
         return (miss_muppet)
-    elif avatarId == 4:
+    if avatarId == 4:
         return (garfield)
-    elif avatarId == 5:
+    if avatarId == 5:
         return (odie)
+
+    return 0
 
 
 if __name__ == '__main__':

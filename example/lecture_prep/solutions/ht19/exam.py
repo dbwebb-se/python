@@ -12,7 +12,7 @@ def analyze_text():
     while True:
         choice = input("Gör ett val: ")
 
-        if choice == "q" or choice == "quit":
+        if choice in ("q", "quit"):
             break
         elif choice == "s":
             analyze_functions.sentences()

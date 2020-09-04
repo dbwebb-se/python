@@ -59,13 +59,13 @@ def main():
         menu()
         choice = input("--> ")
 
-        if choice == "q":
-            print("Bye, bye - and welcome back anytime!")
-            return
         
-        elif choice == "1":
+        if choice == "1":
             myNameIs()
         
+        elif choice == "q":
+            print("Bye, bye - and welcome back anytime!")
+            return
         else:
             print("That is not a valid choice. You can only choose from the menu.")          
             

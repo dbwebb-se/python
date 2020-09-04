@@ -17,6 +17,7 @@ database and inspect it.
 $ sqlite3 ping.db
 
 """
+from os.path import isfile, getsize
 import sqlite3
 import time
 import sys
@@ -28,23 +29,22 @@ def isSQLite3(filename):
     Check if a file is a SQLite3 database.
     http://stackoverflow.com/questions/12932607/how-to-check-with-python-and-sqlite3-if-one-sqlite-database-file-exists
     """
-    from os.path import isfile, getsize
 
     if not isfile(filename):
         return False
     if getsize(filename) < 100: # SQLite database file header is 100 bytes
         return False
-    else:
-        fd = open(filename, 'rb')
-        Header = fd.read(100)
-        fd.close()
 
-        isFileSQLite = False
+    fd = open(filename, 'rb')
+    Header = fd.read(100)
+    fd.close()
 
-        if Header[0:16] == b'SQLite format 3\000':
-            isFileSQLite = True
+    isFileSQLite = False
 
-        return isFileSQLite
+    if Header[0:16] == b'SQLite format 3\000':
+        isFileSQLite = True
+
+    return isFileSQLite
 
 #
 # Get argument if there is one and use that as url

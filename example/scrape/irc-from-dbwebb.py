@@ -5,10 +5,9 @@
 Show off how to scrape information from a webpage.
 """
 
+from bs4 import BeautifulSoup
 import requests
 
-# pip install beautifulsoup4
-from bs4 import BeautifulSoup
 
 
 print(__doc__)

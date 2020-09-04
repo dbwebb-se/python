@@ -25,7 +25,7 @@ number_of_apples = 9
 
 if number_of_apples > 10:
     print("Du har mer än 10 äpplen")
-elif number_of_apples <= 10 and number_of_apples > 5:
+elif 5 < number_of_apples <= 10:
     print("Du blev snabbt mätt och åt bara upp några av dina äpplen")
 else:
     print("Du har nog varit hungrig och ätit upp dina äpplen")
