@@ -1,3 +1,6 @@
+"""
+Calculate factorial for every number between 2 and user input.
+"""
 while True:
     chosen = input("Enter a number or done to exit: ")
 

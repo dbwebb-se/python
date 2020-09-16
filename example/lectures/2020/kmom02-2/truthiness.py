@@ -3,15 +3,15 @@ What is True and what is False and how do we compare values?
 """
 
 value = 0
-value1 = 0
+value2 = 0
 for i in range(1000):
     value += i
 for i in range(1000):
-    value1 += i
-print(id(value1))
+    value2 += i
+print(id(value))
 print(id(value2))
-print(value, "equals", value1, "==", value==value1)
-print(value, "equals", value1, "is", value is value1)
+print(value, "equals", value, "==", value==value2)
+print(value, "equals", value2, "is", value is value2)
 
 # value = None
 # if value is None:

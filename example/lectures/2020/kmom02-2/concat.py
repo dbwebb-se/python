@@ -14,4 +14,3 @@ while inp != "done":
     except ValueError:
         string += inp
 print(string)
-

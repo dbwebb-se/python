@@ -1,5 +1,16 @@
-text = "bacon ipsum dolor amet tail ribeye biltong leberkas pork loin short loin tenderloin tri-tip kielbasa sausage pancetta. Brisket short loin shoulder alcatra picanha swine cupim. Capicola ground round tri-tip, pancetta pastrami short loin short ribs spare ribs buffalo chuck. Pork ball tip beef ribs, ham hock alcatra tenderloin frankfurter spare ribs jowl tail burgdoggen t-bone prosciutto. Kielbasa ball tip alcatra spare ribs chuck fatback shankle hambutt hock pig pork chop strip steak landjaeger. Hamburger porchetta frankfurter buffalo swine tongue."
-find = "hamburger"
+"""
+Find substrings
+"""
+text = (
+    "bacon ipsum dolor amet tail ribeye biltong leberkas pork loin short loin tenderloin tri-tip kielbasa "
+    "sausage pancetta. Brisket short loin shoulder alcatra picanha swine cupim. Capicola ground round tri-tip, "
+    "pancetta pastrami short loin short ribs spare ribs buffalo chuck. Pork ball tip beef ribs, "
+    "ham hock alcatra tenderloin frankfurter spare ribs jowl tail burgdoggen t-bone prosciutto. "
+    "Kielbasa ball tip alcatra spare ribs chuck fatback shankle hambutt hock pig pork chop strip steak landjaeger. "
+    "Hamburger porchetta frankfurter buffalo swine tongue."
+)
+
+find = input("Enther substring to find: ")
 
 for ind, letter in enumerate(text.lower()):
     if ind == 499:
