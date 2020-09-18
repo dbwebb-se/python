@@ -10,7 +10,7 @@ for i in range(1000):
     value2 += i
 print(id(value))
 print(id(value2))
-print(value, "equals", value, "==", value==value2)
+print(value, "equals", value, "==", value == value2)
 print(value, "equals", value2, "is", value is value2)
 
 # value = None
