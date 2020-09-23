@@ -1,3 +1,15 @@
+"""
+Skriv ett program för att bjuda in folk till bio.
+
+Programmet ska innehålla en lista där man kan lägga till nya människor som ska med.
+
+När användaren skriver in "done" ska programmet skriva ut följande:
+
+Alla namn i listan
+Vartannat namn i listan
+De tre sista namnen
+Namnen på index 2 och 3
+"""
 attende = ""
 attendees = []
 while True:

@@ -1,3 +1,10 @@
+"""
+Skapa en lista och fyll den men valfria siffror mellan 0 och 20.
+Använd sen random modulen för att slumpa fram två tal mellan 0 och 20.
+
+Använd .index() funktionen på din lista för att kolla om talen finns som värden i listan.
+Om de gör det byt plats på dem, annars skriv ut vilket/vilka av talen som inte finns i listan.
+"""
 import random
 l = [0,15,1,6,8,2,4,7]
 

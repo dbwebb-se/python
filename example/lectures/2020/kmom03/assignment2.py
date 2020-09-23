@@ -1,3 +1,11 @@
+"""
+Fortsätt på koden från förra uppgiften. Det ska gå att vid input skicka in extend:namn,namn,namn, 
+flera namn separerade med ,, då ska strängen göras om till en lista, så varje namn blir ett eget element, 
+och konkateneras med den existerande listan.
+
+Lägg även till så att programmet kan skriva ut i vilket index ett namn har i listan. T.ex. index Andreas. 
+Leta i dokumentationen för Listor på pythons hemsida för en funktion som kan användas.
+"""
 inp = ""
 attendees = []
 while True:

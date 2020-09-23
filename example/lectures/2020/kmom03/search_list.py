@@ -1,3 +1,6 @@
+"""
+Different ways to search a list
+"""
 movies = [
     "Spider-Man: Far From Home",
     "Dora and the Lost City of Gold",
@@ -7,6 +10,7 @@ movies = [
     "Star Wars: The Rise of Skywalker"
 ]
 movie = input("Enter movie: ")
+# Manuella sättet, inte jätte bra.
 # found = False
 # for list_movie in movies:
 #     if movie == list_movie:
@@ -14,14 +18,16 @@ movie = input("Enter movie: ")
 #         found = True
 #         break
 
-# if movie in movies:
-#     print("Movie already exist!")
-# else:
-#     movies.append(movie)
-
-try:
-    movies.index(movie)
+# bästa sättet
+if movie in movies:
     print("Movie already exist!")
-except ValueError:
+else:
     movies.append(movie)
-print(movies)
+
+# sämsta sättet. Så vida man inte vill ha dess index värde för något
+# try:
+#     movies.index(movie)
+#     print("Movie already exist!")
+# except ValueError:
+#     movies.append(movie)
+# print(movies)
