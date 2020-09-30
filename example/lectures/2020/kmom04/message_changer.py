@@ -1,6 +1,12 @@
+"""
+Assigment 2
+"""
 import string_modifier
 
 def take_message():
+    """
+    Switch uppers and lowers in a string
+    """
     msg = input("Enter a crasy case message: ")
     new_msg = ""
     for letter in msg:
