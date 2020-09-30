@@ -2,6 +2,7 @@ me/
 bin/
 build/
 .venv/
+venv/
 vendor/
 node_modules/
 package-lock.json
