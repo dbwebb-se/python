@@ -67,6 +67,9 @@ pythonkmom03()
 
     inspectExerciseHeader "marvin2" "uppgift/din-egen-chattbot-marvin-steg-2-v3" "$KMOM/marvin2"
     inspectCommand "marvin.py" "$EXEC_DIR/$KMOM/marvin2" "python3 marvin.py"
+    viewFileContent "marvin.py" "me/$KMOM/marvin2"
+    
+    
 }
 
 
@@ -80,6 +83,8 @@ pythonkmom04()
 
     inspectExerciseHeader "marvin3" "uppgift/din-egen-chattbot-marvin-steg-3-v3" "$KMOM/marvin3"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin3" "python3 main.py"
+    viewFileContent "main.py" "me/$KMOM/marvin3"
+    viewFileContent "marvin.py" "me/$KMOM/marvin3"
 }
 
 
@@ -92,6 +97,8 @@ pythonkmom05()
 
     inspectExerciseHeader "marvin4" "uppgift/din-egen-chattbot-marvin-utslapp" "$KMOM/marvin4"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin4" "python3 main.py"
+    viewFileContent "main.py" "me/$KMOM/marvin4"
+    viewFileContent "marvin.py" "me/$KMOM/marvin4"
 }
 
 
