@@ -5,7 +5,7 @@ import re
 import hashlib
 try:
     from examiner.colorama import init, Fore, Back, Style
-except ModuleNotFoundError:
+except ImportError:
     from colorama import init, Fore, Back, Style
 
 init(strip=False)
