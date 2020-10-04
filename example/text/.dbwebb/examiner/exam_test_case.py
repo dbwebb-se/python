@@ -12,7 +12,7 @@ class ExamTestCase(unittest.TestCase):
     """
 
     ASSIGNMENT_REGEX = r"\.Test[0-9]([A-Z].+)\)"
-    TEST_NAME_REGEX = r"test_[a-z]_(\w+) "
+    TEST_NAME_REGEX = r"test_[a-z]_(\w+)"
 
 
 
