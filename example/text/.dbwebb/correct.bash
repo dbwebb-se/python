@@ -11,7 +11,6 @@ COPY_FILE="phil.txt"
 python3 --version >/dev/null 2>&1 && py=python3 || py=python
 
 
-
 # get path to .dbwebb folder
 DBWEBB_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 PROJ_PATH="$DBWEBB_PATH/.."
@@ -24,15 +23,13 @@ cp "$PROJ_PATH/$COPY_FILE" "$DBWEBB_PATH"
 
 
 
-test_status="$(cd "$DBWEBB_PATH" && ${py} test_dbwebb.py &> "$LOG_PATH")"
+test_status="$(cd "$DBWEBB_PATH" && ${py} -m examiner.run_tests &> "$LOG_PATH")"
 
 
 
 # Picks subparts of log file
-ALL_LINES="$(cat "$LOG_PATH" | head -6)"
+NOT_FIRSTS="$(cat "$LOG_PATH" | tail -n +2)" # start on line 2
 FIRST_LINE="$(cat "$LOG_PATH" | head -1)"
-SECOND_LINE="$(cat "$LOG_PATH" | head -2 | tail -1)"
-REST="$(cat "$LOG_PATH" | head -6 | tail -4)"
 
 
 
@@ -47,7 +44,7 @@ output_log () {
     echo "====================================="
     echo "TEST SCRIPT OUTPUT"
     echo "====================================="
-    cat "$LOG_PATH"
+    cat "$NOT_FIRSTS"
 }
 
 
@@ -60,20 +57,37 @@ clean_up () {
 
 
 
-# Checks if all files and modules are there
-if [[ $FIRST_LINE = *"... ok"* ]]; then
-    echo "Alla moduler och filer finns."
+first_assignment="$(echo $FIRST_LINE | cut -c1)"
+other_assignments="$(echo $FIRST_LINE | cut -c3-)"
+
+# Outputs whether an assignment is solved or not.
+if [[ $first_assignment = "1" ]]; then
+    echo "Du har löst uppgift 1."
+    POINTS=$((POINTS+10))
+else
+    echo "Du har inte löst uppgift 1."
 fi
 
+ASSIGNMENT=1
+for result in $other_assignments; do
+    let ASSIGNMENT+=1
+    if [[ $result = "1" ]]; then
+        echo "Du har löst uppgift $ASSIGNMENT."
+        POINTS=$((POINTS+10))
+    else
+        echo "Du har inte löst uppgift $ASSIGNMENT."
+    fi
+done
 
 
-# Checks for completion of first assignment
-if [[ $SECOND_LINE = *"... ok"* ]]; then
-    echo "Du har löst uppgiften och är godkänd."
+
+# Sets grade message based on POINTS
+if [[ $POINTS -gt 39 ]]; then
+    echo "Du har $POINTS poäng och är godkänd på den individuella examinationen."
+    EXIT_STATUS=0
 else
-    echo "Du har inte löst uppgiften och är därför underkänd."
-    output_log
-    exit 1
+    echo "Du har $POINTS poäng. Detta är mindre än 40 och du är inte godkänd på Analyzer."
+    EXIT_STATUS=1
 fi
 
 
