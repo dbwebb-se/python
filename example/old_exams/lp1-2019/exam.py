@@ -22,7 +22,6 @@ def find_replace():
                     replace = replace + word[-1]
                 row_words[index] = replace
         text_list.append(" ".join(row_words))
-    
     with open("output.txt", "w") as fh:
         fh.write("\n".join(text_list))
 
@@ -30,6 +29,7 @@ def count_animals(animals):
     """
     Assignment 2
     """
+    # import pdb; pdb.set_trace()
     result = ""
     for animal in sorted(animals):
         names = animals[animal]
@@ -46,7 +46,7 @@ def validate_isbn(numbers):
     """
     Assignment 3
     """
-    
+
     if len(numbers) == 13 and numbers.isdigit():
         mult_sum = 0
         for index, str_number in enumerate(numbers[:-1]):
@@ -58,10 +58,10 @@ def validate_isbn(numbers):
         check = 0
         if mult_sum % 10 != 0:
             check = 10 - (mult_sum % 10)
-            
+
         return int(numbers[-1]) == check
-            
-         
+
+
     return False
 
 def decide_winners(matches):
@@ -86,22 +86,22 @@ def decide_winners(matches):
 def validate_bookings(bookings):
     """
     Assignment 5
-    """    
+    """
     for index, slot in enumerate(bookings):
         date = slot["date"]
         time = slot["time"].split("-")
-        
+
         for other_index, other_slot in enumerate(bookings):
             if index == other_index:
                 continue
             other_date = other_slot["date"]
             other_time = other_slot["time"].split("-")
-                
-            if date != other_date: 
+
+            if date != other_date:
                 continue
             if int(time[0]) <= int(other_time[0]) and int(time[1]) >= int(other_time[1]):
                 return False
-            
+
     return True
 
 if __name__ == '__main__':

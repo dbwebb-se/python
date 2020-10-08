@@ -2,6 +2,7 @@ Authors:
     - aar, Andreas Arnesson
     - efo, Emil Folino
 Revisions:
+    - "2020-10-07": (B, aar) Omgjord för nya rättningsprogrammet HT20.
     - "2019-10-22": (A, efo, aar) individuella examinationen 2019-lp1.
 
 
@@ -35,20 +36,20 @@ Tillsammans med kursmoment 01-06 ger dessa poäng ditt slutbetyg, [Bedömning oc
 Uppgifter
 ---------------------------------
 
-1. **Sök och ersätt**. Fyll i funktionen `find_replace`. Funktionen ska läsa in filen `manifesto.txt` för att söka och ersätta ord. Funktionen ska ta emot två stycken inputs, en för ordet du ska söka efter och en för ordet som det ska ersättas med. Innehållet ska se exakt likadant ut som tidigare fast med ordet ersatt. Om ett ord finns med flera gånger ska alla ersättas. Skriv ner resultatet till en ny fil som ska heta `output.txt`, alltså skriv inte över `manifesto.txt` läs bara från den. 
+1. **Sök och ersätt**. Fyll i funktionen `find_replace`. Funktionen ska läsa in filen `manifesto.txt` för att söka och ersätta ord. Funktionen ska ta emot två stycken inputs, en för ordet du ska söka efter och en för ordet som det ska ersättas med. Innehållet ska se exakt likadant ut som tidigare fast med ordet ersatt. Om ett ord finns med flera gånger ska alla ersättas. Skriv ner resultatet till en ny fil som ska heta `output.txt`, alltså skriv inte över `manifesto.txt` läs bara från den.
 
     **Exempel**
 
-    input: 
+    input:
         Enter word to find: ugly
         Enter word to replace with: ko
 
-    content of `output.txt`: 
+    content of `output.txt`:
         Beautiful is better than ko.
         Explicit is better than implicit.
         ...
 
-I exemplet ovan är inte "Enter word to find: " och "Enter word to replace with: " en del av vad vi get som input. Det är exempel på vad ni kan skriva i input funktionen.
+I exemplet ovan är inte "Enter word to find: " och "Enter word to replace with: " en del av vad vi ger som input. Det är exempel på vad ni kan skriva i input funktionen.
 
 Tips, om du råkar skriva över eller ändrar i `manifesto.txt` kan du först ta en kopia på `exam.py` och sedan göra `dbwebb exam checkout try1` igen.
 
@@ -58,14 +59,14 @@ Tips, om du råkar skriva över eller ändrar i `manifesto.txt` kan du först ta
 
     **Exempel**
 
-    input: 
+    input:
     ```
     {
         "ko": ["Mamma Mu", "Kalvin"],
         "gris": "Babe",
     }
     ```
-    output: 
+    output:
         "1 gris: Babe
          2 ko: Kalvin, Mamma Mu"
 
@@ -91,11 +92,12 @@ Tips, om du råkar skriva över eller ändrar i `manifesto.txt` kan du först ta
     ```
 
 
+
 4. **Avgör vinnare**. Fyll i funktionen `decide_winners`, den ska ta emot en lista som argument. Listan innehåller i sin tur andra listor som i sin tur innehåller resultat från set i pingismatcher. Resultatet från ett set är formaterat som en sträng med första spelarens poäng följt av ett bindestreck och andra spelarens poäng. T.ex. "5-11", här vann player2 med 11 mot 5. I funktionen ska du räkna ut om player1 eller player2 vann för varje match. Vinnaren är den som vann flest set och vinnare av ett set är spelaren med flest poäng i setet. Funktionen ska returnera en lista som innehåller vinnaren av de olika matcherna. Om du får en tom lista som argument ska du returnera en tom lista.
 
     **Exempel**
 
-    input: 
+    input:
         [["11-2", "5-11", "6-11"], ["11-3", "11-5"]]
     output:
         ["player2", "player1"]
@@ -105,7 +107,7 @@ Tips, om du råkar skriva över eller ändrar i `manifesto.txt` kan du först ta
 5. **Analysera datum och tider**. Fyll i funktionen `validate_bookings`. Den ska ta emot en lista som innehåller dictionaries med information för att boka ett schema. Varje dictionary innehåller datum, tid och kurskod. I funktionen ska du kolla att inga datum och tider överlappar för schemabokningen. Om inga kurser överlappar returnera True annars False.
 
     **Exempel**
-    input: 
+    input:
         [
             {
                 "date": "2019-10-28", "time": "10-12", "course": "DV1531"

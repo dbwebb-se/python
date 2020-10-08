@@ -1,6 +1,7 @@
 # Correct.bash script used for autocorrecting programming exams.
 
 
+
 # Verbose check
 VERBOSE=true
 
@@ -24,15 +25,13 @@ cp "$PROJ_PATH/$COPY_FILE" "$DBWEBB_PATH"
 
 
 
-test_status="$(cd "$DBWEBB_PATH" && ${py} test_dbwebb.py &> "$LOG_PATH")"
+test_status="$(cd "$DBWEBB_PATH" && ${py} -m examiner.run_tests &> "$LOG_PATH")"
 
 
 
 # Picks subparts of log file
-ALL_LINES="$(cat "$LOG_PATH" | head -6)"
+NOT_FIRSTS="$(cat "$LOG_PATH" | tail -n +2)" # start on line 2
 FIRST_LINE="$(cat "$LOG_PATH" | head -1)"
-SECOND_LINE="$(cat "$LOG_PATH" | head -2 | tail -1)"
-REST="$(cat "$LOG_PATH" | head -6 | tail -4)"
 
 
 
@@ -47,7 +46,7 @@ output_log () {
     echo "====================================="
     echo "TEST SCRIPT OUTPUT"
     echo "====================================="
-    cat "$LOG_PATH"
+    echo "$NOT_FIRSTS"
 }
 
 
@@ -61,25 +60,21 @@ clean_up () {
 
 
 
-# Checks if all files and modules are there
-if [[ $FIRST_LINE = *"... ok"* ]]; then
-    echo "Alla moduler och filer finns."
-fi
+first_assignment="$(echo $FIRST_LINE | cut -c1)"
+other_assignments="$(echo $FIRST_LINE | cut -c3-)"
 
-
-
-# Checks for completion of first assignment
-if [[ $SECOND_LINE = *"... ok"* ]]; then
+# Outputs whether an assignment is solved or not.
+if [[ $first_assignment = "1" ]]; then
     echo "Du har löst uppgift 1."
     POINTS=$((POINTS+20))
 else
     echo "Du har inte löst uppgift 1."
 fi
 
-# Outputs whether an assignment is solved or not.
-for i in `seq 3 6`; do
-    ASSIGNMENT=$(($i-1))
-    if [[ $(cat "$LOG_PATH" | head -$i | tail -1) = *"... ok"* ]]; then
+ASSIGNMENT=1
+for result in $other_assignments; do
+    let ASSIGNMENT+=1
+    if [[ $result = "1" ]]; then
         echo "Du har löst uppgift $ASSIGNMENT."
         POINTS=$((POINTS+10))
     else
