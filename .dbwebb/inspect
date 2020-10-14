@@ -98,7 +98,7 @@ pythonkmom05()
     inspectExerciseHeader "marvin4" "uppgift/din-egen-chattbot-marvin-utslapp" "$KMOM/marvin4"
     inspectCommand "main.py" "$EXEC_DIR/$KMOM/marvin4" "python3 main.py"
     viewFileContent "main.py" "me/$KMOM/marvin4"
-    viewFileContent "marvin.py" "me/$KMOM/marvin4"
+    viewFileContent "emission_functions.py" "me/$KMOM/marvin4"
 }
 
 
