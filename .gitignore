@@ -6,6 +6,8 @@ venv/
 vendor/
 node_modules/
 package-lock.json
+.log/
+exam/
 
 example/sqlite/ping.db
 example/intro-challenge/folder*

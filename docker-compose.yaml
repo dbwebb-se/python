@@ -1,0 +1,35 @@
+version: "3"
+
+volumes:
+    mysql_data: {}
+    mariadb_data: {}
+
+services:
+    # Primary services to use with this course
+    python: &python
+        image: dbwebb/courserepo:python
+        volumes:
+            - ".:/home/dbwebb/repo"
+            - "/home/dbwebb/repo/bin"
+            - "/home/dbwebb/repo/build"
+            - "/home/dbwebb/repo/node_modules"
+            - "/home/dbwebb/repo/vendor"
+            #- "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
+
+    cli:
+        <<: *python
+
+    server:
+        <<: *python
+        ports:
+            - "18080:80"
+
+    courserepo:
+        image: dbwebb/courserepo:cli
+        volumes:
+            - ".:/home/dbwebb/repo"
+            #- "/home/dbwebb/repo/bin"
+            #- "/home/dbwebb/repo/build"
+            #- "/home/dbwebb/repo/node_modules"
+            #- "/home/dbwebb/repo/vendor"
+            #- "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"

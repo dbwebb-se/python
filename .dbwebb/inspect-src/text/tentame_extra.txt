@@ -1,0 +1,8 @@
+## Tenta 2020-03-26
+https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
+
+KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.
+
+AVDRAG -1p Din backupfil ligger på fel plats.
+
+AVDRAG -2p Din backupfil saknar någon konstruktion, jag behövde ladda databasen från SQL-filerna.
