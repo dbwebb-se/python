@@ -8,6 +8,7 @@ node_modules/
 package-lock.json
 .log/
 exam/
+inspect-gui
 
 example/sqlite/ping.db
 example/intro-challenge/folder*

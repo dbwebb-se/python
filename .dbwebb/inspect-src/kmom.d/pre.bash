@@ -25,7 +25,7 @@ printf ">>> -------------- Pre (all kmoms) ----------------------\n"
 # Do different things depending on kmom
 baseMeUrl="$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me"
 
-url="$baseMeUrl/report"
+url="$baseMeUrl/redovisa"
 printf "$url\n" 2>&1
 eval "$BROWSER" "$url" &
 
