@@ -2,14 +2,41 @@
 
 
 
+check_python_version () {
+    command=$1
+    VERSION=$(${command} -V 2>&1 | cut -d\  -f 2) # python 2 prints version to stderr
+    VERSION=(${VERSION//./ }) # make an version parts array 
+    if [[ ${VERSION[0]} -lt 3 ]] || [[ ${VERSION[0]} -eq 3 && ${VERSION[1]} -lt 5 ]] ; then
+        return 1
+    fi
+    return 0
+}
+
+get_python_command () {
+    for cmd in python3 python py py3
+    do
+        check_python_version $cmd
+        if [[ $? -eq 0 ]] ; then
+            py=$cmd
+            return 0
+        fi
+    done
+    echo "Can't find valid Python command. Python 3.5+ needed!"
+    echo "Have tried with python3, python, py and py3"
+    exit 1
+}
+
+
+# Find working python command, sets to variable "py"
+get_python_command
+
+
+
 # Verbose check
 VERBOSE=true
 
 # Text file use by students
 COPY_FILE="value-of-time.txt"
-
-# If available use python3 else python
-python3 --version >/dev/null 2>&1 && py=python3 || py=python
 
 
 
