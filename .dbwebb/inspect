@@ -126,7 +126,7 @@ pythonkmom06()
 pythonkmom10()
 {
     # Updated "exam" when new examination
-    local exam="try3"
+    local exam="try1"
 
     inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/$exam/.dbwebb/" "./correct.bash"
 
@@ -143,7 +143,7 @@ pythonkmom10()
 
 
 #
-# Test checksum for test_dbwebb.py and correct.bash
+# Test checksum for test_exam.py and correct.bash
 #
 pythonexamchecksum()
 {
@@ -158,10 +158,13 @@ pythonexamchecksum()
     # local real_sha="137de528cc2f281b0bd9c091e19d47dc854e5c360be1ef26aa845cc6ba0d94acc2eb1ddfe43f2100" # try3
     # local real_sha="4b9a0dc304c2e3b0fb51e6d2399d535c62f7aa58e6adfa79ab2eab1dae2b87e802e42f2a1bc4c981" # try1
     # local real_sha="083126dc7aa532f01afa46dc8769d031b3b594e69d717aa3b2b7a8d2fd91d4753596d0d1ee26f3ad" # try2
+    # local real_sha="96366da688fe7787ca6731a371055f5a6b7ade8daea35e693dfd0e2bf631cf6f60b67fa9208235cf" # try3
+    
+    local real_sha="d84b8489b2f0b739c39ccd3fdd7a19b99da81825efb5bfc68314897d57e7da0ff5bbf838b05d7450" # try1
 
-    local real_sha="96366da688fe7787ca6731a371055f5a6b7ade8daea35e693dfd0e2bf631cf6f60b67fa9208235cf" # try3
 
-    local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_dbwebb.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
+    
+    local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_exam.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
 
 
 
@@ -177,7 +180,7 @@ pythonexamchecksum()
         echo "Real:  $real_sha"
         echo "Their: $their_sha"
         assert 0 "test" "Command returned non-zero exit status which might indicate failure."
-        viewFileContent "test_dbwebb.py" "me/$KMOM/$exam/.dbwebb"
+        viewFileContent "test_exam.py" "me/$KMOM/$exam/.dbwebb"
         viewFileContent "correct.bash" "me/$KMOM/$exam/.dbwebb"
     fi
 }
