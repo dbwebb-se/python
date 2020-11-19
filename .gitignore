@@ -9,6 +9,7 @@ package-lock.json
 .log/
 exam/
 inspect-gui
+klingochklang/
 
 example/sqlite/ping.db
 example/intro-challenge/folder*
