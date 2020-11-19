@@ -1,8 +1,8 @@
-## Tenta 2020-03-26
-https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
+Som du säkert vet är tentan tyvärr inte godkänd, datum för omtentor kan du hitta under denna länk:
+https://dbwebb.se/kurser/python-v3/kmom10#omexamination
 
-KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.
+Har du några frågor på hur det kommer gå till kan du alltid kontakta oss på Discord eller email.
 
-AVDRAG -1p Din backupfil ligger på fel plats.
+Det är alltid jobbigt att koda under tidspress och vissa dagar fungerar det inte alls. Det är bara att ta nya tag och försöka igen. Tack för din feedback, den är väldigt uppskattat.
 
-AVDRAG -2p Din backupfil saknar någon konstruktion, jag behövde ladda databasen från SQL-filerna.
+Vi önskar dig ett lycka till på omtentan, det kommer säkert att gå bra!
