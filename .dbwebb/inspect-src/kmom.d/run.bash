@@ -4,8 +4,8 @@
 #
 
 # Usage
-if (( $# != 2 )); then
-    printf "Usage: run.bash <kmom_number> <acronym>\n"
+if (( $# != 3 )); then
+    printf "Usage: run.bash <kmom_number> <acronym> <log_docker>\n"
     exit 1
 fi
 
@@ -13,6 +13,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export KMOM="$1"
 export COURSE_REPO="$PWD"
 export ACRONYM="$2"
+export LOG="$( realpath $DIR/../../../$3 )"
+(( $? == 0 )) || exit 2
 
 if [[ ! -d "$DIR/$KMOM" ]]; then
     printf "No such directory '%s'\n" "$DIR/$KMOM"
@@ -21,8 +23,8 @@ fi
 
 MSG_OK="\033[0;30;42mOK\033[0m"
 MSG_DONE="\033[1;37;40mDONE\033[0m"
-#MSG_WARNING="\033[43mWARNING\033[0m"
-MSG_FAILED="\033[0;37;41mFAILED\033[0m"
+export MSG_WARNING="\033[43mWARNING\033[0m"
+export MSG_FAILED="\033[0;37;41mFAILED\033[0m"
 
 
 
@@ -39,6 +41,21 @@ function header {
 function text {
     printf "$@"
 }
+
+#
+# Log to summary
+#
+function doLog {
+    if (( $1 )); then
+        echo "[-] $2" >> "$LOG"
+    else
+        echo "[+] $2" >> "$LOG"
+    fi
+
+    exit $1
+}
+
+export -f doLog
 
 printf "\n"
 header "Start"
