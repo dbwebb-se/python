@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# For the `dbwebb test` kommand - Dbwebb-cli version v2.8.4
+# For the `dbwebb test` command - Dbwebb-cli version v2.8.4
 
 # Setting up
 python3 --version >/dev/null 2>&1 && py=python3 || py=python
