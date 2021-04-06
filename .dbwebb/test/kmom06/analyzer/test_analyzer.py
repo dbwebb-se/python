@@ -12,16 +12,11 @@ from unittest import TextTestRunner
 from exam_test_case import ExamTestCase
 from exam_test_result import ExamTestResult
 from helper_functions import import_module
+from helper_functions import find_path_to_assignment
 
 
-# Calculates the path to the import file - Given it has the same folder structure as the me-folder
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
-FILE_DIR_LIST = FILE_DIR.split("/")
-FILE_DIR_LEN = len(FILE_DIR_LIST) - 1
-FOLDERS_TO_ROOT = FILE_DIR_LEN - FILE_DIR_LIST.index('python')
-COURSE_ROOT = '../' * FOLDERS_TO_ROOT
-KMOM_AND_ASSIGNENT = "/".join(FILE_DIR_LIST[-(FOLDERS_TO_ROOT - 2):])
-REPO_PATH = f"{FILE_DIR}/{COURSE_ROOT}me/{KMOM_AND_ASSIGNENT}"
+REPO_PATH = find_path_to_assignment(FILE_DIR)
 
 if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)

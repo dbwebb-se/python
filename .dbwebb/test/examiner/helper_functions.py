@@ -226,3 +226,17 @@ def import_module(proj_path, module_name):
     module = importer.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+
+def find_path_to_assignment(test_file_location):
+    """
+    Takes a testfiles location and calculates the path to the assignment,
+    given that it has .dbwebb has the same structure as the me folder.
+    """
+    FILE_DIR_LIST = test_file_location.split("/")
+    FILE_DIR_LEN = len(FILE_DIR_LIST) - 1
+    FOLDERS_TO_BACK = FILE_DIR_LEN - FILE_DIR_LIST.index('.dbwebb')
+    COURSE_REPO_ROOT = '../' * (FOLDERS_TO_BACK + 1)
+    KMOM_AND_ASSIGNENT = "/".join(FILE_DIR_LIST[-(FOLDERS_TO_BACK - 1):])
+    return f"{test_file_location}/{COURSE_REPO_ROOT}me/{KMOM_AND_ASSIGNENT}"
