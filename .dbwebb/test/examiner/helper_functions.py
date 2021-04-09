@@ -236,7 +236,7 @@ def find_path_to_assignment(test_file_location):
     """
     FILE_DIR_LIST = test_file_location.split("/")
     FILE_DIR_LEN = len(FILE_DIR_LIST) - 1
-    FOLDERS_TO_BACK = FILE_DIR_LEN - FILE_DIR_LIST.index('.dbwebb')
-    COURSE_REPO_ROOT = '../' * (FOLDERS_TO_BACK + 1)
-    KMOM_AND_ASSIGNENT = "/".join(FILE_DIR_LIST[-(FOLDERS_TO_BACK - 1):])
+    FOLDERS_TO_BACK = FILE_DIR_LEN - FILE_DIR_LIST.index('suite.d')
+    COURSE_REPO_ROOT = '../' * (FOLDERS_TO_BACK + 3)
+    KMOM_AND_ASSIGNENT = "/".join(FILE_DIR_LIST[-(FOLDERS_TO_BACK):])
     return f"{test_file_location}/{COURSE_REPO_ROOT}me/{KMOM_AND_ASSIGNENT}"
