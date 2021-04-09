@@ -28,7 +28,6 @@ main = import_module(REPO_PATH, "main")
 class Test1Files(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
-
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
@@ -42,7 +41,6 @@ class Test1Files(ExamTestCase):
         Testar att din kod är uppdelad i rätt moduler.
         |G|Förväntar att följande modul finns men hittades inte:|/RE|
         {arguments}
-        
         """
         self._argument = "main"
         self.assertIsNotNone(util.find_spec(self._argument))
@@ -115,7 +113,7 @@ class Test3Frequencies(ExamTestCase):
         {correct}
         Fick utskriften:
         {student}
-        """ 
+        """
         self.norepr = True
         with patch('builtins.input', side_effect=["word_frequency", "", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
@@ -145,7 +143,7 @@ class Test3Frequencies(ExamTestCase):
         {correct}
         Fick utskriften:
         {student}
-        """ 
+        """
         self.norepr = True
         with patch('builtins.input', side_effect=["letter_frequency", "", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:
@@ -180,7 +178,7 @@ class Test4All(ExamTestCase):
         {correct}
         Fick utskriften:
         {student}
-        """ 
+        """
         self.norepr = True
         with patch('builtins.input', side_effect=["all", "", "q"]):
             with patch('sys.stdout', new=StringIO()) as fake_out:

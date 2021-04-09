@@ -29,7 +29,6 @@ if REPO_PATH not in sys.path:
 class Test1Plane(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
-
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
     HIGH_VALS = {
@@ -50,7 +49,9 @@ class Test1Plane(ExamTestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Otherwise the .txt files will not be found
+        """
+        To find all relative files that are read or written to.
+        """
         os.chdir(REPO_PATH)
 
     def check_print_contain(self, inp, correct):
