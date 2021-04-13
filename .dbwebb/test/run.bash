@@ -26,13 +26,14 @@ fi
 
 case "$4" in
     "-g" | "--generate" )
-        FILE="generate"
+        FILE="scripts.d/generate"
         ARGS=( ${@:5} )
         ;;
     * ) FILE="run" ;;
 esac
 
 
+
 # Execute the actual runner
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-bash "$DIR/${FILE}.d.bash" "${ARGS[@]:-$@}"
+bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"

@@ -13,6 +13,7 @@
 #
 
 
+
 usage()
 {
     echo "
@@ -28,11 +29,14 @@ Arguments
 }
 
 
+
 # Usage
 if (( $# < 2 )); then
     usage
     exit 1
 fi
+
+
 
 prompt_confirm()
 {
@@ -46,6 +50,8 @@ prompt_confirm()
   done  
 }
 
+
+
 set_base_name()
 {
     BASE_NAME=`basename $WHERE`
@@ -58,6 +64,7 @@ set_base_name()
     ORIGINAL_BASE="$BASE_NAME"
     BASE_NAME="extra${BASE_NAME^}"
 }
+
 
 
 set_output_name()
@@ -74,8 +81,6 @@ set_output_name()
 
 
 
-
-
 main()
 {
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -87,7 +92,7 @@ main()
     set_base_name
     set_output_name
 
-    mkdir -p "$OUTPUT_DIR"
+    [[ -d $OUTPUT_DIR ]] || install -d "$OUTPUT_DIR"
 
     if test -f "$OUTPUT_NAME"; then
         prompt_confirm "The file ${WHERE}/${FILE_NAME} already exists, do you want to override it?" || exit 0
@@ -95,6 +100,7 @@ main()
 
     sed -e "s/\$module/$MODULE/g" -e "s/\$Module/${BASE_NAME^}/g" $TEMPLATE_FILE > $OUTPUT_NAME
 }
+
 
 
 for arg in $*

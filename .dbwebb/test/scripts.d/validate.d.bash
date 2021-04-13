@@ -8,7 +8,6 @@ for opt in $ARGUMENTS; do
     esac
 done;
 
-
 if [ -z $skip ]; then
     header_text="Validation: \"dbwebb validate $TESTSUITE\":"
     VALIDATE_STATUS="$(dbwebb validate $TESTSUITE)"
@@ -16,6 +15,8 @@ if [ -z $skip ]; then
 else
     header_text="Skipped validate .."
 fi
+
+
 
 doLog $? "$header_text
 

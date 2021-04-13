@@ -18,10 +18,10 @@ contains_lab() {
 }
 
 
-DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
-lab_array="$(cat $DBWEBB_MAP | awk '/[\/]lab[0-9]/')"
 
-exec_file="answer.py"
+DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
+lab_array="$(cat $DBWEBB_MAP | awk '/[\/]lab[1-9]/')"
+file_to_exec="answer.py"
 
 for lab in $lab_array; do
     temp_arr=(${lab//\// })
@@ -29,18 +29,19 @@ for lab in $lab_array; do
 
     if [[ $res == "1" ]]; then
         output+="
-Executing $lab/$exec_file ...
+Executing $lab/$file_to_exec ...
 "
         cd $COURSE_REPO_BASE/$lab
-        output+="$(${PYTHON_EXECUTER} ${COURSE_REPO_BASE}/${lab}/${exec_file})
+        output+="$(${PYTHON_EXECUTER} ${COURSE_REPO_BASE}/${lab}/${file_to_exec})
 " || fail=1
     fi
 done;
 
-
 if [[ "$output" == *"Grade: Thou Did Not Pass."* ]]; then
     fail=1
 fi
+
+
 
 doLog $fail "Lab results:
 $output
