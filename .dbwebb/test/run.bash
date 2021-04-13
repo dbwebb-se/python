@@ -14,6 +14,7 @@
 #
 
 
+
 # Usage
 if (( $# < 3 )); then
     printf "Usage: %s <course_dir> <course> <acronym> <test-suite> <optional args...>\n" \
