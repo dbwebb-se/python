@@ -28,11 +28,15 @@ for lab in $lab_array; do
     res="$(contains_lab)"
 
     if [[ $res == "1" ]]; then
+        lab_file="${COURSE_REPO_BASE}/${lab}/${file_to_exec}"
+
         output+="
 Executing $lab/$file_to_exec ...
 "
+        [[ ! -f "$lab_file" ]] && output+="Error, lab is not created."
+
         cd $COURSE_REPO_BASE/$lab
-        output+="$(${PYTHON_EXECUTER} ${COURSE_REPO_BASE}/${lab}/${file_to_exec})
+        output+="$(${PYTHON_EXECUTER} ${lab_file})
 " || fail=1
     fi
 done;
@@ -40,8 +44,6 @@ done;
 if [[ "$output" == *"Grade: Thou Did Not Pass."* ]]; then
     fail=1
 fi
-
-
 
 doLog $fail "Lab results:
 $output

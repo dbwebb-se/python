@@ -10,7 +10,7 @@
 #  <optional args>      Optional arguments
 #
 
-
+. ".dbwebb/test/functions.bash"
 
 # Usage
 if (( $# < 3 )); then
@@ -30,10 +30,10 @@ if [[ -z "$tmp_test_suit" || $tmp_test_suit == -* ]]; then
 fi
 
 
-
 # Prepare configuration
-python3 --version >/dev/null 2>&1 && py=python3 || py=pytho
+get_python_command
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 export PYTHON_EXECUTER=$py
 export EXAMINER_RUNNER="${DIR}/examiner/run_tests.py"
 export COURSE_REPO_BASE="$1"
@@ -49,7 +49,7 @@ LOG_DIR="$COURSE_REPO_BASE/.log/test"
 [[ -d $LOG_DIR ]] || install -d "$LOG_DIR"
 export LOG="$( realpath "$COURSE_REPO_BASE/.log/test/$TESTSUITE.log" )"
 (( $? == 0 )) || exit 2
-> "$LOG"
+> "$LOG" || exit 1
 
 
 
@@ -99,13 +99,8 @@ case "$TESTSUITE" in
     kmom0[1-6]          ) files=($validate $lab $examiner)      ;;
     lab[1-9]            ) files=($validate $lab)                ;;
     *                   )
-        # Exits if invalid "TESTSUITE" for examiner
-        if [ -z $(find "${DIR}/suite.d" -name ${TESTSUITE} -and -type d) ]
-        then
-            printf "'${COURSE}' + '${TESTSUITE}' is not a valid target.\n"
-            exit 1
-        fi
 
+        is_valid_suite
         files=($validate $examiner)
         ;;
 esac
