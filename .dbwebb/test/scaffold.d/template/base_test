@@ -52,17 +52,17 @@ class Test1$Module(ExamTestCase):
 
     '''
     def test_letter_name(self):
-    """
-    Testar DESCRIPTION
-    Förväntar att följande finns med i utskrift:
-    {correct}
-    Fick följande:
-    {student}
-    """
-    self.tags = []
-    self.norepr = True
-    self._argument = "a string"
-    self.assertEqual(self._argument, $module.func_name())
+        """
+        Testar DESCRIPTION
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = []
+        self.norepr = True
+        self._argument = "a string"
+        self.assertEqual(self._argument, $module.func_name())
     '''
 
 
