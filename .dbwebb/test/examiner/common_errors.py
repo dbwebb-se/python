@@ -2,7 +2,7 @@
 Create a method for each type of common error.
 Use common_errors to connect the method to an exception type.
 """
-from helper_functions import COLORS
+from examiner.helper_functions import COLORS
 
 def check_if_common_error(exc_name, tb_exc, _):
     """

@@ -171,6 +171,7 @@ def check_for_tags(msg="Inkluderar inte någon av de givna taggarna"):
                     raise SkipTest(msg)
 
             f(self, *args, **kwargs)
+        wrapper.__wrapped__ = f # used to assert that method has been decorated
         return wrapper
     return decorator
 
@@ -204,7 +205,7 @@ def get_testfiles(root=None, extra_assignments=False):
 
     for dir_ in test_folders:
         tests = []
-        for file in os.listdir(dir_):    
+        for file in os.listdir(dir_):
             if extra_assignments and re.match(extra_test_pattern, file):
                 tests.append((dir_, file[:-3]))
             if re.match(base_test_pattern, file):

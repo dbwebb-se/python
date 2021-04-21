@@ -4,11 +4,11 @@ Custom test collecter, builder and runner used for examining students.
 import io
 import unittest
 from collections import OrderedDict
-from exceptions import ContanctError
-from exam_test_result import ExamTestResult
-from exam_test_case import ExamTestCase
-from cli_parser import parse
-from helper_functions import get_testfiles, import_module
+from examiner.exceptions import ContanctError
+from examiner.exam_test_result import ExamTestResult
+from examiner.exam_test_case import ExamTestCase
+from examiner.cli_parser import parse
+from examiner.helper_functions import get_testfiles, import_module
 
 
 PASS = 1
@@ -16,7 +16,7 @@ NOT_PASS = 0
 ARGS = parse()
 
 
-def get_testcases(assignments, path_and_name):
+def get_testcases(path_and_name):
     """
     Add all TestCases to a list and return.
     """
@@ -31,22 +31,18 @@ def get_testcases(assignments, path_and_name):
         # Should use isinstance. But it return False, don't know why.
         if testClass.__base__ is ExamTestCase:
             testcases.append(testClass)
-            # remove "TestX"
-            assignments[str(attrname)[5:]] = {
-                "pass": NOT_PASS,
-            }
     return testcases
 
 
 
-def build_testsuite(assignments):
+def build_testsuite():
     """
     Create TestSuit with testcases.
     """
 
     suite = unittest.TestSuite()
     for path_and_name in get_testfiles(ARGS.what, ARGS.extra_assignments):
-        testcases = get_testcases(assignments, path_and_name)
+        testcases = get_testcases(path_and_name)
 
         for case in testcases:
             case.USER_TAGS = ARGS.tags
@@ -73,21 +69,24 @@ def run_testcases(suite):
 
 
 
-def check_pass_fail(assignments, result):
+def check_pass_fail(result):
     """
     Mark assignments as Passed if they succeded.
     """
+    assignments = OrderedDict() # OrderedDict used for backwards compability
     for assignment, outcome in result.items():
         if outcome["started"] == outcome["success"]:
-            assignments[assignment]["pass"] = PASS
-
+            assignments[assignment] = PASS
+        else:
+            assignments[assignment] = NOT_PASS
+    return assignments
 
 
 def format_output(output, assignments):
     """
     Print and format test run and which assignments pass/fail.
     """
-    result = " ".join([str(res["pass"]) for res in assignments.values()])
+    result = " ".join([str(res) for res in assignments.values()])
     print(result)
     print(output)
 
@@ -97,11 +96,10 @@ def main():
     """
     Start point of program.
     """
-    assignments = OrderedDict() # OrderedDict used for backwards compability
-    suite = build_testsuite(assignments)
+    suite = build_testsuite()
     output, assignments_results = run_testcases(suite)
-    check_pass_fail(assignments, assignments_results)
-    format_output(output, assignments)
+    assignments_outcome = check_pass_fail(assignments_results)
+    format_output(output, assignments_outcome)
 
 
 

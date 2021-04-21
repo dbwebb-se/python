@@ -3,16 +3,16 @@ Overriding TestCase for exam tool.
 """
 import re
 import unittest
-from exceptions import TestFuncNameError, TestClassNameError
-import helper_functions as hf
+from examiner.exceptions import TestFuncNameError, TestClassNameError
+import examiner.helper_functions as hf
 
 class ExamTestCase(unittest.TestCase):
     """
     Override methods to help customize outputs of testcases.
     """
 
-    ASSIGNMENT_REGEX = r"\.Test[0-9]([A-Z].+)\)"
-    TEST_NAME_REGEX = r"test_[a-z]_(\w+)"
+    ASSIGNMENT_REGEX = r"\.Test[0-9]?([A-Z].+)\)"
+    TEST_NAME_REGEX = r"test(_[a-z])?_(\w+)"
     USER_TAGS = []
 
 
@@ -40,16 +40,15 @@ class ExamTestCase(unittest.TestCase):
             self.assignment = re.search(self.ASSIGNMENT_REGEX, test_string).group(1)
         except AttributeError as e:
             raise TestClassNameError(
-                "Class name for TestCase should follow the structure 'Test<number><words>'. Got '" + test_string + "'"
+                "Class name for TestCase should follow the structure 'Test[<number>]<words>'. Got '" + test_string + "'"
             ) from e
 
         try:
-            self.test_name = re.search(self.TEST_NAME_REGEX, test_string).group(1).replace("_", " ")
+            self.test_name = re.search(self.TEST_NAME_REGEX, test_string).group(2).replace("_", " ")
         except AttributeError as e:
             raise TestFuncNameError(
-                "Test function name should follow the structure 'test_<letter>_<name>' Got '" + test_string + "'"
+                "Test function name should follow the structure 'test[_<letter>]_<name>' Got '" + test_string + "'"
             ) from e
-
 
 
     def set_answers(self, student_answer, correct_answer):
@@ -107,3 +106,14 @@ class ExamTestCase(unittest.TestCase):
         """
         self.set_answers(expr, True)
         super().assertTrue(expr, msg)
+
+
+
+    @hf.check_for_tags()
+    def assertNotIn(self, member, container, msg=None):
+        """
+        Check that the expression is true.
+        Save correct and student answer as to variables.
+        """
+        self.set_answers(container, member)
+        super().assertNotIn(member, container, msg)
