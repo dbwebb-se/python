@@ -51,9 +51,12 @@ class Test1ExtraMarvin1(ExamTestCase):
                 self.assertIn(correct, str_data)
 
 
+
     def test_a_check_letters_valid(self):
         """
         Testar menyval a1
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -61,13 +64,17 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a1"]
         self.norepr = True
-        self._argument = ["A1", "Extemporera", "ropa", "", "q"]
+        self._multi_arguments = ["A1", "Extemporera", "ropa", "", "q"]
 
-        self.check_print_contain(self._argument, "Match!")
+        self.check_print_contain(self._multi_arguments, "Match!")
+
+
 
     def test_b_check_letters_invalid_two(self):
         """
         Testar menyval a1
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -75,14 +82,17 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a1"]
         self.norepr = True
-        self._argument = ["a1", "Extemporera", "ropade", "", "q"]
+        self._multi_arguments = ["a1", "Extemporera", "ropade", "", "q"]
 
-        self.check_print_contain(self._argument, "No match!")
+        self.check_print_contain(self._multi_arguments, "No match!")
+
 
 
     def test_c_multiplier_correct_high(self):
         """
         Testar menyval a2
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -90,13 +100,17 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a2"]
         self.norepr = True
-        self._argument = ["a2", "2", "100", "", "q"]
+        self._multi_arguments = ["a2", "2", "100", "", "q"]
 
-        self.check_print_contain(self._argument, "67 times")
+        self.check_print_contain(self._multi_arguments, "67 times")
+
+
 
     def test_d_multiplier_correct_low(self):
         """
         Testar menyval a2
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -104,13 +118,17 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a2"]
         self.norepr = True
-        self._argument = ["a2", "1234567890", "2", "", "q"]
+        self._multi_arguments = ["a2", "1234567890", "2", "", "q"]
 
-        self.check_print_contain(self._argument, "0 times")
+        self.check_print_contain(self._multi_arguments, "0 times")
+
+
 
     def test_e_multiplier_correct_fail(self):
         """
         Testar menyval a2
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -118,13 +136,17 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a2"]
         self.norepr = True
-        self._argument = ["a2", "555", "5", "", "q"]
+        self._multi_arguments = ["a2", "555", "5", "", "q"]
 
-        self.check_print_contain(self._argument, "-1 times")
+        self.check_print_contain(self._multi_arguments, "-1 times")
+
+
 
     def test_f_tab_to_spaces(self):
         """
         Testar menyval a3
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -132,9 +154,9 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a3"]
         self.norepr = True
-        self._argument = ["a3", "The \tWheel of\tTime\tturns", "", "q"]
+        self._multi_arguments = ["a3", "The \tWheel of\tTime\tturns", "", "q"]
 
-        self.check_print_contain(self._argument,
+        self.check_print_contain(self._multi_arguments,
             "The     Wheel of    Time    turns")
 
 
@@ -142,6 +164,8 @@ class Test1ExtraMarvin1(ExamTestCase):
     def test_g_tab_to_spaces_fail(self):
         """
         Testar menyval a3
+        Använder följande som input:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -149,9 +173,81 @@ class Test1ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a3"]
         self.norepr = True
-        self._argument = ["a3", "An escaped \\ttab", "", "q"]
+        self._multi_arguments = ["a3", "An escaped \\ttab", "", "q"]
 
-        self.check_print_contain(self._argument, "An escaped \\ttab")
+        self.check_print_contain(self._multi_arguments, "An escaped \\ttab")
+
+
+
+    def test_h_concatinate_names(self):
+        """
+        Testar menyval a4
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["a4"]
+        self.norepr = True
+        self._multi_arguments = ["a4", "sheldon", "amy", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "shamy")
+
+
+
+    def test_i_concatinate_names_two(self):
+        """
+        Testar menyval a4
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["a4"]
+        self.norepr = True
+        self._multi_arguments = ["a4", "brad", "angelina", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "brangelina")
+
+
+
+    def test_j_point_per_player(self):
+        """
+        Testar menyval a5
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["a5"]
+        self.norepr = True
+        self._multi_arguments = ["a5", "a2b4A5s3B1", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "a -3, b 3, s 3")
+
+
+
+    def test_k_point_per_player_two(self):
+        """
+        Testar menyval a5
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["a5"]
+        self.norepr = True
+        self._multi_arguments = ["a5", "g3l1H5l2G3l1", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "g 0, l 4, h -5")
 
 
 

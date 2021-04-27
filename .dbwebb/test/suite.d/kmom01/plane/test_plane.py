@@ -47,12 +47,14 @@ class Test1Plane(ExamTestCase):
         "temp": {"input": "-252.454", "correct": "-422.42"}
     }
 
+
     @classmethod
     def setUpClass(cls):
         """
         To find all relative files that are read or written to.
         """
         os.chdir(REPO_PATH)
+
 
     def check_print_contain(self, inp, correct):
         """
@@ -64,9 +66,13 @@ class Test1Plane(ExamTestCase):
                 str_data = fake_out.getvalue()
                 self.assertIn(correct, str_data)
 
+
+
     def test_a_speed_low_value(self):
         """
         Testar kilometer till miles
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -74,12 +80,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["speed"]
         self.norepr = True
-        self._argument = [self.LOW_VALS["speed"]["input"]] * 3
-        self.check_print_contain(self._argument, self.LOW_VALS["speed"]["correct"])
+        self._multi_arguments = [self.LOW_VALS["speed"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.LOW_VALS["speed"]["correct"])
+
+
 
     def test_b_speed_high_values(self):
         """
         Testar kilometer till miles
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -87,13 +97,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["speed"]
         self.norepr = True
-        self._argument = [self.HIGH_VALS["speed"]["input"]] * 3
-        self.check_print_contain(self._argument, self.HIGH_VALS["speed"]["correct"])
+        self._multi_arguments = [self.HIGH_VALS["speed"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.HIGH_VALS["speed"]["correct"])
+
 
 
     def test_c_speed_negative_values(self):
         """
         Testar kilometer till miles
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -101,13 +114,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["speed"]
         self.norepr = True
-        self._argument = [self.NEGATIVE_VALS["speed"]["input"]] * 3
-        self.check_print_contain(self._argument, self.NEGATIVE_VALS["speed"]["correct"])
+        self._multi_arguments = [self.NEGATIVE_VALS["speed"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["speed"]["correct"])
+
 
 
     def test_d_height_low_value(self):
         """
         Testar meter till feet
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -115,12 +131,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["height"]
         self.norepr = True
-        self._argument = [self.LOW_VALS["height"]["input"]] * 3
-        self.check_print_contain(self._argument, self.LOW_VALS["height"]["correct"])
+        self._multi_arguments = [self.LOW_VALS["height"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.LOW_VALS["height"]["correct"])
+
+
 
     def test_e_height_high_values(self):
         """
         Testar meter till feet
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -128,12 +148,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["height"]
         self.norepr = True
-        self._argument = [self.HIGH_VALS["height"]["input"]] * 3
-        self.check_print_contain(self._argument, self.HIGH_VALS["height"]["correct"])
+        self._multi_arguments = [self.HIGH_VALS["height"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.HIGH_VALS["height"]["correct"])
+
+
 
     def test_f_height_negative_values(self):
         """
         Testar meter till feet
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -141,14 +165,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["height"]
         self.norepr = True
-        self._argument = [self.NEGATIVE_VALS["height"]["input"]] * 3
-        self.check_print_contain(self._argument, self.NEGATIVE_VALS["height"]["correct"])
+        self._multi_arguments = [self.NEGATIVE_VALS["height"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["height"]["correct"])
 
 
 
     def test_g_temp_low_value(self):
         """
         Testar celcius till fahrenheit
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -156,12 +182,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["temp"]
         self.norepr = True
-        self._argument = [self.LOW_VALS["temp"]["input"]] * 3
-        self.check_print_contain(self._argument, self.LOW_VALS["temp"]["correct"])
+        self._multi_arguments = [self.LOW_VALS["temp"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.LOW_VALS["temp"]["correct"])
+
+
 
     def test_h_temp_high_values(self):
         """
         Testar celcius till fahrenheit
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -169,12 +199,16 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["temp"]
         self.norepr = True
-        self._argument = [self.HIGH_VALS["temp"]["input"]] * 3
-        self.check_print_contain(self._argument, self.HIGH_VALS["temp"]["correct"])
+        self._multi_arguments = [self.HIGH_VALS["temp"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.HIGH_VALS["temp"]["correct"])
+
+
 
     def test_i_temp_negative_values(self):
         """
         Testar celcius till fahrenheit
+        Använder följande som argument:
+        {arguments}
         Förväntar att följande finns med i utskrift:
         {correct}
         Fick följande:
@@ -182,8 +216,11 @@ class Test1Plane(ExamTestCase):
         """
         self.tags = ["temp"]
         self.norepr = True
-        self._argument = [self.NEGATIVE_VALS["temp"]["input"]] * 3
-        self.check_print_contain(self._argument, self.NEGATIVE_VALS["temp"]["correct"])
+        self._multi_arguments = [self.NEGATIVE_VALS["temp"]["input"]] * 3
+        self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["temp"]["correct"])
+
+
+
 
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
