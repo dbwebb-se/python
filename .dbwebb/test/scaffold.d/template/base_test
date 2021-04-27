@@ -9,10 +9,10 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from exam_test_case import ExamTestCase
-from exam_test_result import ExamTestResult
-from helper_functions import import_module
-from helper_functions import find_path_to_assignment
+from examiner.exam_test_case import ExamTestCase
+from examiner.exam_test_result import ExamTestResult
+from examiner.helper_functions import import_module
+from examiner.helper_functions import find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))

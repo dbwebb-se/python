@@ -9,10 +9,10 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from exam_test_case import ExamTestCase
-from exam_test_result import ExamTestResult
-from helper_functions import import_module
-from helper_functions import find_path_to_assignment
+from examiner.exam_test_case import ExamTestCase
+from examiner.exam_test_result import ExamTestResult
+from examiner.helper_functions import import_module
+from examiner.helper_functions import find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -103,7 +103,7 @@ class Test1Marvin1(ExamTestCase):
         self._argument = ["2", "-252.454", "", "q"]
         self.check_print_contain(self._argument, ["-422.42"])
 
-    
+
     def test_d_word_multiplier(self):
         """
         Testar menyval 3
@@ -321,7 +321,7 @@ class Test1Marvin1(ExamTestCase):
         self.check_print_contain(self._argument, ["1-22-333-4444"])
 
 
-    
+
     def test_p_is_isogram(self):
         """
         Testar menyval 7

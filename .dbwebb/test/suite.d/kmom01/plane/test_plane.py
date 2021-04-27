@@ -8,10 +8,10 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from exam_test_case import ExamTestCase
-from exam_test_result import ExamTestResult
-from helper_functions import import_module
-from helper_functions import find_path_to_assignment
+from examiner.exam_test_case import ExamTestCase
+from examiner.exam_test_result import ExamTestResult
+from examiner.helper_functions import import_module
+from examiner.helper_functions import find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -22,7 +22,7 @@ if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)
 
 # Path to file and basename of the file to import
-# plane = import_module(REPO_PATH, "plane") # Has inputs, use in check_print 
+# plane = import_module(REPO_PATH, "plane") # Has inputs, use in check_print
 
 
 
@@ -76,7 +76,7 @@ class Test1Plane(ExamTestCase):
         self.norepr = True
         self._argument = [self.LOW_VALS["speed"]["input"]] * 3
         self.check_print_contain(self._argument, self.LOW_VALS["speed"]["correct"])
-    
+
     def test_b_speed_high_values(self):
         """
         Testar kilometer till miles
@@ -117,7 +117,7 @@ class Test1Plane(ExamTestCase):
         self.norepr = True
         self._argument = [self.LOW_VALS["height"]["input"]] * 3
         self.check_print_contain(self._argument, self.LOW_VALS["height"]["correct"])
-    
+
     def test_e_height_high_values(self):
         """
         Testar meter till feet
@@ -145,7 +145,7 @@ class Test1Plane(ExamTestCase):
         self.check_print_contain(self._argument, self.NEGATIVE_VALS["height"]["correct"])
 
 
-    
+
     def test_g_temp_low_value(self):
         """
         Testar celcius till fahrenheit
@@ -158,7 +158,7 @@ class Test1Plane(ExamTestCase):
         self.norepr = True
         self._argument = [self.LOW_VALS["temp"]["input"]] * 3
         self.check_print_contain(self._argument, self.LOW_VALS["temp"]["correct"])
-    
+
     def test_h_temp_high_values(self):
         """
         Testar celcius till fahrenheit

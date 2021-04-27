@@ -33,9 +33,8 @@ fi
 # Prepare configuration
 get_python_command
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
 export PYTHON_EXECUTER=$py
-export EXAMINER_RUNNER="${DIR}/examiner/run_tests.py"
+export EXAMINER_RUNNER="examiner.run_tests"
 export COURSE_REPO_BASE="$1"
 export COURSE="$2"
 export ACRONYM="$3"
