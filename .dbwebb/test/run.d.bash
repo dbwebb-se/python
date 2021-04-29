@@ -56,7 +56,8 @@ OPTIONAL
     -t, --tags:    Filters what testcases it should run. If given, it will only
                    run testcases with the same tags. Tags are seperated by a comma (\",\")
                    Example usage: --tags=speed,temp or --tags=height
-            "
+    --trace:       Adds traceback output for assertion errors.
+"
     exit 1
             ;;
     esac
