@@ -22,7 +22,7 @@ if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)
 
 # Path to file and basename of the file to import
-bagpack = import_module(REPO_PATH, 'inventory')
+backpack = import_module(REPO_PATH, 'inventory')
 
 
 
@@ -57,12 +57,14 @@ class Test1Inventory(ExamTestCase):
 
 
         with patch("sys.stdout", new=StringIO()) as fake_out:
-            bagpack.inventory(*self._multi_arguments)
+            return_val = backpack.inventory(*self._multi_arguments)
             str_data = fake_out.getvalue()
 
         for val in self._multi_arguments[0]:
             self.assertIn(val, str_data)
+
         self.assertIn("2", str_data)
+        self.assertEqual(return_val, None)
 
 
 
@@ -82,7 +84,7 @@ class Test1Inventory(ExamTestCase):
 
 
         with patch("sys.stdout", new=StringIO()) as fake_out:
-            bagpack.inventory(*self._multi_arguments)
+            backpack.inventory(*self._multi_arguments)
             str_data = fake_out.getvalue()
 
         for val in self._multi_arguments[0]:
@@ -106,10 +108,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["pick"]
         self._multi_arguments = [bag.copy(), "grass"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.pick(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, ["snow", "sand", "grass"])
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertNotIn("Error", str_data)
 
 
 
@@ -128,10 +133,15 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["pick"]
         self._multi_arguments = [bag.copy(), "snake", "0"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.pick(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, ["snake", "dog", "cat", "bird", "worm"])
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(self._multi_arguments[2], str_data)
+        self.assertNotIn("Error", str_data)
+
 
 
 
@@ -150,12 +160,14 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["pick"]
         self._multi_arguments = [bag.copy(), "snake", "2"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.pick(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, ["dog", "cat", "snake", "bird", "worm"])
-
-
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(self._multi_arguments[2], str_data)
+        self.assertNotIn("Error", str_data)
 
 
     def test_drop_last_element(self):
@@ -173,11 +185,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["drop"]
         self._multi_arguments = [bag.copy(), "worm"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.drop(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.drop(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, ["dog", "cat", "bird"])
-
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertNotIn("Error", str_data)
 
 
     def test_drop_first_element(self):
@@ -196,7 +210,7 @@ class Test1Inventory(ExamTestCase):
         self._multi_arguments = [bag.copy(), "dog"]
 
         with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.drop(bag, *self._multi_arguments[1:])
+            new_bag = backpack.drop(bag, *self._multi_arguments[1:])
 
         self.assertEqual(new_bag, ["cat", "bird", "worm"])
 
@@ -218,9 +232,11 @@ class Test1Inventory(ExamTestCase):
         self._multi_arguments = [bag.copy(), "horse"]
 
         with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.drop(bag, *self._multi_arguments[1:])
+            new_bag = backpack.drop(bag, *self._multi_arguments[1:])
+
 
         self.assertEqual(new_bag, ["dog", "cat", "bird", "worm"])
+
 
 
 
@@ -239,10 +255,16 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["swap"]
         self._multi_arguments = [bag.copy(), "windows", "linux"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
+
 
         self.assertEqual(new_bag, ["linux", "mac", "windows"])
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(self._multi_arguments[2], str_data)
+        self.assertNotIn("Error", str_data)
+
 
 
 
@@ -261,10 +283,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["swap"]
         self._multi_arguments = [bag.copy(), "mac", "mac"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, bag)
+        self.assertNotIn("Error", str_data)
+
 
 
 
@@ -284,7 +309,7 @@ class Test1Inventory(ExamTestCase):
         self._multi_arguments = [bag.copy(), "other", "mac"]
 
         with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
 
         self.assertEqual(new_bag, ["windows", "mac", "other", "linux"])
 
@@ -304,10 +329,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["error"]
         self._multi_arguments = [bag.copy(), "more", 2]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.pick(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn("Error", str_data)
+        self.assertIn(str(self._multi_arguments[2]), str_data)
 
 
 
@@ -325,10 +353,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["error"]
         self._multi_arguments = [bag.copy(), "bread"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.drop(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.drop(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn("Error", str_data)
+        self.assertIn(self._multi_arguments[1], str_data)
 
 
     
@@ -346,10 +377,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["error"]
         self._multi_arguments = [bag.copy(), "bread"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.drop(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.drop(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn("Error", str_data)
+        self.assertIn(self._multi_arguments[1], str_data)
 
 
 
@@ -367,10 +401,15 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["error"]
         self._multi_arguments = [bag.copy(), "bread", "butter"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
+
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn("Error", str_data)
+        self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(self._multi_arguments[2], str_data)
 
 
 
@@ -388,10 +427,13 @@ class Test1Inventory(ExamTestCase):
         self.tags = ["error"]
         self._multi_arguments = [bag.copy(), "bread", "butter"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
+
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn(self._multi_arguments[1], str_data)
 
 
 
@@ -410,7 +452,7 @@ class Test1Inventory(ExamTestCase):
         self._multi_arguments = [bag.copy(), "butter", "butter"]
 
         with patch("sys.stdout", new=StringIO()) as _:
-            new_bag = bagpack.swap(bag, *self._multi_arguments[1:])
+            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
 
         self.assertEqual(new_bag, self._multi_arguments[0])
 
