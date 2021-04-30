@@ -22,6 +22,7 @@ if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)
 
 # Path to file and basename of the file to import
+main = import_module(REPO_PATH, 'main')
 marvin = import_module(REPO_PATH, 'marvin')
 
 
@@ -50,6 +51,23 @@ class Test1Marvin1Functions(ExamTestCase):
                 str_data = fake_out.getvalue()
                 for val in correct:
                     self.assertIn(val, str_data)
+
+
+
+    def test_main(self):
+        """
+        Testar att anropa menyvalen 1 och 7 via main funktionen i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["1", "7", "marvin1"]
+        self.norepr = True
+        self._multi_arguments = ["1", "dbwebb är bäst", "", "7", "sirapigt", "", "q"]
+        self.check_print_contain(self._multi_arguments, ["dbwebb är bäst", "No match!"], main.main)
 
 
 
