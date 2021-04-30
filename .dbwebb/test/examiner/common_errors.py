@@ -2,7 +2,10 @@
 Create a method for each type of common error.
 Use common_errors to connect the method to an exception type.
 """
+from examiner.cli_parser import parse
 from examiner.helper_functions import COLORS
+
+ARGS = parse()
 
 def check_if_common_error(exc_name, tb_exc, _):
     """
@@ -13,6 +16,9 @@ def check_if_common_error(exc_name, tb_exc, _):
     common_errors = {
         "StopIteration": [
             wrong_nr_of_input_calls,
+        ],
+        "AssertionError": [
+            assertion_traceback,
         ],
     }
     try:
@@ -39,4 +45,16 @@ def wrong_nr_of_input_calls(tb_exc):
         if "mock_call" in tb_exc.stack[-2].line:
             if "result = next(effect)" in tb_exc.stack[-1].line:
                 return help_msg
+    return ""
+
+
+
+def assertion_traceback(tb_exc):
+    """
+    Check if the exception match where the student make to many input() calls.
+    """
+    if ARGS.trace_assertion_error:
+        traceback = "\n".join(list(tb_exc.format())).split("AssertionError:")[0]
+
+        return COLORS["M"] + "\n" + traceback + COLORS["RE"]
     return ""

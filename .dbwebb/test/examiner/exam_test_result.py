@@ -44,19 +44,22 @@ class ExamTestResult(TextTestResult):
         #----------------------
         # here starts the interesting code, which we changed. If test failed
         # because of wrong answer from student
+        tb_e = traceback.TracebackException(
+            exctype, value, tb, limit=None, capture_locals=self.tb_locals)
+        help_msg = common_errors.check_if_common_error(exctype.__name__, tb_e, value)
+
         if exctype is test.failureException:
             function_args = hf.get_function_args(test)
+
             msgLines = hf.create_fail_msg(
                 function_args,
                 test
             )
         else:
-            tb_e = traceback.TracebackException(
-                exctype, value, tb, limit=None, capture_locals=self.tb_locals)
             msgLines = list(tb_e.format())
-            help_msg = common_errors.check_if_common_error(exctype.__name__, tb_e, value)
-            if help_msg:
-                msgLines.append(help_msg)
+
+        if help_msg:
+            msgLines.append(help_msg)
         #---------------------
 
         if self.buffer:
