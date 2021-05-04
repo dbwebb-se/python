@@ -27,7 +27,6 @@ main = import_module(REPO_PATH, 'main')
 marvin = import_module(REPO_PATH, 'marvin')
 
 
-
 class Test2Marvin2NewMenus(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
@@ -60,7 +59,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Testar att anropa menyval 8 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
         {correct}
         Fick följande:
         {student}
@@ -68,6 +67,13 @@ class Test2Marvin2NewMenus(ExamTestCase):
         string = "Borde inte bli samma igen"
         self.tags = ["8", "marvin2"]
         self._multi_arguments = ["8", string, "", "q"]
+
+        arguments = set(self.USER_TAGS)
+        if arguments:
+            test_case_tags = set(self.tags)
+            if not arguments.intersection(test_case_tags):
+                raise unittest.SkipTest("Inkluderar inte någon av de givna taggarna")
+
 
         with patch("builtins.input", side_effect=self._multi_arguments):
             with patch("sys.stdout", new=StringIO()) as fake_out:
@@ -77,8 +83,9 @@ class Test2Marvin2NewMenus(ExamTestCase):
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
-        self.student_answer = str_data
-        self.correct_answer = string
+        self.student_answer = repr(str_data)
+        self.correct_answer = repr(string)
+
 
         try:
             rnd_str = re.search(pattern, str_data)[1]
@@ -86,8 +93,6 @@ class Test2Marvin2NewMenus(ExamTestCase):
             raise AssertionError
         if string == rnd_str or sorted(string) != sorted(rnd_str):
             raise AssertionError
-        self.assertNotEqual(string, rnd_str)
-        self.assertEqual(sorted(string), sorted("rnd_str"))
 
 
 
@@ -96,7 +101,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Testar att anropa randomize_string via marvin.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
         {correct}
         Fick följande:
         {student}
@@ -104,6 +109,13 @@ class Test2Marvin2NewMenus(ExamTestCase):
         string = "MedSiffror1234567890"
         self.tags = ["8", "marvin2"]
         self._multi_arguments = [string]
+
+        arguments = set(self.USER_TAGS)
+        if arguments:
+            test_case_tags = set(self.tags)
+            if not arguments.intersection(test_case_tags):
+                raise unittest.SkipTest("Inkluderar inte någon av de givna taggarna")
+
 
         with patch("builtins.input", side_effect=self._multi_arguments):
             with patch("sys.stdout", new=StringIO()) as fake_out:
@@ -114,7 +126,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
         self.student_answer = str_data
-        self.correct_answer = string
+        self.correct_answer = repr(string)
 
         try:
             rnd_str = re.search(pattern, str_data)[1]
