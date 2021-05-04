@@ -3,6 +3,7 @@ Overriding TestCase for exam tool.
 """
 import re
 import unittest
+import importlib
 from examiner.exceptions import TestFuncNameError, TestClassNameError
 import examiner.helper_functions as hf
 
@@ -117,3 +118,36 @@ class ExamTestCase(unittest.TestCase):
         """
         self.set_answers(container, member)
         super().assertNotIn(member, container, msg)
+
+    @hf.check_for_tags()
+    def assertModule(self, module, module_path=None, msg=None):
+        """
+        Check that module can be imported.
+        Save correct and student answer as to variables.
+        """
+        self.set_answers(module_path, module)
+        if module_path is None:
+            if importlib.util.find_spec(module) is None:
+                msg = self._formatMessage(msg, f"{module} not as standard import")
+                raise self.failureException(msg)
+        else:
+            try:
+                hf.import_module(module_path, module)
+            except FileNotFoundError:
+                msg = self._formatMessage(msg, f"{module} not found in path {module_path}")
+                raise self.failureException(msg)
+
+
+
+    @hf.check_for_tags()
+    def assertAttribute(self, obj, attr, msg=None):
+        """
+        Check that object has attribute.
+        Save correct and student answer as to variables.
+        """
+        self.set_answers(obj, attr)
+        try:
+            getattr(obj, attr)
+        except AttributeError:
+            msg = self._formatMessage(msg, f"attribute {attr} not found in object {obj}")
+            raise self.failureException(msg)
