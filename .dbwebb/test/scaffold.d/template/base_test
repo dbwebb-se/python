@@ -62,7 +62,7 @@ class Test1$Module(ExamTestCase):
         {student}
         """
         self.tags = []
-        self.norepr = True
+        # self.norepr = True
         self._multi_arguments = "a string"
         self.assertEqual(self._argument, $module.func_name())
     '''
