@@ -26,7 +26,7 @@ if REPO_PATH not in sys.path:
 
 
 
-class Test1Plane(ExamTestCase):
+class Test2Plane(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases

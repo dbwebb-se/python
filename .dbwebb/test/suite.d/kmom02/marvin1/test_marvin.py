@@ -21,12 +21,9 @@ REPO_PATH = find_path_to_assignment(FILE_DIR)
 if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)
 
-# Path to file and basename of the file to import
-# marvin = import_module(REPO_PATH, 'marvin')
 
 
-
-class Test1Marvin1(ExamTestCase):
+class Test2Marvin1(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
@@ -67,7 +64,7 @@ class Test1Marvin1(ExamTestCase):
 
     def test_a_greeting_includes_name(self):
         """
-        Testar menyval 1
+        Testar menyval 1 och q
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -82,9 +79,9 @@ class Test1Marvin1(ExamTestCase):
 
 
 
-    def test_b_temperature_high(self):
+    def test_temperature_high(self):
         """
-        Testar menyval 2
+        Testar att anropa menyval 2 med ett positivt värde.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -99,9 +96,9 @@ class Test1Marvin1(ExamTestCase):
 
 
 
-    def test_c_temperature_low(self):
+    def test_temperature_low(self):
         """
-        Testar menyval 2
+        Testar att anropa menyval 2 med ett negativt värde.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -116,9 +113,9 @@ class Test1Marvin1(ExamTestCase):
 
 
 
-    def test_d_word_multiplier(self):
+    def test_word_multiplier(self):
         """
-        Testar menyval 3
+        Testar att anropa menyval 3.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -139,7 +136,7 @@ class Test1Marvin1(ExamTestCase):
 
 
 
-    def test_e_word_multiplier_two(self):
+    def test_word_multiplier_two(self):
         """
         Testar menyval 3
         Använder följande som input:

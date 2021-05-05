@@ -21,12 +21,9 @@ REPO_PATH = find_path_to_assignment(FILE_DIR)
 if REPO_PATH not in sys.path:
     sys.path.insert(0, REPO_PATH)
 
-# Path to file and basename of the file to import
-# marvin = import_module(REPO_PATH, 'marvin')
 
 
-
-class Test1ExtraMarvin1(ExamTestCase):
+class Test3ExtraMarvin1(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
