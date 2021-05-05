@@ -26,7 +26,7 @@ backpack = import_module(REPO_PATH, 'inventory')
 
 
 
-class Test1Inventory(ExamTestCase):
+class Test2InventoryFunctions(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
@@ -43,7 +43,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_inventory(self):
         """
-        Testar inv kommandot
+        Testar att anropa inventory funktionen.
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -70,7 +70,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_inventory_again(self):
         """
-        Testar inv kommandot
+        Testar att anropa inventory funktionen.
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -95,7 +95,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_pick_with_no_index(self):
         """
-        Testar pick kommandot utan index
+        Testar att lägga till ett värde utan att ange ett index
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -120,7 +120,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_pick_at_the_beginning(self):
         """
-        Testar pick kommandot
+        Testar att lägga till ett nytt värdet i början av listan
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -147,7 +147,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_pick_in_the_middle(self):
         """
-        Testar pick kommandot
+        Testar att lägga till ett nytt värdet i mitten av listan
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -172,7 +172,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_drop_last_element(self):
         """
-        Testar drop kommandot
+        Testar att ta bort listans sista värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -196,7 +196,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_drop_first_element(self):
         """
-        Testar drop kommandot
+        Testar att kasta bort listans första värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -218,7 +218,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_drop_middle_element(self):
         """
-        Testar drop kommandot
+        Testar att kasta bort listans mittersta värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -242,7 +242,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_swap_first_and_last(self):
         """
-        Testar swap kommandot
+        Testar att byta plats på på listans första och sista värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -270,7 +270,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_swap_items_with_same_name(self):
         """
-        Testar swap kommandot
+        Testar att byta plats på de identiska namn
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -295,7 +295,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_swap_middle_elements(self):
         """
-        Testar swap kommandot
+        Testar att byta plats på de två mittersta värden i listan
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -317,7 +317,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_error_on_pick_high_index(self):
         """
-        Testar pick kommandot
+        Testar att lägga till ett värde när användaren anger ett för högt index
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -341,7 +341,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_error_on_drop_empty_bag(self):
         """
-        Testar drop kommandot
+        Testar drop kommandot på ett ike existerande värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -365,7 +365,7 @@ class Test1Inventory(ExamTestCase):
     
     def test_error_on_drop_with_items(self):
         """
-        Testar drop kommandot
+        Testar drop kommandot på en tom lista
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -389,7 +389,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_error_on_swap_empty_bag(self):
         """
-        Testar swap kommandot
+        Testar swap kommandot på en tom lista
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -415,7 +415,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_error_on_swap(self):
         """
-        Testar swap kommandot
+        Testar att byta plats på ett existerande och ike existerande värde
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -439,7 +439,7 @@ class Test1Inventory(ExamTestCase):
 
     def test_error_on_swap_same_name(self):
         """
-        Testar swap kommandot
+        Testar att byta plats på två likadana värden som bara existerar en gång
         Använder följande som argument:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -455,6 +455,7 @@ class Test1Inventory(ExamTestCase):
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
 
         self.assertEqual(new_bag, self._multi_arguments[0])
+
 
 
 

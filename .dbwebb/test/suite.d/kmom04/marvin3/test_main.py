@@ -26,7 +26,7 @@ main = import_module(REPO_PATH, 'main')
 
 
 
-class Test2Marvin3(ExamTestCase):
+class Test3Marvin3Main(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
@@ -69,7 +69,7 @@ class Test2Marvin3(ExamTestCase):
 
     def test_inv_command_empty(self):
         """
-        Testar inv kommandot
+        Testar att anropa 'inv kommandot' i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -87,7 +87,7 @@ class Test2Marvin3(ExamTestCase):
 
     def test_pick_command(self):
         """
-        Testar pick kommandot
+        Testar att anropa 'inv pick' med och utan index.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -97,7 +97,7 @@ class Test2Marvin3(ExamTestCase):
         """
         self.tags = ["menu"]
         self.norepr = True
-        self._multi_arguments = Test2Marvin3.PICKUP + [
+        self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv pick bike 1", "", "q"
         ]
 
@@ -109,7 +109,7 @@ class Test2Marvin3(ExamTestCase):
 
     def test_pick_and_drop(self):
         """
-        Testar pick och drop kommandot
+        Testar både 'inv pick' och 'inv drop' kommandon.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -119,7 +119,7 @@ class Test2Marvin3(ExamTestCase):
         """
         self.tags = ["menu"]
         self.norepr = True
-        self._multi_arguments = Test2Marvin3.PICKUP + [
+        self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv drop car", "", "q"
         ]
 
@@ -130,7 +130,7 @@ class Test2Marvin3(ExamTestCase):
 
     def test_pick_and_drop_error(self):
         """
-        Testar pick och drop kommandot
+        Testar 'inv drop' på ett ike existerande värde.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -140,7 +140,7 @@ class Test2Marvin3(ExamTestCase):
         """
         self.tags = ["menu"]
         self.norepr = True
-        self._multi_arguments = Test2Marvin3.PICKUP + [
+        self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv drop bike", "", "q"
         ]
 
@@ -151,7 +151,7 @@ class Test2Marvin3(ExamTestCase):
 
     def test_pick_and_swap(self):
         """
-        Testar pick och drop kommandot
+        Testar 'inv pickä och 'inv swap' kommandot
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -161,7 +161,7 @@ class Test2Marvin3(ExamTestCase):
         """
         self.tags = ["menu"]
         self.norepr = True
-        self._multi_arguments = Test2Marvin3.PICKUP + [
+        self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv swap car house", "", "q"
         ]
 
@@ -182,12 +182,15 @@ class Test2Marvin3(ExamTestCase):
         """
         self.tags = ["menu"]
         self.norepr = True
-        self._multi_arguments = Test2Marvin3.PICKUP + [
+        self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv swap bike house", "", "q"
         ]
 
         self.check_print_contain(self._multi_arguments, ["bike"])
         self.check_print_contain(self._multi_arguments, ["Error"])
+
+
+
 
 
 if __name__ == '__main__':
