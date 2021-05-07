@@ -5,7 +5,7 @@ There is one dictionary for each year of emission data, emission_1990, emission_
 Each dictionary contain a key and value pair.
 The key is an integer id that can be connected to a country in the dictionary "country_data".
 The value is that countries CO2 emission (in megatonnes) for that year, 1990, 2005 or 2017 depending on
-the variable with corresponding name. 
+the variable with corresponding name.
 
 Example:
 emission_1990 = {
@@ -17,20 +17,20 @@ emission_1990 = {
 
 The variable `country_data` is a nested dictionary, meaning a dictionary inside a dictionary.
 Each countries data is a dictionary inside the dictionary. The country name is the key and the value is
-a dictionary that has the follwing keys id, area and population. "id" is used to connect the key from 
-the emission dictionaries to a country. "area" is the countries area in KM2 and population is a 
+a dictionary that has the follwing keys id, area and population. "id" is used to connect the key from
+the emission dictionaries to a country. "area" is the countries area in KM2 and population is a
 tuple with three elements. The first element is the population data for 1990, second is for 2005 and
 the last is for 2017.
 
 Example:
 country_data = {
-    'Afghanistan': 
+    'Afghanistan':
     {
         'area': 652864.0,
         'id': 0,
         'population': (12412311, 25654274, 36296111)
     },
-    'Albania': 
+    'Albania':
     {
         'area': 28748.0,
         'id': 1,
@@ -41,7 +41,7 @@ country_data = {
 
 
 Sources:
-emission data: 
+emission data:
     https://en.wikipedia.org/wiki/List_of_countries_by_carbon_dioxide_emissions#Fossil_CO2_emissions_by_country/region
 Country area: https://en.wikipedia.org/wiki/List_of_countries_by_population_in_2015
 Population size:
