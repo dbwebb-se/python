@@ -153,10 +153,11 @@ printf "$(header "Test summary")
 $summary\n" >> "$LOG"
 
 # Printing the output
+RESULTS=$(cat $LOG)
 printf "
 $(header "LOG")
-$(cat $LOG)
-
+"
+printf '%s\n' "${RESULTS}
 --------------------------------------------
 Saved a log of the test output: less -R '$LOG'\n
 "
