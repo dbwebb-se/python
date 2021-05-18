@@ -161,7 +161,7 @@ class ExamTestResult(TextTestResult):
 
         self.startTestBase()
 
-        MAX_TEST_FUNCNAME_LEN = 25
+        MAX_TEST_FUNCNAME_LEN = 40
         TEST_INDENT = 4
 
         indent = " " * TEST_INDENT

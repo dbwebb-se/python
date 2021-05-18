@@ -170,7 +170,7 @@ def check_for_tags(msg="Inkluderar inte någon av de givna taggarna"):
                 if not arguments.intersection(test_case_tags):
                     raise SkipTest(msg)
 
-            f(self, *args, **kwargs)
+            return f(self, *args, **kwargs)
         wrapper.__wrapped__ = f # used to assert that method has been decorated
         return wrapper
     return decorator

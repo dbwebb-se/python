@@ -151,3 +151,13 @@ class ExamTestCase(unittest.TestCase):
         except AttributeError:
             msg = self._formatMessage(msg, f"attribute {attr} not found in object {obj}")
             raise self.failureException(msg)
+
+
+
+    @hf.check_for_tags()
+    def assertRaises(self, expected_exception, *args, **kwargs):
+        """
+        assertRaises is a context and therefore we need to return it
+        """
+        self.set_answers("", expected_exception)
+        return super().assertRaises(expected_exception, *args, **kwargs)

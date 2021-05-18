@@ -51,10 +51,10 @@ def wrong_nr_of_input_calls(tb_exc):
 
 def assertion_traceback(tb_exc):
     """
-    Check if the exception match where the student make to many input() calls.
+    Catch errors if --trace flag is set
     """
     if ARGS.trace_assertion_error:
-        traceback = "\n".join(list(tb_exc.format())).split("AssertionError:")[0]
+        traceback = "\n".join(list(tb_exc.format()))
 
         return COLORS["M"] + "\n" + traceback + COLORS["RE"]
     return ""
