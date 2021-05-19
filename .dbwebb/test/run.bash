@@ -23,12 +23,17 @@ if (( $# < 3 )); then
 fi
 
 
-
+#echo $*
 case "$4" in
     "-g" | "--generate" )
         FILE="scripts.d/generate"
         ARGS=( ${@:5} )
         ;;
+    "--docker" )
+        FILE="scripts.d/docker"
+        ARGS=( ${@:5} )
+        ;;
+
     * ) FILE="run" ;;
 esac
 
