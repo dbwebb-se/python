@@ -176,3 +176,21 @@ class ExamTestCase(unittest.TestCase):
         """
         self.set_answers(first, second)
         super().assertCountEqual(first, second, msg)
+
+
+
+    @hf.check_for_tags()
+    def assertOrder(self, order, container, msg=None):
+        """
+        Check that in index of elements in order are lowest to highest in container.
+        Save correct and student answer as to variables.
+        """
+        self.set_answers(container, order)
+
+        try:
+            for i in range(len(order)-1):
+                if not container.index(order[i]) < container.index(order[i+1]):
+                    raise ValueError
+        except ValueError:
+            msg = self._formatMessage(msg, f"Index of elemnts in {order} don't appear in coirrect order in {container}")
+            raise self.failureException(msg)
