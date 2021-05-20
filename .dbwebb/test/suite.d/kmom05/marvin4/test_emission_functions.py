@@ -67,7 +67,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Men inget lyftes!
         {student}
         """
-        self.tags = ["12", "func"]
+        self.tags = ["12", "search_func"]
         self.norepr = True
         self._argument = "Atlantis"
         with self.assertRaises(ValueError):
@@ -85,10 +85,10 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.tags = ["12", "func"]
+        self.tags = ["12", "search_func"]
         self.norepr = True
         self._argument = "we"
-        self.assertEqual(em.search_country(self._argument), ['Sweden', 'Western Sahara', 'Zimbabwe'])
+        self.assertCountEqual(em.search_country(self._argument), ['Sweden', 'Western Sahara', 'Zimbabwe'])
 
 
 
@@ -102,7 +102,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.tags = ["12", "func"]
+        self.tags = ["12", "search_func"]
         self.norepr = True
         self._argument = "Denmark"
         self.assertEqual(em.search_country(self._argument), ['Denmark'])
@@ -120,7 +120,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Men det felet lyftes inte!
         {student}
         """
-        self.tags = ["func", "13"]
+        self.tags = ["change_func", "13"]
         self.norepr = True
         self._multi_arguments = ["Dominica", "2021"]
         with self.assertRaises(ValueError):
@@ -138,7 +138,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.tags = ["func", "13"]
+        self.tags = ["change_func", "13"]
         self.norepr = True
         self._multi_arguments = ["Dominica", "2017"]
         self.assertEqual(em.get_country_year_data_megatonnes(*self._multi_arguments), 122000.0)
@@ -155,10 +155,10 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.tags = ["func", "13"]
+        self.tags = ["change_func", "13"]
         self.norepr = True
         self._multi_arguments = ["China", "1990", "2017"]
-        self.assertEqual(em.get_country_change_for_years(*self._multi_arguments), 3.54)
+        self.assertEqual(em.get_country_change_for_years(*self._multi_arguments), 353.78)
 
 
 
@@ -172,7 +172,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Men det lyftes inte!
         {student}
         """
-        self.tags = ["func", "13"]
+        self.tags = ["change_func", "13"]
         self.norepr = True
         self._multi_arguments = ["China", "1000", "2017"]
         with self.assertRaises(ValueError):
@@ -200,7 +200,7 @@ class Test2EmissionFunctions(ExamTestCase):
                 '1990': {'emission': 3000.0, 'population': None},
                 '2005': {'emission': 631000.0, 'population': None},
                 '2017': {'emission': 518000.0, 'population': None},
-                'emission_change': (209.33, -0.18)
+                'emission_change': (20933.33, -17.91)
             }
         )
 
@@ -216,7 +216,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.tags = ["14", "func"]
+        self.tags = ["14", "data_func"]
         self.norepr = True
         self._argument = "United States of America"
         self.assertEqual(
@@ -226,7 +226,7 @@ class Test2EmissionFunctions(ExamTestCase):
                 '1990': {'emission': 5085897000.0, 'population': 252120309},
                 '2005': {'emission': 5971571000.0, 'population': 294993509},
                 '2017': {'emission': 5107393000.0, 'population': 325084758},
-                'emission_change': (0.17, -0.14)
+                'emission_change': (17.41, -14.47)
             }
         )
 
@@ -243,7 +243,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande skrevs ut:
         {student}
         """
-        self.tags = ["14", "func", "print"]
+        self.tags = ["14", "data_func"]
         self.norepr = True
         self._argument = {
             'name': 'Palau',

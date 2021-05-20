@@ -63,7 +63,7 @@ class Test3Marvin4Menu(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["12", "menu"]
+        self.tags = ["12", "search_menu"]
         self.norepr = True
         self._multi_arguments = ["12", "X", "", "q"]
 
@@ -81,7 +81,7 @@ class Test3Marvin4Menu(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["12", "menu"]
+        self.tags = ["12", "search_menu"]
         self.norepr = True
         self._multi_arguments = ["12", "Hoppalotjingien", "", "q"]
 
@@ -99,11 +99,11 @@ class Test3Marvin4Menu(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["13", "menu"]
+        self.tags = ["13", "change_menu"]
         self.norepr = True
         self._multi_arguments = ["13", "Hong Kong,2017,1990", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, ["Hong Kong:-0.24%"])
+        self.check_print_contain(self._multi_arguments, ["Hong Kong:-23.56%"])
 
 
 
@@ -117,12 +117,11 @@ class Test3Marvin4Menu(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["13", "menu"]
+        self.tags = ["13", "change_menu"]
         self.norepr = True
         self._multi_arguments = ["13", "Iceland,1990,2999", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Wrong year!"])
-
 
 
 
@@ -136,7 +135,7 @@ class Test3Marvin4Menu(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["14", "menu"]
+        self.tags = ["14", "data_menu"]
         self.norepr = True
         self._multi_arguments = ["14", "Kyrgyzstan", "", "q"]
 
@@ -146,8 +145,8 @@ class Test3Marvin4Menu(ExamTestCase):
             "1990: 23696000.0",
             "2005: 5475000.0",
             "2017: 11180000.0",
-            "1990-2005: -0.77%",
-            "2005-2017: 1.04%",
+            "1990-2005: -76.89%",
+            "2005-2017: 104.2%",
             "1990: 4372885",
             "2005: 5075340",
             "2017: 6189727",
