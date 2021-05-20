@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+HEADER="scripts.d/$( basename -- "$0" ) start"
+FOOTER="scripts.d/$( basename -- "$0" ) end"
+
 for opt in $ARGUMENTS; do
     case $opt in
         "--no-validate" )
@@ -12,13 +15,17 @@ if [ -z $skip ]; then
     header_text="Validation: \"dbwebb validate $TESTSUITE\":"
     VALIDATE_STATUS="$(dbwebb validate $TESTSUITE)"
 
+doLog $? "$HEADER
+
+Validation: \"dbwebb validate $TESTSUITE\":
+${VALIDATE_STATUS}
+
+$FOOTER
+"
+
 else
-    header_text="Skipped validate .."
-fi
-
-
-
-doLog $? "$header_text
+doLog 0 "Skipped validate ..
 
 ${VALIDATE_STATUS}
 "
+fi

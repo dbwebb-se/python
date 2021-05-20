@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+HEADER="scripts.d/$( basename -- "$0" ) start"
+FOOTER="scripts.d/$( basename -- "$0" ) end"
+
 fail=0
 
 contains_lab() {
@@ -16,7 +19,6 @@ contains_lab() {
     echo "0"
     return
 }
-
 
 
 DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
@@ -45,6 +47,7 @@ if [[ "$output" == *"Grade: Thou Did Not Pass."* ]]; then
     fail=1
 fi
 
-doLog $fail "Lab results:
+doLog $fail "$HEADER
 $output
+$FOOTER
 "
