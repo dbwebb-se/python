@@ -161,3 +161,18 @@ class ExamTestCase(unittest.TestCase):
         """
         self.set_answers("", expected_exception)
         return super().assertRaises(expected_exception, *args, **kwargs)
+
+
+
+    @hf.check_for_tags()
+    def assertCountEqual(self, first, second, msg=None):
+        """Asserts that two iterables have the same elements, the same number of
+        times, without regard to order.
+            self.assertEqual(Counter(list(first)),
+                             Counter(list(second)))
+         Example:
+            - [0, 1, 1] and [1, 0, 1] compare equal.
+            - [0, 0, 1] and [0, 1] compare unequal.
+        """
+        self.set_answers(first, second)
+        super().assertCountEqual(first, second, msg)
