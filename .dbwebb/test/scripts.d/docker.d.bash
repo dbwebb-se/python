@@ -2,7 +2,7 @@
 #
 # Docker script for dbwebb test - Python.
 #
-VERSION="v0.0.1 (2021-05-18)"
+VERSION="v1.0.0 (2021-05-20)"
 
 # Messages
 MSG_FAILED="\033[0;37;41mFAILED\033[0m"
@@ -36,6 +36,7 @@ input()
     read -r -p "$1: "
     echo "${REPLY:-$2}"
 }
+
 
 
 #
@@ -93,7 +94,6 @@ potatoe()
 
     acronym=$( input "Uppdatera rättigheterna för denna student?" "$1" )
     dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym $course"
-    #dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym"
 }
 
 
@@ -124,7 +124,6 @@ function sourceCourseRepoFile
 {
     DBW_COURSE_FILE="$DBW_COURSE_DIR/$DBW_COURSE_FILE_NAME"
     if [ -f "$DBW_COURSE_FILE" ]; then
-        # shellcheck source=$DBW_COURSE_DIR/$DBW_COURSE_FILE_NAME
         source "$DBW_COURSE_FILE"
     fi
 }
@@ -177,6 +176,7 @@ export LOG_DOCKER="$DIR/$LOG_DOCKER_REL"
 LOGFILE="$LOG_BASE_DIR/main.ansi"
 LOGFILE_TEST="$LOG_BASE_DIR/test-results.ansi"
 LOGFILE_VALIDATE="$LOG_BASE_DIR/validation-results.ansi"
+LOGFILE_INCORRECT="$LOG_BASE_DIR/incorrect-results.ansi"
 
 
 # OS specific default settings
@@ -300,7 +300,6 @@ main()
     local kmom="$1"
     initDescription="local, docker"
 
-
     handle_options "$@"
     initLogfile "$acronym" "$kmom" "$initDescription"
 
@@ -309,34 +308,46 @@ main()
         DBWEBB_INSPECT_PID=
     fi
 
-
     doDockerDbwebbTestAndValidate "$kmom"
 
+    ERROR_STRING=
     OK_OR_FAIL_MESSAGES=$(grep -B 999 'LOG' $LOGFILE_TEST)
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
-    results=""
+    results=
 
     for i in "${!result_arr[@]}"
     do
-        case "${result_arr[$i]}" in
+        CURRENT_INDEX="${result_arr[$i]}"
+        NEXT_INDEX="${result_arr[$i + 1]}"
+        case "$CURRENT_INDEX" in
            *"OK"* | *"WARNING"* )
-                results+="${result_arr[$i]} ${result_arr[$i + 1]}
+                results+="$CURRENT_INDEX $NEXT_INDEX
 "
                 ;;
            *"FAILED"* )
                 STATUS="FAILED"
-                results+="${result_arr[$i]} ${result_arr[$i + 1]}
+                results+="$CURRENT_INDEX $NEXT_INDEX
+"
+                # $NEXT_INDEX contains a hidden "esc" which makes it impossible to concatinate
+                # Pattern keeps all characters / \ and .
+                PATTERN="$(echo $NEXT_INDEX | sed 's/[^A-Za-z\/.]//g;' | sed 's/\//\\\//g')"
+                ERROR_STRING+="
+$(sed -n "/$PATTERN start/,/$PATTERN end/p" $LOGFILE_TEST)
 "
                 ;;
         esac
     done
 
-    [[ $V_STATUS == "FAILED" ]] && STATUS="FAILED" && results="${results/*validate.d.bash/"$MSG_FAILED scripts.d/validate.d.bash"}"
-    printf "$results"
+    [[ $V_STATUS == "FAILED" ]] && STATUS="FAILED" && results="${results/*validate.d.bash/"$MSG_FAILED scripts.d/validate.d.bash"}" && ERROR_STRING+="
+$NEXT_INDEX
+$(echo [-] scripts.d/validate.d.bash start && cat $LOGFILE_VALIDATE && echo scripts.d/validate.d.bash end)
+"
 
-    [[ $STATUS == "FAILED" ]] && exit 1
+    printf "\n${results}\n" | tee -a "$LOGFILE"
+    printf '\n%s' "$ERROR_STRING"
+
+    [[ $STATUS == "FAILED" ]] && echo "$ERROR_STRING" > "$LOGFILE_INCORRECT" && exit 1
     exit 0
 }
-
 
 main $*
