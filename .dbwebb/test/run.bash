@@ -27,14 +27,12 @@ fi
 case "$4" in
     "-g" | "--generate" )
         FILE="scripts.d/generate"
-        ARGS=( ${@:5} )
-        ;;
-    "--docker" )
+        ARGS=( ${@:5} )     ;;
+    "-d" | "--docker" )
         FILE="scripts.d/docker"
-        ARGS=( ${@:5} )
-        ;;
+        ARGS=( ${@:5} )     ;;
 
-    * ) FILE="run" ;;
+    * ) FILE="run"          ;;
 esac
 
 

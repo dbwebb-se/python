@@ -45,7 +45,7 @@ export TESTSUITE=$tmp_test_suit
 for opt in $ARGUMENTS; do
     case $opt in
         "--help" | "-h" )
-            echo "Usage: dbwebb test <test_suite> <optional args...>'
+            echo "Usage: 'dbwebb test <test_suite> <optional args...>'
 ARGUMENTS
     <test_suit> is optional and defults to the current directory.
                 This could be an assigment or kmom.
@@ -57,6 +57,15 @@ OPTIONAL
                    run testcases with the same tags. Tags are seperated by a comma (\",\")
                    Example usage: --tags=speed,temp or --tags=height
     --trace:       Adds traceback output for assertion errors.
+
+-----------------------
+Alternative scripts
+Usage: 'dbwebb test <flag> <arguments> <optional args...>'
+
+    --docker, -d:    Executes dbwebb test inside a docker container.
+                     Run 'dbwebb test -d --help' for more information.
+    --generate, -g:  Scaffold unittests for examiner
+                     Run 'dbwebb test -g --help' for more information.
 "
     exit 1
             ;;
