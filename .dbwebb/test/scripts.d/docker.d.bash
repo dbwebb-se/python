@@ -175,7 +175,6 @@ export LOG_DOCKER="$DIR/$LOG_DOCKER_REL"
 
 LOGFILE="$LOG_BASE_DIR/main.ansi"
 LOGFILE_TEST="$LOG_BASE_DIR/test-results.ansi"
-LOGFILE_VALIDATE="$LOG_BASE_DIR/validation-results.ansi"
 LOGFILE_INCORRECT="$LOG_BASE_DIR/incorrect-results.ansi"
 
 
@@ -274,15 +273,12 @@ handle_options()
 doDockerDbwebbTestAndValidate()
 {
     DOCKER_COMMAND="docker-compose run --rm cli"
-    TEST_COMMAND="dbwebb test $1 --no-validate"
-    VALIDATE_COMMAND="make validate what=$1"
+    TEST_COMMAND="dbwebb test $1 --docker"
 
     if [ $OS_TERMINAL == "linux" ]; then
-        setsid $DOCKER_COMMAND $VALIDATE_COMMAND > "$LOGFILE_VALIDATE" || V_STATUS="FAILED"
         setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST" || STATUS="FAILED"
         DBWEBB_INSPECT_PID="$!"
     else
-        $DOCKER_COMMAND $VALIDATE_COMMAND > "$LOGFILE_VALIDATE"|| V_STATUS="FAILED"
         $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST" || STATUS="FAILED"
         DBWEBB_INSPECT_PID="$!"
     fi
@@ -337,11 +333,6 @@ $(sed -n "/$PATTERN start/,/$PATTERN end/p" $LOGFILE_TEST)
                 ;;
         esac
     done
-
-    [[ $V_STATUS == "FAILED" ]] && STATUS="FAILED" && results="${results/*validate.d.bash/"$MSG_FAILED scripts.d/validate.d.bash"}" && ERROR_STRING+="
-$NEXT_INDEX
-$(echo [-] scripts.d/validate.d.bash start && cat $LOGFILE_VALIDATE && echo scripts.d/validate.d.bash end)
-"
 
     printf "\n${results}\n" | tee -a "$LOGFILE"
     printf '\n%s' "$ERROR_STRING"
