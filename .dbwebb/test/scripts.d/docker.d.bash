@@ -6,7 +6,9 @@ VERSION="v1.0.0 (2021-05-20)"
 
 # Messages
 MSG_FAILED="\033[0;37;41mFAILED\033[0m"
-
+MSG_OK="\033[0;30;42mOK\033[0m"
+MSG_DONE="\033[1;37;40mDONE\033[0m"
+MSG_WARNING="\033[43mWARNING\033[0m"
 
 # ---------------------------- Functions ------------------
 
@@ -50,7 +52,7 @@ show_help()
 ""
 "Command:"
 "  target           The kmom to test."
-"  acronym          The students acronym (Only required if you use download)."
+"  acronym          The students acronym"
 
 "Options:"
 "  --download, -d   Downloads the code from studserver, uses local files as default"
@@ -72,8 +74,8 @@ die()
     local message="$1"
     local status="${2:1}"
 
-    printf "$MSG_FAILED $message\n" >&2
-    exit $status
+    printf '%s' "$MSG_FAILED $message\n" >&2
+    exit "$status"
 }
 
 
@@ -130,26 +132,7 @@ function sourceCourseRepoFile
 
 
 
-#
-# Check if all tools are available
-#
-function checkTool() {
-    if ! hash "$1" 2> /dev/null; then
-        printf "$MSG_FAILED Missing '$1'.\n$2\n"
-        exit -1
-    fi
-}
-
-
-
-
 # ---------------------------- Bootstrap ------------------
-# Check needed utils is available
-#
-#
-checkTool dialog "Install using your packet manager (apt-get|brew install dialog)."
-checkTool realpath "Install using your packet manager (brew install coreutils)."
-
 # What is the directory of the current course repo, find recursivly up the tree
 DBW_COURSE_FILE_NAME=".dbwebb.course"
 findCourseRepoFile
@@ -170,12 +153,8 @@ DBWEBB_INSPECT_PID=
 LOG_BASE_DIR="$DIR/.log/test/docker"
 install -d -m 0777 "$LOG_BASE_DIR"
 
-LOG_DOCKER_REL=".log/test/docker.txt"
-export LOG_DOCKER="$DIR/$LOG_DOCKER_REL"
-
 LOGFILE="$LOG_BASE_DIR/main.ansi"
 LOGFILE_TEST="$LOG_BASE_DIR/test-results.ansi"
-LOGFILE_INCORRECT="$LOG_BASE_DIR/incorrect-results.ansi"
 
 
 # OS specific default settings
@@ -196,7 +175,7 @@ fi
 #
 header()
 {
-    printf "\n\033[0;30;42m>>> ======= %-25s =======\033[0m\n" "$1"
+    printf "\n======= %-25s =======\n" "$1"
 
     if [[ $2 ]]; then
         printf "%s\n" "$2"
@@ -229,13 +208,13 @@ downloadPotato()
     header "Download (and potato)" "Doing a silent download, potatoe if needed." | tee -a "$LOGFILE"
 
     if ! dbwebb --force --yes download me $acronym > /dev/null; then
-        printf "\n\033[32;01m---> Doing a Potato\033[0m\n\033[0;30;43mACTION NEEDED...\033[0m\n" | tee -a "$LOGFILE"
+        printf "\n\033[32;01m---> Doing a Potato\033[0m\n\033[0;30;43mACTION NEEDED...\033[0m\n"
         potatoe $acronym
         if ! dbwebb --force --yes --silent download me $acronym; then
-            printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n" | tee -a "$LOGFILE"
+            printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n"
             potatoe $acronym "false"
             if ! dbwebb --force --yes --silent download me $acronym; then
-                printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n" | tee -a "$LOGFILE"
+                printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n"
                 exit 1
             fi
         fi
@@ -272,14 +251,16 @@ handle_options()
 #
 doDockerDbwebbTestAndValidate()
 {
+
     DOCKER_COMMAND="docker-compose run --rm cli"
     TEST_COMMAND="dbwebb test $1 --docker"
+    shift 2
 
     if [ $OS_TERMINAL == "linux" ]; then
-        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST" || STATUS="FAILED"
+        setsid $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" || STATUS="FAILED"
         DBWEBB_INSPECT_PID="$!"
     else
-        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST" || STATUS="FAILED"
+        $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" || STATUS="FAILED"
         DBWEBB_INSPECT_PID="$!"
     fi
 }
@@ -304,10 +285,10 @@ main()
         DBWEBB_INSPECT_PID=
     fi
 
-    doDockerDbwebbTestAndValidate "$kmom"
+    doDockerDbwebbTestAndValidate $*
 
     ERROR_STRING=
-    OK_OR_FAIL_MESSAGES=$(grep -B 999 'LOG' $LOGFILE_TEST)
+    OK_OR_FAIL_MESSAGES=$(grep -B 999 'LOG' "$LOGFILE_TEST")
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
     results=
 
@@ -316,28 +297,32 @@ main()
         CURRENT_INDEX="${result_arr[$i]}"
         NEXT_INDEX="${result_arr[$i + 1]}"
         case "$CURRENT_INDEX" in
-           *"OK"* | *"WARNING"* )
-                results+="$CURRENT_INDEX $NEXT_INDEX
+           *"OK"* )
+                results+="OK $NEXT_INDEX
+"
+                ;;
+           *"WARNING"* )
+                results+="WARNING $NEXT_INDEX
 "
                 ;;
            *"FAILED"* )
                 STATUS="FAILED"
-                results+="$CURRENT_INDEX $NEXT_INDEX
+                results+="FAILED $NEXT_INDEX
 "
                 # $NEXT_INDEX contains a hidden "esc" which makes it impossible to concatinate
                 # Pattern keeps all characters / \ and .
-                PATTERN="$(echo $NEXT_INDEX | sed 's/[^A-Za-z\/.]//g;' | sed 's/\//\\\//g')"
+                PATTERN="$(echo "$NEXT_INDEX" | sed 's/[^A-Za-z\/.]//g;' | sed 's/\//\\\//g')"
                 ERROR_STRING+="
-$(sed -n "/$PATTERN start/,/$PATTERN end/p" $LOGFILE_TEST)
+$(sed -n "/$PATTERN start/,/$PATTERN end/p" "$LOGFILE_TEST")
 "
                 ;;
         esac
     done
 
-    printf "\n${results}\n" | tee -a "$LOGFILE"
-    printf '\n%s' "$ERROR_STRING"
+    printf '\n%s' "$results" | tee -a "$LOGFILE"
+    printf '\n%s' "$ERROR_STRING" | tee -a "$LOGFILE"
 
-    [[ $STATUS == "FAILED" ]] && echo "$ERROR_STRING" > "$LOGFILE_INCORRECT" && exit 1
+    [[ $STATUS == "FAILED" ]] && exit 1
     exit 0
 }
 

@@ -30,7 +30,7 @@ case "$4" in
         ARGS=( ${@:5} )     ;;
     "-d" | "--docker" )
         FILE="scripts.d/docker"
-        ARGS=( ${@:5} )     ;;
+        ARGS=( ${@:5} "--docker" )     ;;
 
     * ) FILE="run"          ;;
 esac
