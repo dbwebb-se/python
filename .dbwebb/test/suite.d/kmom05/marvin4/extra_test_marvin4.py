@@ -54,7 +54,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_emission_limited_correct_values(self):
         """
-        Testar att anropa menyval 'E1' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e1' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna har rätt värden.
         Använder följande som input:
         {arguments}
@@ -63,9 +63,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["E1"]
+        self.tags = ["e1"]
         self.norepr = True
-        self._multi_arguments = ["E1", "2005 2", "", "q"]
+        self._multi_arguments = ["e1", "2005 2", "", "q"]
 
         answer = [
             "China: 6263064000.0",
@@ -78,7 +78,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_emission_limited_correct_order(self):
         """
-        Testar att anropa menyval 'E1' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e1' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna är utskrivna i korrekt ordning.
         Använder följande som input:
         {arguments}
@@ -87,9 +87,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande utskrift:
         {student}
         """
-        self.tags = ["E1"]
+        self.tags = ["e1"]
         self.norepr = True
-        self._multi_arguments = ["E1", "2017 4", "", "q"]
+        self._multi_arguments = ["e1", "2017 4", "", "q"]
 
 
         answer = [
@@ -109,7 +109,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_per_capita_limited_correct_values(self):
         """
-        Testar att anropa menyval 'E2' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e2' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna har rätt värden.
         Använder följande som input:
         {arguments}
@@ -118,9 +118,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["E2"]
+        self.tags = ["e2"]
         self.norepr = True
-        self._multi_arguments = ["E2", "2017 3", "", "q"]
+        self._multi_arguments = ["e2", "2017 3", "", "q"]
 
         answer = [
             "Curaçao: 46.42",
@@ -134,7 +134,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_per_capita_limited_correct_order(self):
         """
-        Testar att anropa menyval 'E2' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e2' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna är utskrivna i korrekt ordning.
         Använder följande som input:
         {arguments}
@@ -143,9 +143,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande utskrift:
         {student}
         """
-        self.tags = ["E2"]
+        self.tags = ["e2"]
         self.norepr = True
-        self._multi_arguments = ["E2", "2017 4", "", "q"]
+        self._multi_arguments = ["e2", "2017 4", "", "q"]
 
 
         answer = [
@@ -165,7 +165,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_per_area_limited_correct_values(self):
         """
-        Testar att anropa menyval 'E3' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e3' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna har rätt värden.
         Använder följande som input:
         {arguments}
@@ -174,9 +174,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["E3"]
+        self.tags = ["e3"]
         self.norepr = True
-        self._multi_arguments = ["E3", "1990 2", "", "q"]
+        self._multi_arguments = ["e3", "1990 2", "", "q"]
 
         answer = [
             "Singapore: 43829.52",
@@ -189,7 +189,7 @@ class Test1ExtraMarvin4(ExamTestCase):
 
     def test_highest_per_area_limited_correct_order(self):
         """
-        Testar att anropa menyval 'E3' i main.py. Med begränsnings på antalet utskrifter.
+        Testar att anropa menyval 'e3' i main.py. Med begränsnings på antalet utskrifter.
         Kollar att länderna är utskrivna i korrekt ordning.
         Använder följande som input:
         {arguments}
@@ -198,9 +198,9 @@ class Test1ExtraMarvin4(ExamTestCase):
         Fick följande utskrift:
         {student}
         """
-        self.tags = ["E3"]
+        self.tags = ["e3"]
         self.norepr = True
-        self._multi_arguments = ["E3", "1990 4", "", "q"]
+        self._multi_arguments = ["e3", "1990 4", "", "q"]
 
 
         answer = [
