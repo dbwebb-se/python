@@ -9,10 +9,10 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from exam_test_case import ExamTestCase
-from exam_test_result import ExamTestResult
-from helper_functions import import_module
-from helper_functions import find_path_to_assignment
+from examiner.exam_test_case import ExamTestCase
+from examiner.exam_test_result import ExamTestResult
+from examiner.helper_functions import import_module
+from examiner.helper_functions import find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -31,53 +31,57 @@ class Test1Files(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
-    @classmethod
-    def setUpClass(cls):
-        # Otherwise the .txt files will not be found
-        os.chdir(REPO_PATH)
 
-    def test_a_modules_exist(self):
-        """
-        Testar att din kod är uppdelad i rätt moduler.
-        |G|Förväntar att följande modul finns men hittades inte:|/RE|
-        {arguments}
-        """
-        self._argument = "main"
-        self.assertIsNotNone(util.find_spec(self._argument))
-        self._argument = "menu"
-        self.assertIsNotNone(util.find_spec(self._argument))
-        self._argument = "analyzer"
-        self.assertIsNotNone(util.find_spec(self._argument))
+
+
 
 class Test2Counters(ExamTestCase):
     """
     Meny options for counting
     """
+    @classmethod
+    def setUpClass(cls):
+        # Otherwise the .txt files will not be found
+        os.chdir(REPO_PATH)
+
+
+
     def test_b_lines(self):
         """
-        Testar "lines" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'lines' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["count", "lines"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["lines", "", "q"]):
+        self._multi_arguments = ["lines", "", "q"]
+        with patch('builtins.input', side_effect=self._multi_arguments):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
                 str_data = fake_out.getvalue()
                 self.assertIn("17", str_data)
 
+
+
     def test_c_words(self):
         """
-        Testar "words" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'words' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["count", "words"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["words", "", "q"]):
+        self._multi_arguments = ["words", "", "q"]
+
+        with patch('builtins.input', side_effect=self._multi_arguments):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
                 str_data = fake_out.getvalue()
@@ -87,14 +91,19 @@ class Test2Counters(ExamTestCase):
 
     def test_d_letters(self):
         """
-        Testar "letters" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'letters' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["count", "letters"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["letters", "", "q"]):
+        self._multi_arguments = ["letters", "", "q"]
+        self.norepr = True
+        with patch('builtins.input', side_effect=self._multi_arguments):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
                 str_data = fake_out.getvalue()
@@ -106,63 +115,68 @@ class Test3Frequencies(ExamTestCase):
     """
     Meny options for frequency
     """
+
+    def check_print_contain(self, inp, correct):
+        """
+        One function for testing print input functions.
+        """
+        with patch("builtins.input", side_effect=inp):
+            with patch("sys.stdout", new=StringIO()) as fake_out:
+                main.main()
+                for val in correct:
+                    str_data = fake_out.getvalue()
+                    self.assertIn(val, str_data)
+
+
     def test_a_word_frequency(self):
         """
-        Testar "word_frequency" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'word_frequency' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["freq", "word_frequency"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["word_frequency", "", "q"]):
-            with patch('sys.stdout', new=StringIO()) as fake_out:
-                main.main()
-                str_data = fake_out.getvalue()
-                self.assertIn("the", str_data)
-                self.assertIn("6.0%", str_data)
-                self.assertIn("to", str_data)
-                self.assertIn("4.0%", str_data)
-                self.assertIn("and", str_data)
-                self.assertIn("3.5%", str_data)
-                self.assertIn("of", str_data)
-                self.assertIn("3.0%", str_data)
-                self.assertIn("street", str_data)
-                self.assertIn("2.5%", str_data)
-                self.assertIn("him", str_data)
-                self.assertIn("2.5%", str_data)
-                self.assertIn("he", str_data)
-                self.assertIn("2.5%", str_data)
+        self._multi_arguments = ["word_frequency", "", "q"]
+        self.check_print_contain(self._multi_arguments, [
+            "the: 12 | 6.0%",
+            "to: 8 | 4.0%",
+            "and: 7 | 3.5%",
+            "of: 6 | 3.0%",
+            "street: 5 | 2.5%",
+            "him: 5 | 2.5%",
+            "he: 5 | 2.5%",
+        ])
+
 
 
 
     def test_b_letter_frequency(self):
         """
-        Testar "letter_frequency" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'letter_frequency' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["freq", "letter_frequency"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["letter_frequency", "", "q"]):
-            with patch('sys.stdout', new=StringIO()) as fake_out:
-                main.main()
-                str_data = fake_out.getvalue()
-                self.assertIn("e", str_data)
-                self.assertIn("11.9%", str_data)
-                self.assertIn("t", str_data)
-                self.assertIn("10.0%", str_data)
-                self.assertIn("o", str_data)
-                self.assertIn("8.5%", str_data)
-                self.assertIn("h", str_data)
-                self.assertIn("7.4%", str_data)
-                self.assertIn("n", str_data)
-                self.assertIn("7.3%", str_data)
-                self.assertIn("i", str_data)
-                self.assertIn("7.1%", str_data)
-                self.assertIn("a", str_data)
-                self.assertIn("7.1%", str_data)
+        self._multi_arguments = ["letter_frequency", "", "q"]
+        self.check_print_contain(self._multi_arguments, [
+            "e: 108 | 11.9%",
+            "t: 91 | 10.0%",
+            "o: 77 | 8.5%",
+            "h: 67 | 7.4%",
+            "n: 66 | 7.3%",
+            "i: 64 | 7.1%",
+            "a: 64 | 7.1%",
+        ])
+
 
 
 
@@ -171,30 +185,95 @@ class Test4All(ExamTestCase):
     Meny options for frequency
     """
 
+    def check_print_contain(self, inp, correct):
+        """
+        One function for testing print input functions.
+        """
+        with patch("builtins.input", side_effect=inp):
+            with patch("sys.stdout", new=StringIO()) as fake_out:
+                main.main()
+                for val in correct:
+                    str_data = fake_out.getvalue()
+                    self.assertIn(val, str_data)
+
     def test_a_all(self):
         """
-        Testar "all" kommandot.
-        Förväntar sig att följande finns i utskriften:
+        Testar att anropa menyval 'all' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
         {correct}
-        Fick utskriften:
+        Fick följande:
         {student}
         """
+        self.tags = ["all"]
         self.norepr = True
-        with patch('builtins.input', side_effect=["all", "", "q"]):
+        self._multi_arguments = ["all", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, [
+            "17",
+            "199",
+            "907",
+            "the: 12 | 6.0%",
+            "to: 8 | 4.0%",
+            "and: 7 | 3.5%",
+            "of: 6 | 3.0%",
+            "street: 5 | 2.5%",
+            "him: 5 | 2.5%",
+            "he: 5 | 2.5%",
+            "e: 108 | 11.9%",
+            "t: 91 | 10.0%",
+            "o: 77 | 8.5%",
+            "h: 67 | 7.4%",
+            "n: 66 | 7.3%",
+            "i: 64 | 7.1%",
+            "a: 64 | 7.1%",
+        ])
+
+
+
+class Test4Change(ExamTestCase):
+    """
+    Meny options for frequency
+    """
+
+    def test_a_change(self):
+        """
+        Testar att anropa menyval 'all' i main.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["change"]
+        self.norepr = True
+        self._multi_arguments = ["change", "lorum.txt", "", "all", "", "q"]
+        with patch('builtins.input', side_effect=self._multi_arguments):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 main.main()
                 str_data = fake_out.getvalue()
-                self.assertIn("17", str_data)
-                self.assertIn("199", str_data)
-                self.assertIn("907", str_data)
-                self.assertIn("the", str_data)
-                self.assertIn("6.0%", str_data)
-                self.assertIn("he", str_data)
-                self.assertIn("2.5%", str_data)
-                self.assertIn("e", str_data)
-                self.assertIn("11.9%", str_data)
-                self.assertIn("i", str_data)
-                self.assertIn("7.1%", str_data)
+
+                self.assertIn("23", str_data)
+                self.assertIn("3", str_data)
+                self.assertIn("140", str_data)
+
+                self.assertIn("dolor: 2 | 8.0%", str_data)
+                self.assertIn("vivamus: 1 | 4.0%", str_data)
+                self.assertIn("vitae: 1 | 4.0%", str_data)
+                self.assertIn("varius: 1 | 4.0%", str_data)
+                self.assertIn("urna: 1 | 4.0%", str_data)
+                self.assertIn("sit: 1 | 4.0%", str_data)
+                self.assertIn("pellentesque: 1 | 4.0%", str_data)
+
+                self.assertIn("i: 18 | 12.9%", str_data)
+                self.assertIn("e: 16 | 11.4%", str_data)
+                self.assertIn("u: 12 | 8.6%", str_data)
+                self.assertIn("a: 12 | 8.6%", str_data)
+                self.assertIn("t: 10 | 7.1%", str_data)
+                self.assertIn("l: 10 | 7.1%", str_data)
+                self.assertIn("s: 9 | 6.4%", str_data)
 
 
 
