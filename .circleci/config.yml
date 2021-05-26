@@ -2,9 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: dbwebb/courserepo:cli
+      - image: dbwebb/courserepo
 
-    working_directory: ~/arepo
+    working_directory: ~/repo
 
     steps:
       - checkout

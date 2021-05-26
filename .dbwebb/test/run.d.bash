@@ -105,10 +105,10 @@ function header {
 function doLog {
     if (( $1 )); then
         echo "[-] $2
-===========================================================" >> "$LOG"
+===========================================================" | tee -a "$LOG"
     else
         echo "[+] $2
-===========================================================" >> "$LOG"
+===========================================================" | tee -a "$LOG"
     fi
 
     exit $1
@@ -159,14 +159,7 @@ done
 
 # Adding summary to log-file
 printf "$(header "Test summary")
-$summary\n" >> "$LOG"
+$summary\n" | tee -a "$LOG"
 
-# Printing the output
-RESULTS=$(cat $LOG)
-printf "
-$(header "LOG")
-"
-printf '%s\n' "${RESULTS}
---------------------------------------------
-Saved a log of the test output: less -R '$LOG'\n
-"
+printf " --------------------------------------------
+Saved a log of the test output: less -R '$LOG'\n" | tee -a "$LOG"
