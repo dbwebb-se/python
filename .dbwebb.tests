@@ -78,6 +78,8 @@ test -d me/kmom03/marvin2
 cd me && cp -ri kmom02/marvin1/marvin.py kmom03/marvin2/ && cd kmom03/marvin2
 dbwebb validate marvin2
 
+# functions
+test -d me/kmom03/functions
 
 
 # --------------------------------------------------------------------------
@@ -92,18 +94,14 @@ dbwebb validate lab4
 
 # marvin3
 test -d me/kmom04/marvin3
-cd me && cp -ri kmom03/marvin2/marvin.py kmom04/marvin3/main.py && cd kmom04/marvin3
-cd me && cp -i ../example/marvin/quotes_lgtg.txt kmom04/marvin3/quotes.txt
+cd me && cp -ri kmom03/marvin2/* kmom04/marvin3/ && cd kmom04/marvin3
 dbwebb validate marvin3
 
-# modules
-test -d me/kmom04/modules
-dbwebb validate me/kmom04/modules
 
-# file
-test -d me/kmom04/file
-cd me && cp ../example/file/string/items.txt kmom04/file
-dbwebb validate me/kmom04/file
+# list
+test -d me/kmom04/list
+
+
 
 # --------------------------------------------------------------------------
 #
@@ -117,16 +115,14 @@ dbwebb validate lab5
 
 # marvin4
 test -d me/kmom05/marvin4
-cd me && cp -ri kmom04/marvin3/*.py  kmom05/marvin4 && cd kmom05/marvin4
+cd me && cp -ri kmom04/marvin3/*  kmom05/marvin4 && cp ../example/emission_data/emission_data.py kmom05/marvin4/ && cd kmom05/marvin4
 dbwebb validate marvin4
 
-# list
-test -d me/kmom05/list
 
-# file
-test -d me/kmom05/file
-cd me && cp -i ../example/file/string/items.txt kmom05/file
-dbwebb validate me/kmom05/file
+# dict/tuple
+test -d me/kmom05/warehouse
+
+
 
 # --------------------------------------------------------------------------
 #
@@ -139,14 +135,16 @@ cd me/kmom06/lab6 && python3 answer.py; [[ $? = 42 ]]
 dbwebb validate lab6
 
 
-# dict/tuple
-test -d me/kmom06/warehouse
-
 # analyzer
 test -d me/kmom06/analyzer
-cd me && cp -i ../example/text/phil.txt kmom06/analyzer/ && cd kmom06/analyzer/
+cd me && cp -i ../example/text/phil.txt kmom06/analyzer/ && cp -i ../example/text/lorum.txt kmom06/analyzer/ && cd kmom06/analyzer/
 touch me/kmom06/analyzer/main.py
 dbwebb validate analyzer
+
+# file
+test -d me/kmom06/file
+dbwebb validate me/kmom06/file
+
 
 # --------------------------------------------------------------------------
 #
