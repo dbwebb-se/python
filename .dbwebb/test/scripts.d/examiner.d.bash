@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-
-. ".dbwebb/test/functions.bash"
+. "$COURSE_REPO_BASE/.dbwebb/test/functions.bash"
 
 HEADER="scripts.d/$( basename -- "$0" ) start"
 FOOTER="scripts.d/$( basename -- "$0" ) end"

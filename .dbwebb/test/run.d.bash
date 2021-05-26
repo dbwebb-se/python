@@ -10,7 +10,7 @@
 #  <optional args>      Optional arguments
 #
 
-. ".dbwebb/test/functions.bash"
+. "$1/.dbwebb/test/functions.bash"
 
 # Usage
 if (( $# < 3 )); then
