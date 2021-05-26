@@ -288,7 +288,7 @@ main()
     doDockerDbwebbTestAndValidate $*
 
     ERROR_STRING=
-    OK_OR_FAIL_MESSAGES=$(grep -B 999 'LOG' "$LOGFILE_TEST")
+    OK_OR_FAIL_MESSAGES=$(grep -A 999 'Test summary' "$LOGFILE_TEST")
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
     results=
 
