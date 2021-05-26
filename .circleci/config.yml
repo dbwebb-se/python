@@ -1,11 +1,26 @@
-machine:
-    python:
-        version: 3.5.1
+version: 2
+jobs:
+  build:
+    docker:
+      - image: dbwebb/courserepo:cli
 
-test:
-    pre:
-        - make install
+    working_directory: ~/arepo
 
-notify:
-  webhooks:
-    - url: https://webhooks.gitter.im/e/c15a81fa5128754dcccc
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: make install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: make check test
