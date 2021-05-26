@@ -6,10 +6,10 @@ Använd .index() funktionen på din lista för att kolla om talen finns som vär
 Om de gör det byt plats på dem, annars skriv ut vilket/vilka av talen som inte finns i listan.
 """
 import random
-l = [0,15,1,6,8,2,4,7]
+l = [0, 15, 1, 6, 8, 2, 4, 7]
 
-number = random.randint(0,10)
-number2 = random.randint(0,10)
+number = random.randint(0, 10)
+number2 = random.randint(0, 10)
 print(l)
 found = False
 try:

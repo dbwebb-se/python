@@ -25,7 +25,7 @@ if __name__ == "__main__":
     movies_tuple = (
         ("Baby Driver", "2017", "Edgar Wright"),
         ("Scott Pilgrim vs. the world", "2010", "Edgar Wright"),
-        ("Thor: Ragnarok", "2017",  "Taika Waititi"),
+        ("Thor: Ragnarok", "2017", "Taika Waititi"),
         ("What we do in the shadows", "2014", "Taika Waititi"),
         ("Tucker and Dale vs Evil", "2010", "Eli Craig"),
     )

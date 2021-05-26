@@ -1,6 +1,8 @@
 """
 Add items to a shoppinglist
 """
+# pylint: disable=inconsistent-return-statements
+
 def read_file(filename):
     """
     Read content from file
@@ -10,7 +12,7 @@ def read_file(filename):
             return fd.read()
     except FileNotFoundError:
         print("You are missing the file")
-    return
+        return ""
 
 
 

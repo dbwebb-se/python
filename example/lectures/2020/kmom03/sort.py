@@ -1,7 +1,7 @@
 """
 Implementation of bubblesort
 """
-l = [2,5,1,0,3]
+l = [2, 5, 1, 0, 3]
 print(l)
 n = len(l)
 for j in range(n-1):
