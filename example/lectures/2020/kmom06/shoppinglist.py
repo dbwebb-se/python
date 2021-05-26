@@ -10,6 +10,7 @@ def read_file(filename):
             return fd.read()
     except FileNotFoundError:
         print("You are missing the file")
+    return
 
 
 

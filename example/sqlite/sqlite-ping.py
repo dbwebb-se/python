@@ -35,9 +35,8 @@ def isSQLite3(filename):
     if getsize(filename) < 100: # SQLite database file header is 100 bytes
         return False
 
-    fd = open(filename, 'rb')
-    Header = fd.read(100)
-    fd.close()
+    with open(filename, 'rb') as fd:
+        Header = fd.read(100)
 
     isFileSQLite = False
 

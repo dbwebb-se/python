@@ -2,13 +2,13 @@
 """
 Contains testcases for the individual examination.
 """
-import unittest
-from unittest.mock import patch
-from importlib import util
-from io import StringIO
 import os
 import sys
+import unittest
+from unittest.mock import patch
 from unittest import TextTestRunner
+from importlib import util
+from io import StringIO
 from examiner.exam_test_case import ExamTestCase
 from examiner.exam_test_result import ExamTestResult
 
@@ -313,4 +313,3 @@ class Test5Assignment5(ExamTestCase):
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
     unittest.main(testRunner=runner, exit=False)
-

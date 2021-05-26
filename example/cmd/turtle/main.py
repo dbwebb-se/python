@@ -13,7 +13,7 @@ https://docs.python.org/3.4/library/turtle.html
 
 """
 
-# pylint: disable=locally-disabled,unused-argument,too-many-public-methods
+# pylint: disable=locally-disabled,unused-argument,too-many-public-methods,consider-using-with
 
 
 import cmd

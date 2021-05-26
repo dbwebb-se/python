@@ -17,11 +17,9 @@ filenameMy = "json-mine.txt"
 if os.path.isfile(filenameMy):
     filename = filenameMy
 
-jsonfile = open(filename, "r")
-
 
 # Read from file and decode as json
-jsonobject = json.load(jsonfile)
+jsonobject = json.load(open(filename, "r"))
 
 
 # Print out the content from the dict
@@ -46,7 +44,5 @@ if confirm.lower() == "y":
     })
 
     # Open the file for writing ("w" will replace the file contents)
-    jsonfile = open(filenameMy, "w")
-
     # Encode json with pretty output (indent)
-    json.dump(jsonobject, jsonfile, indent=4)
+    json.dump(jsonobject, open(filenameMy, "w"), indent=4)
