@@ -77,7 +77,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "inv"]
         self.norepr = True
         self._multi_arguments = ["inv", "", "q"]
 
@@ -95,7 +95,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "pick"]
         self.norepr = True
         self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv pick bike 1", "", "q"
@@ -117,7 +117,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "drop"]
         self.norepr = True
         self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv drop car", "", "q"
@@ -138,7 +138,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "drop"]
         self.norepr = True
         self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv drop bike", "", "q"
@@ -159,7 +159,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "swap"]
         self.norepr = True
         self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv swap car house", "", "q"
@@ -180,7 +180,7 @@ class Test3Marvin3Main(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["menu"]
+        self.tags = ["menu", "swap"]
         self.norepr = True
         self._multi_arguments = Test3Marvin3Main.PICKUP + [
             "inv swap bike house", "", "q"
