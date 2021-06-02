@@ -150,12 +150,13 @@ DBWEBB_INSPECT_PID=
 
 
 # Where to store the logfiles
-LOG_BASE_DIR="$DIR/.log/test/docker"
+DEFAULT_LOG_BASE_DIR="$DIR/.log/test"
+LOG_BASE_DIR="$DEFAULT_LOG_BASE_DIR/docker"
 install -d -m 0777 "$LOG_BASE_DIR"
 
 LOGFILE="$LOG_BASE_DIR/main.ansi"
 LOGFILE_TEST="$LOG_BASE_DIR/test-results.ansi"
-
+LOGFILE_ERROR="$LOG_BASE_DIR/errors.ansi"
 
 # OS specific default settings
 OS_TERMINAL=""
@@ -257,10 +258,10 @@ doDockerDbwebbTestAndValidate()
     shift 2
 
     if [ $OS_TERMINAL == "linux" ]; then
-        setsid $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" || STATUS="FAILED"
+        setsid $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" 2> "$LOGFILE_ERROR"
         DBWEBB_INSPECT_PID="$!"
     else
-        $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" || STATUS="FAILED"
+        $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" 2> "$LOGFILE_ERROR"
         DBWEBB_INSPECT_PID="$!"
     fi
 }
@@ -273,6 +274,7 @@ doDockerDbwebbTestAndValidate()
 #
 main()
 {
+    #exit 0
     local acronym="$2"
     local kmom="$1"
     initDescription="local, docker"
@@ -286,41 +288,19 @@ main()
     fi
 
     doDockerDbwebbTestAndValidate $*
-
-    ERROR_STRING=
     OK_OR_FAIL_MESSAGES=$(grep -A 999 'Test summary' "$LOGFILE_TEST")
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
-    results=
 
-    for i in "${!result_arr[@]}"
-    do
+    for i in "${!result_arr[@]}"; do
         CURRENT_INDEX="${result_arr[$i]}"
-        NEXT_INDEX="${result_arr[$i + 1]}"
         case "$CURRENT_INDEX" in
-           *"OK"* )
-                results+="OK $NEXT_INDEX
-"
-                ;;
-           *"WARNING"* )
-                results+="WARNING $NEXT_INDEX
-"
-                ;;
-           *"FAILED"* )
-                STATUS="FAILED"
-                results+="FAILED $NEXT_INDEX
-"
-                # $NEXT_INDEX contains a hidden "esc" which makes it impossible to concatinate
-                # Pattern keeps all characters / \ and .
-                PATTERN="$(echo "$NEXT_INDEX" | sed 's/[^A-Za-z\/.]//g;' | sed 's/\//\\\//g')"
-                ERROR_STRING+="
-$(sed -n "/$PATTERN start/,/$PATTERN end/p" "$LOGFILE_TEST")
-"
-                ;;
+            *"FAILED"* )
+                STATUS="FAILED" ;;
         esac
     done
 
-    printf '\n%s' "$results" | tee -a "$LOGFILE"
-    printf '\n%s' "$ERROR_STRING" | tee -a "$LOGFILE"
+    no_colors=$(cat "$LOGFILE_TEST" "$LOGFILE_ERROR" | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g')
+    printf '\n%s' "$no_colors" | tee -a "$LOGFILE"
 
     [[ $STATUS == "FAILED" ]] && exit 1
     exit 0
