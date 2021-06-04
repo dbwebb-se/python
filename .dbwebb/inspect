@@ -126,7 +126,7 @@ pythonkmom06()
 pythonkmom10()
 {
     # Updated "exam" when new examination
-    local exam="try2"
+    local exam="try3"
 
     inspectCommand "../exam.py" "$EXEC_DIR/$KMOM/$exam/.dbwebb/" "./correct.bash"
 
@@ -159,8 +159,9 @@ pythonexamchecksum()
     # local real_sha="083126dc7aa532f01afa46dc8769d031b3b594e69d717aa3b2b7a8d2fd91d4753596d0d1ee26f3ad" # try2
     # local real_sha="96366da688fe7787ca6731a371055f5a6b7ade8daea35e693dfd0e2bf631cf6f60b67fa9208235cf" # try3
     # local real_sha="d84b8489b2f0b739c39ccd3fdd7a19b99da81825efb5bfc68314897d57e7da0ff5bbf838b05d7450" # try1
-    local real_sha="c5998d0efdf69ac45e1290f128a7b0aa46d9c18ed6df66b9ded3c4875b5fe72faec5723778869f89" # try2
-    
+    #local real_sha="c5998d0efdf69ac45e1290f128a7b0aa46d9c18ed6df66b9ded3c4875b5fe72faec5723778869f89" # try2
+    local real_sha="84a594e0910b52abc1712e73be4b1088d5657641bbf33dcafa3a2005ef1fe49f08f83e48589de14c" # try3
+ 
 
     
     local their_sha="$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/test_exam.py | sha1sum | awk '{print $1}')$(cat $EXEC_DIR/$KMOM/$exam/.dbwebb/correct.bash | sha1sum | awk '{print $1}')"
