@@ -63,12 +63,12 @@ with open(filename, 'r') as data:
 #     del x["country"]
 
 module_docstring = """\"\"\"
-Contains data about countries Fossil CO2 emission (in megatonnes, multiply with 1 000 000),
+Contains data about countries Fossil CO2 emission (in megaton, multiply with 1 000 000),
 area (in KM2) and population size.
 There is one dictionary for each year of emission data, emission_1990, emission_2005 and emission_2017.
 Each dictionary contain a key and value pair.
 The key is an integer id that can be connected to a country in the dictionary "country_data".
-The value is that countries CO2 emission (in megatonnes) for that year, 1990, 2005 or 2017 depending on
+The value is that countries CO2 emission (in megaton) for that year, 1990, 2005 or 2017 depending on
 the variable with corresponding name. 
 
 Example:

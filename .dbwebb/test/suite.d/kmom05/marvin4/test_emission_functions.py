@@ -124,7 +124,7 @@ class Test2EmissionFunctions(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["Dominica", "2021"]
         with self.assertRaises(ValueError):
-            em.get_country_year_data_megatonnes(*self._multi_arguments)
+            em.get_country_year_data_megaton(*self._multi_arguments)
 
 
 
@@ -141,7 +141,7 @@ class Test2EmissionFunctions(ExamTestCase):
         self.tags = ["change_func", "13"]
         self.norepr = True
         self._multi_arguments = ["Dominica", "2017"]
-        self.assertEqual(em.get_country_year_data_megatonnes(*self._multi_arguments), 122000.0)
+        self.assertEqual(em.get_country_year_data_megaton(*self._multi_arguments), 122000.0)
 
 
 
@@ -164,7 +164,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
     def test_get_country_change_years_error(self):
         """
-        Testar att funktionen `get_country_change_for_years(country, year1, year2)` får error från `get_country_year_data_megatonnes()` när felaktigt år används.
+        Testar att funktionen `get_country_change_for_years(country, year1, year2)` får error från `get_country_year_data_megaton()` när felaktigt år används.
         Använder följande som input:
         {arguments}
         Förväntar att följande error lyfts:
