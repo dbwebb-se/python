@@ -83,6 +83,16 @@ def decide_winners(matches):
             result.append("player2")
     return result
 
+
+
+def if_time_overlap(time1, time2):
+    """
+    Check if two time overlap
+    """
+    return int(time1[0]) <= int(time2[0]) and int(time1[1]) > int(time2[0])
+
+
+
 def validate_bookings(bookings):
     """
     Assignment 5
@@ -99,13 +109,16 @@ def validate_bookings(bookings):
 
             if date != other_date:
                 continue
-            if int(time[0]) <= int(other_time[0]) and int(time[1]) >= int(other_time[1]):
+
+            if if_time_overlap(time, other_time) or if_time_overlap(other_time, time):
                 return False
 
     return True
 
+
+
 if __name__ == '__main__':
-    find_replace()
+    # find_replace()
     # print(count_animals({
     #     "ko": ["Mamma Mu", "Kalvin"],
     #     "gris": "Babe",
@@ -114,15 +127,11 @@ if __name__ == '__main__':
     # }))
     # print(validate_isbn("9781617294136"))
     # print(decide_winners([["11-2", "5-11", "6-11",], ["11-3", "11-5",]]))
-    # print(validate_bookings([
-    #     {
-    #         "date": "2019-10-28",
-    #         "time": "10-12",
-    #         "course": "DV1531"
-    #     },
-    #     {
-    #         "date": "2019-10-28",
-    #         "time": "9-10",
-    #         "course": "PA1439"
-    #     }
-    # ]))
+    print(validate_bookings([
+        {
+            "date": "2019-10-28", "time": "10-12", "course": "DV1531"
+        },
+        {
+            "date": "2019-10-28", "time": "9-11", "course": "PA1439"
+        }
+    ]))

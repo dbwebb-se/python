@@ -272,7 +272,11 @@ class Test5Assignment5(ExamTestCase):
         self.assertFalse(exam.validate_bookings(self._argument))
         self._argument = [{"date": "2019-10-28", "time": "10-12", "course": "DV1531"}, {"date": "2019-10-28", "time": "8-13", "course": "PA1439"}]
         self.assertFalse(exam.validate_bookings(self._argument))
+        self._argument = [{"date": "2019-10-28", "time": "10-12", "course": "DV1531"}, {"date": "2019-10-28", "time": "9-11", "course": "PA1439"}]
+        self.assertFalse(exam.validate_bookings(self._argument))
         #pylint: enable=line-too-long
+
+
 
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
