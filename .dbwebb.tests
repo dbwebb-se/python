@@ -115,7 +115,8 @@ dbwebb validate lab5
 
 # marvin4
 test -d me/kmom05/marvin4
-cd me && cp -ri kmom04/marvin3/*  kmom05/marvin4 && cp ../example/emission_data/emission_data.py kmom05/marvin4/ && cd kmom05/marvin4
+cd me && cp -ri kmom04/marvin3/*  kmom05/marvin4 && cp ../example/emission_data/*.py kmom05/marvin4/ && cd kmom05/marvin4
+test -f me/kmom05/marvin4/emission_data.py && test -f me/kmom05/marvin4/emission_data_small.py
 dbwebb validate marvin4
 
 
