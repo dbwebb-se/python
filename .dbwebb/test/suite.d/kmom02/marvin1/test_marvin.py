@@ -207,27 +207,7 @@ class Test2Marvin1(ExamTestCase):
 
 
 
-    def test_h_compare_small_larger(self):
-        """
-        Testar menyval 5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande inte finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "2", "11", "-61.468"]
-
-        self.tags = ["5"]
-        self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-
-        self.check_print_not_contain(self._multi_arguments, ["same!"])
-
-
-
-    def test_i_compare_small_larger_two(self):
+    def test_h_hyphen_string(self):
         """
         Testar menyval 5
         Använder följande som input:
@@ -237,113 +217,33 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
-        numbers = ["11", "2", "11", "-61.468"]
-
         self.tags = ["5"]
         self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["smaller!", "larger!"])
-
-
-
-    def test_j_compare_same_smaller(self):
-        """
-        Testar menyval 5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "11", "10", "10"]
-
-        self.tags = ["5"]
-        self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["same!", "smaller!"])
-
-
-
-    def test_k_compare_same_smaller_two(self):
-        """
-        Testar menyval 5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande inte finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "11", "10", "10"]
-
-        self.tags = ["5"]
-        self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-        self.check_print_not_contain(self._multi_arguments, ["larger!"])
-
-
-
-    def test_l_compare_same_larger(self):
-        """
-        Testar menyval 5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande inte finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "12", "12", "12", "14"]
-
-        self.tags = ["5"]
-        self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-        self.check_print_not_contain(self._multi_arguments, ["smaller!"])
-
-
-
-    def test_m_compare_same_larger_two(self):
-        """
-        Testar menyval 5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "12", "12", "12", "14"]
-
-        self.tags = ["5"]
-        self.norepr = True
-        self._multi_arguments = ["5", *numbers, "done", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["same!", "larger!"])
-
-
-
-    def test_n_hyphen_string(self):
-        """
-        Testar menyval 6
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.tags = ["6"]
-        self.norepr = True
-        self._multi_arguments = ["6", "python", "", "q"]
+        self._multi_arguments = ["5", "python", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["p-yy-ttt-hhhh-ooooo-nnnnnn"])
 
 
 
-    def test_o_hyphen_string(self):
+    def test_i_hyphen_string(self):
+        """
+        Testar menyval 5
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["5"]
+        self.norepr = True
+        self._multi_arguments = ["5", "1234", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["1-22-333-4444"])
+
+
+
+    def test_j_is_isogram(self):
         """
         Testar menyval 6
         Använder följande som input:
@@ -355,31 +255,53 @@ class Test2Marvin1(ExamTestCase):
         """
         self.tags = ["6"]
         self.norepr = True
-        self._multi_arguments = ["6", "1234", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["1-22-333-4444"])
-
-
-
-    def test_p_is_isogram(self):
-        """
-        Testar menyval 7
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.tags = ["7"]
-        self.norepr = True
-        self._multi_arguments = ["7", "polis", "", "q"]
+        self._multi_arguments = ["6", "polis", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Match!"])
 
 
 
-    def test_q_is_isogram_two(self):
+    def test_k_is_isogram_two(self):
+        """
+        Testar menyval 6
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.tags = ["6"]
+        self.norepr = True
+        self._multi_arguments = ["6", "skrällen", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["No match!"])
+
+
+
+
+
+    def test_l_compare_small_larger(self):
+        """
+        Testar menyval 7
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande inte finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "2", "11", "-61.468"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+
+        self.check_print_not_contain(self._multi_arguments, ["same!"])
+
+
+
+    def test_m_compare_small_larger_two(self):
         """
         Testar menyval 7
         Använder följande som input:
@@ -389,12 +311,111 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
+        numbers = ["11", "2", "11", "-61.468"]
+
         self.tags = ["7"]
         self.norepr = True
-        self._multi_arguments = ["7", "skrällen", "", "q"]
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, ["No match!"])
+        self.check_print_contain(self._multi_arguments, ["smaller!", "larger!"])
 
+
+
+    def test_n_compare_same_smaller(self):
+        """
+        Testar menyval 7
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "11", "10", "10"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["same!", "smaller!"])
+
+
+
+    def test_o_compare_same_smaller_two(self):
+        """
+        Testar menyval 7
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande inte finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "11", "10", "10"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self.check_print_not_contain(self._multi_arguments, ["larger!"])
+
+
+
+    def test_p_compare_same_larger(self):
+        """
+        Testar menyval 7
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande inte finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "12", "12", "12", "14"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self.check_print_not_contain(self._multi_arguments, ["smaller!"])
+
+
+
+    def test_q_compare_same_larger_two(self):
+        """
+        Testar menyval 7
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "12", "12", "12", "14"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["same!", "larger!"])
+
+
+
+    def test_r_compare_not_a_number(self):
+        """
+        Testar menyval 7 där användaren inte bara skriver in siffror
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "hej", "12", "test", "2"]
+
+        self.tags = ["7"]
+        self.norepr = True
+        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["not a number!", "larger!", "not a number!", "smaller!"])
 
 
 
