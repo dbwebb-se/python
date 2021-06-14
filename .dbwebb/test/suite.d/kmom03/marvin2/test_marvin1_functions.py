@@ -156,30 +156,6 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
 
-    def test_compare_numbers(self):
-        """
-        Testar att funktionen "compare_numbers" finns i marvin.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        numbers = ["11", "12", "12", "12", "14"]
-
-        self.tags = ["5", "marvin1"]
-        self.norepr = True
-        self._multi_arguments = [*numbers, "done"]
-
-        self.check_print_contain(
-            self._multi_arguments,
-            ["larger!", "same!", "same!", "larger!"],
-            marvin.compare_numbers
-        )
-
-
-
     def test_hyphen_string(self):
         """
         Testar att funktionen "hyphen_string" finns i marvin.py.
@@ -190,7 +166,7 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["6", "marvin1"]
+        self.tags = ["5", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["python"]
 
@@ -212,7 +188,7 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["7", "marvin1"]
+        self.tags = ["6", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["paris"]
 
@@ -220,6 +196,30 @@ class Test1Marvin1Functions(ExamTestCase):
             self._multi_arguments,
             ["Match!"],
             marvin.is_isogram
+        )
+
+
+
+    def test_compare_numbers(self):
+        """
+        Testar att funktionen "compare_numbers" finns i marvin.py.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        numbers = ["11", "12", "12", "12", "14"]
+
+        self.tags = ["7", "marvin1"]
+        self.norepr = True
+        self._multi_arguments = [*numbers, "done"]
+
+        self.check_print_contain(
+            self._multi_arguments,
+            ["larger!", "same!", "same!", "larger!"],
+            marvin.compare_numbers
         )
 
 
