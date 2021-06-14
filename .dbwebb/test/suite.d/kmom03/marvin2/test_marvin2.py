@@ -137,7 +137,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    def test_anagram_menu(self):
+    def test_get_acronym_menu(self):
         """
         Testar att anropa menyval 9 via main funktionen i main.py.
         Använder följande som input:
@@ -149,68 +149,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         """
         self.tags = ["9", "marvin2"]
         self.norepr = True
-        self._multi_arguments = ["9", "Anagram", "Magarna", "", "q"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["Match"],
-            main.main
-        )
-
-
-
-    def test_anagram_func_no_match(self):
-        """
-        Testar att anropa funktionen anagram i marvin.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.tags = ["9", "marvin2"]
-        self._multi_arguments = ["Nope", "note"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["No Match"],
-            marvin.anagram
-        )
-
-
-
-    def test_anagram_func_match(self):
-        """
-        Testar att anropa funktionen anagram i marvin.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.tags = ["9", "marvin2"]
-        self._multi_arguments = ["Paris", "sirap"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["Match"],
-            marvin.anagram
-        )
-
-
-
-    def test_get_acronym_menu(self):
-        """
-        Testar att anropa menyval 10 via main funktionen i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.tags = ["10", "marvin2"]
-        self.norepr = True
-        self._multi_arguments = ["10", "BRöderna Ivarsson Osby", "", "q"]
+        self._multi_arguments = ["9", "BRöderna Ivarsson Osby", "", "q"]
         self.check_print_contain(
             self._multi_arguments,
             ["BRIO"],
@@ -229,7 +168,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["10", "marvin2"]
+        self.tags = ["9", "marvin2"]
         self._argument = ["Ingvar Kamprad Elmtaryd Agunnaryd"]
         self.check_print_contain(
             self._argument,
@@ -241,7 +180,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
     def test_mask_string_menu(self):
         """
-        Testar att anropa menyval 11 via main funktionen i main.py.
+        Testar att anropa menyval 10 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -249,9 +188,9 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["11", "marvin2"]
+        self.tags = ["10", "marvin2"]
         self.norepr = True
-        self._multi_arguments = ["11", "4556364607935616", "", "q"]
+        self._multi_arguments = ["10", "4556364607935616", "", "q"]
         self.check_print_contain(
             self._multi_arguments,
             ["############5616"],
@@ -270,7 +209,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["11", "marvin2"]
+        self.tags = ["10", "marvin2"]
         self._argument = ["Hej Hej"]
         self.check_print_contain(
             self._argument,
@@ -290,7 +229,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["11", "3", "marvin2"]
+        self.tags = ["10", "3", "marvin2"]
         self._multi_arguments = ["#", 5]
         res = marvin.multiply_str(*self._multi_arguments)
         self.assertEqual("#####", res)
