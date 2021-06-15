@@ -60,7 +60,7 @@ class Test3Marvin2Extra(ExamTestCase):
         Testar att anropa menyval b1 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande skrivs ut :
         {correct}
         Fick följande:
         {student}
@@ -74,17 +74,19 @@ class Test3Marvin2Extra(ExamTestCase):
     def test_points_to_grade_func(self):
         """
         Testar att anropa points_to_grade i marvin.py.
-        Använder följande som input:
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande sträng returneras:
         {correct}
         Fick följande:
         {student}
         """
         self.tags = ["b1"]
         self._multi_arguments = ["70", "50"]
-        self.check_print_contain(self._multi_arguments, ["score: C"], marvin.points_to_grade)
-
+        self.assertEqual(
+            marvin.points_to_grade(*self._multi_arguments),
+            "score: C"
+        )
 
 
     def test_has_strings_menu(self):
@@ -92,7 +94,7 @@ class Test3Marvin2Extra(ExamTestCase):
         Testar att anropa menyval b2 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande sträng finns med i utskriften:
         {correct}
         Fick följande:
         {student}
@@ -106,16 +108,19 @@ class Test3Marvin2Extra(ExamTestCase):
     def test_has_strings_func(self):
         """
         Testar att anropa has_strings i marvin.py.
-        Använder följande som input:
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast i med bokstäverna i annan ordning:
+        Förväntar att följande sträng returneras:
         {correct}
         Fick följande:
         {student}
         """
         self.tags = ["b2"]
         self._multi_arguments = ["Palindrom", "par", "ind", "rom" ]
-        self.check_print_contain(self._multi_arguments, ["No match"], marvin.has_strings)
+        self.assertEqual(
+            marvin.has_strings(*self._multi_arguments),
+            "No match" 
+        )
 
 
 

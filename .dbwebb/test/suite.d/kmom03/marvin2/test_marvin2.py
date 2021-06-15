@@ -99,17 +99,17 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
     def test_randomize_string_func(self):
         """
-        Testar att anropa randomize_string via marvin.py.
-        Använder följande som input:
+        Testar att anropa funktionen randomize_string i marvin.py.
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
+        Förväntar att följande sträng returneras, fast med bokstäverna i annan ordning:
         {correct}
         Fick följande:
         {student}
         """
         string = "MedSiffror1234567890"
         self.tags = ["8", "marvin2"]
-        self._multi_arguments = [string]
+        self._argument = string
 
         arguments = set(self.USER_TAGS)
         if arguments:
@@ -117,11 +117,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
             if not arguments.intersection(test_case_tags):
                 raise unittest.SkipTest("Inkluderar inte någon av de givna taggarna")
 
-
-        with patch("builtins.input", side_effect=self._multi_arguments):
-            with patch("sys.stdout", new=StringIO()) as fake_out:
-                marvin.randomize_string()
-                str_data = fake_out.getvalue()
+        str_data = marvin.randomize_string(string)
 
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
@@ -162,19 +158,18 @@ class Test2Marvin2NewMenus(ExamTestCase):
     def test_get_acronym_func(self):
         """
         Testar att anropa funktionen get_acronym i marvin.py.
-        Använder följande som input:
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student}
         """
         self.tags = ["9", "marvin2"]
-        self._argument = ["Ingvar Kamprad Elmtaryd Agunnaryd"]
-        self.check_print_contain(
-            self._argument,
-            ["IKEA"],
-            marvin.get_acronym
+        self._argument = "Ingvar Kamprad Elmtaryd Agunnaryd"
+        self.assertEqual(
+            marvin.get_acronym(self._argument),
+            "IKEA"
         )
 
 
@@ -203,19 +198,35 @@ class Test2Marvin2NewMenus(ExamTestCase):
     def test_mask_string_func(self):
         """
         Testar att anropa funktionen mask_string i marvin.py.
-        Använder följande som input:
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student}
         """
         self.tags = ["10", "marvin2"]
-        self._argument = ["Hej Hej"]
-        self.check_print_contain(
-            self._argument,
-            ["### Hej"],
-            marvin.mask_string
+        self._argument = "Hej Hej"
+        self.assertEqual(
+            marvin.mask_string(self._argument),
+            "### Hej"
+        )
+
+
+
+    def test_mask_string_check_use_multiply_func(self):
+        """
+        Testar att funktionen mask_string anropar funktionen multiply_str.
+        Förväntar att anrop görs i koden:
+        {correct}
+        Din funktion innehåller följande:
+        {student}
+        """
+        self.tags = ["10", "marvin2"]
+        self.norepr = True
+        self.assertIn(
+            "multiply_str(",
+            inspect.getsource(marvin.mask_string)
         )
 
 
