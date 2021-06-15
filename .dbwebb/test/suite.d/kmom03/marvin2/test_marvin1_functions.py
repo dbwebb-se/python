@@ -66,8 +66,8 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         self.tags = ["1", "7", "marvin1"]
         self.norepr = True
-        self._multi_arguments = ["1", "dbwebb är bäst", "", "7", "sirapigt", "", "q"]
-        self.check_print_contain(self._multi_arguments, ["dbwebb är bäst", "No match!"], main.main)
+        self._multi_arguments = ["1", "dbwebb är bäst", "", "5", "hello", "", "q"]
+        self.check_print_contain(self._multi_arguments, ["dbwebb är bäst", "h-ee-lll-llll-ooooo"], main.main)
 
 
 
