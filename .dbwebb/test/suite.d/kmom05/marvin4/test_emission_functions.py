@@ -8,6 +8,7 @@ from unittest.mock import patch
 from io import StringIO
 import os
 import sys
+import inspect
 from unittest import TextTestRunner
 from examiner.exam_test_case import ExamTestCase
 from examiner.exam_test_result import ExamTestResult
@@ -75,6 +76,20 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
+    def test_search_country_func_raises(self):
+        """
+        Testar att funktionen search_country innehåller raise konstruktionen.
+        Förväntar att följande rad finns i din funktion:
+        {correct}
+        Din funktion innehåller följande:
+        {student}
+        """
+        self.tags = ["12", "search_func"]
+        self.norepr = True
+        self.assertIn("raise ValueError", inspect.getsource(em.search_country))
+
+
+
     def test_search_country_func_multiple(self):
         """
         Testar att funktionen `search_country(country)` returnerar rätt värde när flera matchar och case-insensitive.
@@ -125,6 +140,20 @@ class Test2EmissionFunctions(ExamTestCase):
         self._multi_arguments = ["Dominica", "2021"]
         with self.assertRaises(ValueError):
             em.get_country_year_data_megaton(*self._multi_arguments)
+
+
+
+    def test_get_country_year_data_raises(self):
+        """
+        Testar att funktionen get_country_year_data_megaton innehåller raise konstruktionen.
+        Förväntar att följande rad finns i din funktion:
+        {correct}
+        Din funktion innehåller följande:
+        {student}
+        """
+        self.tags = ["13", "change_func"]
+        self.norepr = True
+        self.assertIn("raise ValueError", inspect.getsource(em.get_country_year_data_megaton))
 
 
 
