@@ -45,16 +45,16 @@ export TESTSUITE=$tmp_test_suit
 for opt in $ARGUMENTS; do
     case $opt in
         "--help" | "-h" )
-            echo "Usage: 'dbwebb test <test_suite> <optional args...>'
+            echo "Usage: 'dbwebb test [part] [optional args...]'
 ARGUMENTS
-    <test_suit> is optional and defults to the current directory.
-                This could be an assigment or kmom.
+    [part] is optional and defaults to the current directory.
+                This could be an assignment or kmom.
 OPTIONAL
     --help, -h:    Displays this help text.
     --no-validate: Skips the validation of the given test_suit
-    --extra, -e:   Includes unittests for extraassignments.
+    --extra, -e:   Includes unittests for extra assignments.
     -t, --tags:    Filters what testcases it should run. If given, it will only
-                   run testcases with the same tags. Tags are seperated by a comma (\",\")
+                   run testcases with the same tags. Tags are separated by a comma (",")
                    Example usage: --tags=speed,temp or --tags=height
     --trace:       Adds traceback output for assertion errors.
 
