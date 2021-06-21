@@ -86,6 +86,8 @@ def format_output(output, assignments):
     """
     Print and format test run and which assignments pass/fail.
     """
+    if not assignments:
+        return
     result = " ".join([str(res) for res in assignments.values()])
     print(result)
     print(output)

@@ -133,9 +133,9 @@ class ExamTestCase(unittest.TestCase):
         else:
             try:
                 hf.import_module(module_path, module)
-            except FileNotFoundError:
+            except FileNotFoundError as e:
                 msg = self._formatMessage(msg, f"{module} not found in path {module_path}")
-                raise self.failureException(msg)
+                raise self.failureException(msg) from e
 
 
 
@@ -148,9 +148,9 @@ class ExamTestCase(unittest.TestCase):
         self.set_answers(obj, attr)
         try:
             getattr(obj, attr)
-        except AttributeError:
+        except AttributeError as e:
             msg = self._formatMessage(msg, f"attribute {attr} not found in object {obj}")
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
 
 
 
@@ -191,6 +191,6 @@ class ExamTestCase(unittest.TestCase):
             for i in range(len(order)-1):
                 if not container.index(order[i]) < container.index(order[i+1]):
                     raise ValueError
-        except ValueError:
+        except ValueError as e:
             msg = self._formatMessage(msg, f"Index of elemnts in {order} don't appear in coirrect order in {container}")
-            raise self.failureException(msg)
+            raise self.failureException(msg) from e
