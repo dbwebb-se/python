@@ -158,7 +158,7 @@ for file in "${files[@]}"; do
 done
 
 # Adding summary to log-file
-printf "$(header "Test summary")
+printf "\n\n$(header "Test summary")
 $summary\n" | tee -a "$LOG"
 
 printf " --------------------------------------------

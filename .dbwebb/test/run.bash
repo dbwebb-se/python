@@ -23,7 +23,7 @@ if (( $# < 3 )); then
 fi
 
 
-#echo $*
+
 case "$4" in
     "-g" | "--generate" )
         FILE="scripts.d/generate"
