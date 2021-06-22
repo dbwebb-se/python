@@ -2,6 +2,10 @@
 #
 # Docker script for dbwebb test - Python.
 #
+
+BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. "$BASE_DIR/../functions.bash"
+
 VERSION="v1.0.0 (2021-05-20)"
 
 # Messages
@@ -146,7 +150,7 @@ COURSE="$DBW_COURSE"
 
 
 # Save INSPECT_PID to be able to kill it
-DBWEBB_INSPECT_PID=
+DOCKER_TEST_PID=
 
 
 # Where to store the logfiles
@@ -156,7 +160,10 @@ install -d -m 0777 "$LOG_BASE_DIR"
 
 LOGFILE="$LOG_BASE_DIR/main.ansi"
 LOGFILE_TEST="$LOG_BASE_DIR/test-results.ansi"
+LOGFILE_TEST_EXTRA="$LOG_BASE_DIR/test-extra.ansi"
 LOGFILE_ERROR="$LOG_BASE_DIR/errors.ansi"
+
+
 
 # OS specific default settings
 OS_TERMINAL=""
@@ -245,6 +252,30 @@ handle_options()
 }
 
 
+
+
+prepare_and_run_examiner_extra()
+{
+    DOCKER_COMMAND="docker-compose run --rm cli"
+    TEST_COMMAND="bash .dbwebb/test/scripts.d/helpers/docker-correct-extra.d.bash ${1}"
+    if [ $OS_TERMINAL == "linux" ]; then
+        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA"
+        DOCKER_TEST_PID="$!"
+    else
+        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA"
+        DOCKER_TEST_PID="$!"
+    fi
+}
+
+
+killDockerTestPid()
+{
+    if [[ ! -z $DOCKER_TEST_PID ]]; then
+        kill -9 $DOCKER_TEST_PID > /dev/null 2>&1
+        DOCKER_TEST_PID=
+    fi
+}
+
 #
 # Tests the assignment inside docker.
 # Runs the test command with no validation as it does not work inside docker.
@@ -254,15 +285,15 @@ doDockerDbwebbTestAndValidate()
 {
 
     DOCKER_COMMAND="docker-compose run --rm cli"
-    TEST_COMMAND="dbwebb test $1 --docker"
+    TEST_COMMAND="dbwebb test $1 $2 --docker"
     shift 2
 
     if [ $OS_TERMINAL == "linux" ]; then
         setsid $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" 2> "$LOGFILE_ERROR"
-        DBWEBB_INSPECT_PID="$!"
+        DOCKER_TEST_PID="$!"
     else
         $DOCKER_COMMAND $TEST_COMMAND $* > "$LOGFILE_TEST" 2> "$LOGFILE_ERROR"
-        DBWEBB_INSPECT_PID="$!"
+        DOCKER_TEST_PID="$!"
     fi
 }
 
@@ -282,12 +313,18 @@ main()
     handle_options "$@"
     initLogfile "$acronym" "$kmom" "$initDescription"
 
-    if [[ ! -z $DBWEBB_INSPECT_PID ]]; then
-        kill -9 $DBWEBB_INSPECT_PID > /dev/null 2>&1
-        DBWEBB_INSPECT_PID=
-    fi
+    # if [[ ! -z $DOCKER_TEST_PID ]]; then
+    #     kill -9 $DOCKER_TEST_PID > /dev/null 2>&1
+    #     DOCKER_TEST_PID=
+    # fi
 
+    killDockerTestPid
     doDockerDbwebbTestAndValidate $*
+
+    killDockerTestPid
+    prepare_and_run_examiner_extra $1
+
+
     OK_OR_FAIL_MESSAGES=$(grep -A 999 'Test summary' "$LOGFILE_TEST")
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
 
@@ -299,8 +336,16 @@ main()
         esac
     done
 
-    no_colors=$(cat "$LOGFILE_TEST" "$LOGFILE_ERROR" | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g')
-    printf '\n%s' "$no_colors" | tee -a "$LOGFILE"
+    echo "
+
+============================================================
+Results for extra assignments:
+"| cat  - "$LOGFILE_TEST_EXTRA" > /tmp/out && mv /tmp/out "$LOGFILE_TEST_EXTRA"
+printf '%s\n' "============================================================" >> $LOGFILE_TEST_EXTRA
+
+    #no_colors=$(cat "$LOGFILE_TEST" "$LOGFILE_TEST_EXTRA" "$LOGFILE_ERROR" | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g')
+    colors=$(cat "$LOGFILE_TEST" "$LOGFILE_TEST_EXTRA" "$LOGFILE_ERROR")
+    printf '\n%s\n' "$colors" | tee -a "$LOGFILE"
 
     [[ $STATUS == "FAILED" ]] && exit 1
     exit 0
