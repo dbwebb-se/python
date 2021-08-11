@@ -328,13 +328,18 @@ main()
     OK_OR_FAIL_MESSAGES=$(grep -A 999 'Test summary' "$LOGFILE_TEST")
     result_arr=(${OK_OR_FAIL_MESSAGES//$'\n'/ })
 
-    for i in "${!result_arr[@]}"; do
-        CURRENT_INDEX="${result_arr[$i]}"
-        case "$CURRENT_INDEX" in
-            *"FAILED"* )
-                STATUS="FAILED" ;;
-        esac
+    if [ -z  "$OK_OR_FAIL_MESSAGES" ]; then
+        # If docker is not responding, log is empty. Which previously gave a passing exit code
+        STATUS="FAILED"
+    else
+        for i in "${!result_arr[@]}"; do
+            CURRENT_INDEX="${result_arr[$i]}"
+            case "$CURRENT_INDEX" in
+                *"FAILED"* )
+                    STATUS="FAILED" ;;
+            esac
     done
+    fi
 
     echo "
 
