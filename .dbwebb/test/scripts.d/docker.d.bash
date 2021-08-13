@@ -89,6 +89,8 @@ die()
 #
 # @arg1 string the acronym.
 #
+# @arg2 string if do course.
+#
 potatoe()
 {
     local acronym
@@ -102,6 +104,27 @@ potatoe()
     dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym $course"
 }
 
+
+
+#
+# Set correct settings of the remote student files, using special umbridge script.
+# The script should not ask for password or permission.
+#
+# @arg1 string the acronym.
+#
+# @arg2 string if do course.
+#
+umbridge_potatoe()
+{
+    local acronym=$1
+    local course="$COURSE"
+
+    if [[ $2 = "false" ]]; then
+        course=
+    fi
+
+    dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-root.bash $acronym $course"
+}
 
 
 
@@ -208,6 +231,20 @@ initLogfile()
 
 
 #
+# Check if use regular potatoe or umbridge potatoe
+#
+decidePotato()
+{
+    if [[ -z "${UMBRIDGE_ENV}" ]]; then # not
+        potatoe "$@"
+    else
+        umbridge_potatoe "$@"
+    fi
+}
+
+
+
+#
 # Download student files and do potatoe if needed
 #
 downloadPotato()
@@ -217,12 +254,14 @@ downloadPotato()
 
     if ! dbwebb --force --yes download me $acronym > /dev/null; then
         printf "\n\033[32;01m---> Doing a Potato\033[0m\n\033[0;30;43mACTION NEEDED...\033[0m\n"
-        potatoe $acronym
+        decidePotato $acronym
+
         if ! dbwebb --force --yes --silent download me $acronym; then
             printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n"
-            potatoe $acronym "false"
+            decidePotato $acronym "false"
+
             if ! dbwebb --force --yes --silent download me $acronym; then
-                printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n"
+                printf "\n\033[0;30;41mFAILED!\033[0m Potatoe failed, exiting...\n"
                 exit 1
             fi
         fi
