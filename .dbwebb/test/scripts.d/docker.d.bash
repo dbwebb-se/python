@@ -237,7 +237,7 @@ initLogfile()
 #
 decidePotato()
 {
-    if [[ -z "${UMBRIDGE_ENV}" ]]; then # not
+    if [  "${UMBRIDGE_ENV:-false}" == "false" ]; then # not
         potatoe "$@"
     else
         umbridge_potatoe "$@"
