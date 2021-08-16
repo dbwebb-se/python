@@ -93,6 +93,7 @@ die()
 #
 potatoe()
 {
+    echo "---------------potatoe------------------"
     local acronym
     local course="$COURSE"
 
@@ -116,6 +117,7 @@ potatoe()
 #
 umbridge_potatoe()
 {
+    echo "---------------umbridge------------------"
     local acronym=$1
     local course="$COURSE"
 
