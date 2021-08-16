@@ -61,7 +61,7 @@ class Test3ExtraMarvin1(ExamTestCase):
         """
         self.tags = ["a1"]
         self.norepr = True
-        self._multi_arguments = ["A1", "Extemporera", "ropa", "", "q"]
+        self._multi_arguments = ["a1", "Extemporera", "ropa", "", "q"]
 
         self.check_print_contain(self._multi_arguments, "Match!")
 
