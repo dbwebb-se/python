@@ -32,18 +32,18 @@ class Test2Plane(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
     HIGH_VALS = {
-        "speed": {"input": "2100", "correct": "6889.76"},
-        "height": {"input": "1020", "correct": "633.8"},
+        "speed": {"input": "2100", "correct": "1304.88"},
+        "height": {"input": "1020", "correct": "3346.46"},
         "temp": {"input": "2192.0", "correct": "3977.6"}
     }
     LOW_VALS = {
-        "speed": {"input": "23.23", "correct": "76.21"},
-        "height": {"input": "65.0", "correct": "40.39"},
+        "speed": {"input": "23.23", "correct": "14.43"},
+        "height": {"input": "65.0", "correct": "213.25"},
         "temp": {"input": "135.205", "correct": "275.37"}
     }
     NEGATIVE_VALS = {
-        "speed": {"input": "-2.5", "correct": "-8.2"},
-        "height": {"input": "-123.14", "correct": "-76.52"},
+        "speed": {"input": "-2.5", "correct": "-1.55"},
+        "height": {"input": "-123.14", "correct": "-404.0"},
         "temp": {"input": "-252.454", "correct": "-422.42"}
     }
 
