@@ -10,10 +10,8 @@ import re
 import os
 import sys
 from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-from examiner.helper_functions import import_module
-from examiner.helper_functions import find_path_to_assignment
+from examiner import ExamTestCase, ExamTestResult, tags
+from examiner import import_module, find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -37,29 +35,29 @@ class Test4Marvin2Structure(ExamTestCase):
         os.chdir(REPO_PATH)
 
 
+    @tags("struct")
     def test_file_main_py_exist(self):
         """
         Testerna hittar inte filen 'main.py'.
         """
-        self.tags = ["struct"]
         self.assertModule("main", REPO_PATH)
 
 
 
+    @tags("struct")
     def test_file_marvin_py_exist(self):
         """
         Testerna hittar inte filen 'marvin.py'.
         """
-        self.tags = ["struct"]
         self.assertModule("marvin", REPO_PATH)
 
 
 
+    @tags("struct")
     def test_file_main_has_main_function(self):
         """
         Testerna hittar inte funktionen 'main' i filen 'main.py'.
         """
-        self.tags = ["struct"]
         main = import_module(REPO_PATH, 'main')
         self.assertAttribute(main, "main")
 

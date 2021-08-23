@@ -9,10 +9,8 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-from examiner.helper_functions import import_module
-from examiner.helper_functions import find_path_to_assignment
+from examiner import tags, ExamTestCase, ExamTestResult
+from examiner import import_module, find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -53,7 +51,7 @@ class Test1Marvin1Functions(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
-
+    @tags("1", "7", "marvin1")
     def test_main(self):
         """
         Testar att anropa menyvalen 1 och 7 via main funktionen i main.py.
@@ -64,13 +62,13 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["1", "7", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["1", "dbwebb är bäst", "", "5", "hello", "", "q"]
         self.check_print_contain(self._multi_arguments, ["dbwebb är bäst", "h-ee-lll-llll-ooooo"], main.main)
 
 
 
+    @tags("1", "marvin1")
     def test_greet(self):
         """
         Testar att funktionen "greet" finns i marvin.py.
@@ -81,13 +79,12 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["1", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["dbwebb är bäst"]
         self.check_print_contain(self._multi_arguments, ["dbwebb är bäst"], marvin.greet)
 
 
-
+    @tags("2", "marvin1")
     def test_temperature_high(self):
         """
         Testar att funktionen "celcius_to_farenheit" finns i marvin.py.
@@ -98,13 +95,13 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["2", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["70"]
         self.check_print_contain(self._multi_arguments, ["158.0"], marvin.celcius_to_farenheit)
 
 
 
+    @tags("3", "marvin1")
     def test_word_manipulation(self):
         """
         Testar att funktionen "word_manipulation" finns i marvin.py.
@@ -115,7 +112,6 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["3", "marvin1"]
         word, times = "to the moon", 10
         self.norepr = True
         self._multi_arguments = [word, times]
@@ -128,6 +124,7 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
 
+    @tags("4", "marvin1")
     def test_sum_and_avrage(self):
         """
         Testar att funktionen "sum_and_average" finns i marvin.py.
@@ -142,7 +139,6 @@ class Test1Marvin1Functions(ExamTestCase):
         sum_numbers = sum([float(n) for n in numbers])
         med_numbers = sum_numbers/len(numbers)
 
-        self.tags = ["4", "marvin1"]
         self.norepr = True
         self._multi_arguments = [*numbers, "done"]
 
@@ -156,6 +152,7 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
 
+    @tags("5", "marvin1")
     def test_hyphen_string(self):
         """
         Testar att funktionen "hyphen_string" finns i marvin.py.
@@ -166,7 +163,6 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["5", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["python"]
 
@@ -178,6 +174,7 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
 
+    @tags("6", "marvin1")
     def test_is_isogram(self):
         """
         Testar att funktionen "is_isogram" finns i marvin.py.
@@ -188,7 +185,6 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["6", "marvin1"]
         self.norepr = True
         self._multi_arguments = ["paris"]
 
@@ -200,6 +196,7 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
 
+    @tags("7", "marvin1")
     def test_compare_numbers(self):
         """
         Testar att funktionen "compare_numbers" finns i marvin.py.
@@ -212,7 +209,6 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         numbers = ["11", "12", "12", "12", "14"]
 
-        self.tags = ["7", "marvin1"]
         self.norepr = True
         self._multi_arguments = [*numbers, "done"]
 

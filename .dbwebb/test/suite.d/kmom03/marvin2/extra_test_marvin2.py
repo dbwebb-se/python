@@ -10,10 +10,8 @@ import re
 import os
 import sys
 from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-from examiner.helper_functions import import_module
-from examiner.helper_functions import find_path_to_assignment
+from examiner import ExamTestCase, ExamTestResult, tags
+from examiner import import_module, find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -54,7 +52,7 @@ class Test3Marvin2Extra(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
-
+    @tags("b1")
     def test_points_to_grade_menu(self):
         """
         Testar att anropa menyval b1 via main funktionen i main.py.
@@ -65,12 +63,11 @@ class Test3Marvin2Extra(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["b1"]
         self._multi_arguments = ["b1", "100", "59", "", "q"]
         self.check_print_contain(self._multi_arguments, ["score: F"], main.main)
 
 
-
+    @tags("b1")
     def test_points_to_grade_func(self):
         """
         Testar att anropa points_to_grade i marvin.py.
@@ -81,7 +78,6 @@ class Test3Marvin2Extra(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["b1"]
         self._multi_arguments = ["70", "50"]
         self.assertEqual(
             marvin.points_to_grade(*self._multi_arguments),
@@ -89,6 +85,7 @@ class Test3Marvin2Extra(ExamTestCase):
         )
 
 
+    @tags("b2")
     def test_has_strings_menu(self):
         """
         Testar att anropa menyval b2 via main funktionen i main.py.
@@ -99,12 +96,12 @@ class Test3Marvin2Extra(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["b2"]
         self._multi_arguments = ["b2", "anagram", "ana", "agr", "am", "", "q"]
         self.check_print_contain(self._multi_arguments, ["Match"], main.main)
 
 
 
+    @tags("b2")
     def test_has_strings_func(self):
         """
         Testar att anropa has_strings i marvin.py.
@@ -115,7 +112,6 @@ class Test3Marvin2Extra(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["b2"]
         self._multi_arguments = ["Palindrom", "par", "ind", "rom" ]
         self.assertEqual(
             marvin.has_strings(*self._multi_arguments),

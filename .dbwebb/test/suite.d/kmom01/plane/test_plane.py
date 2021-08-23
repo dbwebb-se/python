@@ -8,10 +8,8 @@ from io import StringIO
 import os
 import sys
 from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-from examiner.helper_functions import import_module
-from examiner.helper_functions import find_path_to_assignment
+from examiner import ExamTestCase, ExamTestResult, tags
+from examiner import import_module, find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -68,6 +66,7 @@ class Test2Plane(ExamTestCase):
 
 
 
+    @tags("speed")
     def test_a_speed_low_value(self):
         """
         Testar kilometer till miles
@@ -78,13 +77,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["speed"]
         self.norepr = True
         self._multi_arguments = [self.LOW_VALS["speed"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.LOW_VALS["speed"]["correct"])
 
 
 
+    @tags("speed")
     def test_b_speed_high_values(self):
         """
         Testar kilometer till miles
@@ -95,13 +94,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["speed"]
         self.norepr = True
         self._multi_arguments = [self.HIGH_VALS["speed"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.HIGH_VALS["speed"]["correct"])
 
 
 
+    @tags("speed")
     def test_c_speed_negative_values(self):
         """
         Testar kilometer till miles
@@ -112,13 +111,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["speed"]
         self.norepr = True
         self._multi_arguments = [self.NEGATIVE_VALS["speed"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["speed"]["correct"])
 
 
 
+    @tags("height")
     def test_d_height_low_value(self):
         """
         Testar meter till feet
@@ -129,13 +128,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["height"]
         self.norepr = True
         self._multi_arguments = [self.LOW_VALS["height"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.LOW_VALS["height"]["correct"])
 
 
 
+    @tags("height")
     def test_e_height_high_values(self):
         """
         Testar meter till feet
@@ -146,13 +145,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["height"]
         self.norepr = True
         self._multi_arguments = [self.HIGH_VALS["height"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.HIGH_VALS["height"]["correct"])
 
 
 
+    @tags("height")
     def test_f_height_negative_values(self):
         """
         Testar meter till feet
@@ -163,13 +162,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["height"]
         self.norepr = True
         self._multi_arguments = [self.NEGATIVE_VALS["height"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["height"]["correct"])
 
 
 
+    @tags("temp")
     def test_g_temp_low_value(self):
         """
         Testar celcius till fahrenheit
@@ -180,13 +179,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["temp"]
         self.norepr = True
         self._multi_arguments = [self.LOW_VALS["temp"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.LOW_VALS["temp"]["correct"])
 
 
 
+    @tags("temp")
     def test_h_temp_high_values(self):
         """
         Testar celcius till fahrenheit
@@ -197,13 +196,13 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["temp"]
         self.norepr = True
         self._multi_arguments = [self.HIGH_VALS["temp"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.HIGH_VALS["temp"]["correct"])
 
 
 
+    @tags("temp")
     def test_i_temp_negative_values(self):
         """
         Testar celcius till fahrenheit
@@ -214,7 +213,6 @@ class Test2Plane(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["temp"]
         self.norepr = True
         self._multi_arguments = [self.NEGATIVE_VALS["temp"]["input"]] * 3
         self.check_print_contain(self._multi_arguments, self.NEGATIVE_VALS["temp"]["correct"])

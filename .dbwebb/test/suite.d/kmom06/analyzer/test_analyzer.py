@@ -3,16 +3,12 @@
 Contains testcases for the individual examination.
 """
 import unittest
-from unittest.mock import patch
-from importlib import util
 from io import StringIO
 import os
 import sys
-from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-from examiner.helper_functions import import_module
-from examiner.helper_functions import find_path_to_assignment
+from unittest.mock import patch
+from examiner import ExamTestCase, ExamTestResult, tags
+from examiner import import_module, find_path_to_assignment
 
 
 FILE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -45,7 +41,7 @@ class Test2Counters(ExamTestCase):
         os.chdir(REPO_PATH)
 
 
-
+    @tags("count", "lines")
     def test_b_lines(self):
         """
         Testar att anropa menyval 'lines' i main.py.
@@ -56,7 +52,6 @@ class Test2Counters(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["count", "lines"]
         self.norepr = True
         self._multi_arguments = ["lines", "", "q"]
         with patch('builtins.input', side_effect=self._multi_arguments):
@@ -67,6 +62,7 @@ class Test2Counters(ExamTestCase):
 
 
 
+    @tags("count", "words")
     def test_c_words(self):
         """
         Testar att anropa menyval 'words' i main.py.
@@ -77,7 +73,6 @@ class Test2Counters(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["count", "words"]
         self.norepr = True
         self._multi_arguments = ["words", "", "q"]
 
@@ -89,6 +84,7 @@ class Test2Counters(ExamTestCase):
 
 
 
+    @tags("count", "letters")
     def test_d_letters(self):
         """
         Testar att anropa menyval 'letters' i main.py.
@@ -99,7 +95,6 @@ class Test2Counters(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["count", "letters"]
         self.norepr = True
         self._multi_arguments = ["letters", "", "q"]
         self.norepr = True
@@ -128,6 +123,7 @@ class Test3Frequencies(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
+    @tags("freq", "word_frequency")
     def test_a_word_frequency(self):
         """
         Testar att anropa menyval 'word_frequency' i main.py.
@@ -138,7 +134,6 @@ class Test3Frequencies(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["freq", "word_frequency"]
         self.norepr = True
         self._multi_arguments = ["word_frequency", "", "q"]
         self.check_print_contain(self._multi_arguments, [
@@ -154,6 +149,7 @@ class Test3Frequencies(ExamTestCase):
 
 
 
+    @tags("freq", "letter_frequency")
     def test_b_letter_frequency(self):
         """
         Testar att anropa menyval 'letter_frequency' i main.py.
@@ -164,7 +160,6 @@ class Test3Frequencies(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["freq", "letter_frequency"]
         self.norepr = True
         self._multi_arguments = ["letter_frequency", "", "q"]
         self.check_print_contain(self._multi_arguments, [
@@ -196,6 +191,7 @@ class Test4All(ExamTestCase):
                     str_data = fake_out.getvalue()
                     self.assertIn(val, str_data)
 
+    @tags("all")
     def test_a_all(self):
         """
         Testar att anropa menyval 'all' i main.py.
@@ -206,7 +202,6 @@ class Test4All(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["all"]
         self.norepr = True
         self._multi_arguments = ["all", "", "q"]
 
@@ -237,6 +232,7 @@ class Test4Change(ExamTestCase):
     Meny options for frequency
     """
 
+    @tags("change")
     def test_a_change(self):
         """
         Testar att anropa menyval 'all' i main.py.
@@ -247,7 +243,6 @@ class Test4Change(ExamTestCase):
         Fick följande:
         {student}
         """
-        self.tags = ["change"]
         self.norepr = True
         self._multi_arguments = ["change", "lorum.txt", "", "all", "", "q"]
         with patch('builtins.input', side_effect=self._multi_arguments):
