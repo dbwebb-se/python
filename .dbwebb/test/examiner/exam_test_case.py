@@ -25,7 +25,6 @@ class ExamTestCase(unittest.TestCase):
         self.student_answer = ""
         self.correct_answer = ""
         self.norepr = False
-        self.tags = []
         self._set_test_name_and_assignment()
 
 
@@ -66,7 +65,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertEqual(self, first, second, msg=None):
         """
         Check if first is equal to second. Save correct and student answer as to variables.
@@ -77,7 +75,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertIn(self, member, container, msg=None):
         """
         Check if value in container.  Save correct and student answer as to variables.
@@ -88,7 +85,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertFalse(self, expr, msg=None):
         """
         Check that the expression is False.
@@ -99,7 +95,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertTrue(self, expr, msg=None):
         """
         Check that the expression is true.
@@ -110,7 +105,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertNotIn(self, member, container, msg=None):
         """
         Check that the expression is true.
@@ -119,7 +113,6 @@ class ExamTestCase(unittest.TestCase):
         self.set_answers(container, member)
         super().assertNotIn(member, container, msg)
 
-    @hf.check_for_tags()
     def assertModule(self, module, module_path=None, msg=None):
         """
         Check that module can be imported.
@@ -139,7 +132,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertAttribute(self, obj, attr, msg=None):
         """
         Check that object has attribute.
@@ -154,7 +146,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertRaises(self, expected_exception, *args, **kwargs):
         """
         assertRaises is a context and therefore we need to return it
@@ -164,7 +155,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertCountEqual(self, first, second, msg=None):
         """Asserts that two iterables have the same elements, the same number of
         times, without regard to order.
@@ -179,7 +169,6 @@ class ExamTestCase(unittest.TestCase):
 
 
 
-    @hf.check_for_tags()
     def assertOrder(self, order, container, msg=None):
         """
         Check that in index of elements in order are lowest to highest in container.
