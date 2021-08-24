@@ -4,6 +4,7 @@ pass
 import re
 import hashlib
 import os
+from functools import wraps
 from unittest import SkipTest
 import importlib.util as importer
 try:
@@ -168,6 +169,8 @@ def check_for_tags(*tag_args, msg="Inkluderar inte någon av de givna taggarna")
 
     def decorator(f):
         """Decorator for overwriting test_case functions"""
+
+        @wraps(f)
         def wrapper(self, *args, **kwargs):
             """Wrapper"""
             user_tags = set(self.USER_TAGS)
