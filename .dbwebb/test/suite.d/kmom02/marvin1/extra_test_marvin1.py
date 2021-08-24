@@ -152,7 +152,7 @@ class Test3ExtraMarvin1(ExamTestCase):
         self._multi_arguments = ["a3", "The \tWheel of\tTime\tturns", "", "q"]
 
         self.check_print_contain(self._multi_arguments,
-            "The     Wheel of    Time    turns")
+            "The    Wheel of   Time   turns")
 
 
 
