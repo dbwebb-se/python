@@ -263,7 +263,7 @@ downloadPotato()
             decidePotato $acronym "false"
 
             if ! dbwebb --force --yes --silent download me $acronym; then
-                printf "\n\033[0;30;41mFAILED!\033[0m Potatoe failed, exiting...\n"
+                printf "\n\033[0;30;41mFAILED!\033[0m Potatoe failed for $acronym, exiting...\n" | tee -a "$LOGFILE" | tee >(cat 1>&2)
                 exit 1
             fi
         fi
@@ -351,8 +351,8 @@ main()
     local kmom="$1"
     initDescription="local, docker"
 
-    handle_options "$@"
     initLogfile "$acronym" "$kmom" "$initDescription"
+    handle_options "$@"
 
     # if [[ ! -z $DOCKER_TEST_PID ]]; then
     #     kill -9 $DOCKER_TEST_PID > /dev/null 2>&1
