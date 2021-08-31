@@ -250,7 +250,7 @@ class Test4Change(ExamTestCase):
                 main.main()
                 str_data = fake_out.getvalue()
 
-                self.assertIn("23", str_data)
+                self.assertIn("25", str_data)
                 self.assertIn("3", str_data)
                 self.assertIn("140", str_data)
 
