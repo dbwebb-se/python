@@ -264,7 +264,7 @@ downloadPotato()
 
             if ! dbwebb --force --yes --silent download me $acronym; then
                 printf "\n\033[0;30;41mFAILED!\033[0m Potatoe failed for $acronym, exiting...\n" | tee -a "$LOGFILE" | tee >(cat 1>&2)
-                exit 1
+                exit 7
             fi
         fi
     fi
