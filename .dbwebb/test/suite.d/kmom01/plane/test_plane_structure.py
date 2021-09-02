@@ -36,9 +36,9 @@ class Test1PlaneStructure(ExamTestCase):
 
 
     @tags("struct")
-    def test_file_marvin_py_exist(self):
+    def test_file_plane_py_exist(self):
         """
-        Testerna hittar inte filen 'marvin.py'.
+        Testerna hittar inte filen 'plane.py'.
         """
         with patch("builtins.input", side_effect=''):
             with patch("sys.stdout", new=StringIO()) as _:
