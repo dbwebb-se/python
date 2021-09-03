@@ -3,6 +3,10 @@
 # First create these directories on dbwebb init-me in the me-dir.
 # Map item to dirname while doing, for example, dbwebb validate lab1
 #
+#
+#
+# DON'T! forget to update .dbwebb/validate.exclude to exclude dirs from validation
+#
 
 # kmom01
 me/kmom01/hello

@@ -4,6 +4,15 @@
 # Paths start from courserepo, so path to me is "./me".
 #
 
+# ignore non assignment folders
+-./me/kmom01/hello/*
+-./me/kmom02/flow/*
+-./me/kmom03/functions/*
+-./me/kmom04/list/*
+-./me/kmom05/warehouse/*
+-./me/kmom06/file/*
+-./me/kmom10/prep/*
+
 # Start by removing some common -files and add some +subdirs
 -*/.git/*
 -*/build/*
