@@ -74,8 +74,8 @@ class Test2Marvin2NewMenus(ExamTestCase):
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
-        self.student_answer = repr(str_data)
-        self.correct_answer = repr(string)
+        self.student_answer = str_data
+        self.correct_answer = repr(f"{string} --> <en slumpad ordning>")
 
 
         try:
@@ -107,7 +107,8 @@ class Test2Marvin2NewMenus(ExamTestCase):
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
         self.student_answer = str_data
-        self.correct_answer = repr(string)
+        self.correct_answer = repr(f"{string} --> <en slumpad ordning>")
+
 
         try:
             rnd_str = re.search(pattern, str_data)[1]
