@@ -41,9 +41,10 @@ def wrong_nr_of_input_calls(tb_exc):
         "(Tips! Det är vanligt att få detta felet om man gör fler "
         "anrop till funktionen input() än vad det står i uppgiften.)"
     )
-    if "input(" in tb_exc.stack[-3].line:
-        if "mock_call" in tb_exc.stack[-2].line:
-            if "result = next(effect)" in tb_exc.stack[-1].line:
+    tb_str = "\n".join(list(tb_exc.format()))
+    if "input(" in tb_str:
+        if "mock_call" in tb_str:
+            if "result = next(effect)" in tb_str:
                 return help_msg
     return ""
 
