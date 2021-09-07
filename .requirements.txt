@@ -1,4 +1,4 @@
-pylint == 2.5.3
+pylint == 2.6.0
 #coverage
 #flake8
 #flake8-docstrings
