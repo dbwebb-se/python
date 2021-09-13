@@ -7,20 +7,20 @@ strängen bli "Pythonärdetbästaprogrammeringsspråket!"
  
 Tips. mellanslag är en egen karaktär, " ", vi kan jämföra mot.
 """
-  
+
 string = "Python är det bästa programmeringsspråket!"
 msg = ""
 for char in string:
-   if char != " ":
-       msg += char
+    if char != " ":
+        msg += char
 print(msg)
- 
- 
+
+
 # mindre bra lösning
 msg = ""
 for char in string:
-   if char == " ":
-       pass
-   else:
-       msg += char
+    if char == " ":
+        pass
+    else:
+        msg += char
 print(msg)
