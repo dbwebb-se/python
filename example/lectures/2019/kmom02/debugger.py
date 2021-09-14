@@ -2,6 +2,7 @@
 Lets debug!
 """
 import pdb
+# pylint: disable=forgotten-debug-statement
 variable = """
 Phil played two or three times more, managing to obtain in all
 twenty-five cents additional. He reached the corner of Thirteenth Street

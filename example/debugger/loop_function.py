@@ -4,6 +4,8 @@
 Example script showing usage of while-loop for article
 Villkor och loopar
 """
+#pylint
+# pylint: disable=forgotten-debug-statement
 import pdb
 def print_apples(number_of_apples):
     """
