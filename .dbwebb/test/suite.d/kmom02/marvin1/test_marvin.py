@@ -242,7 +242,7 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("6")
-    def test_j_is_isogram(self):
+    def test_j_is_isogram_true(self):
         """
         Testar menyval 6
         Använder följande som input:
@@ -260,7 +260,7 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("6")
-    def test_k_is_isogram_two(self):
+    def test_k_is_isogram_false(self):
         """
         Testar menyval 6
         Använder följande som input:
@@ -276,6 +276,22 @@ class Test2Marvin1(ExamTestCase):
         self.check_print_contain(self._multi_arguments, ["No match!"])
 
 
+
+    @tags("6")
+    def test_k_is_isogram_false_seperate(self):
+        """
+        Testar menyval 6
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["6", "flaska", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["No match!"])
 
 
 
