@@ -16,7 +16,7 @@ class ExamTestCase(unittest.TestCase):
     TEST_NAME_REGEX = r"test(_[a-z])?_(\w+)"
     USER_TAGS = []
 
-
+    link_to_assignment = ""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

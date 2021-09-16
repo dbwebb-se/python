@@ -155,7 +155,7 @@ class ExamTestResult(TextTestResult):
                 "started": 0,
                 "success": 0,
             }
-            self.stream.write(test.assignment + "\n")
+            self.stream.write(f"{test.assignment} {test.link_to_assignment}\n")
 
         self.assignments_results[test.assignment]["started"] += 1
 
