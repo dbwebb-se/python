@@ -25,12 +25,17 @@ DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
 lab_array="$(cat $DBWEBB_MAP | awk '/[\/]lab[1-9]/')"
 file_to_exec="answer.py"
 
+LAB_VERSION="$(cat $COURSE_REPO_BASE/.dbwebb/lab.version)"
+source "$COURSE_REPO_BASE/.dbwebb.course"
+
 for lab in $lab_array; do
     temp_arr=(${lab//\// })
     res="$(contains_lab)"
 
     if [[ $res == "1" ]]; then
         lab_file="${COURSE_REPO_BASE}/${lab}/${file_to_exec}"
+
+        lab_link="https://lab.dbwebb.se/?course=$DBW_COURSE&lab=$(basename $lab)&version=$LAB_VERSION&acronym=$ACRONYM&doGenerate=Submit"
 
         output+="
 Executing $lab/$file_to_exec ...
@@ -50,4 +55,5 @@ fi
 doLog $fail "$HEADER
 $output
 $FOOTER
+Link to lab: $lab_link
 "
