@@ -24,6 +24,8 @@ class TestStructure(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
+    link_to_assignment = "https://dbwebb.se/uppgift/analysera-text-och-ord-v3"
+
     @classmethod
     def setUpClass(cls):
         """

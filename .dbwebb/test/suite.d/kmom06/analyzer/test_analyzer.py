@@ -21,20 +21,11 @@ if REPO_PATH not in sys.path:
 main = import_module(REPO_PATH, "main")
 
 
-class Test1Files(ExamTestCase):
-    """
-    Each assignment has 1 testcase with multiple asserts.
-    The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
-    """
-
-
-
-
-
 class Test2Counters(ExamTestCase):
     """
     Meny options for counting
     """
+
     @classmethod
     def setUpClass(cls):
         # Otherwise the .txt files will not be found

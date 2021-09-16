@@ -32,6 +32,8 @@ class Test3Marvin2Extra(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
+    link_to_assignment = "https://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-2-v4#extra"
+
     @classmethod
     def setUpClass(cls):
         """

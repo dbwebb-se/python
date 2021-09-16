@@ -27,6 +27,8 @@ class Test4Marvin2Structure(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
+    link_to_assignment = "https://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-2-v4"
+
     @classmethod
     def setUpClass(cls):
         """

@@ -30,6 +30,8 @@ class Test3Marvin3Main(ExamTestCase):
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
+    link_to_assignment = "https://dbwebb.se/uppgift/din-egen-chattbot-marvin-steg-3-v4"
+
     PICKUP = ["inv pick car", "", "inv pick house", ""]
 
     @classmethod

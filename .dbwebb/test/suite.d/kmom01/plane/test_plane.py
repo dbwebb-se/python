@@ -29,6 +29,9 @@ class Test2Plane(ExamTestCase):
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+
+    link_to_assignment = "https://dbwebb.se/uppgift/ditt-forsta-python-skript-v2"
+
     HIGH_VALS = {
         "speed": {"input": "2100", "correct": "1304.88"},
         "height": {"input": "1020", "correct": "3346.46"},
