@@ -51,7 +51,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a1")
-    def test_a_check_letters_valid(self):
+    def test_a1_check_letters_valid(self):
         """
         Testar menyval a1
         Använder följande som input:
@@ -69,7 +69,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a1")
-    def test_b_check_letters_invalid_two(self):
+    def test_a2_check_letters_invalid_two(self):
         """
         Testar menyval a1
         Använder följande som input:
@@ -86,8 +86,26 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
 
+    @tags("a1")
+    def test_a3_check_letters_invalid_two(self):
+        """
+        Testar menyval a1. Dubbla av samma bokstav ska inte räknas som en.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["a1", "mister", "isse", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "No match!")
+
+
+
     @tags("a2")
-    def test_c_multiplier_correct_high(self):
+    def test_b1_multiplier_correct_high(self):
         """
         Testar menyval a2
         Använder följande som input:
@@ -105,7 +123,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a2")
-    def test_d_multiplier_correct_low(self):
+    def test_b2_multiplier_correct_low(self):
         """
         Testar menyval a2
         Använder följande som input:
@@ -123,7 +141,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a2")
-    def test_e_multiplier_correct_fail(self):
+    def test_b3_multiplier_correct_fail(self):
         """
         Testar menyval a2
         Använder följande som input:
@@ -141,7 +159,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a3")
-    def test_f_tab_to_spaces(self):
+    def test_c1_tab_to_spaces(self):
         """
         Testar menyval a3
         Använder följande som input:
@@ -160,7 +178,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a3")
-    def test_g_tab_to_spaces_fail(self):
+    def test_c2_tab_to_spaces_fail(self):
         """
         Testar menyval a3
         Använder följande som input:
@@ -178,7 +196,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a4")
-    def test_h_concatinate_names(self):
+    def test_d1_concatinate_names(self):
         """
         Testar menyval a4
         Använder följande som input:
@@ -196,7 +214,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a4")
-    def test_i_concatinate_names_two(self):
+    def test_d2_concatinate_names_two(self):
         """
         Testar menyval a4
         Använder följande som input:
@@ -214,7 +232,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a5")
-    def test_j_point_per_player(self):
+    def test_d3_point_per_player(self):
         """
         Testar menyval a5
         Använder följande som input:
@@ -232,7 +250,7 @@ class Test3ExtraMarvin1(ExamTestCase):
 
 
     @tags("a5")
-    def test_k_point_per_player_two(self):
+    def test_d4_point_per_player_two(self):
         """
         Testar menyval a5
         Använder följande som input:
