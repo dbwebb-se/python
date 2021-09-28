@@ -286,7 +286,7 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, bag)
-        self.assertNotIn("Error", str_data)
+        self.assertIn("Error", str_data)
 
 
 
