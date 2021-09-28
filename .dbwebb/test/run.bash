@@ -37,14 +37,12 @@ esac
 
 
 
-# # Execute the actual runner
+# Execute the actual runner
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
-# timeout --preserve-status -k 10 60 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
-# status=$?
-# if [[ $status == 124 ]] || [[ $status == 137 ]]; then
-#     reset -I
-#     printf "Test timedout. Something took to long to finish!\n"
-#     # exit $status
-# fi
-# exit $status
+timeout -k 20 90 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
+status=$?
+if [[ $status == 124 ]] || [[ $status == 137 ]]; then
+    reset -I
+    printf "Test timedout. Something took to long to finish!\n"
+fi
+exit $status
