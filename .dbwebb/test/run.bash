@@ -39,7 +39,7 @@ esac
 
 # Execute the actual runner
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-timeout -k 20 90 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
+timeout -k 20 120 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
 status=$?
 if [[ $status == 124 ]] || [[ $status == 137 ]]; then
     reset -I
