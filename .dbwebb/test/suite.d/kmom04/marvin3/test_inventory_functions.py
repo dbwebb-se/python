@@ -286,7 +286,7 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, bag)
-        self.assertNotIn("Error", str_data)
+        self.assertIn("Error", str_data)
 
 
 
@@ -325,7 +325,7 @@ class Test2InventoryFunctions(ExamTestCase):
         {student}
         """
         bag = ["alone"]
-        self._multi_arguments = [bag.copy(), "more", 2]
+        self._multi_arguments = [bag.copy(), "more", "2"]
 
         with patch("sys.stdout", new=StringIO()) as fake_out:
             new_bag = backpack.pick(bag, *self._multi_arguments[1:])

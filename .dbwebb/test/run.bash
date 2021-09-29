@@ -39,4 +39,10 @@ esac
 
 # Execute the actual runner
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
+timeout -k 20 120 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
+status=$?
+if [[ $status == 124 ]] || [[ $status == 137 ]]; then
+    reset -I
+    printf "Test timedout. Something took to long to finish!\n"
+fi
+exit $status
