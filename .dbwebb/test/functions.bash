@@ -28,7 +28,6 @@ get_python_command () {
     exit 1
 }
 
-
 #
 # Checks if it is a valid testsuite for the examiner script.
 #
@@ -38,4 +37,21 @@ is_valid_suite () {
         printf "'${COURSE}' + '${TESTSUITE}' is not a valid target.\n"
         exit 1
     fi
+}
+
+#
+# Run bash command using timeout.
+# $1 - time in seconds to wait for command after sending kill signal. If time pass, send SIGKILL.
+# $2 - time in seconds to wait before sending kill signal.
+# $3 - bash commmand to run.
+# $4+ - arguments for bash command.
+#
+execute_with_timeout () {
+    timeout --foreground -k $1 $2 "$3" "${@:4}"
+    status=$?
+    if [[ $status == 124 ]] || [[ $status == 137 ]]; then
+        reset -I
+        printf "Test timedout. Something took to longer than $2 seconds to finish!\nMaybe you have an infinty loop.\n"
+    fi
+    return $status
 }
