@@ -122,6 +122,7 @@ export -f doLog
 examiner="examiner"
 lab="lab"
 validate="validate"
+timeout_files=($lab $examiner)# can't have space in filenames
 
 case "$TESTSUITE" in
     "kmom10" | try[1-9] ) echo "Not yet implemented" && exit 1  ;;
@@ -138,15 +139,23 @@ esac
 # Executes scripts
 header "Start"
 printf "[%s] %s %s %s\n" "$ACRONYM" "$TARGET" "$TESTSUITE" "$( date )"
-
+EXIT_CODE=0
 for file in "${files[@]}"; do
     output=
     target="scripts.d/${file}.d.bash"
 
     echo && header "$target"
 
-    bash "${DIR}/$target"
-    if (( $? )); then
+    if [[ " ${timeout_files[*]} " =~ " ${file} " ]]; then # can't handle filenames with space in them
+        # if file is in array
+        execute_with_timeout 10 90 bash "${DIR}/$target"
+    else
+        bash "${DIR}/$target"
+    fi
+    status=$?
+
+    if (( $status )); then
+        EXIT_CODE=$status
         output="$MSG_FAILED $target
 "
     else
@@ -163,3 +172,5 @@ $summary\n" | tee -a "$LOG"
 
 printf " --------------------------------------------
 Saved a log of the test output: less -R '$LOG'\n" | tee -a "$LOG"
+
+exit $EXIT_CODE

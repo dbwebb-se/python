@@ -13,8 +13,6 @@
 #  <optional args>      Optional arguments
 #
 
-
-
 # Usage
 if (( $# < 3 )); then
     printf "Usage: %s <course_dir> <course> <acronym> <test-suite> <optional args...>\n" \
@@ -24,25 +22,19 @@ fi
 
 
 
+
 case "$4" in
     "-g" | "--generate" )
         FILE="scripts.d/generate"
         ARGS=( ${@:5} )     ;;
     "-d" | "--docker" )
         FILE="scripts.d/docker"
-        ARGS=( ${@:5} "--docker" )     ;;
-
+        ARGS=( ${@:5} "--docker" )    ;;
     * ) FILE="run"          ;;
 esac
 
 
-
-# Execute the actual runner
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-timeout -k 20 120 bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
-status=$?
-if [[ $status == 124 ]] || [[ $status == 137 ]]; then
-    reset -I
-    printf "Test timedout. Something took to long to finish!\n"
-fi
-exit $status
+# Execute the actual runner
+bash "${DIR}/${FILE}.d.bash" "${ARGS[@]:-$@}"
+exit $?
