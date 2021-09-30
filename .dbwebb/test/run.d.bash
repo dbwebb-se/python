@@ -149,7 +149,7 @@ for file in "${files[@]}"; do
 
     if [[ " ${timeout_files[*]} " =~ " ${file} " ]]; then # can't handle filenames with space in them
         # if file is in array
-        execute_with_timeout 10 90 bash "${DIR}/$target"
+        execute_with_timeout 10 60 bash "${DIR}/$target"
     else
         bash "${DIR}/$target"
     fi

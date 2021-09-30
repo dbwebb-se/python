@@ -19,4 +19,4 @@ export ARGUMENTS="--extra"
 export -f doLog
 
 
-execute_with_timeout 10 90 bash .dbwebb/test/scripts.d/examiner.d.bash
+execute_with_timeout 10 60 bash .dbwebb/test/scripts.d/examiner.d.bash
