@@ -122,7 +122,8 @@ export -f doLog
 examiner="examiner"
 lab="lab"
 validate="validate"
-timeout_files=($lab $examiner)# can't have space in filenames
+# can't have space in filenames
+timeout_files=($lab $examiner)
 
 case "$TESTSUITE" in
     "kmom10" | try[1-9] ) echo "Not yet implemented" && exit 1  ;;
