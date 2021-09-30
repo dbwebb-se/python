@@ -300,10 +300,10 @@ prepare_and_run_examiner_extra()
     DOCKER_COMMAND="docker-compose run --rm cli"
     TEST_COMMAND="bash .dbwebb/test/scripts.d/helpers/docker-correct-extra.d.bash ${1}"
     if [ $OS_TERMINAL == "linux" ]; then
-        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA"
+        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2> "$LOGFILE_ERROR"
         DOCKER_TEST_PID="$!"
     else
-        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA"
+        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2> "$LOGFILE_ERROR"
         DOCKER_TEST_PID="$!"
     fi
 }
@@ -324,7 +324,6 @@ killDockerTestPid()
 #
 doDockerDbwebbTestAndValidate()
 {
-
     DOCKER_COMMAND="docker-compose run --rm cli"
     TEST_COMMAND="dbwebb test $1 $2 --docker"
     shift 2
