@@ -69,6 +69,25 @@ class Test4ExtraInventory(ExamTestCase):
 
 
     @tags("inv", "range")
+    def test_inventory_range_included_meny(self):
+        """
+        Testar att anropa "inv" via main, med värde för sekvens utskrift.
+        Kollar att rätt värden är med i utskriften.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments  = ["inv pick java", "", "inv pick c#", "", "inv pick python", "inv pick js", "inv 1 3", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["c#", "python"])
+
+
+
+    @tags("inv", "range")
     def test_inventory_range_included(self):
         """
         Testar att anropa "inventory" funktionen, med värde för sekvens utskrift.
