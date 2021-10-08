@@ -152,7 +152,7 @@ class Test3Marvin3Main(ExamTestCase):
     @tags("menu", "swap")
     def test_pick_and_swap(self):
         """
-        Testar 'inv pickä och 'inv swap' kommandot
+        Testar 'inv pick och 'inv swap' kommandot
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -173,7 +173,7 @@ class Test3Marvin3Main(ExamTestCase):
     @tags("menu", "swap")
     def test_pick_and_swap_error(self):
         """
-        Testar pick och drop kommandot
+        Testar pick och swap kommandot som ska ge error.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
