@@ -4,23 +4,25 @@
 HEADER="scripts.d/$( basename -- "$0" ) start"
 FOOTER="scripts.d/$( basename -- "$0" ) end"
 
-fail=0
+
+printf "$HEADER
+
+Unittests for $TESTSUITE:
+$SEPARATOR
+
+" | tee -a "$LOG"
+
+
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TEST_TARGET=$(find "${DIR}/../suite.d" -name "${TESTSUITE}" -and -type d)
-TEST_STATUS="$(cd "${DIR}/.." && ${PYTHON_EXECUTER} -m ${EXAMINER_RUNNER} --what="${TEST_TARGET}" ${ARGUMENTS})" || fail=1
-OUTPUT="${TEST_STATUS}
-"
 
-if [[ "$TEST_STATUS" == *"ERROR section:"* || "$TEST_STATUS" == *"FAIL section:"* ]]; then
-    fail=1
-fi
+bash -c "set -o pipefail && cd "${DIR}/.." && ${PYTHON_EXECUTER} -m ${EXAMINER_RUNNER} --what="${TEST_TARGET}" ${ARGUMENTS} 2>&1 | tee -a "$LOG" "
+status=$?
 
-
-
-doLog $fail "$HEADER
-
-Unittests for $TESTSUITE:
-${OUTPUT}
+printf "
 $FOOTER
-"
+$SEPARATOR
+" | tee -a "$LOG"
+
+exit $status
