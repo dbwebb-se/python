@@ -40,6 +40,7 @@ export COURSE="$2"
 export ACRONYM="$3"
 export ARGUMENTS=$tmp_arguments
 export TESTSUITE=$tmp_test_suit
+export SEPARATOR="==========================================================="
 
 
 for opt in $ARGUMENTS; do
@@ -94,7 +95,7 @@ export MSG_FAILED="\033[0;37;41mFAILED\033[0m"
 # Print a header
 #
 function header {
-    printf "\033[32;01m>>> -------------- %-20s -------------------------\033[0m\n" "$1"
+    printf "\033[32;01m>>> -------------- %-20s -------------------------\033[0m\n" "$1" | tee -a "$LOG"
 }
 
 
@@ -105,10 +106,10 @@ function header {
 function doLog {
     if (( $1 )); then
         echo "[-] $2
-===========================================================" | tee -a "$LOG"
+$SEPARATOR" | tee -a "$LOG"
     else
         echo "[+] $2
-===========================================================" | tee -a "$LOG"
+$SEPARATOR" | tee -a "$LOG"
     fi
 
     exit $1
@@ -149,7 +150,7 @@ for file in "${files[@]}"; do
 
     if [[ " ${timeout_files[*]} " =~ " ${file} " ]]; then # can't handle filenames with space in them
         # if file is in array
-        execute_with_timeout 10 60 bash "${DIR}/$target"
+        execute_with_timeout 7 60 bash "${DIR}/$target"
     else
         bash "${DIR}/$target"
     fi
@@ -163,7 +164,7 @@ for file in "${files[@]}"; do
         output="$MSG_OK $target
 "
     fi
-    printf "$output"
+    printf "$output" | tee -a "$LOG"
     summary="$summary$output"
 done
 

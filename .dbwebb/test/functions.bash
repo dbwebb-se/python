@@ -51,7 +51,7 @@ execute_with_timeout () {
     status=$?
     if [[ $status == 124 ]] || [[ $status == 137 ]]; then
         reset -I
-        printf "Test timedout. Something took to longer than $2 seconds to finish!\nMaybe you have an infinty loop.\n"
+        printf "\n\033[0;37;41mTest timedout\033[0m. Something took to longer than $2 seconds to finish!\nMaybe you have an infinty loop.\n\n" | tee -a "$LOG"
     fi
     return $status
 }
