@@ -300,10 +300,10 @@ prepare_and_run_examiner_extra()
     DOCKER_COMMAND="docker-compose run --rm cli"
     TEST_COMMAND="bash .dbwebb/test/scripts.d/helpers/docker-correct-extra.d.bash ${1}"
     if [ $OS_TERMINAL == "linux" ]; then
-        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2> "$LOGFILE_ERROR"
+        setsid $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2>> "$LOGFILE_ERROR"
         DOCKER_TEST_PID="$!"
     else
-        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2> "$LOGFILE_ERROR"
+        $DOCKER_COMMAND $TEST_COMMAND > "$LOGFILE_TEST_EXTRA" 2>> "$LOGFILE_ERROR"
         DOCKER_TEST_PID="$!"
     fi
 }
@@ -381,6 +381,8 @@ main()
     done
     fi
 
+    cat "$LOGFILE_ERROR" 1>&2 # redirect error logs to parents stderr
+
     echo "
 
 ============================================================
@@ -389,7 +391,7 @@ Results for extra assignments:
 printf '%s\n' "============================================================" >> $LOGFILE_TEST_EXTRA
 
     #no_colors=$(cat "$LOGFILE_TEST" "$LOGFILE_TEST_EXTRA" "$LOGFILE_ERROR" | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g')
-    colors=$(cat "$LOGFILE_TEST" "$LOGFILE_TEST_EXTRA" "$LOGFILE_ERROR")
+    colors=$(cat "$LOGFILE_TEST" "$LOGFILE_TEST_EXTRA")
     printf '\n%s\n' "$colors" | tee -a "$LOGFILE"
 
     [[ $STATUS == "FAILED" ]] && exit 1
