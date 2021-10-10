@@ -49,8 +49,7 @@ Executing $lab/$file_to_exec ...
 " | tee -a "$LOG"
             status=1
         else
-            cd $COURSE_REPO_BASE/$lab
-            ${PYTHON_EXECUTER} ${lab_file}
+            bash -c "set -o pipefail && cd "$COURSE_REPO_BASE/$lab" &&  ${PYTHON_EXECUTER} -u "${lab_file}"  2>&1  | tee -a "$LOG" "
             status=$?
         fi
     fi
