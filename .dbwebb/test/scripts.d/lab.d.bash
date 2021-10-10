@@ -3,8 +3,6 @@
 HEADER="scripts.d/$( basename -- "$0" ) start"
 FOOTER="scripts.d/$( basename -- "$0" ) end"
 
-fail=0
-
 contains_lab() {
     local counter=0
 
@@ -19,6 +17,11 @@ contains_lab() {
     echo "0"
     return
 }
+
+
+printf "$HEADER
+" | tee -a "$LOG"
+
 
 
 DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
@@ -42,18 +45,25 @@ Executing $lab/$file_to_exec ...
 "
         [[ ! -f "$lab_file" ]] && output+="Error, lab is not created."
 
+        printf "$output
+" | tee -a "$LOG"
+
+
         cd $COURSE_REPO_BASE/$lab
-        output+="$(${PYTHON_EXECUTER} ${lab_file})
-" || fail=1
+        ${PYTHON_EXECUTER} ${lab_file}
+        status=$?
     fi
 done;
 
-if [[ "$output" == *"Grade: Thou Did Not Pass."* ]]; then
-    fail=1
-fi
-
-doLog $fail "$HEADER
-$output
-$FOOTER
+printf "
 Link to lab: $lab_link
-"
+$FOOTER
+$SEPARATOR
+" | tee -a "$LOG"
+
+
+if [[ $status == 0 ]]; then
+    exit 0
+else
+    exit 1
+fi
