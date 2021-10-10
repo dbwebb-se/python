@@ -4,15 +4,13 @@ HEADER="scripts.d/$( basename -- "$0" ) start"
 FOOTER="scripts.d/$( basename -- "$0" ) end"
 
 
-write()
-{
-  doLog $1 "$HEADER
 
-$2
+printf "$HEADER
 
-$FOOTER
-"
-}
+Validation: \"dbwebb validate $TESTSUITE\":
+" | tee -a "$LOG"
+
+
 
 for opt in $ARGUMENTS; do
     case $opt in
@@ -24,22 +22,25 @@ for opt in $ARGUMENTS; do
     esac
 done;
 
-if [[ "$skip" ]]; then
-      write "$?" "Skipped validate ..
-$VALIDATE_STATUS"
-else
-  if [[ "$make_validate" ]]
-  then
-      header_text="Validation: \"dbwebb validate $TESTSUITE\":"
-      VALIDATE_STATUS="$(make validate what=$TESTSUITE)"
-      write "$?" "$header_text
-$VALIDATE_STATUS
-"
-  else
-      header_text="Validation: \"dbwebb validate $TESTSUITE\":"
-      VALIDATE_STATUS="$(dbwebb validate $TESTSUITE)"
 
-      write "$?" "$header_text
-$VALIDATE_STATUS"
+
+if [[ "$skip" ]]; then
+      printf "Skipped validate ..
+" | tee -a "$LOG"
+else
+  if [[ "$make_validate" ]]; then
+      make validate what=$TESTSUITE
+      status=$?
+  else
+      dbwebb validate $TESTSUITE
+      status=$?
   fi
 fi
+
+printf "
+$FOOTER
+$SEPARATOR
+" | tee -a "$LOG"
+
+
+exit $status
