@@ -40,18 +40,19 @@ for lab in $lab_array; do
 
         lab_link="https://lab.dbwebb.se/?course=$DBW_COURSE&lab=$(basename $lab)&version=$LAB_VERSION&acronym=$ACRONYM&doGenerate=Submit"
 
-        output+="
+        printf "
 Executing $lab/$file_to_exec ...
-"
-        [[ ! -f "$lab_file" ]] && output+="Error, lab is not created."
-
-        printf "$output
 " | tee -a "$LOG"
 
-
-        cd $COURSE_REPO_BASE/$lab
-        ${PYTHON_EXECUTER} ${lab_file}
-        status=$?
+        if [[ ! -f "$lab_file" ]]; then
+            printf "Error, lab is not created.
+" | tee -a "$LOG"
+            status=1
+        else
+            cd $COURSE_REPO_BASE/$lab
+            ${PYTHON_EXECUTER} ${lab_file}
+            status=$?
+        fi
     fi
 done;
 
