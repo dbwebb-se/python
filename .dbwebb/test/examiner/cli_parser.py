@@ -31,6 +31,11 @@ def parse():
         action="store_true", help="Adds a traceback option for assertion errors"
     )
 
+    parser.add_argument(
+        "--exam", dest="exam", default=False,
+        action="store_true", help="Use when running test for an exam"
+    )
+
     args, _empty = parser.parse_known_args()
 
     if args.tags:

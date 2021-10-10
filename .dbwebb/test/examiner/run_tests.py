@@ -1,9 +1,8 @@
 """
 Custom test collecter, builder and runner used for examining students.
 """
-import io
+import sys
 import unittest
-from collections import OrderedDict
 from examiner.exceptions import ContanctError
 from examiner.exam_test_result import ExamTestResult
 from examiner.exam_test_case import ExamTestCase
@@ -39,7 +38,6 @@ def build_testsuite():
     """
     Create TestSuit with testcases.
     """
-
     suite = unittest.TestSuite()
     for path_and_name in get_testfiles(ARGS.what, ARGS.extra_assignments):
         testcases = get_testcases(path_and_name)
@@ -55,42 +53,22 @@ def run_testcases(suite):
     """
     Run testsuit.
     """
-    buf = io.StringIO()
-    runner = unittest.TextTestRunner(resultclass=ExamTestResult, verbosity=2, stream=buf)
-    # i think this is used to see print()'s
-    # runner = unittest.TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = unittest.TextTestRunner(resultclass=ExamTestResult, verbosity=2)
 
     try:
-        assignments_results = runner.run(suite).assignments_results
+        results = runner.run(suite)
     except Exception as e:
         raise ContanctError() from e
 
-    return buf.getvalue(), assignments_results
+    return results
 
 
 
-def check_pass_fail(result):
+def exit_with_result(results):
     """
-    Mark assignments as Passed if they succeded.
+    Exit with status code based on if tests passed or not
     """
-    assignments = OrderedDict() # OrderedDict used for backwards compability
-    for assignment, outcome in result.items():
-        if outcome["started"] == outcome["success"]:
-            assignments[assignment] = PASS
-        else:
-            assignments[assignment] = NOT_PASS
-    return assignments
-
-
-def format_output(output, assignments):
-    """
-    Print and format test run and which assignments pass/fail.
-    """
-    if not assignments:
-        return
-    result = " ".join([str(res) for res in assignments.values()])
-    print(result)
-    print(output)
+    sys.exit(not results.wasSuccessful())
 
 
 
@@ -99,9 +77,8 @@ def main():
     Start point of program.
     """
     suite = build_testsuite()
-    output, assignments_results = run_testcases(suite)
-    assignments_outcome = check_pass_fail(assignments_results)
-    format_output(output, assignments_outcome)
+    results = run_testcases(suite)
+    exit_with_result(results)
 
 
 

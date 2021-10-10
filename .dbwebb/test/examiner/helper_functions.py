@@ -221,11 +221,13 @@ def get_testfiles(root=None, extra_assignments=False):
 def import_module(proj_path, module_name):
     """
     Loads a module from the given path and name.
+    If obligatory_functions is missing Raise exception.
     """
     spec = importer.spec_from_file_location(
         module_name, f"{proj_path}/{module_name}.py"
     )
     module = importer.module_from_spec(spec)
+
     spec.loader.exec_module(module)
     return module
 

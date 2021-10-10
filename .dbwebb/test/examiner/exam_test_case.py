@@ -181,5 +181,5 @@ class ExamTestCase(unittest.TestCase):
                 if not container.index(order[i]) < container.index(order[i+1]):
                     raise ValueError
         except ValueError as e:
-            msg = self._formatMessage(msg, f"Index of elemnts in {order} don't appear in coirrect order in {container}")
+            msg = self._formatMessage(msg, f"Index of elemnts in {order} don't appear in correct order in {container}")
             raise self.failureException(msg) from e
