@@ -127,7 +127,10 @@ validate="validate"
 timeout_files=($lab $examiner)
 
 case "$TESTSUITE" in
-    "kmom10" | try[1-9] ) echo "Not yet implemented" && exit 1  ;;
+    "kmom10"            )
+        TESTSUITE="try1"
+        files=($validate $examiner)
+        ;;
     kmom0[1-6]          ) files=($validate $lab $examiner)      ;;
     lab[1-9]            ) files=($validate $lab)                ;;
     *                   )
