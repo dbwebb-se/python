@@ -9,7 +9,7 @@ import os
 import sys
 from unittest.mock import patch
 from unittest import TextTestRunner
-from examiner import ExamTestCase, ExamTestResult, tags
+from examiner import ExamTestCaseExam, ExamTestResultExam, tags
 from examiner import import_module, find_path_to_assignment
 
 
@@ -24,11 +24,14 @@ $module = import_module(REPO_PATH, '$module')
 
 
 
-class Test1$Module(ExamTestCase):
+class Test1$Module(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+
+    points_for_pass = 20
+    points_worth = 20
 
     @classmethod
     def setUpClass(cls):
@@ -69,5 +72,5 @@ class Test1$Module(ExamTestCase):
 
 
 if __name__ == '__main__':
-    runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = TextTestRunner(resultclass=ExamTestResultExam, verbosity=2)
     unittest.main(testRunner=runner, exit=False)
