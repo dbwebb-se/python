@@ -3,38 +3,35 @@
 Contains testcases for the individual examination.
 """
 import unittest
-from unittest.mock import patch
 from importlib import util
 from io import StringIO
 import os
 import sys
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
-
-proj_path = os.path.dirname(os.path.realpath(__file__ + "/.."))
-if proj_path not in sys.path:
-    sys.path.insert(0, proj_path)
-#pylint: disable=wrong-import-position
-import exam
-#pylint: enable=wrong-import-position
-#pylint: disable=attribute-defined-outside-init, line-too-long
+from unittest.mock import patch
+from unittest import TextTestRunner
+from examiner import ExamTestCaseExam, ExamTestResultExam, tags
+from examiner import import_module, find_path_to_assignment
 
 
+FILE_DIR = os.path.dirname(os.path.realpath(__file__))
+REPO_PATH = find_path_to_assignment(FILE_DIR)
 
-class Test1Assignment1(ExamTestCase):
+if REPO_PATH not in sys.path:
+    sys.path.insert(0, REPO_PATH)
+
+# Path to file and basename of the file to import
+exam = import_module(REPO_PATH, "exam")
+
+
+
+class Test1Assignment1(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
-    def test_a_module_exist(self):
-        """
-        Testar att rätt modul är skapad.
-        |G|Förväntar att följande modul finns men hittades inte:|/RE|
-        {arguments}
-        """
-        self._argument = "analyze_functions"
-        self.assertIsNotNone(util.find_spec(self._argument))
+    points_for_pass = 20
+    points_worth = 20
 
     def check_print_contain(self, inp, correct):
         """
@@ -47,6 +44,28 @@ class Test1Assignment1(ExamTestCase):
                 for v in correct:
                     self.assertIn(v, str_data)
 
+    @classmethod
+    def setUpClass(cls):
+        """
+        To find all relative files that are read or written to.
+        """
+        os.chdir(REPO_PATH)
+
+
+
+    @tags("1")
+    def test_a_module_exist(self):
+        """
+        Testar att rätt modul är skapad.
+        |G|Förväntar att följande modul finns men hittades inte:|/RE|
+        {arguments}
+        """
+        self._argument = "analyze_functions"
+        self.assertIsNotNone(util.find_spec(self._argument))
+
+
+
+    @tags("1")
     def test_b_year(self):
         """
         Testar "year" kommandot.
@@ -67,6 +86,7 @@ class Test1Assignment1(ExamTestCase):
         self._multi_arguments = ["year", "1893"] 
         self.check_print_contain(self._multi_arguments, ["Blacksmith Scene:2149"])
 
+    @tags("1")
     def test_c_title(self):
         """
         Testar "title" kommandot.
@@ -99,6 +119,7 @@ class Test1Assignment1(ExamTestCase):
         )
 
 
+    @tags("1")
     def test_e_wrong_command(self):
         """
         Testar utskrift vid felaktigt kommando.
@@ -114,12 +135,15 @@ class Test1Assignment1(ExamTestCase):
 
 
 
-class Test2Assignment2(ExamTestCase):
+class Test2Assignment2(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
+
+    @tags("2")
     def test_a_addition(self):
         """
         Testar listor med "+" operatorn.
@@ -139,6 +163,7 @@ class Test2Assignment2(ExamTestCase):
         self._multi_arguments = [[25], "+"]
         self.assertEqual(exam.reversed_sum([25], "+"), 52)
 
+    @tags("2")
     def test_b_addition_lose_zero(self):
         """
         Testar listor med "+" operatorn där listan innehåller tal som slutar på 0 och ska bli av med 0 i omvandlingsprocessen.
@@ -152,6 +177,7 @@ class Test2Assignment2(ExamTestCase):
         self._multi_arguments = [[10, 12, 13, 14], "+"]
         self.assertEqual(exam.reversed_sum([10, 12, 13, 14], "+"), 58)
 
+    @tags("2")
     def test_c_subtraction(self):
         """
         Testar listor med "-" operatorn.
@@ -176,12 +202,15 @@ class Test2Assignment2(ExamTestCase):
 
 
 
-class Test3Assignment3(ExamTestCase):
+class Test3Assignment3(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
+
+    @tags("3")
     def test_a_repeating_letter(self):
         """
         Testar med sträng där det finns två av varje bokstav.
@@ -211,6 +240,7 @@ class Test3Assignment3(ExamTestCase):
         )
 
 
+    @tags("3")
     def test_b_missing_repeating_letter(self):
         """
         Testar med sträng där det saknas bokstaväver.
@@ -241,12 +271,15 @@ class Test3Assignment3(ExamTestCase):
 
 
 
-class Test4Assignment4(ExamTestCase):
+class Test4Assignment4(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
+
+    @tags("4")
     def test_a_default_argument(self):
         """
         Testar utan att skicka in argument till default parametern.
@@ -273,6 +306,7 @@ class Test4Assignment4(ExamTestCase):
         self.assertEqual(exam.find_word(*self._multi_arguments), "culture")
 
 
+    @tags("4")
     def test_b_integer_optional_parameter(self):
         """
         Testar med heltal som argument till den optionella parametern.
@@ -293,6 +327,7 @@ class Test4Assignment4(ExamTestCase):
         self.assertEqual(exam.find_word(*self._multi_arguments), "of")
 
 
+    @tags("4")
     def test_c_string_optional_parameter(self):
         """
         Testar med sträng som argument till den optionella parametern.
@@ -317,12 +352,15 @@ class Test4Assignment4(ExamTestCase):
 
 
 
-class Test5Assignment5(ExamTestCase):
+class Test5Assignment5(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
+
+    @tags("5")
     def test_a_list_with_integers(self):
         """
         Testar med listor som innehåller heltal.
@@ -343,5 +381,5 @@ class Test5Assignment5(ExamTestCase):
 
 
 if __name__ == '__main__':
-    runner = unittest.TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = unittest.TextTestRunner(resultclass=ExamTestResultExam, verbosity=2)
     unittest.main(testRunner=runner, exit=False)

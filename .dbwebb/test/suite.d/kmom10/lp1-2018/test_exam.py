@@ -2,38 +2,43 @@
 """
 Contains testcases for the individual examination.
 """
-import os
-import sys
 import unittest
-from unittest.mock import patch
-from unittest import TextTestRunner
 from importlib import util
 from io import StringIO
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
+import os
+import sys
+from unittest.mock import patch
+from unittest import TextTestRunner
+from examiner import ExamTestCaseExam, ExamTestResultExam, tags
+from examiner import import_module, find_path_to_assignment
 
-proj_path = os.path.dirname(os.path.realpath(__file__ + "/.."))
-if proj_path not in sys.path:
-    sys.path.insert(0, proj_path)
-#pylint: disable=wrong-import-position
-import exam
-#pylint: enable=wrong-import-position
-#pylint: disable=attribute-defined-outside-init, line-too-long
 
-class Test1Assignment1(ExamTestCase):
+FILE_DIR = os.path.dirname(os.path.realpath(__file__))
+REPO_PATH = find_path_to_assignment(FILE_DIR)
+
+if REPO_PATH not in sys.path:
+    sys.path.insert(0, REPO_PATH)
+
+# Path to file and basename of the file to import
+exam = import_module(REPO_PATH, "exam")
+
+
+
+class Test1Assignment1(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_for_pass = 20
+    points_worth = 20
 
-    def test_a_module_exist(self):
+    @classmethod
+    def setUpClass(cls):
         """
-        |G|Förväntar att följande modul finns men hittades inte:|/RE|
-        {arguments}
+        To find all relative files that are read or written to.
         """
-        self._argument = "analyze_functions"
-        self.assertIsNotNone(util.find_spec(self._argument))
+        os.chdir(REPO_PATH)
 
     def check_print_contain(self, inp, correct):
         """
@@ -45,6 +50,17 @@ class Test1Assignment1(ExamTestCase):
                 str_data = fake_out.getvalue()
                 self.assertIn(correct, str_data)
 
+
+    @tags("1")
+    def test_a_module_exist(self):
+        """
+        |G|Förväntar att följande modul finns men hittades inte:|/RE|
+        {arguments}
+        """
+        self._argument = "analyze_functions"
+        self.assertIsNotNone(util.find_spec(self._argument))
+
+    @tags("1")
     def test_b_space_command(self):
         """
         Testar "s" och "space" kommandot
@@ -61,6 +77,7 @@ class Test1Assignment1(ExamTestCase):
         self.check_print_contain(self._argument, "206")
 
     # self.assertEqual(list_data, ["206", "206", "721", "721", "17", "17", "Not an option!"])
+    @tags("1")
     def test_c_letters_command(self):
         """
         Testar "l" och "letters" kommandot
@@ -76,6 +93,7 @@ class Test1Assignment1(ExamTestCase):
         self._argument = ["letters", " ", "q"]
         self.check_print_contain(self._argument, "721")
 
+    @tags("1")
     def test_d_specials_command(self):
         """
         Testar "c" och "specials" kommandot
@@ -91,6 +109,7 @@ class Test1Assignment1(ExamTestCase):
         self._argument = ["specials", " ", "q"]
         self.check_print_contain(self._argument, "17")
 
+    @tags("1")
     def test_e_wrong_command(self):
         """
         Testar utskrift vid felaktigt kommando.
@@ -106,13 +125,15 @@ class Test1Assignment1(ExamTestCase):
         self.check_print_contain(inp, "Not an option!")
 
 
-class Test2Assignment2(ExamTestCase):
+class Test2Assignment2(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
 
+    @tags("2")
     def test_a_valid_numbers(self):
         """
         Testar med korrekta nummer.
@@ -128,6 +149,7 @@ class Test2Assignment2(ExamTestCase):
             self._argument = case
             self.assertTrue(exam.validate_mobile(self._argument))
 
+    @tags("2")
     def test_b_invalid_numbers(self):
         """
         Testar med icke-korrekta nummer.
@@ -145,13 +167,15 @@ class Test2Assignment2(ExamTestCase):
             self.assertFalse(exam.validate_mobile(self._argument))
 
 
-class Test3Assignment3(ExamTestCase):
+class Test3Assignment3(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
 
+    @tags("3")
     def test_a_valid_numbers(self):
         """
         Testar med korrekta nummer.
@@ -173,6 +197,7 @@ class Test3Assignment3(ExamTestCase):
             self._argument = case
             self.assertTrue(exam.verify_credit_card(self._argument))
 
+    @tags("3")
     def test_b_invalid_numbers(self):
         """
         Testar med korrekta nummer.
@@ -190,13 +215,15 @@ class Test3Assignment3(ExamTestCase):
             self.assertFalse(exam.verify_credit_card(self._argument))
 
 
-class Test4Assignment4(ExamTestCase):
+class Test4Assignment4(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
+    points_worth = 10
 
+    @tags("4")
     def test_a_no_buplicates(self):
         """
         Testar med listor som inte har dubletter.
@@ -219,6 +246,7 @@ class Test4Assignment4(ExamTestCase):
         self._multi_arguments = [dups, empty]
         self.assertEqual(exam.find_difference(dups, empty), ["hej", "hopp"])
 
+    @tags("4")
     def test_b_buplicates(self):
         """
         Testar med listor som har dubletter.
@@ -243,20 +271,13 @@ class Test4Assignment4(ExamTestCase):
         )
 
 
-class Test5Assignment5(ExamTestCase):
+class Test5Assignment5(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
-
-    def test_a_module_exist(self):
-        """
-        |G|Förväntar att följande modul finns men hittades inte:|/RE|
-        {arguments}
-        """
-        self._argument = "date_time_functions"
-        self.assertIsNotNone(util.find_spec(self._argument))
+    points_worth = 10
 
     def check_print_contain(self, inp, correct):
         """
@@ -268,6 +289,16 @@ class Test5Assignment5(ExamTestCase):
                 str_data = fake_out.getvalue()
                 self.assertIn(correct, str_data)
 
+    @tags("5")
+    def test_a_module_exist(self):
+        """
+        |G|Förväntar att följande modul finns men hittades inte:|/RE|
+        {arguments}
+        """
+        self._argument = "date_time_functions"
+        self.assertIsNotNone(util.find_spec(self._argument))
+
+    @tags("5")
     def test_b_date_command(self):
         """
         Testar "d" och "date" kommandot
@@ -282,6 +313,7 @@ class Test5Assignment5(ExamTestCase):
         self._argument = ["date", " ", "q"]
         self.check_print_contain(self._argument, "2018-10-30")
 
+    @tags("5")
     def test_c_time_command(self):
         """
         Testar "t" och "time" kommandot
@@ -296,6 +328,7 @@ class Test5Assignment5(ExamTestCase):
         self._argument = ["time", " ", "q"]
         self.check_print_contain(self._argument, "08:00, 21:03, 12:15, 13:15, 16:30, 18:30, 21:04, 21:03")
 
+    @tags("5")
     def test_d_invalid_command(self):
         """
         Testar felaktigt kommando.
@@ -311,5 +344,5 @@ class Test5Assignment5(ExamTestCase):
 
 
 if __name__ == '__main__':
-    runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = TextTestRunner(resultclass=ExamTestResultExam, verbosity=2)
     unittest.main(testRunner=runner, exit=False)

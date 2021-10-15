@@ -7,24 +7,38 @@ import os
 import sys
 from unittest.mock import patch
 from unittest import TextTestRunner
-from examiner.exam_test_case import ExamTestCase
-from examiner.exam_test_result import ExamTestResult
+from examiner import ExamTestCaseExam, ExamTestResultExam, tags
+from examiner import import_module, find_path_to_assignment
 
-proj_path = os.path.dirname(os.path.realpath(__file__ + "/.."))
-if proj_path not in sys.path:
-    sys.path.insert(0, proj_path)
-#pylint: disable=wrong-import-position
-import exam
-#pylint: enable=wrong-import-position
-#pylint: disable=attribute-defined-outside-init, line-too-long
 
-class Test1Assignment1(ExamTestCase):
+FILE_DIR = os.path.dirname(os.path.realpath(__file__))
+REPO_PATH = find_path_to_assignment(FILE_DIR)
+
+if REPO_PATH not in sys.path:
+    sys.path.insert(0, REPO_PATH)
+
+# Path to file and basename of the file to import
+exam = import_module(REPO_PATH, "exam")
+
+class Test1Assignment1(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
 
+    points_for_pass = 20
+    points_worth = 20
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        To find all relative files that are read or written to.
+        """
+        os.chdir(REPO_PATH)
+
+
+    @tags("1")
     def test_a_find_replace_middle(self):
         """
         Testar att byta ut ett ord mitt i strängen.
@@ -48,6 +62,7 @@ class Test1Assignment1(ExamTestCase):
             self.assertIn("Flat ko better than nested.", text)
             self.assertIn("Sparse Is better than dense.", text)
 
+    @tags("1")
     def test_b_find_replace_end(self):
         """
         Testar att byta ut sista ordet på en rad.
@@ -66,6 +81,7 @@ class Test1Assignment1(ExamTestCase):
                 text = fh.read()
             self.assertIn("Beautiful is better than ko.\nExplicit is better than implicit.", text)
 
+    @tags("1")
     def test_c_find_replace_first(self):
         """
         Testar att byta ut första ordet på en rad.
@@ -84,6 +100,7 @@ class Test1Assignment1(ExamTestCase):
                 text = fh.read()
             self.assertIn("\ncake should never pass silently.\nUnless explicitly silenced.", text)
 
+    @tags("1")
     def test_d_find_replace_no_match(self):
         """
         Testar att byta ut ord som inte finns, för att kolla att manifesto.txt kopieras till output.txt.
@@ -104,10 +121,13 @@ class Test1Assignment1(ExamTestCase):
             for index, line in enumerate(output):
                 self.assertEqual(line, manifesto[index])
 
-class Test2Assignment2(ExamTestCase):
+class Test2Assignment2(ExamTestCaseExam):
     """
     Assignment 2.
     """
+    points_worth = 10
+
+    @tags("2")
     def test_a_count_animals(self):
         """
         Testar olika stora dictionaries.
@@ -132,10 +152,13 @@ class Test2Assignment2(ExamTestCase):
         }
         self.assertEqual(exam.count_animals(self._argument), "1 gris: Babe\n7 höna: Aapo, Eero, Juhani, Lauri, Simeoni, Timo, Tuomas\n2 ko: Kalvin, Mamma Mu\n1 tupp: Jussi")
 
-class Test3Assignment3(ExamTestCase):
+class Test3Assignment3(ExamTestCaseExam):
     """
     Each assignment has 3 testcase with multiple asserts.
     """
+    points_worth = 10
+
+    @tags("3")
     def test_a_valid_isbn(self):
         """
         Test Testar olika korrekta isbn nummer.
@@ -151,6 +174,7 @@ class Test3Assignment3(ExamTestCase):
         self._argument = "9781617294136"
         self.assertTrue(exam.validate_isbn(self._argument))
 
+    @tags("3")
     def test_b_invalid_sum_isbn_(self):
         """
         Test icke-korrekta isbn där summan blir fel.
@@ -168,6 +192,7 @@ class Test3Assignment3(ExamTestCase):
         self._argument = "9781861973712"
         self.assertFalse(exam.validate_isbn(self._argument))
 
+    @tags("3")
     def test_c_invalid_chars_isbn_(self):
         """
         Testar icke-korrekta isbn där bokstäver ingår.
@@ -185,11 +210,13 @@ class Test3Assignment3(ExamTestCase):
 
 
 
-class Test4Assignment4(ExamTestCase):
+class Test4Assignment4(ExamTestCaseExam):
     """
     Each assignment has 4 testcase with multiple asserts.
     """
+    points_worth = 10
 
+    @tags("4")
     def test_a_empty_list(self):
         """
         Testar med tom lista
@@ -203,6 +230,7 @@ class Test4Assignment4(ExamTestCase):
         self._argument = []
         self.assertEqual(exam.decide_winners(self._argument), [])
 
+    @tags("4")
     def test_b_two_matches(self):
         """
         Testar med två matcher.
@@ -216,6 +244,7 @@ class Test4Assignment4(ExamTestCase):
         self._argument = [["11-2", "5-11", "6-11"], ["11-3", "11-5"]]
         self.assertEqual(exam.decide_winners(self._argument), ['player2', 'player1'])
 
+    @tags("4")
     def test_c_more_matches(self):
         """
         Testar med flera matcher.
@@ -234,10 +263,13 @@ class Test4Assignment4(ExamTestCase):
         self.assertEqual(exam.decide_winners(self._argument), ['player2', 'player1', 'player2'])
 
 
-class Test5Assignment5(ExamTestCase):
+class Test5Assignment5(ExamTestCaseExam):
     """
     Each assignment has 5 testcase with multiple asserts.
     """
+    points_worth = 10
+
+    @tags("5")
     def test_a_valid_bookings(self):
         """
         Testar med giltiga bokningar.
@@ -257,6 +289,7 @@ class Test5Assignment5(ExamTestCase):
         self.assertTrue(exam.validate_bookings(self._argument))
         #pylint: enable=line-too-long
 
+    @tags("5")
     def test_b_invalid_bookings(self):
         """
         Testar med icke-giltiga bokningar.
@@ -279,5 +312,5 @@ class Test5Assignment5(ExamTestCase):
 
 
 if __name__ == '__main__':
-    runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = TextTestRunner(resultclass=ExamTestResultExam, verbosity=2)
     unittest.main(testRunner=runner, exit=False)
