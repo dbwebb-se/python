@@ -67,21 +67,22 @@ class ExamTestResultExam(ExamTestResult):
         """
         for assignment, values in self.assignments_results.items():
             self.stream.writeln(
-                f"{assignment} - {'löst' if values['passed'] else 'inte löst'}"
+                f"{assignment} - {'solved' if values['passed'] else 'not solved'}"
             )
 
         if self.wasSuccessful():
             text = (
                 Back.GREEN + Style.BRIGHT + Fore.WHITE+\
-                f"Godkänt{Style.RESET_ALL} - Du har uppnåt {self.nr_of_points} poäng"
-                " vilket är minst lika mycket som gränsen för godkänt, "
-                f"vilket är {self.points_for_pass} poäng."
+                f"Passed{Style.RESET_ALL} - You have achieved {self.nr_of_points} points."
+                " This is places you above the limit for a passing score."
+                f" The limit for passing is {self.points_for_pass} points."
             )
         else:
             text = (
                 Back.RED + Style.BRIGHT + Fore.WHITE+\
-                f"Icke Godkänt{Style.RESET_ALL} - Du har uppnåt {self.nr_of_points} poäng. "
-                f"Gränsen för godkänt är minst {self.points_for_pass} poäng."
+                f"Not passed{Style.RESET_ALL} - You have achieved {self.nr_of_points} points. "
+                " This is places you below the limit for a passing score."
+                f" The limit for passing is {self.points_for_pass} points."
             )
 
         self.stream.writeln(text)
