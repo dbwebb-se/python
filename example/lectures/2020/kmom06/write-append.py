@@ -50,8 +50,8 @@ def remove_line_from_file(content):
     Remove a line from file
     """
     print(content)
-    rm_line = input("Enter line to remove: ")
-    content.remove(rm_line)
+    rm_line = input("Enter line number to remove: ")
+    content.pop(int(rm_line))
     content = "\n".join(content)
     write_to_file(content, "w")
 
