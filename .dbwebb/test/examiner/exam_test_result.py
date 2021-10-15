@@ -192,3 +192,11 @@ class ExamTestResult(TextTestResult):
         """
         super().addSuccess(test)
         self.assignments_results[test.assignment]["success"] += 1
+
+
+
+    def exit_with_result(self):
+        """
+        Exit with status code based on if tests passed or not
+        """
+        sys.exit(not self.wasSuccessful())

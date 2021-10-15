@@ -1,11 +1,12 @@
 """
 Custom test collecter, builder and runner used for examining students.
 """
-import sys
 import unittest
-from examiner.exceptions import ContanctError
+from examiner.exceptions import ContactError
 from examiner.exam_test_result import ExamTestResult
+from examiner.exam_test_result_exam import ExamTestResultExam
 from examiner.exam_test_case import ExamTestCase
+from examiner import ExamTestCaseExam
 from examiner.cli_parser import parse
 from examiner.helper_functions import get_testfiles, import_module
 
@@ -13,12 +14,13 @@ from examiner.helper_functions import get_testfiles, import_module
 PASS = 1
 NOT_PASS = 0
 ARGS = parse()
-
+RESULT_CLASS = ExamTestResult
 
 def get_testcases(path_and_name):
     """
     Add all TestCases to a list and return.
     """
+    global RESULT_CLASS
     testcases = []
     testMethodPrefix = "Test"
     path, name = path_and_name
@@ -27,9 +29,14 @@ def get_testcases(path_and_name):
         if not attrname.startswith(testMethodPrefix):
             continue
         testClass = getattr(module, attrname)
-        # Should use isinstance. But it return False, don't know why.
-        if testClass.__base__ is ExamTestCase:
+        if issubclass(testClass, ExamTestCase):
             testcases.append(testClass)
+        else:
+            raise TypeError(f"Test case is not subclass of ExamTestCase. It has class {type(testClass)}")
+
+    if issubclass(testClass, ExamTestCaseExam):
+        RESULT_CLASS = ExamTestResultExam
+
     return testcases
 
 
@@ -53,22 +60,14 @@ def run_testcases(suite):
     """
     Run testsuit.
     """
-    runner = unittest.TextTestRunner(resultclass=ExamTestResult, verbosity=2)
+    runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2)
 
     try:
         results = runner.run(suite)
     except Exception as e:
-        raise ContanctError() from e
+        raise ContactError() from e
 
     return results
-
-
-
-def exit_with_result(results):
-    """
-    Exit with status code based on if tests passed or not
-    """
-    sys.exit(not results.wasSuccessful())
 
 
 
@@ -78,7 +77,7 @@ def main():
     """
     suite = build_testsuite()
     results = run_testcases(suite)
-    exit_with_result(results)
+    results.exit_with_result()
 
 
 

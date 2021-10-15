@@ -14,21 +14,21 @@ class ExamException(Exception):
 
 
 
-class TestFuncNameError(Exception):
+class TestFuncNameError(ExamException):
     """
     Error for when test function name is wrong
     """
 
 
 
-class TestClassNameError(Exception):
+class TestClassNameError(ExamException):
     """
     Error for when test class name is wrong
     """
 
 
 
-class ContanctError(ExamException):
+class ContactError(ExamException):
     """
     Custom error. Used when there is an error in the test code and the
     student should contact the person responsible for the exam.
