@@ -140,7 +140,7 @@ esac
 
 # Executes scripts
 header "Start"
-printf "[%s] %s %s %s\n" "$ACRONYM" "$TARGET" "$TESTSUITE" "$( date )" | tee -a "$LOG"
+printf "[%s] %s %s %s\n" "$ACRONYM" "$TESTSUITE" "$( date )" | tee -a "$LOG"
 EXIT_CODE=0
 for file in "${files[@]}"; do
     output=
