@@ -29,10 +29,10 @@ if [[ "$skip" ]]; then
 " | tee -a "$LOG"
 else
   if [[ "$make_validate" ]]; then
-      make validate what=$TESTSUITE | tee -a "$LOG"
+      bash -c "set -o pipefail && make validate what=$TESTSUITE | tee -a "$LOG" "
       status=$?
   else
-      dbwebb validate $TESTSUITE | tee -a "$LOG"
+      bash -c "set -o pipefail && dbwebb validate $TESTSUITE | tee -a "$LOG" "
       status=$?
   fi
 fi
