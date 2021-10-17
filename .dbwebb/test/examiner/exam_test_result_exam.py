@@ -74,14 +74,14 @@ class ExamTestResultExam(ExamTestResult):
             text = (
                 Back.GREEN + Style.BRIGHT + Fore.WHITE+\
                 f"Passed{Style.RESET_ALL} - You have achieved {self.nr_of_points} points."
-                " This is places you above the limit for a passing score."
+                " This places you above the limit for a passing score."
                 f" The limit for passing is {self.points_for_pass} points."
             )
         else:
             text = (
                 Back.RED + Style.BRIGHT + Fore.WHITE+\
                 f"Not passed{Style.RESET_ALL} - You have achieved {self.nr_of_points} points. "
-                " This is places you below the limit for a passing score."
+                " This places you below the limit for a passing score."
                 f" The limit for passing is {self.points_for_pass} points."
             )
 
