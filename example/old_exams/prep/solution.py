@@ -14,11 +14,11 @@ def analyze_text():
         if inp == "q":
             break
         elif inp == "v":
-            print(analyze_functions.vowels())
+            print(analyze_functions_solution.vowels())
         elif inp == "p":
-            print(analyze_functions.periods())
+            print(analyze_functions_solution.periods())
         elif inp == "u":
-            print(analyze_functions.uppers())
+            print(analyze_functions_solution.uppers())
         else:
             print("Not an option!")
         input("...")

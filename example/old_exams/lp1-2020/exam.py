@@ -3,7 +3,6 @@
 Write your code in this file. Fill out the defined functions with your solutions.
 You are free to write additional functions and modules as you see fit.
 """
-from operator import itemgetter
 
 def analyze_text():
     """
@@ -44,7 +43,7 @@ def frequency_sort(sequence):
 
 if __name__ == '__main__':
     analyze_text()
-    reversed_sum()
-    frequency_sort()
-    find_word()
-    repeating_letter_distance()
+    reversed_sum([], "")
+    frequency_sort("")
+    find_word("", 0)
+    repeating_letter_distance([])

@@ -14,9 +14,9 @@ def analyze_text():
     with open("title.basics.csv") as fd:
         data = fd.read().split("\n")[1:]
     if choice == "year":
-        analyze_functions.year(data)
+        analyze_functions_solution.year(data)
     elif choice == "title":
-        analyze_functions.title(data)
+        analyze_functions_solution.title(data)
     else:
         print("Not an option!")
 
