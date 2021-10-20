@@ -218,10 +218,10 @@ class Test3Assignment3(ExamTestCaseExam):
         {student}
         """
         self._argument = ["hej", "hopp", "hej"]
-        self.assertEqual(exam.find_duplicates(self._argument), ["hej"])
+        self.assertEqual(exam.find_duplicates(self._argument[:]), ["hej"])
 
         self._argument = ["oj", "hej", "oj", "hopp", "hej"]
-        self.assertEqual(exam.find_duplicates(self._argument), ["hej", "oj"])
+        self.assertEqual(exam.find_duplicates(self._argument[:]), ["hej", "oj"])
 
     @tags("3")
     def test_e_case_insensitive_duplicates(self):
