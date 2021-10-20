@@ -72,7 +72,7 @@ class Test1Assignment1(ExamTestCaseExam):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 exam.analyze_text()
                 str_data = fake_out.getvalue().strip("\n")
-                list_data = str_data.split("\n")
+                list_data = str_data
                 for v in ["6", "5", "5"]:
                     self.assertIn(v, list_data)
 
@@ -94,14 +94,14 @@ class Test1Assignment1(ExamTestCaseExam):
             with patch('sys.stdout', new=StringIO()) as fake_out:
                 exam.analyze_text()
                 str_data = fake_out.getvalue().strip("\n")
-                list_data = str_data.split("\n")
+                list_data = str_data
                 for v in ["21", "8", "1"]:
                     self.assertIn(v, list_data)
 
 
 
     @tags("1")
-    def test_c_gods(self):
+    def test_d_wrong_input(self):
         """
         Testar skriva in "h" för att få not an option.
         Förväntar sig att följande finns i utskriften:
