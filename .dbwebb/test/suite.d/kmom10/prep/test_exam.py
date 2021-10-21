@@ -141,7 +141,7 @@ class Test2Assignment2(ExamTestCaseExam):
         {student}
         """
         self._argument = [0, 1, 2, 4, 5]
-        self.assertEqual(exam.list_median(self._argument), 2)
+        self.assertEqual(exam.list_median(self._argument[:]), 2)
 
     @tags("2")
     def test_b_unsorted_list(self):
@@ -154,10 +154,10 @@ class Test2Assignment2(ExamTestCaseExam):
         {student}
         """
         self._argument = [5, 1, 0, 2, 4]
-        self.assertEqual(exam.list_median(self._argument), 2)
+        self.assertEqual(exam.list_median(self._argument[:]), 2)
 
         self._argument = [2, 1, 4, 5, 3, 2]
-        self.assertEqual(exam.list_median(self._argument), 2.5)
+        self.assertEqual(exam.list_median(self._argument[:]), 2.5)
 
 
     @tags("2")
@@ -190,7 +190,7 @@ class Test3Assignment3(ExamTestCaseExam):
         {student}
         """
         self._argument = []
-        self.assertEqual(exam.find_duplicates(self._argument), [])
+        self.assertEqual(exam.find_duplicates(self._argument[:]), [])
         
     @tags("3")
     def test_b_no_duplicates(self):
@@ -204,7 +204,7 @@ class Test3Assignment3(ExamTestCaseExam):
         {student}
         """
         self._argument = ["hej", "hopp"]
-        self.assertEqual(exam.find_duplicates(self._argument), [])
+        self.assertEqual(exam.find_duplicates(self._argument[:]), [])
 
     @tags("3")
     def test_c_duplicates(self):
@@ -235,7 +235,7 @@ class Test3Assignment3(ExamTestCaseExam):
         {student}
         """
         self._argument = ["hej", "Hej"]
-        self.assertEqual(exam.find_duplicates(self._argument), ["hej"])
+        self.assertEqual(exam.find_duplicates(self._argument[:]), ["hej"])
 
 class Test4Assignment4(ExamTestCaseExam):
     """
@@ -257,9 +257,9 @@ class Test4Assignment4(ExamTestCaseExam):
         {student}
         """
         self._argument = [1, "hej", ["3", "4", "5"]]
-        self.assertEqual(exam.types(self._argument), "The square of 1 is 1. The secret word is hej. The list contains 3, 4, 5.")
+        self.assertEqual(exam.types(self._argument[:]), "The square of 1 is 1. The secret word is hej. The list contains 3, 4, 5.")
         self._argumen = [1, "hej", ["3", "4", "5", "hej", "haha"]]
-        self.assertEqual(exam.types(self._argumen),
+        self.assertEqual(exam.types(self._argumen[:]),
                          "The square of 1 is 1. The secret word is hej. The list contains 3, 4, 5, hej, haha.")
 
     @tags("4")
@@ -274,9 +274,9 @@ class Test4Assignment4(ExamTestCaseExam):
         {student}
         """
         self._argument = [12]
-        self.assertEqual(exam.types(self._argument), "The square of 12 is 144.")
+        self.assertEqual(exam.types(self._argument[:]), "The square of 12 is 144.")
         self._argument = [2, 5, 8]
-        self.assertEqual(exam.types(self._argument), "The square of 2 is 4. The square of 5 is 25. The square of 8 is 64.")
+        self.assertEqual(exam.types(self._argument[:]), "The square of 2 is 4. The square of 5 is 25. The square of 8 is 64.")
 
     @tags("4")
     def test_c_empty_list(self):
@@ -288,7 +288,7 @@ class Test4Assignment4(ExamTestCaseExam):
         {student}
         """
         self._argument = []
-        self.assertEqual(exam.types(self._argument), "")
+        self.assertEqual(exam.types(self._argument[:]), "")
 
 
 class Test5Assignment5(ExamTestCaseExam):
@@ -302,7 +302,7 @@ class Test5Assignment5(ExamTestCaseExam):
     @tags("5")
     def test_a_valid(self):
         """
-        Testar med korrekta listor.
+        Testar med korrekta addresser.
         Använde följande som argument:
         {arguments}
         Förväntar sig att följande returneras:
@@ -319,7 +319,7 @@ class Test5Assignment5(ExamTestCaseExam):
     @tags("5")
     def test_b_invalid(self):
         """
-        Testar med icke korrekta listor.
+        Testar med icke korrekta addresser.
         Använde följande som argument:
         {arguments}
         Förväntar sig att följande returneras:

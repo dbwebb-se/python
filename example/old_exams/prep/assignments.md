@@ -102,10 +102,10 @@ De tre olika sätten texten ska analyseras på är:
 
  Följande regler gäller:
     - innehåller endast ett "@".
-    - det ska finnas minst en karaktär framför "@".
-    - efter @, ska det finnas minst en punkt, ".", och andra karaktärer framför respektive punkt.
-    - efter den sista punkten ska det finnas 2 eller 3 karaktärer.
-    - innehåller endast karaktärerna a-z och 0-9 samt ".", "_", "-", "@".
+    - det ska finnas minst ett tecken framför "@".
+    - efter @, ska det finnas minst en punkt, ".", och andra tecken framför respektive punkt.
+    - efter den sista punkten ska det finnas 2 eller 3 tecken.
+    - innehåller endast tecken a-z och 0-9 samt ".", "_", "-", "@".
     - endast små bokstäver.
 
     **Exempel**
