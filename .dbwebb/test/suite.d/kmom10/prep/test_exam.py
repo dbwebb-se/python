@@ -258,8 +258,8 @@ class Test4Assignment4(ExamTestCaseExam):
         """
         self._argument = [1, "hej", ["3", "4", "5"]]
         self.assertEqual(exam.types(self._argument[:]), "The square of 1 is 1. The secret word is hej. The list contains 3, 4, 5.")
-        self._argumen = [1, "hej", ["3", "4", "5", "hej", "haha"]]
-        self.assertEqual(exam.types(self._argumen[:]),
+        self._argument = [1, "hej", ["3", "4", "5", "hej", "haha"]]
+        self.assertEqual(exam.types(self._argument[:]),
                          "The square of 1 is 1. The secret word is hej. The list contains 3, 4, 5, hej, haha.")
 
     @tags("4")
