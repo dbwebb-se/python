@@ -28,110 +28,108 @@ exam = import_module(REPO_PATH, "exam")
 class Test1Assignment1(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
+
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
     """
-
     points_for_pass = 20
     points_worth = 20
 
-    @classmethod
-    def setUpClass(cls):
-        """
-        To find all relative files that are read or written to.
-        """
-        os.chdir(REPO_PATH)
-
-
-    def check_print_contain(self, inp, correct):
-        """
-        One function for testing print input functions.
-        """
-        with patch("builtins.input", side_effect=inp):
-            with patch("sys.stdout", new=StringIO()) as fake_out:
-                exam.analyze_text()
-                str_data = fake_out.getvalue()
-                for v in correct:
-                    self.assertIn(v, str_data)
-
-
     @tags("1")
-    def test_a_module_exist(self):
+    def test_a_only_an_element(self):
         """
-        Testar att rätt modul är skapad.
-        |G|Förväntar att följande modul finns men hittades inte:|/RE|
+        Testar med sträng där det bara finns ett element.
+        Använder följande som argument:
         {arguments}
-        """
-        self._argument = "analyze_functions"
-        self.assertIsNotNone(util.find_spec(self._argument))
-
-    @tags("1")
-    def test_b_year(self):
-        """
-        Testar "year" kommandot.
-        Använde följande som input:
-        {arguments}
-        Förväntar sig att följande finns i utskriften:
+        Förväntar att följande returneras:
         {correct}
-        Fick utskriften:
-        {student}
+        Fick följande:
+        {student} 
         """
-        self.norepr = True
-        self._multi_arguments = ["year", "1897"] 
-        self.check_print_contain(self._multi_arguments, ["Bataille de neige:1468", "Boulevard des Italiens:18"])
-
-        self._multi_arguments = ["year", "1892"] 
-        self.check_print_contain(self._multi_arguments, ["Le clown et ses chiens:199", "Pauvre Pierrot:1365", "Un bon bock:121"])
-
-        self._multi_arguments = ["year", "1893"] 
-        self.check_print_contain(self._multi_arguments, ["Blacksmith Scene:2149"])
-
-
-    @tags("1")
-    def test_c_title(self):
-        """
-        Testar "title" kommandot.
-        Förväntar sig att följande finns i utskriften:
-        {correct}
-        Fick utskriften:
-        {student}
-        """
-        self.norepr = True
-
-        inp = ["title"]
-        self.check_print_contain(
-            inp,
-            [
-                "Baby's Dinner:5.9",
-                "Leaving the Factory:6.9",
-                "The Arrival of a Train:7.4",
-                "The Photographical Congress Arrives in Lyon:5.7",
-                "The Waterer Watered:7.1",
-                "Blacksmith Scene:5.1",
-                "The Sea:5.7",
-                "The Messers. Lumière at Cards:5.7",
-                "Cordeliers' Square in Lyon:5.6",
-                "Fishing for Goldfish:5.1",
-                "Jumping the Blanket:5.5",
-                "Trick Riding:5.6",
-                "Watering the Flowers:5.6",
-                "Sea Bathing:4.7"
-            ]
+        self._argument = "Ag"
+        self.assertEqual(
+            exam.count_elements("Ag"), 
+            {'Ag': 1}
         )
 
     @tags("1")
-    def test_e_wrong_command(self):
+    def test_b_only_uppers_and_number(self):
         """
-        Testar utskrift vid felaktigt kommando.
-        Använde {arguments} som kommando.
-        Förväntar sig att följande finns i utskriften:
+        Testar med sträng där benämningarna bara har en stor bokstav och alla efterföljs av minst en siffra.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
         {correct}
-        Fick utskriften:
-        {student}
+        Fick följande:
+        {student} 
         """
-        self.norepr = True
-        self._argument = "Gobble gobble"
-        self.check_print_contain(self._argument, ["Not an option!"])
+        self._argument = "C6H12O6"
+        self.assertEqual(
+            exam.count_elements("C6H12O6"), 
+            {'C': 6, 'H': 12, 'O': 6}
+        )
 
+        self._argument = "C8H18"
+        self.assertEqual(
+            exam.count_elements("C8H18"), 
+            {'C': 8, 'H': 18}
+        )
+
+    @tags("1")
+    def test_c_one_of_each_element_no_numbers(self):
+        """
+        Testar med sträng där varje element benämns med stor bokstav och inga siffror.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "HCO"
+        self.assertEqual(
+            exam.count_elements("HCO"), 
+            {'H': 1, 'C': 1, 'O': 1}
+        )
+
+    @tags("1")
+    def test_d_mix_upper_and_lower(self):
+        """
+        Testar med sträng där det finns element med stora och små bokstäver och med och utan siffror.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "CCl2F2"
+        self.assertEqual(
+            exam.count_elements("CCl2F2"), 
+            {'C': 1, 'Cl': 2, 'F': 2}
+        )
+
+        self._argument = "NaHCO3"
+        self.assertEqual(
+            exam.count_elements("NaHCO3"), 
+            {'Na': 1, 'H': 1, 'C': 1, 'O': 3}
+        )
+
+    @tags("1")
+    def test_e_empty_string(self):
+        """
+        Testar med tom sträng.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = ""
+        self.assertEqual(
+            exam.count_elements(""), 
+            {}
+        )
 
 
 
@@ -144,66 +142,89 @@ class Test2Assignment2(ExamTestCaseExam):
     points_worth = 10
 
     @tags("2")
-    def test_a_addition(self):
+    def test_a_two_teams(self):
         """
-        Testar listor med "+" operatorn.
-        Använde följande som input
+        Testar med två lag och två matcher
+        Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student} 
         """
-        self._multi_arguments = [[15, 12, 13, 14], "+"]
-        self.assertEqual(exam.reversed_sum([15, 12, 13, 14], "+"), 1080)
+        self._multi_arguments = [("Hammarby Dam", "AIK Dam"), [(1, 0, "1-2"), (1, 0, "2-0")]]
+        self.assertEqual(
+            exam.fotball_results(("Hammarby Dam", "AIK Dam"), [(1, 0, "1-2"), (1, 0, "2-0")]), 
+            {'AIK Dam': {'scores': 1, 'points': 3, 'games': 2}, 'Hammarby Dam': {'scores': -1, 'points': 3, 'games': 2}}
+        )
 
-        self._multi_arguments = [[10, 12, 13, 14], "+"]
-        self.assertEqual(exam.reversed_sum([10, 12, 13, 14], "+"), 58)
 
-        self._multi_arguments = [[25, 12], "+"]
-        self.assertEqual(exam.reversed_sum([25, 12], "+"), 64)
-
-        self._multi_arguments = [[25], "+"]
-        self.assertEqual(exam.reversed_sum([25], "+"), 52)
 
     @tags("2")
-    def test_b_addition_lose_zero(self):
+    def test_b_four_teams(self):
         """
-        Testar listor med "+" operatorn där listan innehåller tal som slutar på 0 och ska bli av med 0 i omvandlingsprocessen.
-        Använde följande som input
+        Testar med fyra lag och flera matcher
+        Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student} 
         """
-        self._multi_arguments = [[10, 12, 13, 14], "+"]
-        self.assertEqual(exam.reversed_sum([10, 12, 13, 14], "+"), 58)
+        self._multi_arguments = [("Hammarby Dam", "Eskilstuna", "Kristianstad", "AIK Dam"), [(2,0,"1-2"),(1,0,"2-0"),(2,3,"1-1"),(3,1,"0-1"),(3,2,"1-3")]]
+        self.assertEqual(
+            exam.fotball_results(("Hammarby Dam", "Eskilstuna", "Kristianstad", "AIK Dam"), [(2,0,"1-2"),(1,0,"2-0"),(2,3,"1-1"),(3,1,"0-1"),(3,2,"1-3")]), 
+            {'Kristianstad': {'scores': 1, 'points': 4, 'games': 3}, 'Hammarby Dam': {'scores': -1, 'points': 3, 'games': 2}, 'Eskilstuna': {'scores': 3, 'points': 6, 'games': 2}, 'AIK Dam': {'scores': -3, 'points': 1, 'games': 3}}
+        )
 
-    @tags("2")
-    def test_c_subtraction(self):
-        """
-        Testar listor med "-" operatorn.
-        Använde följande som input
-        {arguments}
-        Förväntar att följande returneras:
-        {correct}
-        Fick följande:
-        {student} 
-        """
-        self._multi_arguments = [[15, 12, 13, 14], "-"]
-        self.assertEqual(exam.reversed_sum([15, 12, 13, 14], "-"), -6)
 
-        self._multi_arguments = [[10, 12, 13, 14], "-"]
-        self.assertEqual(exam.reversed_sum([10, 12, 13, 14], "-"), -56)
-
-        self._multi_arguments = [[25, 12], "-"]
-        self.assertEqual(exam.reversed_sum([25, 12], "-"), 40)
-
-        self._multi_arguments = [[25], "-"]
-        self.assertEqual(exam.reversed_sum([25], "-"), 52)
 
 class Test3Assignment3(ExamTestCaseExam):
+    """
+    Each assignment has 1 testcase with multiple asserts.
+    The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
+    """
+
+    points_worth = 10
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        To find all relative files that are read or written to.
+        """
+        os.chdir(REPO_PATH)
+
+
+
+    @tags("3")
+    def test_a_subset_zero(self):
+        """
+        Testar att funktionen skriver ut korrekt data.
+        Förväntar att följande skrivs ut:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self.norepr = True
+        correct = [
+            '[1, 2, 3] False',
+            '[1, 2, 3, 0] True',
+            '[-5, -3, -1, 2, 4, 6] False',
+            '[-97364, -71561, -69336, 19675, 71561, 97863] True',
+            '[-53974, -39140, -36561, -23935, -15680, 0] True',
+            '[1, 2, 3, 23] False',
+            '[-1, 1] True',
+            '[-1, 10, 4, 24] False'
+        ]
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            exam.subset_zero()
+            str_data = fake_out.getvalue()
+            for v in correct:
+                self.assertIn(v, str_data)
+
+
+
+class Test4Assignment4(ExamTestCaseExam):
     """
     Each assignment has 1 testcase with multiple asserts.
 
@@ -211,63 +232,290 @@ class Test3Assignment3(ExamTestCaseExam):
     """
     points_worth = 10
 
-    def test_a_repeating_letter(self):
+
+
+    @tags("4")
+    def test_a_list_jolly_each_lower(self):
         """
-        Testar med sträng där det finns två av varje bokstav.
-        Använder följande som input
+        Testar med list som är jolly där minskar med 1 hela tiden.
+        Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student} 
         """
-        self._argument = "abcabc"
+        self._argument = [1, 4, 2, 3]
         self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'a': 3, 'b': 3, 'c': 3}
+            exam.jolly([1, 4, 2, 3]),
+            '3 2 1 JOLLY'
         )
 
-        self._argument = "abccba"
+        self._argument = [23, 19, 22, 24, 25]
         self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'a': 5, 'b': 3, 'c': 1}
+            exam.jolly([23, 19, 22, 24, 25]),
+            '4 3 2 1 JOLLY'
         )
 
-        self._argument = "kismkmiwlwosolpp"
-        self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'k': 4, 'i': 5, 's': 9, 'm': 2, 'w': 2, 'l': 5, 'o': 2, 'p': 10}
-        )
-
-
-    def test_b_missing_repeating_letter(self):
+    @tags("4")
+    def test_b_list_jolly_with_equal(self):
         """
-        Testar med sträng där det saknas bokstaväver.
-        Använder följande som input
+        Testar med list som är jolly där skillnader är -1 eller lika.
+        Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student} 
         """
-        self._argument = "abcba"
+        self._argument = [104, 52, 1, -50, 0]
         self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'a': 4, 'b': 2}
+            exam.jolly([104, 52, 1, -50, 0]),
+            '52 51 51 50 JOLLY'
         )
 
-        self._argument = "abca"
+    @tags("4")
+    def test_c_lists_not_jolly(self):
+        """
+        Testar med lista som inte är Jolly
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = [8, 1, 6, -1, 8, 9, 5, 2, 7]
         self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'a': 3}
+            exam.jolly([8, 1, 6, -1, 8, 9, 5, 2, 7]),
+            '7 5 7 9 1 4 3 5 NOT JOLLY'
         )
 
-        self._argument = "kiskmwolwolpp"
+        self._argument = [5, 1, 4, 2, -1, 6]
         self.assertEqual(
-            exam.repeating_letter_distance(self._argument), 
-            {'k': 3, 'w': 3, 'o': 3, 'l': 3, 'p': 1}
+            exam.jolly([5, 1, 4, 2, -1, 6]),
+            '4 3 2 3 7 NOT JOLLY'
         )
 
+        self._argument = [4, 19, 22, 24, 21]
+        self.assertEqual(
+            exam.jolly([4, 19, 22, 24, 21]),
+            '15 3 2 3 NOT JOLLY'
+        )
+
+
+
+class Test5Assignment5(ExamTestCaseExam):
+    """
+    Each assignment has 1 testcase with multiple asserts.
+
+    The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
+    """
+    points_worth = 10
+
+    @tags("5")
+    def test_a_positiv_values_input(self):
+        """
+        Testar med positiva värden.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "100,20"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                (15.6, 91.8)
+            )
+
+        self._argument = "10000,5"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                (390.0, 2295.0)
+            )
+
+    @tags("5")
+    def test_b_year_zero_input(self):
+        """
+        Testar med år 0.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "100,0"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                (0.0, 0.0)
+            )
+
+    @tags("5")
+    def test_c_money_zero_input(self):
+        """
+        Testar med pengar 0.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+
+        self._argument = "0,5"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                (0.0, 0.0)
+            )
+
+
+    @tags("5")
+    def test_d_year_negativ_input(self):
+        """
+        Testar med negativt år.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "50,-2"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                ()
+            )
+
+    @tags("5")
+    def test_e_money_negativ_input(self):
+        """
+        Testar med negativa pengar.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        self._argument = "-203,7"
+        with patch("builtins.input", side_effect=[self._argument]):
+            self.assertEqual(
+                exam.compare_banks(),
+                (-11.08, -65.22)
+            )
+
+    @tags("5")
+    def test_f_only_money_savingscentral_function(self):
+        """
+        Testar anropa money_growth i savingscentral.py med bara ett argument för pengar.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        savingscentral = import_module(REPO_PATH, "savingscentral")
+        self._argument = 203
+        self.assertEqual(
+            savingscentral.money_growth(203),
+            15.83
+        )
+
+    @tags("5")
+    def test_g_money_year_savingscentral_function(self):
+        """
+        Testar anropa money_growth i savingscentral.py med pengar och år.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        savingscentral = import_module(REPO_PATH, "savingscentral")
+        self._multi_arguments = [333, 3]
+        self.assertEqual(
+            savingscentral.money_growth(333, 3),
+            7.79
+        )
+
+    @tags("5")
+    def test_h_year_negativ_savingscentral_function_raise_error(self):
+        """
+        Testar anropa money_growth i savingscentral.py med pengar och år där år är negativt.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande fel lyfts:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        savingscentral = import_module(REPO_PATH, "savingscentral")
+        self._multi_arguments = [605, -88]
+        with self.assertRaises(ValueError):
+            savingscentral.money_growth(605, -88),
+
+
+    @tags("5")
+    def test_i_only_money_stockbank_function(self):
+        """
+        Testar anropa money_growth i stockbank.py med bara ett argument för pengar.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        stockbank = import_module(REPO_PATH, "stockbank")
+        self._argument = 47
+        self.assertEqual(
+            stockbank.money_growth(47),
+            21.57
+        )
+
+    @tags("5")
+    def test_j_money_year_stockbank_function(self):
+        """
+        Testar anropa money_growth i stockbank.py med pengar och år.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        stockbank = import_module(REPO_PATH, "stockbank")
+        self._multi_arguments = [605, 88]
+        self.assertEqual(
+            stockbank.money_growth(605, 88),
+            2443.72
+        )
+
+    @tags("5")
+    def test_k_year_negativ_stockbank_function_raise_error(self):
+        """
+        Testar anropa money_growth i stockbank.py med pengar och år där år är negativt.
+        Förväntar att följande fel lyfts:
+        {arguments}
+        Förväntar att följande returneras:
+        {correct}
+        Fick följande:
+        {student} 
+        """
+        stockbank = import_module(REPO_PATH, "stockbank")
+        self._multi_arguments = [605, -88]
+        with self.assertRaises(ValueError):
+            stockbank.money_growth(605, -88),
 
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
