@@ -6,14 +6,7 @@ f() { exit 1; }; export -f f
 echo "View exam.py"
 cat exam.py
 
-read -p "Press to view savingscentral.py" answer
+read -p "Press to view reader.py" answer
 
-cat savingscentral.py
-
-read -p "Press to view stockbank.py" answer
-
-cat stockbank.py
-
-
-# cat analyze_functions.py
+cat reader.py
 
