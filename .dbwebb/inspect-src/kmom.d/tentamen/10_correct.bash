@@ -6,4 +6,6 @@ f() { exit 1; }; export -f f
 echo "Run correct script"
 dbwebb test tentamen
 
+cd ../../ && make validate what=me/tentamen
+
 read -p "Press to view code" answer
