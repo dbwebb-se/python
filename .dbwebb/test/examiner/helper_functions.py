@@ -209,10 +209,10 @@ def get_testfiles(root=None, extra_assignments=False):
     extra_test_pattern = r"extra_test_(\w)*.py"
 
     test_folders = find_test_folders(root)
-
+    tests = []
     for dir_ in test_folders:
         pattern = extra_test_pattern if extra_assignments else base_test_pattern
-        tests = [(dir_, file[:-3]) for file in os.listdir(dir_) if re.match(pattern, file)]
+        tests.extend([(dir_, file[:-3]) for file in os.listdir(dir_) if re.match(pattern, file)])
 
     return tests
 
