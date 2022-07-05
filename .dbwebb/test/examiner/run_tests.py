@@ -51,6 +51,7 @@ def build_testsuite():
 
         for case in testcases:
             case.USER_TAGS = ARGS.tags
+            case.SHOW_TAGS = ARGS.show_tags
             suite.addTest(unittest.makeSuite(case))
     return suite
 
@@ -60,7 +61,7 @@ def run_testcases(suite):
     """
     Run testsuit.
     """
-    runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2)
+    runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2, failfast=ARGS.failfast)
 
     try:
         results = runner.run(suite)

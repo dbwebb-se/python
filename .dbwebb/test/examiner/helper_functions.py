@@ -8,9 +8,9 @@ from functools import wraps
 from unittest import SkipTest
 import importlib.util as importer
 try:
-    from examiner.colorama import init, Fore, Back, Style
+    from examiner.colorama import init, Fore, Style
 except ImportError:
-    from colorama import init, Fore, Back, Style
+    from colorama import init, Fore, Style
 
 init(strip=False)
 
@@ -48,97 +48,6 @@ def clean_str(string):
     return string.replace(chr(27) + "[2J" + chr(27) + "[;H", "")
 
 
-def get_color_indexes(msg_list):
-    """
-    Return index of lines with {correct} (green) and {student} (red).
-    """
-    indexes = {}
-    for i, line in enumerate(msg_list):
-        if "{correct}" in line:
-            indexes["green"] = i - 1
-        elif "{student}" in line:
-            indexes["red"] = i - 1
-
-    return indexes
-
-
-
-def inject_answer_colors(msg_list):
-    """
-    Insert red and green color if "correct" and "student" is present in doscring.
-    """
-    indexes = get_color_indexes(msg_list)
-    if "green" in indexes:
-        i = indexes["green"]
-        msg_list[i] = (
-            Back.BLACK + Fore.GREEN + Style.BRIGHT
-            + msg_list[i]
-            + Style.RESET_ALL
-        )
-    if "red" in indexes:
-        i = indexes["red"]
-        msg_list[i] = (
-            Back.BLACK + Fore.RED + Style.BRIGHT
-            + msg_list[i]
-            + Style.RESET_ALL
-        )
-
-    return msg_list
-
-
-
-def inject_regex_colors(msg):
-    """
-    Use regex to find |<color letter>| and replace with colors.
-    """
-    color_start = re.findall(COLOR_REGEX_START, msg)
-    for color in color_start:
-        msg = msg.replace("|{}|".format(color), COLORS[color]+ Style.BRIGHT)
-    msg = msg.replace("|/RE|", COLORS["RE"])
-    return msg
-
-
-
-def create_fail_msg(function_args, test):
-    """
-    Create formated fail msg using docstring from test function
-    """
-    #pylint: disable=protected-access
-    if test._testMethodDoc is None:
-        raise AttributeError(
-            "Test is missing docstring."
-            " Docstring is needed to explainin the test when Something goes wrong."
-        )
-    docstring = re.sub("\n +", "\n", test._testMethodDoc)
-
-    msg_list = docstring.split("\n")
-    inject_answer_colors(msg_list)
-    msg = "\n".join(msg_list)
-    msg = inject_regex_colors(msg)
-
-    return [msg.format(
-        arguments=function_args,
-        correct=test.correct_answer,
-        student=test.student_answer
-    )]
-    #pylint: enable=protected-access
-
-
-
-def get_function_args(test):
-    """
-    Use repr() on arguments used for the students defined function.
-    If no arguments is used, return None.
-    """
-    try:
-        return repr(getattr(test, "_argument"))
-    except AttributeError:
-        try:
-            return ", ".join([repr(arg) for arg in getattr(test, "_multi_arguments")])
-        except AttributeError:
-            return None
-
-
 
 def error_is_missing_assignment_function(error):
     """
@@ -156,12 +65,12 @@ def error_is_missing_assignment_function(error):
 
 
 
-def check_for_tags(*tag_args, msg="Inkluderar inte någon av de givna taggarna"):
+def check_for_tags(*tag_args, default_msg="Does not include any of the given tags"):
     """
     Compares the user tags and the test_case tags to see which tests
     should be be ran.
     """
-    def skip_function():
+    def skip_function(msg=default_msg):
         """
         replaces test_cases so they are skipped
         """
@@ -173,9 +82,13 @@ def check_for_tags(*tag_args, msg="Inkluderar inte någon av de givna taggarna")
         @wraps(f)
         def wrapper(self, *args, **kwargs):
             """Wrapper"""
+            test_case_tags = set(tag_args)
+
+            if self.SHOW_TAGS:
+                return skip_function(f"has the tags: {', '.join(sorted(test_case_tags))}")
+
             user_tags = set(self.USER_TAGS)
             if user_tags:
-                test_case_tags = set(tag_args)
                 if not user_tags.intersection(test_case_tags):
                     return skip_function()
             return f(self, *args, **kwargs)

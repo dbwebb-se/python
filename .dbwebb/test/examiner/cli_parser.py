@@ -16,9 +16,20 @@ def parse():
     )
 
     parser.add_argument(
+        "-f", "--failfast", dest="failfast", default=False,
+        action="store_true", help="Stop executing tests on the first error or failure."
+    )
+
+    parser.add_argument(
         "-t", "--tags", dest="tags", default=[],
-        help="Collects tags to run specific tests\n" + \
+        help="Run only tests with specific tags\n" + \
             "USAGE: -t=tag1 || -t=tag1,tag2"
+    )
+
+    parser.add_argument(
+        "-s", "--showtags", dest="show_tags", default=False,
+        action="store_true",
+        help="Show what tags are available for the tests. Won't run any tests!"
     )
 
     parser.add_argument(
