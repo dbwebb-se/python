@@ -51,12 +51,14 @@ ARGUMENTS
     [part] is optional and defaults to the current directory.
                 This could be an assignment or kmom.
 OPTIONAL
-    --help, -h:    Displays this help text.
-    --no-validate: Skips the validation of the given test_suit
-    --extra, -e:   Includes unittests for extra assignments.
-    -t, --tags:    Filters what testcases it should run. If given, it will only
-                   run testcases with the same tags. Tags are separated by a comma (",")
-                   Example usage: --tags=speed,temp or --tags=height
+    --help, -h:     Displays this help text.
+    --no-validate:  Skips the validation of the given test_suit
+    --extra, -e:    Includes unittests for extra assignments.
+    -t, --tags:     Filters what testcases it should run. If given, it will only
+                    run testcases with the same tags. Tags are separated by a comma (",")
+                    Example usage: --tags=speed,temp or --tags=height
+    -f, --failfast  Stop executing tests on the first error or failure.
+    -s, --showtags  Show what tags are available for the tests. Won't run any tests!
     --trace:       Adds traceback output for assertion errors.
 
 -----------------------
