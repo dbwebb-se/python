@@ -38,7 +38,7 @@ class ExamTestCase(unittest.TestCase):
             self.fail_msg.norepr = value
             return
         if name == '_argument':
-            self.fail_msg.aruments = repr(value)
+            self.fail_msg.arguments = repr(value)
         if name == '_multi_arguments':
             self.fail_msg.arguments = ", ".join([repr(arg) for arg in value])
         super().__setattr__(name, value)
