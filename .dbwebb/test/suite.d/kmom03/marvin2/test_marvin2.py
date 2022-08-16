@@ -74,8 +74,8 @@ class Test2Marvin2NewMenus(ExamTestCase):
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
-        self.student_answer = str_data
-        self.correct_answer = repr(f"{string} --> <en slumpad ordning>")
+        self.fail_msg.student_answer = str_data
+        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
 
 
         try:
@@ -106,8 +106,8 @@ class Test2Marvin2NewMenus(ExamTestCase):
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
 
-        self.student_answer = str_data
-        self.correct_answer = repr(f"{string} --> <en slumpad ordning>")
+        self.fail_msg.student_answer = str_data
+        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
 
 
         try:
