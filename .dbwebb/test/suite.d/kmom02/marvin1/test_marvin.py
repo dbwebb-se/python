@@ -434,6 +434,75 @@ class Test2Marvin1(ExamTestCase):
         self.check_print_contain(self._multi_arguments, ["not a number!", "larger!", "not a number!", "smaller!"])
 
 
+    @tags("8")
+    def test_s_robber_language_one_consonant(self):
+        """
+        Testar menyval 8 där användaren skickar in en konsonant
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["8", "p", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["pop"])
+
+    @tags("8")
+    def test_t_robber_language_one_vowel(self):
+        """
+        Testar menyval 8 där användaren skickar in en vokal
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande inte finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["8", "y", "", "q"]
+
+        self.check_print_not_contain(self._multi_arguments, ["yoy"])
+
+
+    @tags("8")
+    def test_u_robber_language_short_word(self):
+        """
+        Testar menyval 8 där användaren skickar in ett kort ord
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["8", "dbwebb", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, ["dodbobwowebobbob"])
+
+
+    @tags("8")
+    def test_u_robber_language_long_word(self):
+        """
+        Testar menyval 8 där användaren skickar in ett långt ord
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["8", "Realisationsvinstbeskattning", "", "q"]
+
+        self.check_print_contain(
+            self._multi_arguments,
+            ["rorealolisosatotiononsosvovinonsostotbobesoskokatottotnoninongog"]
+        )
+
 
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
