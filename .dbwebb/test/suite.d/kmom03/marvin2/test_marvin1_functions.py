@@ -219,6 +219,27 @@ class Test1Marvin1Functions(ExamTestCase):
         )
 
 
+    @tags("8", "marvin1")
+    def test_robber_language(self):
+        """
+        Testar att funktionen "robber_language" finns mer i marvin.py
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["webbprogrammering"]
+
+        self.check_print_contain(
+            self._multi_arguments,
+            ["wowebobbobpoprorogogroramommomerorinongog"],
+            marvin.robber_language
+        )
+
+
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
     unittest.main(testRunner=runner, exit=False)

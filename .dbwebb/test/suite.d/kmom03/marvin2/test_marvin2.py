@@ -52,10 +52,10 @@ class Test2Marvin2NewMenus(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
-    @tags("8", "marvin2")
+    @tags("9", "marvin2")
     def test_randomize_string_menu(self):
         """
-        Testar att anropa menyval 8 via main funktionen i main.py.
+        Testar att anropa menyval 9 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
@@ -64,7 +64,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         {student}
         """
         string = "Borde inte bli samma igen"
-        self._multi_arguments = ["8", string, "", "q"]
+        self._multi_arguments = ["9", string, "", "q"]
 
         with patch("builtins.input", side_effect=self._multi_arguments):
             with patch("sys.stdout", new=StringIO()) as fake_out:
@@ -87,7 +87,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("8", "marvin2")
+    @tags("9", "marvin2")
     def test_randomize_string_func(self):
         """
         Testar att anropa funktionen randomize_string i marvin.py.
@@ -119,10 +119,10 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("9", "marvin2")
+    @tags("10", "marvin2")
     def test_get_acronym_menu(self):
         """
-        Testar att anropa menyval 9 via main funktionen i main.py.
+        Testar att anropa menyval 10 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -131,7 +131,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["9", "BRöderna Ivarsson Osby", "", "q"]
+        self._multi_arguments = ["10", "BRöderna Ivarsson Osby", "", "q"]
         self.check_print_contain(
             self._multi_arguments,
             ["BRIO"],
@@ -140,7 +140,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("9", "marvin2")
+    @tags("10", "marvin2")
     def test_get_acronym_func(self):
         """
         Testar att anropa funktionen get_acronym i marvin.py.
@@ -159,10 +159,10 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("10", "marvin2")
+    @tags("11", "marvin2")
     def test_mask_string_menu(self):
         """
-        Testar att anropa menyval 10 via main funktionen i main.py.
+        Testar att anropa menyval 11 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -171,7 +171,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["10", "4556364607935616", "", "q"]
+        self._multi_arguments = ["11", "4556364607935616", "", "q"]
         self.check_print_contain(
             self._multi_arguments,
             ["############5616"],
@@ -180,7 +180,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("10", "marvin2")
+    @tags("11", "marvin2")
     def test_mask_string_func(self):
         """
         Testar att anropa funktionen mask_string i marvin.py.
@@ -199,7 +199,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("10", "marvin2")
+    @tags("11", "marvin2")
     def test_mask_string_check_use_multiply_func(self):
         """
         Testar att funktionen mask_string anropar funktionen multiply_str.
@@ -216,7 +216,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("10", "3", "marvin2")
+    @tags("11", "3", "marvin2")
     def test_multiply_str_func(self):
         """
         Testar att anropa funktionen multiply_str i marvin.py.
@@ -233,10 +233,10 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("11", "marvin2")
+    @tags("12", "marvin2")
     def test_find_all_indexes_menu(self):
         """
-        Testar att anropa menyval 11 i main.py.
+        Testar att anropa menyval 12 i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskriften:
@@ -246,7 +246,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         """
         self.norepr = True
         self._multi_arguments = [
-            "11",
+            "12",
             "There's unlimited juice? This party is gonna be off the hook. Oh, I'm sorry, I forgot... your wife is dead!.",
             "is",
             "",
@@ -261,7 +261,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("11", "marvin2")
+    @tags("12", "marvin2")
     def test_find_all_indexes_includes_last(self):
         """
         Testar att anropa funktionen find_all_indexes i marvin.py. Där sista karaktären också ska hittas.
@@ -286,7 +286,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("11", "marvin2")
+    @tags("12", "marvin2")
     def test_find_all_indexes_missing(self):
         """
         Testar att anropa funktionen find_all_indexes i marvin.py. Där söksträngen saknas.
@@ -311,7 +311,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
 
-    @tags("11", "marvin2")
+    @tags("12", "marvin2")
     def test_find_all_indexes_check_use_try_except(self):
         """
         Testar att funktionen find_all_indexes innehåller try och except konstruktionen.
