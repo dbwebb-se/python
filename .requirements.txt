@@ -1,8 +1,5 @@
-pylint == 2.10.2
+pylint == 2.14.5
 #coverage
 #flake8
 #flake8-docstrings
 #pycodestyle
-
-# Obsolete
-#pep8
