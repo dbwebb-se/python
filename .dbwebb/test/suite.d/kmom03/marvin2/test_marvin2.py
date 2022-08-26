@@ -23,7 +23,7 @@ if REPO_PATH not in sys.path:
 
 # Path to file and basename of the file to import
 main = import_module(REPO_PATH, 'main')
-marvin = import_module(REPO_PATH, 'marvin')
+marvin2 = import_module(REPO_PATH, 'marvin2')
 
 
 class Test2Marvin2NewMenus(ExamTestCase):
@@ -90,7 +90,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("9", "marvin2")
     def test_randomize_string_func(self):
         """
-        Testar att anropa funktionen randomize_string i marvin.py.
+        Testar att anropa funktionen randomize_string i marvin2.py.
         Använder följande som argument:
         {arguments}
         Förväntar att följande sträng returneras, fast med bokstäverna i annan ordning:
@@ -101,7 +101,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         string = "MedSiffror1234567890"
         self._argument = string
 
-        str_data = marvin.randomize_string(string)
+        str_data = marvin2.randomize_string(string)
 
         length = len(string)
         pattern = fr"{string} --> ([{string}]{{{length}}})"
@@ -143,7 +143,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("10", "marvin2")
     def test_get_acronym_func(self):
         """
-        Testar att anropa funktionen get_acronym i marvin.py.
+        Testar att anropa funktionen get_acronym i marvin2.py.
         Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
@@ -153,7 +153,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         """
         self._argument = "Ingvar Kamprad Elmtaryd Agunnaryd"
         self.assertEqual(
-            marvin.get_acronym(self._argument),
+            marvin2.get_acronym(self._argument),
             "IKEA"
         )
 
@@ -183,7 +183,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("11", "marvin2")
     def test_mask_string_func(self):
         """
-        Testar att anropa funktionen mask_string i marvin.py.
+        Testar att anropa funktionen mask_string i marvin2.py.
         Använder följande som argument:
         {arguments}
         Förväntar att följande returneras:
@@ -193,7 +193,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         """
         self._argument = "Hej Hej"
         self.assertEqual(
-            marvin.mask_string(self._argument),
+            marvin2.mask_string(self._argument),
             "### Hej"
         )
 
@@ -211,7 +211,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         self.norepr = True
         self.assertIn(
             "multiply_str(",
-            inspect.getsource(marvin.mask_string)
+            inspect.getsource(marvin2.mask_string)
         )
 
 
@@ -219,7 +219,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("11", "3", "marvin2")
     def test_multiply_str_func(self):
         """
-        Testar att anropa funktionen multiply_str i marvin.py.
+        Testar att anropa funktionen multiply_str i marvin2.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -228,7 +228,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         {student}
         """
         self._multi_arguments = ["#", 5]
-        res = marvin.multiply_str(*self._multi_arguments)
+        res = marvin2.multiply_str(*self._multi_arguments)
         self.assertEqual("#####", res)
 
 
@@ -264,7 +264,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("12", "marvin2")
     def test_find_all_indexes_includes_last(self):
         """
-        Testar att anropa funktionen find_all_indexes i marvin.py. Där sista karaktären också ska hittas.
+        Testar att anropa funktionen find_all_indexes i marvin2.py. Där sista karaktären också ska hittas.
         Använder följande som input:
         {arguments}
         Förväntar att följande returneras:
@@ -278,7 +278,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         ]
 
         self.assertEqual(
-                marvin.find_all_indexes(
+                marvin2.find_all_indexes(
                 *self._multi_arguments
             ),
             "60,85,86,87,107"
@@ -289,7 +289,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
     @tags("12", "marvin2")
     def test_find_all_indexes_missing(self):
         """
-        Testar att anropa funktionen find_all_indexes i marvin.py. Där söksträngen saknas.
+        Testar att anropa funktionen find_all_indexes i marvin2.py. Där söksträngen saknas.
         Använder följande som input:
         {arguments}
         Förväntar att följande returneras:
@@ -303,7 +303,7 @@ class Test2Marvin2NewMenus(ExamTestCase):
         ]
 
         self.assertEqual(
-                marvin.find_all_indexes(
+                marvin2.find_all_indexes(
                 *self._multi_arguments
             ),
             ""
@@ -321,8 +321,8 @@ class Test2Marvin2NewMenus(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self.assertIn("try:", inspect.getsource(marvin.find_all_indexes))
-        self.assertIn("except ValueError:", inspect.getsource(marvin.find_all_indexes))
+        self.assertIn("try:", inspect.getsource(marvin2.find_all_indexes))
+        self.assertIn("except ValueError:", inspect.getsource(marvin2.find_all_indexes))
 
 
 

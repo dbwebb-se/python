@@ -21,7 +21,7 @@ if REPO_PATH not in sys.path:
 
 # Path to file and basename of the file to import
 main = import_module(REPO_PATH, 'main')
-marvin = import_module(REPO_PATH, 'marvin')
+marvin1 = import_module(REPO_PATH, 'marvin1')
 
 
 
@@ -71,7 +71,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("1", "marvin1")
     def test_greet(self):
         """
-        Testar att funktionen "greet" finns i marvin.py.
+        Testar att funktionen "greet" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -81,13 +81,13 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         self.norepr = True
         self._multi_arguments = ["dbwebb är bäst"]
-        self.check_print_contain(self._multi_arguments, ["dbwebb är bäst"], marvin.greet)
+        self.check_print_contain(self._multi_arguments, ["dbwebb är bäst"], marvin1.greet)
 
 
     @tags("2", "marvin1")
     def test_temperature_high(self):
         """
-        Testar att funktionen "celcius_to_farenheit" finns i marvin.py.
+        Testar att funktionen "celcius_to_farenheit" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -97,14 +97,14 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         self.norepr = True
         self._multi_arguments = ["70"]
-        self.check_print_contain(self._multi_arguments, ["158.0"], marvin.celcius_to_farenheit)
+        self.check_print_contain(self._multi_arguments, ["158.0"], marvin1.celcius_to_farenheit)
 
 
 
     @tags("3", "marvin1")
     def test_word_manipulation(self):
         """
-        Testar att funktionen "word_manipulation" finns i marvin.py.
+        Testar att funktionen "word_manipulation" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -118,16 +118,16 @@ class Test1Marvin1Functions(ExamTestCase):
 
         # If the studend does not include newlines in output.
         try:
-            self.check_print_contain(self._multi_arguments, [(word + "\n") * times], marvin.word_manipulation)
+            self.check_print_contain(self._multi_arguments, [(word + "\n") * times], marvin1.word_manipulation)
         except AssertionError as _:
-            self.check_print_contain(self._multi_arguments, [word * times], marvin.word_manipulation)
+            self.check_print_contain(self._multi_arguments, [word * times], marvin1.word_manipulation)
 
 
 
     @tags("4", "marvin1")
     def test_sum_and_avrage(self):
         """
-        Testar att funktionen "sum_and_average" finns i marvin.py.
+        Testar att funktionen "sum_and_average" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -147,7 +147,7 @@ class Test1Marvin1Functions(ExamTestCase):
             [
                 str(round(sum_numbers, 2)), str(round(med_numbers, 2))
             ],
-            marvin.sum_and_average
+            marvin1.sum_and_average
         )
 
 
@@ -155,7 +155,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("5", "marvin1")
     def test_hyphen_string(self):
         """
-        Testar att funktionen "hyphen_string" finns i marvin.py.
+        Testar att funktionen "hyphen_string" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -169,7 +169,7 @@ class Test1Marvin1Functions(ExamTestCase):
         self.check_print_contain(
             self._multi_arguments,
             ["p-yy-ttt-hhhh-ooooo-nnnnnn"],
-            marvin.hyphen_string
+            marvin1.hyphen_string
         )
 
 
@@ -177,7 +177,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("6", "marvin1")
     def test_is_isogram(self):
         """
-        Testar att funktionen "is_isogram" finns i marvin.py.
+        Testar att funktionen "is_isogram" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -191,7 +191,7 @@ class Test1Marvin1Functions(ExamTestCase):
         self.check_print_contain(
             self._multi_arguments,
             ["Match!"],
-            marvin.is_isogram
+            marvin1.is_isogram
         )
 
 
@@ -199,7 +199,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("7", "marvin1")
     def test_compare_numbers(self):
         """
-        Testar att funktionen "compare_numbers" finns i marvin.py.
+        Testar att funktionen "compare_numbers" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -215,14 +215,14 @@ class Test1Marvin1Functions(ExamTestCase):
         self.check_print_contain(
             self._multi_arguments,
             ["larger!", "same!", "same!", "larger!"],
-            marvin.compare_numbers
+            marvin1.compare_numbers
         )
 
 
     @tags("8", "marvin1")
     def test_robber_language(self):
         """
-        Testar att funktionen "robber_language" finns mer i marvin.py
+        Testar att funktionen "robber_language" finns mer i marvin1.py
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -236,7 +236,7 @@ class Test1Marvin1Functions(ExamTestCase):
         self.check_print_contain(
             self._multi_arguments,
             ["wowebobbobpoprorogogroramommomerorinongog"],
-            marvin.robber_language
+            marvin1.robber_language
         )
 
 

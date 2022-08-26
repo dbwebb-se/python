@@ -47,11 +47,18 @@ class Test4Marvin2Structure(ExamTestCase):
 
 
     @tags("struct")
-    def test_file_marvin_py_exist(self):
+    def test_file_marvin1_py_exist(self):
         """
-        Testerna hittar inte filen 'marvin.py'.
+        Testerna hittar inte filen 'marvin1.py'.
         """
-        self.assertModule("marvin", REPO_PATH)
+        self.assertModule("marvin1", REPO_PATH)
+
+    @tags("struct")
+    def test_file_marvin2_py_exist(self):
+        """
+        Testerna hittar inte filen 'marvin2.py'.
+        """
+        self.assertModule("marvin2", REPO_PATH)
 
 
 

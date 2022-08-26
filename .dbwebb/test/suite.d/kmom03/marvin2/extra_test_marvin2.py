@@ -22,7 +22,7 @@ if REPO_PATH not in sys.path:
 
 # Path to file and basename of the file to import
 main = import_module(REPO_PATH, 'main')
-marvin = import_module(REPO_PATH, 'marvin')
+marvin2 = import_module(REPO_PATH, 'marvin2')
 
 
 
@@ -72,7 +72,7 @@ class Test3Marvin2Extra(ExamTestCase):
     @tags("b1")
     def test_points_to_grade_func(self):
         """
-        Testar att anropa points_to_grade i marvin.py.
+        Testar att anropa points_to_grade i marvin2.py.
         Använder följande som argument:
         {arguments}
         Förväntar att följande sträng returneras:
@@ -82,7 +82,7 @@ class Test3Marvin2Extra(ExamTestCase):
         """
         self._multi_arguments = ["70", "50"]
         self.assertEqual(
-            marvin.points_to_grade(*self._multi_arguments),
+            marvin2.points_to_grade(*self._multi_arguments),
             "score: C"
         )
 
@@ -106,7 +106,7 @@ class Test3Marvin2Extra(ExamTestCase):
     @tags("b2")
     def test_has_strings_func(self):
         """
-        Testar att anropa has_strings i marvin.py.
+        Testar att anropa has_strings i marvin2.py.
         Använder följande som argument:
         {arguments}
         Förväntar att följande sträng returneras:
@@ -116,7 +116,7 @@ class Test3Marvin2Extra(ExamTestCase):
         """
         self._multi_arguments = ["Palindrom", "par", "ind", "rom" ]
         self.assertEqual(
-            marvin.has_strings(*self._multi_arguments),
+            marvin2.has_strings(*self._multi_arguments),
             "No match" 
         )
 
