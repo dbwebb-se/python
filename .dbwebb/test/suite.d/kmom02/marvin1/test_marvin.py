@@ -496,7 +496,7 @@ class Test2Marvin1(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["8", "Realisationsvinstbeskattning", "", "q"]
+        self._multi_arguments = ["8", "realisationsvinstbeskattning", "", "q"]
 
         self.check_print_contain(
             self._multi_arguments,
