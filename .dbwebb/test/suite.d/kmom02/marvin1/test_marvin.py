@@ -464,7 +464,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["8", "y", "", "q"]
 
-        self.check_print_not_contain(self._multi_arguments, ["yoy"])
+        self.check_print_contain(self._multi_arguments, ["yoy"])
 
 
     @tags("8")
