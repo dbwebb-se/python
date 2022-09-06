@@ -55,14 +55,13 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
         with patch("sys.stdout", new=StringIO()) as fake_out:
-            return_val = backpack.inventory(*self._multi_arguments)
+            backpack.inventory(*self._multi_arguments)
             str_data = fake_out.getvalue()
 
         for val in self._multi_arguments[0]:
             self.assertIn(val, str_data)
 
         self.assertIn("2", str_data)
-        self.assertEqual(return_val, None)
 
 
 
@@ -313,7 +312,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
 
-    @tags("error")
+    @tags("error", "pick")
     def test_error_on_pick_high_index(self):
         """
         Testar att lägga till ett värde när användaren anger ett för högt index, via "pick" funktionen.
@@ -337,7 +336,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
 
-    @tags("error")
+    @tags("error", "drop")
     def test_error_on_drop_empty_bag(self):
         """
         Testar drop kommandot på ett ike existerande värde, via "drop" funktionen.
@@ -361,7 +360,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
     
-    @tags("error")
+    @tags("error", "drop")
     def test_error_on_drop_with_items(self):
         """
         Testar drop kommandot på en tom lista, via "drop" funktionen.
@@ -385,7 +384,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
 
-    @tags("error")
+    @tags("error", "swap")
     def test_error_on_swap_empty_bag(self):
         """
         Testar "swap" funktionen på en tom lista.
@@ -411,7 +410,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
 
-    @tags("error")
+    @tags("error", "swap")
     def test_error_on_swap(self):
         """
         Testar att byta plats på ett existerande och icke existerande värde, via "swap" funktionen.
@@ -435,7 +434,7 @@ class Test2InventoryFunctions(ExamTestCase):
 
 
 
-    @tags("error")
+    @tags("error", "swap")
     def test_error_on_swap_same_name(self):
         """
         Testar att byta plats på två likadana värden som bara existerar en gång, via "swap" funktionen.
