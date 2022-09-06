@@ -109,9 +109,18 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.pick(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, ["snow", "sand", "grass"])
         self.assertIn(self._multi_arguments[1], str_data)
-        self.assertNotIn("Error", str_data)
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+         )
+
+        self.assertEqual(
+            new_bag,
+            ["snow", "sand", "grass"],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -134,10 +143,18 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.pick(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, ["snake", "dog", "cat", "bird", "worm"])
         self.assertIn(self._multi_arguments[1], str_data)
         self.assertIn(self._multi_arguments[2], str_data)
-        self.assertNotIn("Error", str_data)
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+        )
+        self.assertEqual(
+            new_bag,
+            ["snake", "dog", "cat", "bird", "worm"],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -161,10 +178,19 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.pick(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, ["dog", "cat", "snake", "bird", "worm"])
         self.assertIn(self._multi_arguments[1], str_data)
         self.assertIn(self._multi_arguments[2], str_data)
-        self.assertNotIn("Error", str_data)
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+
+        )
+        self.assertEqual(
+            new_bag,
+            ["dog", "cat", "snake", "bird", "worm"],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
     @tags("drop")
@@ -186,9 +212,17 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, ["dog", "cat", "bird"])
         self.assertIn(self._multi_arguments[1], str_data)
-        self.assertNotIn("Error", str_data)
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+        )
+        self.assertEqual(
+            new_bag,
+            ["dog", "cat", "bird"],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
     @tags("drop")
@@ -197,7 +231,7 @@ class Test2InventoryFunctions(ExamTestCase):
         Testar att kasta bort listans första värde, via "drop" funktionen.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returnera:
         {correct}
         Fick följande:
         {student}
@@ -219,7 +253,7 @@ class Test2InventoryFunctions(ExamTestCase):
         Testar att kasta bort listans mittersta värde, via "drop" funktionen.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student}
@@ -257,10 +291,19 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
 
-        self.assertEqual(new_bag, ["linux", "mac", "windows"])
         self.assertIn(self._multi_arguments[1], str_data)
         self.assertIn(self._multi_arguments[2], str_data)
-        self.assertNotIn("Error", str_data)
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+        )
+        self.assertEqual(
+            new_bag,
+            ["linux", "mac", "windows"],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+
+        )
 
 
 
@@ -271,7 +314,7 @@ class Test2InventoryFunctions(ExamTestCase):
         Testar att byta plats på de identiska namn, via "swap" funktionen.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student}
@@ -285,8 +328,11 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
         self.assertEqual(new_bag, bag)
-        self.assertIn("Error", str_data)
-
+        self.assertNotIn(
+            "Error",
+            str_data,
+            ["Förväntar att följande inte finns med i utskriften:","Det fanns med i utskriften:"]
+        )
 
 
 
@@ -296,7 +342,7 @@ class Test2InventoryFunctions(ExamTestCase):
         Testar att byta plats på de två mittersta värden i listan, via "swap" funktionen.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande returneras:
         {correct}
         Fick följande:
         {student}
@@ -330,9 +376,16 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.pick(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
-        self.assertIn("Error", str_data)
         self.assertIn(str(self._multi_arguments[2]), str_data)
+        self.assertIn(
+            "Error",
+            str_data
+            )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -354,9 +407,16 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
-        self.assertIn("Error", str_data)
         self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(
+            "Error",
+            str_data
+        )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
     
@@ -378,9 +438,16 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
-        self.assertIn("Error", str_data)
         self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(
+            "Error",
+            str_data
+        )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -403,10 +470,17 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
-        self.assertIn("Error", str_data)
         self.assertIn(self._multi_arguments[1], str_data)
         self.assertIn(self._multi_arguments[2], str_data)
+        self.assertIn(
+            "Error",
+            str_data
+        )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -429,8 +503,16 @@ class Test2InventoryFunctions(ExamTestCase):
             str_data = fake_out.getvalue()
 
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
         self.assertIn(self._multi_arguments[1], str_data)
+        self.assertIn(
+            "Error",
+            str_data
+        )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 
@@ -448,10 +530,19 @@ class Test2InventoryFunctions(ExamTestCase):
         bag = ["butter", "cheese"]
         self._multi_arguments = [bag.copy(), "butter", "butter"]
 
-        with patch("sys.stdout", new=StringIO()) as _:
+        with patch("sys.stdout", new=StringIO()) as fake_out:
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
+            str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, self._multi_arguments[0])
+        self.assertIn(
+            "Error",
+            str_data
+        )
+        self.assertEqual(
+            new_bag,
+            self._multi_arguments[0],
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
+        )
 
 
 

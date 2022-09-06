@@ -63,7 +63,7 @@ class Test3Marvin3Main(ExamTestCase):
                 main.main()
                 for val in correct:
                     str_data = fake_out.getvalue()
-                    self.assertNotIn(val, str_data)
+                    self.assertNotIn(val, str_data, ["Förv'ntar att följande inte finns med i utskrifter:", "Fick med följande:"])
 
 
 
@@ -131,7 +131,7 @@ class Test3Marvin3Main(ExamTestCase):
     @tags("menu", "drop")
     def test_pick_and_drop_error(self):
         """
-        Testar 'inv drop' på ett ike existerande värde.
+        Testar 'inv drop' på ett icke existerande värde.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
