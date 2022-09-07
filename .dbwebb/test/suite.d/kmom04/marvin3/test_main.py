@@ -63,7 +63,7 @@ class Test3Marvin3Main(ExamTestCase):
                 main.main()
                 for val in correct:
                     str_data = fake_out.getvalue()
-                    self.assertNotIn(val, str_data, ["Förv'ntar att följande inte finns med i utskrifter:", "Fick med följande:"])
+                    self.assertNotIn(val, str_data, ["Förväntar att följande inte finns med i utskrifter:", "Fick med följande:"])
 
 
 

@@ -58,7 +58,8 @@ class Test2Marvin1(ExamTestCase):
                 import_module(REPO_PATH, 'marvin')
                 str_data = fake_out.getvalue()
                 for val in correct:
-                    self.assertNotIn(val, str_data)
+                    self.assertNotIn(val, str_data, ["Förväntar att följande inte finns med i utskrifter:", "Fick med följande:"])
+
 
 
 
@@ -222,6 +223,7 @@ class Test2Marvin1(ExamTestCase):
         self._multi_arguments = ["5", "python", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["p-yy-ttt-hhhh-ooooo-nnnnnn"])
+        self.check_print_not_contain(self._multi_arguments, ["p-yy-ttt-hhhh-ooooo-nnnnnn-"])
 
 
 
@@ -240,6 +242,7 @@ class Test2Marvin1(ExamTestCase):
         self._multi_arguments = ["5", "1234", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["1-22-333-4444"])
+        self.check_print_not_contain(self._multi_arguments, ["1-22-333-4444-"])
 
 
 
