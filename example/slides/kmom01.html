@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>kmom01</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="python.css" />
+</head>
+<body>
+    <div id="presentation" class="presentation"></div>
+
+    <div id="slide-container" class="slide-container">
+        
+        
+        
+        <div class="slide">
+            <h1>kmom01</h1>
+            <p>Värden, typer, variabler och aritmetik</p>
+        </div>
+
+
+
+        <div class="slide">
+            <h3>Vad är ett program?</h3>
+            <h3>Vad är kod?</h3>
+            <h3>Vad innebär det att programera?</h3>
+        </div>
+        
+        
+
+        <div class="slide">
+            <h1>Maskinkod</h1>
+            <p>Skriver ut "Hello World".</p>
+<pre><code class="x86asm hljs">b8&emsp;    21 0a 00 00   &emsp;#moving "!\n" into eax
+a3&emsp;    0c 10 00 06   &emsp;#moving eax into first memory location
+b8    &emsp;6f 72 6c 64   &emsp;#moving "orld" into eax
+a3    &emsp;08 10 00 06   &emsp;#moving eax into next memory location
+b8    &emsp;6f 2c 20 57   &emsp;#moving "o, W" into eax
+a3    &emsp;04 10 00 06   &emsp;#moving eax into next memory location
+b8    &emsp;48 65 6c 6c   &emsp;#moving "Hell" into eax
+a3    &emsp;00 10 00 06   &emsp;#moving eax into next memory location
+b9    &emsp;00 10 00 06   &emsp;#moving pointer to start of memory location into ecx
+ba    &emsp;10 00 00 00   &emsp;#moving string size into edx
+bb    &emsp;01 00 00 00   &emsp;#moving "stdout" number to ebx
+b8    &emsp;04 00 00 00   &emsp;#moving "print out" syscall number to eax
+cd    &emsp;80     &emsp;   &emsp;&emsp;&emsp;    &emsp;#calling the linux kernel to execute our print to stdout
+b8    &emsp;01 00 00 00   &emsp;#moving "sys_exit" call number to eax
+cd    &emsp;80    &emsp;&emsp;     &emsp;&emsp;&emsp;   #executing it via linux sys_call
+                </code>
+            </pre>
+        </div>
+
+
+
+        <div class="slide">
+            <h1>Assemblerkod</h1>
+            <p>Skriver ut "Hello World".</p>
+            <pre><code class="x86asm hljs">global  _main
+    extern  _printf
+
+    section .text
+_main:
+    push    message
+    call    _printf
+    add     esp, 4
+    ret
+message:
+    db  'Hello, World', 10, 0</code></pre>
+        </div>
+
+
+
+        <div class="slide">
+            <h1>C kod</h1>
+            <p>Skriver ut "Hello World".</p>
+            <pre><code class="cpp hljs">
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    &emsp;&emsp;printf("hello, world\n");
+}</code></pre>
+        </div>
+
+
+
+        <div class="slide">
+            <h1>Python kod</h1>
+            <p>Skriver ut "Hello World".</p>
+            <pre><code class="python hljs">print("Hello World")</code></pre>
+        </div>
+
+        <div class="slide">
+            <h1>Byggstenar i Python</h1>
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td><p><b>False<b><p></td>
+                            <td><p>class</p></td>
+                            <td><p>finally</p></td>
+                            <td><p>assync</p></td>
+                            <td><p>wait</p></td>
+                        </tr>
+                        <tr>
+                            <td><p><b>is</b></p></td>
+                            <td><p><b>return</b></p></td>
+                            <td><p><b>None</b></p></td>
+                            <td><p><b>continue</b></p></td>
+                            <td><p><b>for</b></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>lambda</p></td>
+                            <td><p><b>try</b></p></td>
+                            <td><p><b>True</b></p></td>
+                            <td><p><b>def</b></p></td>
+                            <td><p><b>from</b></p></td>
+                        </tr>
+                        <tr>
+                            <td><p>nonlocal</p></td>
+                            <td><p><b>while</b></p></td>
+                            <td><p><b>and</b></p></td>
+                            <td><p>del</p></td>
+                            <td><p><b>global</b></p></td>
+                        </tr>
+                        <tr>
+                            <td><p><b>not</b></p></td>
+                            <td><p><b>with</b></p></td>
+                            <td><p><b>as</b></p></td>
+                            <td><p><b>elif</b></p></td>
+                            <td><p><b>if</b></p></td>
+                        </tr>
+                        <tr>
+                            <td><p><b>or</b></p></td>
+                            <td><p>yield</p></td>
+                            <td><p>assert</p></td>
+                            <td><p><b>else</b></p></td>
+                            <td><p>raise</p></td>
+
+                        </tr>
+                        <tr>
+                            <td><p><b>import</b></p></td>
+                            <td><p><b>pass</b></p></td>
+                            <td><p><b>break</b></p></td>
+                            <td><p>except</p></td>
+                            <td><p><b>in</b></p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="slide">
+                <h1>Generella instruktioner</h1>
+                <ul>
+                    <li>input</li>
+                    <li>output</li>
+                    <li>assignment</li>
+                    <li>math and logic</li>
+                    <li>conditional execution</li>
+                    <li>repetition</li>
+                </ul>
+            </div>
+
+            <div class="slide">
+                <h1>Vad är ett värde?</h1>
+            </div>
+
+            <div class="slide">
+                <h1>Ett text värde</h1>
+                <h3>Typ Sträng/String</h3>
+                <code>"Hello World"</code><br>
+            </div>
+
+            <div class="slide">
+                <h3>"Hello World" i binärkod/maskinkod/bitar<h3>
+                    <code>01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100</code>
+                    <div>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/1/1b/ASCII-Table-wide.svg">Ascii table</a>
+                    <br>
+                    <a href="https://www.calculator.net/binary-calculator.html?b2dnumber1=01001000&calctype=b2d&x=85&y=33#binary2decimal">Binary calculator</a>
+                    </div>
+                </div>
+
+                <div class="slide fade-in">
+                    <h1>Variabler och Datatyper</h1>
+
+                    <pre><code class="python hljs">int()
+str()
+float()
+bool()</code><pre>
+                </div>
+
+                <div class="slide fade-in">
+                    <h1>Uppgift: Variabler</h1>
+
+
+                    <p>Skriv ett program där du använder funktionen <code>input()</code> för att ta emot två värden <code>allowance</code> och <code>cost_of_candy</code>.
+                    Dra sedan <code>cost_of_candy</code> från <code>allowance</code>. Programmet ska sedan skriva ut hur mycket man har kvar efter att ha handlat godis tillsammans med strängen " kr".</p>
+
+                    <div data-time="10:00" class="timer"></div>
+                </div>
+
+                <div class="slide fade-in">
+                    <h1>Aritmetik och operatorer</h1>
+                </div>
+
+                <div class="slide fade-in">
+                    <h1>Operatorer</h1>
+                    <ul class="no_decorator">
+                        <li>+</li>
+                        <li>-</li>
+                        <li>*</li>
+                        <li>/</li>
+                        <li>**</li>
+                        <li>//</li>
+                        <li>%</li>
+                        <br>
+                        <li>+=</li>
+                    </ul>
+                </div>
+
+                <div class="slide fade-in">
+                    <h1>Uppgift: Aritmetik</h1>
+                    <!-- <p>Lägg till en parentes till uttrycket <code>6 * 1 - 2</code> för att ändra resultatet från <code>4</code> till <code>-6</code> och skriv ut resultatet med <code>print()</code></p> -->
+                    <p>Gör ett program där användaren kan skriva in ett antal sekunder. Konvertera sekunderna till timmar och överblivna sekunder och skriv ut resultatet.</p>
+
+                    <p>Extra uppgift: Gör om sekunderna till timmar, minuter och sekunder.</p>
+                    <div data-time="10:00" class="timer"></div>
+                </div>
+
+
+
+                <div class="slide fade-in">
+                    <h1>Praktisk problemlösning</h1>
+                    <p>Skriv ett program som tar emot inmatning från användaren. Programmet ska ta emot antal svenska kronor.
+                    Programmet ska sedan göra om dessa till Japanska Yen med dagens kurs: 1 SKR = 10.81 YEN.</p>
+
+                    <p>Programmet ska nu formaterat skriva ut hur många YEN det blir, samt vad 10 och 100 gånger så mycket blir.</p>
+                </div>
+
+
+                <div class="slide fade-in">
+                    <h1>Praktisk problemlösning</h1>
+                    <h2>2018s problem</h2>
+                    <p>Skriv ett program som tar emot inmatning från användaren. Programmet ska ta emot hur långt en bil har kört, hur lång tid det tog att köra och hur många liter bensin det hade använts på resan.</p>
+
+                    <p>Programmet ska nu formaterat skriva ut resans längd i <em>amerikanska miles</em>, genomsnittshastigheten i <em>miles per hour</em> och bränsleförbrukningen i <em>miles to the gallon</em>.</p>
+                </div>
+                
+            </div>
+                
+                
+            <script type="text/javascript" src="bundle.js"></script>
+        </body>
+        </html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>kmom02</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="python.css" />
+</head>
+<body>
+    <div id="presentation" class="presentation"></div>
+
+    <div id="slide-container" class="slide-container">
+        <div class="slide">
+            <h1>kmom02</h1>
+            <p>If, for och while</p>
+        </div>
+
+        <div class="slide">
+            <h1>if</h1>
+            <pre><code style="font-size:20px;">if CONDITION is True:
+                STATEMENTS</code></pre>
+            <pre><code class="hljs python">==
+!=
+>
+<
+>=
+<=
+and
+or
+not</code></pre>
+        </div>
+
+        <div class="slide fade-in">
+            <h1>if-uppgift</h1>
+            <div data-time="10:00" class="timer"></div>
+
+            <p>Skriv ett program som tar emot två heltal, se till att göra om de till heltal med <code>int()</code>.</p>
+
+            <p>Programmet ska sedan avgöra om siffrorna uppfyller följande krav:</p>
+            <ol>
+                <li>Båda siffrorna är större än 10 och mindre än 100.</li>
+                <li>Minst en av siffrorna är mindre än 50.</li>
+                <li>Minst en av siffrorna är större än 40.</li>
+            </ol>
+
+            <p>Om alla krav uppfylls skriv ut 'Approved' annars 'Rejected'.</p>
+        </div>
+
+        <div class="slide">
+            <h1>For-loop</h1>
+                <pre><code style="font-size:20px;">for LOOP_VARIABLE in SEQUENCE:
+        STATEMENTS</code></pre>
+        </div>
+
+        <div class="slide">
+            <h1>Strängar</h1>
+            <p><code>"Python"</code></p>
+            <p><code>"" vs ''</code></p>
+        </div>
+
+        <div class="slide">
+            <h1>Strängar vs Tecken</h1>
+            <p>Tecken (char) <code>'P'</code></p>
+            <p>Sekvens av tecken <code>'P', 'y', 't', 'h', 'o', 'n'</code></p>
+            <br>
+            <br>
+            <p>Sträng <code>"Python"</code></p>
+        </div>
+
+        <div class="slide fade-in">
+            <h1>for-uppgift</h1>
+            <div data-time="10:00" class="timer"></div>
+            <p>Skriv ett program som med hjälp av en <code>for</code>-loop plockar bort alla mellanslag från strängen <code>"Python är det bästa programmeringsspråket!"</code></p>
+            <p>När programmet är klart ska strängen bli <code>"Pythonärdetbästaprogrammeringsspråket!"</code></p>
+            <p>Tips. mellanslag är ett eget tecken, ' ', vi kan jämföra mot.</p>
+        </div>
+
+
+        <div class="slide">
+            <h1>while</h1>
+                <pre><code style="font-size:20px;">while CONDITION is True:
+        STATEMENTS</code></pre>
+        </div>
+
+
+
+        <div class="slide fade-in">
+            <h1>while-uppgift</h1>
+            <div data-time="10:00" class="timer"></div>
+            <p>Skriv ett program som med hjälp av en <code>while</code>-loop tar emot siffror från användaren. Programmet ska avslutas när något annat än en siffra skrivs in.</p>
+
+            <p>För varje siffra användaren skriver in, skriv ut den mängden av stjärnor (*) till skärmen.</p>
+            <p>Tips str.isdigit()</p>
+        </div>
+
+        <div class="slide fade-in">
+            <h1>Praktisk problemlösning</h1>
+            <p>Skriv ett program som räknar på sparande. Programmet ska ta emot tre värden: start kapital, ränta och slutvärde. Programmet ska sedan räkna ut hur många år pengarna ska stå på kontot innan vi har kommit upp i minst slutvärdet.</p>
+
+            <p>Värdet efter 1 år med ränta kan räknas ut som: <code>new_value = old_value * (1 + interest / 100)</code></p>
+
+            <p>Exempel: värdena 1000 i startkapital, 1200 i slutvärde och 5% ränta anges. <br>
+            Efter 1 år: 1000 * (1 + 5 / 100) = 1050<br>
+            Efter 2 år: 1050 * (1 + 5 / 100) = 1102.5<br>
+            Efter 3 år: 1102.5 * (1 + 5 / 100) = 1157.625<br>
+            Efter 4 år: 1157.625 * (1 + 5 / 100) = 1215.50625 - Dvs 4 år på kontot.
+            </p>
+
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
