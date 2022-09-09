@@ -186,6 +186,59 @@ class Test4ExtraInventory(ExamTestCase):
 
 
 
+    @tags("pick")
+    def test_pick_range_no_position(self):
+        """
+        Testar att anropa "pick" funktionen, med värde för sekvens upplockning, utan position.
+        Kollar att de nya sakerna läggs till sist i ryggsäcken.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        bag = ["ko", "apa", "katt"]
+        self._multi_arguments  = [bag.copy(), "hund,marsvin"]
+
+
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(*self._multi_arguments)
+            str_data = fake_out.getvalue()
+
+        for val in ["hund", "marsvin"]:
+            self.assertIn(val, str_data)
+        self.assertEqual(new_bag, ["ko", "apa", "katt", "hund", "marsvin"], ["Förväntar att följande returneras", "Fick följande:"])
+
+
+
+
+    @tags("pick")
+    def test_pick_range_position(self):
+        """
+        Testar att anropa "pick" funktionen, med värde för sekvens upplockning, med position.
+        Kollar att de nya sakerna läggs till i ryggsäcken.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        bag = ["pog", "kula", "kort"]
+        self._multi_arguments  = [bag.copy(), "spel,domino", "1"]
+
+
+        with patch("sys.stdout", new=StringIO()) as fake_out:
+            new_bag = backpack.pick(*self._multi_arguments)
+            str_data = fake_out.getvalue()
+
+        for val in ["spel", "domino"]:
+            self.assertIn(val, str_data)
+        self.assertEqual(new_bag, ["pog", "spel", "domino", "kula", "kort"], ["Förväntar att följande returneras", "Fick följande:"])
+
 if __name__ == '__main__':
     runner = TextTestRunner(resultclass=ExamTestResult, verbosity=2)
     unittest.main(testRunner=runner, exit=False)
