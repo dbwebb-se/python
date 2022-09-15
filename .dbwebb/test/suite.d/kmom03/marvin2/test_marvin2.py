@@ -26,7 +26,7 @@ main = import_module(REPO_PATH, 'main')
 marvin2 = import_module(REPO_PATH, 'marvin2')
 
 
-class Test2Marvin2NewMenus(ExamTestCase):
+class Test2Marvin2Functions(ExamTestCase):
     """
     Each assignment has 1 testcase with multiple asserts.
     The different asserts https://docs.python.org/3.6/library/unittest.html#test-cases
@@ -50,40 +50,6 @@ class Test2Marvin2NewMenus(ExamTestCase):
                 str_data = fake_out.getvalue()
                 for val in correct:
                     self.assertIn(val, str_data)
-
-
-    @tags("9", "marvin2")
-    def test_randomize_string_menu(self):
-        """
-        Testar att anropa menyval 9 via main funktionen i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        string = "Borde inte bli samma igen"
-        self._multi_arguments = ["9", string, "", "q"]
-
-        with patch("builtins.input", side_effect=self._multi_arguments):
-            with patch("sys.stdout", new=StringIO()) as fake_out:
-                main.main()
-                str_data = fake_out.getvalue()
-
-        length = len(string)
-        pattern = fr"{string} --> ([{string}]{{{length}}})"
-
-        self.fail_msg.student_answer = str_data
-        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
-
-
-        try:
-            rnd_str = re.search(pattern, str_data)[1]
-        except TypeError:
-            raise AssertionError
-        if string == rnd_str or sorted(string) != sorted(rnd_str):
-            raise AssertionError
 
 
 
@@ -120,27 +86,6 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
     @tags("10", "marvin2")
-    def test_get_acronym_menu(self):
-        """
-        Testar att anropa menyval 10 via main funktionen i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["10", "BRöderna Ivarsson Osby", "", "q"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["BRIO"],
-            main.main
-        )
-
-
-
-    @tags("10", "marvin2")
     def test_get_acronym_func(self):
         """
         Testar att anropa funktionen get_acronym i marvin2.py.
@@ -155,27 +100,6 @@ class Test2Marvin2NewMenus(ExamTestCase):
         self.assertEqual(
             marvin2.get_acronym(self._argument),
             "IKEA"
-        )
-
-
-
-    @tags("11", "marvin2")
-    def test_mask_string_menu(self):
-        """
-        Testar att anropa menyval 11 via main funktionen i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["11", "4556364607935616", "", "q"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["############5616"],
-            main.main
         )
 
 
@@ -230,34 +154,6 @@ class Test2Marvin2NewMenus(ExamTestCase):
         self._multi_arguments = ["#", 5]
         res = marvin2.multiply_str(*self._multi_arguments)
         self.assertEqual("#####", res)
-
-
-
-    @tags("12", "marvin2")
-    def test_find_all_indexes_menu(self):
-        """
-        Testar att anropa menyval 12 i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskriften:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = [
-            "12",
-            "There's unlimited juice? This party is gonna be off the hook. Oh, I'm sorry, I forgot... your wife is dead!.",
-            "is",
-            "",
-            "q"
-        ]
-
-        self.check_print_contain(
-            self._multi_arguments,
-            ["27,36,99"],
-            main.main
-        )
 
 
 
