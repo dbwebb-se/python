@@ -49,7 +49,11 @@ class Test2Marvin1(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
-    def check_print_not_contain(self, inp, correct):
+    def check_print_not_contain(
+        self,
+        inp,
+        correct,
+        msg = ["Förväntar att följande inte finns med i utskrifter:", "Fick med följande:"]):
         """
         One function for testing print input functions.
         """
@@ -58,7 +62,7 @@ class Test2Marvin1(ExamTestCase):
                 import_module(REPO_PATH, 'marvin')
                 str_data = fake_out.getvalue()
                 for val in correct:
-                    self.assertNotIn(val, str_data, ["Förväntar att följande inte finns med i utskrifter:", "Fick med följande:"])
+                    self.assertNotIn(val, str_data, msg)
 
 
 
@@ -223,7 +227,11 @@ class Test2Marvin1(ExamTestCase):
         self._multi_arguments = ["5", "python", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["p-yy-ttt-hhhh-ooooo-nnnnnn"])
-        self.check_print_not_contain(self._multi_arguments, ["p-yy-ttt-hhhh-ooooo-nnnnnn-"])
+        self.check_print_not_contain(
+            self._multi_arguments,
+            ["p-yy-ttt-hhhh-ooooo-nnnnnn-"],
+            ["Föväntar att det inte finns ett '-' på slutet:", "Fick följande utskrift:"]
+        )
 
 
 
@@ -242,7 +250,11 @@ class Test2Marvin1(ExamTestCase):
         self._multi_arguments = ["5", "1234", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["1-22-333-4444"])
-        self.check_print_not_contain(self._multi_arguments, ["1-22-333-4444-"])
+        self.check_print_not_contain(
+            self._multi_arguments,
+            ["1-22-333-4444-"],
+            ["Föväntar att det inte finns ett '-' på slutet:", "Fick följande utskrift:"]
+        )
 
 
 
