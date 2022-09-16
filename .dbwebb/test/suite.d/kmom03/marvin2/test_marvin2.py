@@ -153,7 +153,7 @@ class Test2Marvin2Functions(ExamTestCase):
         """
         self._multi_arguments = ["#", 5]
         res = marvin2.multiply_str(*self._multi_arguments)
-        self.assertEqual("#####", res)
+        self.assertEqual(res, "#####")
 
 
 
