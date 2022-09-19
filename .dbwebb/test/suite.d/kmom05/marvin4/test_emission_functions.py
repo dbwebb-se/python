@@ -58,7 +58,7 @@ class Test2EmissionFunctions(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
-    @tags("12", "search_func")
+    @tags("13", "search_func")
     def test_search_country_func_missing(self):
         """
         Testar att funktionen `search_country(country)` lyfter ValueError om landet inte finns.
@@ -76,7 +76,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("12", "search_func")
+    @tags("13", "search_func")
     def test_search_country_func_raises(self):
         """
         Testar att funktionen search_country innehåller raise konstruktionen.
@@ -90,7 +90,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("12", "search_func")
+    @tags("13", "search_func")
     def test_search_country_func_multiple(self):
         """
         Testar att funktionen `search_country(country)` returnerar rätt värde när flera matchar och case-insensitive.
@@ -107,7 +107,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("12", "search_func")
+    @tags("13", "search_func")
     def test_search_country_func_unique(self):
         """
         Testar att funktionen `search_country(country)` returnerar rätt värde när unique match.
@@ -125,7 +125,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("change_func", "13")
+    @tags("change_func", "14")
     def test_get_country_year_data_missing_year(self):
         """
         Testar att funktionen `get_country_year_data(country, year)` lyfter error om året är fel.
@@ -143,7 +143,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("change_func", "13")
+    @tags("change_func", "14")
     def test_get_country_year_data_raises(self):
         """
         Testar att funktionen get_country_year_data_megaton innehåller raise konstruktionen.
@@ -157,7 +157,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("change_func", "13")
+    @tags("change_func", "14")
     def test_get_country_year_data(self):
         """
         Testar att funktionen `get_country_year_data(country, year)` returnerar rätt data för land och år.
@@ -174,7 +174,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("change_func", "13")
+    @tags("change_func", "14")
     def test_get_country_change_years(self):
         """
         Testar att funktionen `get_country_change_for_years(country, year1, year2)` returnerar rätt data för land och år.
@@ -191,7 +191,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("change_func", "13")
+    @tags("change_func", "14")
     def test_get_country_change_years_error(self):
         """
         Testar att funktionen `get_country_change_for_years(country, year1, year2)` får error från `get_country_year_data_megaton()` när felaktigt år används.
@@ -209,7 +209,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("14", "func")
+    @tags("15", "func")
     def test_get_country_data_missing_population(self):
         """
         Testar att funktionen `get_country_data(country_name)` returnerar rätt när ett land saknar population.
@@ -235,7 +235,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("14", "data_func")
+    @tags("15", "data_func")
     def test_get_country_data(self):
         """
         Testar att funktionen `get_country_data(country_name)` returnerar rätt data.
@@ -262,7 +262,7 @@ class Test2EmissionFunctions(ExamTestCase):
 
 
 
-    @tags("14", "data_func")
+    @tags("15", "data_func")
     def test_print_country_data_missing_pop(self):
         """
         Testar att funktionen `print_country_data(data)` skriver ut rätt data. Där population saknas

@@ -51,10 +51,10 @@ class Test3Marvin4Menu(ExamTestCase):
 
 
 
-    @tags("12", "search_menu")
+    @tags("13", "search_menu")
     def test_search_country(self):
         """
-        Testar att anropa menyval '12' i main.py.
+        Testar att anropa menyval '13' i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -63,16 +63,16 @@ class Test3Marvin4Menu(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["12", "X", "", "q"]
+        self._multi_arguments = ["13", "X", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Luxembourg", "Mexico"])
 
 
 
-    @tags("12", "search_menu")
+    @tags("13", "search_menu")
     def test_search_country_missing(self):
         """
-        Testar att anropa menyval '12' i main.py där landet saknas.
+        Testar att anropa menyval '13' i main.py där landet saknas.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -81,16 +81,16 @@ class Test3Marvin4Menu(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["12", "Hoppalotjingien", "", "q"]
+        self._multi_arguments = ["13", "Hoppalotjingien", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Country does not exist!"])
 
 
 
-    @tags("13", "change_menu")
+    @tags("14", "change_menu")
     def test_country_change_years(self):
         """
-        Testar att anropa menyval '13' i main.py. Testar med de senare året först.
+        Testar att anropa menyval '14' i main.py. Testar med de senare året först.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -99,16 +99,16 @@ class Test3Marvin4Menu(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["13", "Hong Kong,2017,1990", "", "q"]
+        self._multi_arguments = ["14", "Hong Kong,2017,1990", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Hong Kong:-23.56%"])
 
 
 
-    @tags("13", "change_menu")
+    @tags("14", "change_menu")
     def test_country_change_years_wrong_year(self):
         """
-        Testar att anropa menyval '13' i main.py. Testar med ett felaktigt år.
+        Testar att anropa menyval '14' i main.py. Testar med ett felaktigt år.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -117,16 +117,16 @@ class Test3Marvin4Menu(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["13", "Iceland,1990,2999", "", "q"]
+        self._multi_arguments = ["14", "Iceland,1990,2999", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["Wrong year!"])
 
 
 
-    @tags("14", "data_menu")
+    @tags("15", "data_menu")
     def test_all_country(self):
         """
-        Testar att anropa menyval '14' i main.py. Där landet har population.
+        Testar att anropa menyval '15' i main.py. Där landet har population.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -135,7 +135,7 @@ class Test3Marvin4Menu(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["14", "Kyrgyzstan", "", "q"]
+        self._multi_arguments = ["15", "Kyrgyzstan", "", "q"]
 
 
         answer = [
