@@ -44,15 +44,6 @@ class TestStructure(ExamTestCase):
 
 
     @tags("struct")
-    def test_file_menu_py_exist(self):
-        """
-        Testerna hittar inte filen 'menu.py'.
-        """
-        self.assertModule("menu", REPO_PATH)
-
-
-
-    @tags("struct")
     def test_file_analyzer_py_exist(self):
         """
         Testerna hittar inte filen 'analyzer.py'.
