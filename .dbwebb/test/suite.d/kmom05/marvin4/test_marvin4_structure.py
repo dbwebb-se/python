@@ -42,15 +42,6 @@ class Test1Marvin4Structure(ExamTestCase):
 
 
     @tags("struct")
-    def test_file_marvin_py_exist(self):
-        """
-        Testerna hittar inte filen 'marvin.py'.
-        """
-        self.assertModule("marvin", REPO_PATH)
-
-
-
-    @tags("struct")
     def test_file_emission_functions_py_exist(self):
         """
         Testerna hittar inte filen 'emission_functions.py'.
