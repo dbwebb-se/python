@@ -54,7 +54,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("1", "7", "marvin1")
     def test_main(self):
         """
-        Testar att anropa menyvalen 1 och 7 via main funktionen i main.py.
+        Testar att anropa menyvalen 1 och 5 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
