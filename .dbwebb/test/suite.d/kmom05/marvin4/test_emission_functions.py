@@ -168,7 +168,6 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.norepr = True
         self._multi_arguments = ["Dominica", "2017"]
         self.assertEqual(em.get_country_year_data_megaton(*self._multi_arguments), 122000.0)
 
@@ -185,7 +184,6 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self.norepr = True
         self._multi_arguments = ["China", "1990", "2017"]
         self.assertEqual(em.get_country_change_for_years(*self._multi_arguments), 353.78)
 
