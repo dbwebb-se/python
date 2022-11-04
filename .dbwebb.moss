@@ -3,16 +3,18 @@
 # action params file/dirname
 #
 
-# kmom01
+[kmom01]
 
-# kmom02
+[kmom02]
 
-# kmom03
+[kmom03]
 
-# kmom04
+[kmom04]
 
-# kmom05
+[kmom05]
 
-# kmom06
+[kmom06]
 
-# kmom10
+[kmom10]
+me/kmom10/typing/*
+!me/kmom10/typing/__pycache__
