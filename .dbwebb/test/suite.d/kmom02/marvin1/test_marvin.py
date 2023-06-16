@@ -85,7 +85,7 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("2")
-    def test_temperature_high(self):
+    def test_b_temperature_high(self):
         """
         Testar att anropa menyval 2 med ett positivt värde.
         Använder följande som input:
@@ -102,7 +102,7 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("2")
-    def test_temperature_low(self):
+    def test_b_temperature_low(self):
         """
         Testar att anropa menyval 2 med ett negativt värde.
         Använder följande som input:
@@ -119,9 +119,9 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("3")
-    def test_word_multiplier(self):
+    def test_c_points_to_grade_fail(self):
         """
-        Testar att anropa menyval 3.
+        Testar menyval 3 med icke-godkänd poäng.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -129,39 +129,37 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
-        word, times = "cinemateket", 4
-        self.norepr = True
-        self._multi_arguments = ["3", word, times, "", "q"]
-
-        # If the studend does not include newlines in output.
-        try:
-            self.check_print_contain(self._multi_arguments, [(word + "\n") * times])
-        except AssertionError as _:
-            self.check_print_contain(self._multi_arguments, [word * times])
-
+        self._multi_arguments = ["3", "100", "59", "", "q"]
+        self.check_print_contain(self._multi_arguments, "score: F")
 
 
     @tags("3")
-    def test_word_multiplier_two(self):
+    def test_c_points_to_grade_pass(self):
         """
-        Testar menyval 3
-        Använder följande som input:
+        Testar menyval 3 med godkänd poäng.
+        Använder följande som argument:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande sträng returneras:
         {correct}
         Fick följande:
         {student}
         """
-        word, times = "dbwebb", 3
-        self.norepr = True
-        self._multi_arguments = ["3", word, times, "", "q"]
+        self._multi_arguments = ["3", "70", "50", "", "q"]
+        self.check_print_contain( self._multi_arguments, "score: C")
 
-        # If the studend does not include newlines in output.
-        try:
-            self.check_print_contain(self._multi_arguments, [(word + "\n") * times])
-        except AssertionError as _:
-            self.check_print_contain(self._multi_arguments, [word * times])
-
+    @tags("3")
+    def test_c_points_to_grade_highest_grade(self):
+        """
+        Testar menyval 3 med max poäng.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande sträng returneras:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self._multi_arguments = ["3", "70", "70", "", "q"]
+        self.check_print_contain( self._multi_arguments, "score: A")
 
 
     @tags("4")
@@ -259,63 +257,9 @@ class Test2Marvin1(ExamTestCase):
 
 
     @tags("6")
-    def test_j_is_isogram_true(self):
-        """
-        Testar menyval 6
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["6", "polis", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["Match!"])
-
-
-
-    @tags("6")
-    def test_k_is_isogram_false(self):
-        """
-        Testar menyval 6
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["6", "skrällen", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["No match!"])
-
-
-
-    @tags("6")
-    def test_k_is_isogram_false_seperate(self):
-        """
-        Testar menyval 6
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["6", "flaska", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, ["No match!"])
-
-
-
-    @tags("7")
     def test_l_compare_small_larger(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande inte finns med i utskrift:
@@ -326,16 +270,16 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "2", "11", "-61.468"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
 
         self.check_print_not_contain(self._multi_arguments, ["same!"])
 
 
 
-    @tags("7")
+    @tags("6")
     def test_m_compare_small_larger_two(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -346,16 +290,16 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "2", "11", "-61.468"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["smaller!", "larger!"])
 
 
 
-    @tags("7")
+    @tags("6")
     def test_n_compare_same_smaller(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -366,16 +310,16 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "11", "10", "10"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["same!", "smaller!"])
 
 
 
-    @tags("7")
+    @tags("6")
     def test_o_compare_same_smaller_two(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande inte finns med i utskrift:
@@ -386,15 +330,15 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "11", "10", "10"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
         self.check_print_not_contain(self._multi_arguments, ["larger!"])
 
 
 
-    @tags("7")
+    @tags("6")
     def test_p_compare_same_larger(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande inte finns med i utskrift:
@@ -405,15 +349,15 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "12", "12", "12", "14"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
         self.check_print_not_contain(self._multi_arguments, ["smaller!"])
 
 
 
-    @tags("7")
+    @tags("6")
     def test_q_compare_same_larger_two(self):
         """
-        Testar menyval 7
+        Testar menyval 6
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -424,16 +368,16 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "12", "12", "12", "14"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["same!", "larger!"])
 
 
 
-    @tags("7")
-    def test_r_compare_not_a_number(self):
+    @tags("6")
+    def test_q_compare_not_a_number(self):
         """
-        Testar menyval 7 där användaren inte bara skriver in siffror
+        Testar menyval 6 där användaren inte bara skriver in siffror
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -444,9 +388,65 @@ class Test2Marvin1(ExamTestCase):
         numbers = ["11", "hej", "12", "test", "2"]
 
         self.norepr = True
-        self._multi_arguments = ["7", *numbers, "done", "", "q"]
+        self._multi_arguments = ["6", *numbers, "done", "", "q"]
 
         self.check_print_contain(self._multi_arguments, ["not a number!", "larger!", "not a number!", "smaller!"])
+
+
+    @tags("7")
+    def test_r_valid_ssn(self):
+        """
+        Testar menyval 7 med giltigt personnummer.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+
+        self.norepr = True
+        self._multi_arguments = ["7", "811218-9876", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "Valid")
+
+
+    @tags("7")
+    def test_r_not_valid_ssn(self):
+        """
+        Testar menyval 7 med icke-giltigt personnummer.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+
+        self.norepr = True
+        self._multi_arguments = ["7", "231218-9874", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "Not valid")
+
+
+
+    @tags("7")
+    def test_r_valid_ssn_format(self):
+        """
+        Testar menyval 7 med giltigt personnummer där bindestreck saknas.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+
+        self.norepr = True
+        self._multi_arguments = ["7", "8181818181", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "Valid")
+
 
 
     @tags("8")

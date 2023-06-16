@@ -157,48 +157,10 @@ class Test3ExtraMarvin1(ExamTestCase):
         self.check_print_contain(self._multi_arguments, "-1 times")
 
 
-
     @tags("a3")
-    def test_c1_tab_to_spaces(self):
-        """
-        Testar menyval a3
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["a3", "The \tWheel of\tTime\tturns", "", "q"]
-
-        self.check_print_contain(self._multi_arguments,
-            "The    Wheel of   Time   turns")
-
-
-
-    @tags("a3")
-    def test_c2_tab_to_spaces_fail(self):
-        """
-        Testar menyval a3
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["a3", "An escaped \\ttab", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, "An escaped \\ttab")
-
-
-
-    @tags("a4")
     def test_d1_concatinate_names(self):
         """
-        Testar menyval a4
+        Testar menyval a3
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -207,14 +169,32 @@ class Test3ExtraMarvin1(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["a4", "sheldon", "amy", "", "q"]
+        self._multi_arguments = ["a3", "sheldon", "amy", "", "q"]
 
         self.check_print_contain(self._multi_arguments, "shamy")
 
 
 
-    @tags("a4")
+    @tags("a3")
     def test_d2_concatinate_names_two(self):
+        """
+        Testar menyval a3
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+        self.norepr = True
+        self._multi_arguments = ["a3", "brad", "angelina", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "brangelina")
+
+
+
+    @tags("a4")
+    def test_d3_point_per_player(self):
         """
         Testar menyval a4
         Använder följande som input:
@@ -225,34 +205,16 @@ class Test3ExtraMarvin1(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["a4", "brad", "angelina", "", "q"]
-
-        self.check_print_contain(self._multi_arguments, "brangelina")
-
-
-
-    @tags("a5")
-    def test_d3_point_per_player(self):
-        """
-        Testar menyval a5
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self.norepr = True
-        self._multi_arguments = ["a5", "a2b4A5s3B1", "", "q"]
+        self._multi_arguments = ["a4", "a2b4a4s3B1", "", "q"]
 
         self.check_print_contain(self._multi_arguments, "a -3, b 3, s 3")
 
 
 
-    @tags("a5")
+    @tags("a4")
     def test_d4_point_per_player_two(self):
         """
-        Testar menyval a5
+        Testar menyval a4
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -261,7 +223,7 @@ class Test3ExtraMarvin1(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["a5", "g3l1H5l2G3l1", "", "q"]
+        self._multi_arguments = ["a4", "g3l1H5l2G3l1", "", "q"]
 
         self.check_print_contain(self._multi_arguments, "g 0, l 4, h -5")
 
