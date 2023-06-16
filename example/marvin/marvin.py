@@ -24,7 +24,8 @@ Its an eternal loop, until q is pressed.
 It should check the choice done by the user and call a appropriate
 function.
 """
-while True:
+stop = False
+while not stop:
     print(chr(27) + "[2J" + chr(27) + "[;H")
     print(marvin_image)
     print("Hi, I'm Marvin. I know it all. What can I do you for?")
@@ -35,7 +36,7 @@ while True:
 
     if choice == "q":
         print("Bye, bye - and welcome back anytime!")
-        break
+        stop = True
 
     elif choice == "1":
         name = input("What is your name? ")
