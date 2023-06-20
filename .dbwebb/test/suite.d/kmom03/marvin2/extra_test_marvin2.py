@@ -53,40 +53,6 @@ class Test3Marvin2Extra(ExamTestCase):
                 for val in correct:
                     self.assertIn(val, str_data)
 
-
-    @tags("b1")
-    def test_points_to_grade_menu(self):
-        """
-        Testar att anropa menyval b1 via main funktionen i main.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande skrivs ut :
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self._multi_arguments = ["b1", "100", "59", "", "q"]
-        self.check_print_contain(self._multi_arguments, ["score: F"], main.main)
-
-
-    @tags("b1")
-    def test_points_to_grade_func(self):
-        """
-        Testar att anropa points_to_grade i marvin2.py.
-        Använder följande som argument:
-        {arguments}
-        Förväntar att följande sträng returneras:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self._multi_arguments = ["70", "50"]
-        self.assertEqual(
-            marvin2.points_to_grade(*self._multi_arguments),
-            "score: C"
-        )
-
-
     @tags("b2")
     def test_has_strings_menu(self):
         """
