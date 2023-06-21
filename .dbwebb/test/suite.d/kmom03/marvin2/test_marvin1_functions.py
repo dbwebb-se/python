@@ -87,7 +87,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("2", "marvin1")
     def test_temperature_high(self):
         """
-        Testar att funktionen "celcius_to_farenheit" finns i marvin1.py.
+        Testar att funktionen "celcius_to_fahrenheit" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -97,14 +97,14 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         self.norepr = True
         self._multi_arguments = ["70"]
-        self.check_print_contain(self._multi_arguments, ["158.0"], marvin1.celcius_to_farenheit)
+        self.check_print_contain(self._multi_arguments, ["158.0"], marvin1.celcius_to_fahrenheit)
 
 
 
     @tags("3", "marvin1")
-    def test_word_manipulation(self):
+    def test_points_to_grade(self):
         """
-        Testar att funktionen "word_manipulation" finns i marvin1.py.
+        Testar att funktionen "points_to_grade" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -112,15 +112,11 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        word, times = "to the moon", 10
         self.norepr = True
-        self._multi_arguments = [word, times]
+        self._multi_arguments = ["100", "59"]
 
         # If the studend does not include newlines in output.
-        try:
-            self.check_print_contain(self._multi_arguments, [(word + "\n") * times], marvin1.word_manipulation)
-        except AssertionError as _:
-            self.check_print_contain(self._multi_arguments, [word * times], marvin1.word_manipulation)
+        self.check_print_contain(self._multi_arguments, ["Score: F"], marvin1.points_to_grade)
 
 
 
@@ -197,9 +193,9 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
     @tags("7", "marvin1")
-    def test_compare_numbers(self):
+    def test_validate_ssn(self):
         """
-        Testar att funktionen "compare_numbers" finns i marvin1.py.
+        Testar att funktionen "validate_ssn" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -207,15 +203,13 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
-        numbers = ["11", "12", "12", "12", "14"]
-
         self.norepr = True
-        self._multi_arguments = [*numbers, "done"]
+        self._multi_arguments = ["811218-9876"]
 
         self.check_print_contain(
             self._multi_arguments,
-            ["larger!", "same!", "same!", "larger!"],
-            marvin1.compare_numbers
+            ["Valid"],
+            marvin1.validate_ssn
         )
 
 

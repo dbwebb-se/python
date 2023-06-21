@@ -448,6 +448,42 @@ class Test2Marvin1(ExamTestCase):
         self.check_print_contain(self._multi_arguments, "Valid")
 
 
+    @tags("7")
+    def test_r_not_valid_ssn_extra(self):
+        """
+        Testar menyval 7 med personnummer det är en siffra för mycket på slutet.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+
+        self.norepr = True
+        self._multi_arguments = ["7", "818181-81812", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "Not valid")
+
+
+
+    @tags("7")
+    def test_r_not_valid_ssn_extra2(self):
+        """
+        Testar menyval 7 med personnummer det är en siffra för mycket på slutet men inget bindestreck mitt i.
+        Använder följande som input:
+        {arguments}
+        Förväntar att följande finns med i utskrift:
+        {correct}
+        Fick följande:
+        {student}
+        """
+
+        self.norepr = True
+        self._multi_arguments = ["7", "81818181812", "", "q"]
+
+        self.check_print_contain(self._multi_arguments, "Not valid")
+
 
     @tags("8")
     def test_s_robber_language_one_consonant(self):

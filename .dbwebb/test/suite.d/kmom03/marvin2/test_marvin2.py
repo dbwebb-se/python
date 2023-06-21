@@ -24,6 +24,7 @@ if REPO_PATH not in sys.path:
 # Path to file and basename of the file to import
 main = import_module(REPO_PATH, 'main')
 marvin2 = import_module(REPO_PATH, 'marvin2')
+marvin1 = import_module(REPO_PATH, 'marvin1')
 
 
 class Test2Marvin2Functions(ExamTestCase):
@@ -53,35 +54,50 @@ class Test2Marvin2Functions(ExamTestCase):
 
 
 
-    @tags("9", "marvin2")
-    def test_randomize_string_func(self):
+    def check_print_contain_new_error_text(self, inp, correct, func, new_text):
         """
-        Testar att anropa funktionen randomize_string i marvin2.py.
+        One function for testing print input functions.
+        """
+        with patch("builtins.input", side_effect=inp):
+            with patch("sys.stdout", new=StringIO()) as fake_out:
+                func()
+                str_data = fake_out.getvalue()
+                for val in correct:
+                    self.assertIn(val, str_data, msg=new_text)
+
+
+    @tags("9", "marvin2")
+    def test_create_ssn_func(self):
+        """
+        Testar att anropa funktionen create_ssn i marvin2.py.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande sträng returneras, fast med bokstäverna i annan ordning:
+        Förväntar att ett giltigt personnummer har rätt struktur:
         {correct}
-        Fick följande:
+        Det har inte strukturen, ÅÅMMDD-NNNN:
         {student}
         """
-        string = "MedSiffror1234567890"
-        self._argument = string
+        birthdate = "920606"
+        self._argument = birthdate
+        str_data = marvin2.create_ssn(birthdate)
 
-        str_data = marvin2.randomize_string(string)
-
-        length = len(string)
-        pattern = fr"{string} --> ([{string}]{{{length}}})"
-
+        pattern = r"920606-\d{4}$"
         self.fail_msg.student_answer = str_data
-        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
-
-
-        try:
-            rnd_str = re.search(pattern, str_data)[1]
-        except TypeError:
+        self.fail_msg.correct_answer = repr(f"{birthdate}-NNNN")
+        if re.match(pattern, str_data) is None:
             raise AssertionError
-        if string == rnd_str or sorted(string) != sorted(rnd_str):
-            raise AssertionError
+
+        self._argument = str_data
+        self.check_print_contain_new_error_text(
+            [self._argument],
+            ["Valid"],
+            marvin1.validate_ssn,
+            [
+                "Använder funktionen 'validate_ssn()' för att validera det genererade personnummret:",
+                "Personnummret var inte giltigt:"
+            ]
+        )
+
 
 
 
@@ -105,55 +121,35 @@ class Test2Marvin2Functions(ExamTestCase):
 
 
     @tags("11", "marvin2")
-    def test_mask_string_func(self):
+    def test_randomize_string_func(self):
         """
-        Testar att anropa funktionen mask_string i marvin2.py.
+        Testar att anropa funktionen randomize_string i marvin2.py.
         Använder följande som argument:
         {arguments}
-        Förväntar att följande returneras:
+        Förväntar att följande sträng returneras, fast med bokstäverna i annan ordning:
         {correct}
         Fick följande:
         {student}
         """
-        self._argument = "Hej Hej"
-        self.assertEqual(
-            marvin2.mask_string(self._argument),
-            "### Hej"
-        )
+        string = "MedSiffror1234567890"
+        self._argument = string
+
+        str_data = marvin2.randomize_string(string)
+
+        length = len(string)
+        pattern = fr"([{string}]{{{length}}})"
+
+        self.fail_msg.student_answer = str_data
+        self.fail_msg.correct_answer = repr(f"<{string} i en slumpad ordning>")
 
 
+        try:
+            rnd_str = re.search(pattern, str_data)[1]
+        except TypeError:
+            raise AssertionError
+        if string == rnd_str or sorted(string) != sorted(rnd_str):
+            raise AssertionError
 
-    @tags("11", "marvin2")
-    def test_mask_string_check_use_multiply_func(self):
-        """
-        Testar att funktionen mask_string anropar funktionen multiply_str.
-        Förväntar att anrop görs i koden:
-        {correct}
-        Din funktion innehåller följande:
-        {student}
-        """
-        self.norepr = True
-        self.assertIn(
-            "multiply_str(",
-            inspect.getsource(marvin2.mask_string)
-        )
-
-
-
-    @tags("11", "3", "marvin2")
-    def test_multiply_str_func(self):
-        """
-        Testar att anropa funktionen multiply_str i marvin2.py.
-        Använder följande som input:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        self._multi_arguments = ["#", 5]
-        res = marvin2.multiply_str(*self._multi_arguments)
-        self.assertEqual(res, "#####")
 
 
 

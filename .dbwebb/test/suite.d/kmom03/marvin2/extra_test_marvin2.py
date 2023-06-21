@@ -53,7 +53,7 @@ class Test3Marvin2Extra(ExamTestCase):
                 for val in correct:
                     self.assertIn(val, str_data)
 
-    @tags("b2")
+    @tags("b1")
     def test_has_strings_menu(self):
         """
         Testar att anropa menyval b2 via main funktionen i main.py.
@@ -64,12 +64,12 @@ class Test3Marvin2Extra(ExamTestCase):
         Fick följande:
         {student}
         """
-        self._multi_arguments = ["b2", "anagram", "ana", "agr", "am", "", "q"]
+        self._multi_arguments = ["b1", "anagram", "ana", "agr", "am", "", "q"]
         self.check_print_contain(self._multi_arguments, ["Match"], main.main)
 
 
 
-    @tags("b2")
+    @tags("b1")
     def test_has_strings_func(self):
         """
         Testar att anropa has_strings i marvin2.py.

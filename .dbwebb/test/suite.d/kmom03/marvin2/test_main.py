@@ -52,38 +52,43 @@ class Test2Marvin2NewMenus(ExamTestCase):
                     self.assertIn(val, str_data)
 
 
+
     @tags("9", "marvin2")
-    def test_randomize_string_menu(self):
+    def test_create_ssn_func(self):
         """
         Testar att anropa menyval 9 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
+        Förväntar att ett giltigt personnummer har rätt struktur:
         {correct}
-        Fick följande:
+        Det har inte strukturen, ÅÅMMDD-NNNN:
         {student}
         """
-        string = "Borde inte bli samma igen"
-        self._multi_arguments = ["9", string, "", "q"]
+        self.norepr = True
+        birthdate = "030123"
+        self._multi_arguments = ["9", birthdate, "", "q"]
 
         with patch("builtins.input", side_effect=self._multi_arguments):
             with patch("sys.stdout", new=StringIO()) as fake_out:
                 main.main()
                 str_data = fake_out.getvalue()
 
-        length = len(string)
-        pattern = fr"{string} --> ([{string}]{{{length}}})"
-
+        pattern = r"[^\d](030123-\d{4})[^\d]"
         self.fail_msg.student_answer = str_data
-        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
-
-
-        try:
-            rnd_str = re.search(pattern, str_data)[1]
-        except TypeError:
+        self.fail_msg.correct_answer = repr(f"{birthdate}-NNNN")
+        if re.search(pattern, str_data) is None:
             raise AssertionError
-        if string == rnd_str or sorted(string) != sorted(rnd_str):
-            raise AssertionError
+        ssn = re.search(pattern, str_data)[1]
+
+        self._multi_arguments = ["7", ssn, "", "q"]
+        with patch("builtins.input", side_effect=self._multi_arguments):
+            with patch("sys.stdout", new=StringIO()) as fake_out:
+                main.main()
+                str_data = fake_out.getvalue()
+            self.assertIn("Valid", str_data, msg=[
+                "Använder funktionen 'validate_ssn()' för att validera det genererade personnummret:",
+                "Personnummret var inte giltigt:"
+            ])
 
 
 
@@ -109,23 +114,37 @@ class Test2Marvin2NewMenus(ExamTestCase):
 
 
     @tags("11", "marvin2")
-    def test_mask_string_menu(self):
+    def test_randomize_string_menu(self):
         """
         Testar att anropa menyval 11 via main funktionen i main.py.
         Använder följande som input:
         {arguments}
-        Förväntar att följande finns med i utskrift:
+        Förväntar att följande sträng finns med i utskrift fast med bokstäverna i annan ordning:
         {correct}
         Fick följande:
         {student}
         """
-        self.norepr = True
-        self._multi_arguments = ["11", "4556364607935616", "", "q"]
-        self.check_print_contain(
-            self._multi_arguments,
-            ["############5616"],
-            main.main
-        )
+        string = "Borde inte bli samma igen"
+        self._multi_arguments = ["11", string, "", "q"]
+
+        with patch("builtins.input", side_effect=self._multi_arguments):
+            with patch("sys.stdout", new=StringIO()) as fake_out:
+                main.main()
+                str_data = fake_out.getvalue()
+
+        length = len(string)
+        pattern = fr"{string} --> ([{string}]{{{length}}})"
+
+        self.fail_msg.student_answer = str_data
+        self.fail_msg.correct_answer = repr(f"{string} --> <en slumpad ordning>")
+
+
+        try:
+            rnd_str = re.search(pattern, str_data)[1]
+        except TypeError:
+            raise AssertionError
+        if string == rnd_str or sorted(string) != sorted(rnd_str):
+            raise AssertionError
 
 
 
