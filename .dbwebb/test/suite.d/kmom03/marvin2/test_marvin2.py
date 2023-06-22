@@ -100,6 +100,43 @@ class Test2Marvin2Functions(ExamTestCase):
 
 
 
+    @tags("9", "marvin2")
+    def test_calculate_luhna_sum_3(self):
+        """
+        Testar att anropa funktionen calculate_luhna_sum i marvin2.py med personnummer utan sista siffra.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande summa returneras:
+        {correct}
+        Fick:
+        {student}
+        """
+        ssn = "920606421"
+        self._argument = ssn
+        str_data = marvin2.calculate_luhna_sum(ssn)
+
+        self.assertEqual(str_data, 35)
+
+
+
+    @tags("9", "marvin2")
+    def test_calculate_luhna_sum_4(self):
+        """
+        Testar att anropa funktionen calculate_luhna_sum i marvin2.py med personnummer med sista siffra.
+        Använder följande som argument:
+        {arguments}
+        Förväntar att följande summa returneras:
+        {correct}
+        Fick:
+        {student}
+        """
+        ssn = "031224"
+        self._argument = ssn
+        str_data = marvin2.calculate_luhna_sum(ssn)
+
+        self.assertEqual(str_data, 15)
+
+
 
     @tags("10", "marvin2")
     def test_get_acronym_func(self):
