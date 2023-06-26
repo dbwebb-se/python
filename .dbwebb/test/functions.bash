@@ -62,9 +62,28 @@ execute_with_timeout () {
 # Check if git local is behind remote
 #
 check_if_need_pull () {
-    if ! git diff --quiet remotes/origin/HEAD; then
-        # Difference found
-        return 1
-    fi
+
+LOCAL_REVSPEC=HEAD
+BRANCH=$(git rev-parse --abbrev-ref ${LOCAL_REVSPEC})
+
+REMOTE_NAME=$(git config branch.${BRANCH}.remote)
+
+
+REMOTE_REVSPEC=remotes/${REMOTE_NAME}/${BRANCH}
+
+if ! git fetch ${REMOTE_NAME}
+then
+  echo "git fetch ${REMOTE_NAME} failed"
+  exit 1
+fi
+
+LOCAL_SHA1=$(git rev-parse ${LOCAL_REVSPEC})
+REMOTE_SHA1=$(git rev-parse ${REMOTE_REVSPEC})
+BASE_SHA1=$(git merge-base ${LOCAL_REVSPEC} ${REMOTE_REVSPEC})
+
+if [ ${LOCAL_SHA1} = ${BASE_SHA1} ]; then
+    # Found change in remote
     return 0
+fi
+return 1
 }
