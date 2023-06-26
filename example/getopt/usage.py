@@ -46,9 +46,9 @@ options:
     version=VERSION
 )
 
-MSG_VERSION = "{version}".format(version=VERSION)
+MSG_VERSION = f"{VERSION}"
 
-MSG_HELP = "Use {program} --help to get usage.".format(program=PROGRAM)
+MSG_HELP = f"Use {PROGRAM} --help to get usage."
 
 
 #

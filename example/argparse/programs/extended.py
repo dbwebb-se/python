@@ -26,11 +26,7 @@ VERSION = "v1.0.0 (2017-06-16)"
 
 def print_info():
     """Print usage information about the script."""
-    return "By {author} ({email}), version {version}".format(
-        author=AUTHOR,
-        email=EMAIL,
-        version=VERSION
-    )
+    return f"By {AUTHOR} ({EMAIL}), version {VERSION}"
 
 parser = argparse.ArgumentParser(prog=PROGRAM, description=print_info(), formatter_class=argparse.RawTextHelpFormatter)
 
@@ -54,14 +50,14 @@ if args.command == "sum" and unknown_args:
     result = str(sum(unknown_args))
     answer = result
     if args.verbose:
-        answer = "The sum of {} is: {}".format(", ".join(str(number) for number in unknown_args), result)
+        answer = f"The sum of {', '.join(str(number) for number in unknown_args)} is: {result}"
 
 elif args.command == "square" and unknown_args:
     for square_me in unknown_args:
         result = str(square_me**2)
         square_me = str(square_me)
         if args.verbose:
-            answer += "{}^2 == {}\n".format(square_me, result)
+            answer += f"{square_me}^2 == {result}\n"
         else:
             answer += result + "\n"
 
@@ -71,7 +67,7 @@ elif args.command == "sub" and unknown_args:
     result = left_hand - right_hand
     
     if args.verbose:
-        answer = "The result of {}-{} is: {}".format(left_hand, right_hand, result)
+        answer = f"The result of {left_hand}-{right_hand} is: {result}"
     else:
         answer = result
 

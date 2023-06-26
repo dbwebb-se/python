@@ -53,11 +53,9 @@ warehouse_deluxe["röd lök"]["price"] = 9
 warehouse_deluxe["röd lök"]["ids"] = (6314, "D04")
 
 for key in sorted(warehouse_deluxe.keys()):
-    print("{product} costs {price} and we have {stock} in stock. It has barcode {barcode} and stock id {stock_id}."\
-          .format(
-              product=key,
-              price=warehouse_deluxe[key]["price"],
-              stock=warehouse_deluxe[key]["stock"],
-              barcode=warehouse_deluxe[key]["ids"][0],
-              stock_id=warehouse_deluxe[key]["ids"][1]
-          ))
+    print(
+        (
+        f"{key} costs {warehouse_deluxe[key]['price']} and we have {warehouse_deluxe[key]['stock']} in stock."
+        f" It has barcode {warehouse_deluxe[key]['ids'][0]} and stock id {warehouse_deluxe[key]['ids'][1]}."
+        )
+    )

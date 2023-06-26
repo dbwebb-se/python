@@ -37,8 +37,8 @@ Options:
   -v, --version                      Print version and exit.
 """.format(program=PROGRAM, author=AUTHOR, email=EMAIL, version=VERSION)
 
-MSG_VERSION = "{program} version {version}.".format(program=PROGRAM, version=VERSION)
-MSG_USAGE = "Use {program} --help to get usage.\n".format(program=PROGRAM)
+MSG_VERSION = f"{PROGRAM} version {VERSION}."
+MSG_USAGE = f"Use {PROGRAM} --help to get usage.\n"
 
 
 

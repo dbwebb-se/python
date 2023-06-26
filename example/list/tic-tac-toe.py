@@ -13,9 +13,9 @@ def printGame(board):
     Print out the current game board.
     """
     print("-------        ")
-    print("|{}|{}|{}| (1,2,3)".format(board[0], board[1], board[2]))
-    print("|{}|{}|{}| (4,5,6)".format(board[3], board[4], board[5]))
-    print("|{}|{}|{}| (7,8,9)".format(board[6], board[7], board[8]))
+    print(f"|{board[0]}|{board[1]}|{board[2]}| (1,2,3)")
+    print(f"|{board[3]}|{board[4]}|{board[5]}| (4,5,6)")
+    print(f"|{board[6]}|{board[7]}|{board[8]}| (7,8,9)")
     print("-------        ")
 
 
@@ -90,7 +90,7 @@ def main():
             computerPos = placeComputer(board)
             if computerPos is not False:
                 place(board, "O", computerPos)
-                print("Computer moved to {}.".format(computerPos))
+                print(f"Computer moved to {computerPos}.")
 
         if checkIfWinnerOrTie(board) is True:
             break

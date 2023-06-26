@@ -28,4 +28,3 @@ print(sun)
 a, b = 4, 2
 print(a)
 print(b)
-

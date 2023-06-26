@@ -32,4 +32,4 @@ length_of_needle = len(needle)
 for index, letter in enumerate(haystack[:-length_of_needle]):
     if haystack[index:index + length_of_needle] == needle:
         print(haystack[index:index + length_of_needle])
-        print("start: {}, slut: {}".format(index + 1, index + 1 + length_of_needle))
+        print(f"start: {index + 1}, slut: {index + 1 + length_of_needle}")

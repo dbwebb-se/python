@@ -43,7 +43,7 @@ def myNameIs():
     """
     name = input("What is your name? ")
     print("\nMarvin says:\n")
-    print("Hello %s - your awesomeness!" % name)
+    print(f"Hello {name} - your awesomeness!")
     print("What can I do you for?!")
 
 

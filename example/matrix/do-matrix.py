@@ -41,7 +41,7 @@ def saveMatrix(matrix):
         for row in matrix:
             f.write("".join(row) + '\n')
 
-    print("Saved the state to the file {}".format(filename))
+    print(f"Saved the state to the file {filename}")
 
 
 
@@ -64,7 +64,7 @@ def loadMatrix(matrix):
         for y in range(0, len(matrix)):
             matrix[y] = list(content[y])
 
-    print("Loaded the state from the file {}".format(filename))
+    print(f"Loaded the state from the file {filename}")
 
 
 

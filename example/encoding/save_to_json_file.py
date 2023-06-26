@@ -16,9 +16,9 @@ if __name__ == '__main__':
 
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
-        print("Saved UTF-8 characters to file: '{}'.".format(filename))
+        print(f"Saved UTF-8 characters to file: '{filename}'.")
 
     with open(filename, "r", encoding="utf-8") as f:
         dataRead = json.load(f)
-        print("Loaded file '{}'.".format(filename))
+        print(f"Loaded file '{filename}'.")
         print(dataRead)

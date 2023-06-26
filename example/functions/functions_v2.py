@@ -73,13 +73,9 @@ def formatted_sandwich_string(ingredients, presentation="Prova vår sandwich som
     """
     number_of_ingredients = len(ingredients)
     if number_of_ingredients == 1:
-        return "{} {}.".format(presentation, ingredients[0])
+        return f"{presentation} {ingredients[0]}."
 
-    return "{presentation} {comma_sepearated_elements} och {last_element}.".format(
-        presentation=presentation,
-        comma_sepearated_elements=", ".join(ingredients[:-1]),
-        last_element=ingredients[-1]
-    )
+    return f"{presentation} {', '.join(ingredients[:-1])} och {ingredients[-1]}."
 
 blt_ingredients_string = formatted_sandwich_string(blt_ingredients, "En BLT innehåller")
 print(blt_ingredients_string)

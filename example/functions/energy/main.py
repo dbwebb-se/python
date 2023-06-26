@@ -3,6 +3,8 @@ Program calculating energy consumption and cost
 by using the module energy_calculation
 """
 
+# pylint: disable=consider-using-f-string
+
 import energy_calculation
 
 emil_time = 2.5 / 60
@@ -20,10 +22,7 @@ andreas_cost = energy_calculation.calculate_cost(andreas_energy)
 mikael_cost = energy_calculation.calculate_cost(mikael_energy)
 kenneth_cost = energy_calculation.calculate_cost(kenneth_energy)
 
-emil_string = "Emil använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-    energy=emil_energy,
-    cost=emil_cost
-)
+emil_string = f"Emil använder {emil_energy:.4f} kWh och detta kostar {emil_cost:.4f} kr"
 
 andreas_string = "Andreas använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
     energy=andreas_energy,

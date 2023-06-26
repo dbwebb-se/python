@@ -83,8 +83,5 @@ emil_cost = calculate_cost(emil_energy)
 
 print("Emil använder " + str(emil_energy) + " kWh och detta kostar " + str(emil_cost) + " kr")
 
-nice_string = "Emil använder {energy:.4f} kWh och detta kostar {cost:.4f} kr".format(
-    energy=emil_energy,
-    cost=emil_cost
-)
+nice_string = f"Emil använder {emil_energy:.4f} kWh och detta kostar {emil_cost:.4f} kr"
 print(nice_string)

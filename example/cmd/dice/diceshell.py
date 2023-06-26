@@ -32,7 +32,7 @@ class Shell(cmd.Cmd):
         """
         Roll one dice one time.
         """
-        print("Rolling a... {}".format(self.dice.roll()))
+        print(f"Rolling a... {self.dice.roll()}")
 
 
     def do_rolls(self, arg):
@@ -45,14 +45,14 @@ class Shell(cmd.Cmd):
 
         times = int(arg)
         for _ in range(times):
-            print("Rolling a... {}".format(self.dice.roll()))
+            print(f"Rolling a... {self.dice.roll()}")
 
 
     def do_total(self, arg):
         """
         How many rolls have been made in total?
         """
-        print("You have rolled the dice {} times.".format(self.dice.getRollsMade()))
+        print(f"You have rolled the dice {self.dice.getRollsMade()} times.")
 
 
     def do_exit(self, arg):

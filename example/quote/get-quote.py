@@ -30,7 +30,7 @@ try:
     print("\nThe response body is:\n", req.text)
 
     json = req.json()
-    print("\nQuote of today is:\n\"{quote}\"\n".format(quote=json["quote"]))
+    print(f"\nQuote of today is:\n\"{json['quote']}\"\n")
 
 
 except requests.ConnectionError:

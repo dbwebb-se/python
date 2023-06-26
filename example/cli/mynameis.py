@@ -36,8 +36,8 @@ Options:
   name                           Your name.
 """.format(program=PROGRAM, author=AUTHOR, email=EMAIL, version=VERSION)
 
-MSG_VERSION = "{program} version {version}.".format(program=PROGRAM, version=VERSION)
-MSG_USAGE = "Use {program} --help to get usage.\n".format(program=PROGRAM)
+MSG_VERSION = f"{PROGRAM} version {VERSION}."
+MSG_USAGE = f"Use {PROGRAM} --help to get usage.\n"
 
 
 
@@ -105,7 +105,7 @@ def parseOptions():
         for opt, arg in opts:
             if opt in ("-d", "--drum"):
                 if not arg.isnumeric():
-                    assert False, "-d, --drum: {arg} is not a numeric value".format(arg=arg)
+                    assert False, f"-d, --drum: {arg} is not a numeric value"
 
                 DRUM = int(arg)
 
@@ -117,7 +117,7 @@ def parseOptions():
 
             elif opt in ("-r", "--repeat"):
                 if not arg.isnumeric():
-                    assert False, "-r, --repeat: {arg} is not a numeric value".format(arg=arg)
+                    assert False, f"-r, --repeat: {arg} is not a numeric value"
 
                 REPEAT = int(arg)
 
@@ -162,7 +162,7 @@ def main():
 
     timediff = datetime.now()-startTime
     if VERBOSE:
-        sys.stderr.write("Script executed in {}.{} seconds\n".format(timediff.seconds, timediff.microseconds))
+        sys.stderr.write(f"Script executed in {timediff.seconds}.{timediff.microseconds} seconds\n")
 
     sys.exit(EXIT_SUCCESS)
 

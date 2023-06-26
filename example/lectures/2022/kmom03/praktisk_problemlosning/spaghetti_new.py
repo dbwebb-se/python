@@ -19,7 +19,7 @@ def handle_destination(
     degrees_fahrenheit_at_first_destination = c.cel_to_fahr(degrees_cel)
 
     print_destination_info(from_destination, to_destination,
-        miles_to_first_destination, degrees_fahrenheit_at_first_destination, data.weather_at_first_destination)
+        miles_to_first_destination, degrees_fahrenheit_at_first_destination, weather)
 
 def main():
     """

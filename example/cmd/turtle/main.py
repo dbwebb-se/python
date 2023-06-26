@@ -56,11 +56,11 @@ class TurtleShell(cmd.Cmd):
 
     def do_position(self, arg):
         'Print the current turle position:  POSITION'
-        print('Current position is %d %d\n' % turtle.position())
+        print(f'Current position is {turtle.position()}\n')
 
     def do_heading(self, arg):
         'Print the current turle heading in degrees:  HEADING'
-        print('Current heading is %d\n' % (turtle.heading(),))
+        print(f'Current heading is {turtle.heading()}\n')
 
     def do_color(self, arg):
         'Set the color:  COLOR BLUE'

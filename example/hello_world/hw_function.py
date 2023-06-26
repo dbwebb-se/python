@@ -24,4 +24,4 @@ def say_it():
 
     Ths function is currently defined in a module named __name__.
     """
-    print("\nHello World in module %s\n" % __name__)
+    print(f"\nHello World in module {__name__}\n")

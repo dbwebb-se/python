@@ -16,8 +16,8 @@ opts, args = getopt.getopt(sys.argv[1:], "hv", [
 ])
 
 
-print("Number of options: {}".format(len(opts)))
-print("Number of arguments: {}".format(len(args)))
+print(f"Number of options: {len(opts)}")
+print(f"Number of arguments: {len(args)}")
 
 print(opts)
 print(args)

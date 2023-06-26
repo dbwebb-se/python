@@ -52,7 +52,7 @@ if len(sys.argv) == 2:
     url = sys.argv[1]
 else:
     sys.stderr.write("Add the url (for example http://bth.se) to check as a command line argument.\n")
-    sys.stderr.write("{command} http://bth.se.\n\n".format(command=sys.argv[0]))
+    sys.stderr.write(f"{sys.argv[0]} http://bth.se.\n\n")
     sys.exit(1)
 
 
@@ -81,7 +81,7 @@ dbc.execute("CREATE TABLE IF NOT EXISTS Pings (url TEXT, time TEXT, response INT
 # Check if the database is valid
 #
 if not isSQLite3(dbFile):
-    sys.stderr.write("The file '{}' is not a valid SQLite database.\n".format(dbFile))
+    sys.stderr.write(f"The file '{dbFile}' is not a valid SQLite database.\n")
     sys.exit(1)
 
 
@@ -93,7 +93,7 @@ rTime = time.ctime(time.time())
 
 try:
     # url must start with "http://" or the request fails
-    print("Connecting to: {}".format(url))
+    print(f"Connecting to: {url}")
     r = requests.head(url, timeout=5)
     code = r.status_code
 

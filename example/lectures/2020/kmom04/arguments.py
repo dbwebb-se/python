@@ -6,11 +6,7 @@ def pets(species, name="Kim", number_of_legs=4):
     Prints about pets
     """
     print(
-        "My pet is a {species} and it is called {name} it has {number_of_legs} legs".format(
-            species=species,
-            name=name,
-            number_of_legs=number_of_legs
-        )
+        f"My pet is a {species} and it is called {name} it has {number_of_legs} legs"
     )
 
 pets("dog", "Buster", 4)
