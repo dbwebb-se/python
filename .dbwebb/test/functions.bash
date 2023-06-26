@@ -60,14 +60,20 @@ execute_with_timeout () {
 
 #
 # Check if git local is behind remote
+# https://github.com/KIAaze/bin_and_dotfiles_public/blob/6d56f7e82e055841b9f65429f5f5fb76c4de921e/bins/public_bin/gitcheck.sh
 #
 check_if_need_pull () {
 
 LOCAL_REVSPEC=HEAD
 BRANCH=$(git rev-parse --abbrev-ref ${LOCAL_REVSPEC})
 
-REMOTE_NAME=$(git config branch.${BRANCH}.remote)
-
+if [ -z ${1+x} ]
+then
+  # default
+  REMOTE_NAME=$(git config branch.${BRANCH}.remote)
+else
+  REMOTE_NAME=${1}
+fi
 
 REMOTE_REVSPEC=remotes/${REMOTE_NAME}/${BRANCH}
 
@@ -81,9 +87,12 @@ LOCAL_SHA1=$(git rev-parse ${LOCAL_REVSPEC})
 REMOTE_SHA1=$(git rev-parse ${REMOTE_REVSPEC})
 BASE_SHA1=$(git merge-base ${LOCAL_REVSPEC} ${REMOTE_REVSPEC})
 
-if [ ${LOCAL_SHA1} = ${BASE_SHA1} ]; then
-    # Found change in remote
+if [ ${LOCAL_SHA1} = ${REMOTE_SHA1} ]; then
+    # Need this if. Otherwise we get false positives
     return 0
+elif [ ${LOCAL_SHA1} = ${BASE_SHA1} ]; then
+    # Found change in remote
+    return 1
 fi
-return 1
+return 0
 }

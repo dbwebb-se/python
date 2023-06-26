@@ -179,7 +179,7 @@ check_if_need_pull
 status=$?
 if (( $status )); then
     echo && header "Uppdatera kursrepo"
-    printf "$MSG_WARNING Det finns en uppdatering i kursrepot.\n\nKör kommandot 'dbwebb update' för att ladda ner uppdateringarna!\nOm du får ett fel av kommandot, läs följande länk https://github.com/dbwebb-se/python/issues/44#issuecomment-924686420."
+    printf "$MSG_WARNING Det finns en uppdatering i kursrepot.\n\nKör kommandot 'dbwebb update' för att ladda ner uppdateringen!\nOm du får ett fel av kommandot, läs följande länk https://github.com/dbwebb-se/python/issues/44#issuecomment-924686420."
 fi
 
 
