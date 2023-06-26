@@ -55,3 +55,16 @@ execute_with_timeout () {
     fi
     return $status
 }
+
+
+
+#
+# Check if git local is behind remote
+#
+check_if_need_pull () {
+    if ! git diff --quiet remotes/origin/HEAD; then
+        # Difference found
+        return 1
+    fi
+    return 0
+}

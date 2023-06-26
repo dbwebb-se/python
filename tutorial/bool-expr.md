@@ -58,8 +58,6 @@ y = 2
 print(y, "is in", x, "=", y in x)
 
 print(y, "is not in", x, "=", y not in x)
-
-
 ```
 
 
