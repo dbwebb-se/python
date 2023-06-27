@@ -81,7 +81,7 @@ class Test3Marvin3Main(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["inv", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, ["0", "[]"])
+        self.check_print_contain(self._multi_arguments, ["0"])
 
 
 

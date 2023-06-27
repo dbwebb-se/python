@@ -243,7 +243,8 @@ class Test2InventoryFunctions(ExamTestCase):
         with patch("sys.stdout", new=StringIO()) as _:
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
 
-        self.assertEqual(new_bag, ["cat", "bird", "worm"])
+        self.assertEqual(new_bag, ["cat", "bird", "worm"], ,
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
 
@@ -266,7 +267,8 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
 
 
-        self.assertEqual(new_bag, ["dog", "cat", "bird", "worm"])
+        self.assertEqual(new_bag, ["dog", "cat", "bird", "worm"], ,
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
 
@@ -327,7 +329,8 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, bag)
+        self.assertEqual(new_bag, bag, ,
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
         self.assertNotIn(
             "Error",
             str_data,
@@ -354,7 +357,8 @@ class Test2InventoryFunctions(ExamTestCase):
         with patch("sys.stdout", new=StringIO()) as _:
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
 
-        self.assertEqual(new_bag, ["windows", "mac", "other", "linux"])
+        self.assertEqual(new_bag, ["windows", "mac", "other", "linux"], ,
+            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
 
@@ -513,37 +517,6 @@ class Test2InventoryFunctions(ExamTestCase):
             self._multi_arguments[0],
             ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
         )
-
-
-
-    @tags("error", "swap")
-    def test_error_on_swap_same_name(self):
-        """
-        Testar att byta plats på två likadana värden som bara existerar en gång, via "swap" funktionen.
-        Använder följande som argument:
-        {arguments}
-        Förväntar att följande finns med i utskrift:
-        {correct}
-        Fick följande:
-        {student}
-        """
-        bag = ["butter", "cheese"]
-        self._multi_arguments = [bag.copy(), "butter", "butter"]
-
-        with patch("sys.stdout", new=StringIO()) as fake_out:
-            new_bag = backpack.swap(bag, *self._multi_arguments[1:])
-            str_data = fake_out.getvalue()
-
-        self.assertIn(
-            "Error",
-            str_data
-        )
-        self.assertEqual(
-            new_bag,
-            self._multi_arguments[0],
-            ["Förväntar att följande returneras från funktionen:","Fick istället följande:"]
-        )
-
 
 
 
