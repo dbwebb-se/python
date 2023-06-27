@@ -153,7 +153,4 @@ dbwebb validate me/kmom06/file
 #
 
 # exam
-test -d me/kmom10/try1
-test -d me/kmom10/try2
-test -d me/kmom10/try3
-test -d me/kmom10/prep
+test -d me/kmom10/typing
