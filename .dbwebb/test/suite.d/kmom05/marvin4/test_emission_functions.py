@@ -137,7 +137,7 @@ class Test2EmissionFunctions(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["Dominica", "2021"]
+        self._multi_arguments = ["Dominica", 2021]
         with self.assertRaises(ValueError):
             em.get_country_year_data_megaton(*self._multi_arguments)
 
@@ -168,7 +168,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self._multi_arguments = ["Dominica", "2017"]
+        self._multi_arguments = ["Dominica", 2017]
         self.assertEqual(em.get_country_year_data_megaton(*self._multi_arguments), 122000.0)
 
 
@@ -184,7 +184,7 @@ class Test2EmissionFunctions(ExamTestCase):
         Följande returnerades:
         {student}
         """
-        self._multi_arguments = ["China", "1990", "2017"]
+        self._multi_arguments = ["China", 1990, 2017]
         self.assertEqual(em.get_country_change_for_years(*self._multi_arguments), 353.78)
 
 
@@ -201,7 +201,7 @@ class Test2EmissionFunctions(ExamTestCase):
         {student}
         """
         self.norepr = True
-        self._multi_arguments = ["China", "1000", "2017"]
+        self._multi_arguments = ["China", 1000, 2017]
         with self.assertRaises(ValueError):
             em.get_country_change_for_years(*self._multi_arguments)
 
@@ -224,9 +224,9 @@ class Test2EmissionFunctions(ExamTestCase):
             em.get_country_data(self._argument),
             {
                 'name': 'Greenland',
-                '1990': {'emission': 3000.0, 'population': None},
-                '2005': {'emission': 631000.0, 'population': None},
-                '2017': {'emission': 518000.0, 'population': None},
+                1990: {'emission': 3000.0, 'population': None},
+                2005: {'emission': 631000.0, 'population': None},
+                2017: {'emission': 518000.0, 'population': None},
                 'emission_change': (20933.33, -17.91)
             }
         )
@@ -250,9 +250,9 @@ class Test2EmissionFunctions(ExamTestCase):
             em.get_country_data(self._argument),
             {
                 'name': 'United States of America',
-                '1990': {'emission': 5085897000.0, 'population': 252120309},
-                '2005': {'emission': 5971571000.0, 'population': 294993509},
-                '2017': {'emission': 5107393000.0, 'population': 325084758},
+                1990: {'emission': 5085897000.0, 'population': 252120309},
+                2005: {'emission': 5971571000.0, 'population': 294993509},
+                2017: {'emission': 5107393000.0, 'population': 325084758},
                 'emission_change': (17.41, -14.47)
             }
         )
@@ -274,9 +274,9 @@ class Test2EmissionFunctions(ExamTestCase):
         self.norepr = True
         self._argument = {
             'name': 'Palau',
-            '1990': {'emission': 2155000.0, 'population': None},
-            '2005': {'emission': 1734000.0, 'population': None},
-            '2017': {'emission': 1411000.0, 'population': None},
+            1990: {'emission': 2155000.0, 'population': None},
+            2005: {'emission': 1734000.0, 'population': None},
+            2017: {'emission': 1411000.0, 'population': None},
             'emission_change': (-0.2, -0.19)
         }
         answer = [
