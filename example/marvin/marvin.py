@@ -47,4 +47,5 @@ while not stop:
     else:
         print("That is not a valid choice. You can only choose from the menu.")
 
-    input("\nPress enter to continue...")
+    if not stop:
+        input("\nPress enter to continue...")
