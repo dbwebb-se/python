@@ -207,7 +207,7 @@ class Test3ExtraMarvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["a4", "a2b4a4s3B1", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "a -3, b 3, s 3")
+        self.check_print_contain(self._multi_arguments, "a 6, b 3, s 3")
 
 
 
