@@ -171,9 +171,9 @@ class Test1Marvin1Functions(ExamTestCase):
 
 
     @tags("6", "marvin1")
-    def test_is_isogram(self):
+    def test_compare_numbers(self):
         """
-        Testar att funktionen "is_isogram" finns i marvin1.py.
+        Testar att funktionen "compare_numbers" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -181,13 +181,15 @@ class Test1Marvin1Functions(ExamTestCase):
         Fick följande:
         {student}
         """
+        numbers = ["11", "12", "12", "12", "14"]
+
         self.norepr = True
-        self._multi_arguments = ["paris"]
+        self._multi_arguments = [*numbers, "done"]
 
         self.check_print_contain(
             self._multi_arguments,
-            ["Match!"],
-            marvin1.is_isogram
+            ["larger!", "same!", "same!", "larger!"],
+            marvin1.compare_numbers
         )
 
 
