@@ -243,7 +243,7 @@ class Test2InventoryFunctions(ExamTestCase):
         with patch("sys.stdout", new=StringIO()) as _:
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
 
-        self.assertEqual(new_bag, ["cat", "bird", "worm"], ,
+        self.assertEqual(new_bag, ["cat", "bird", "worm"],
             ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
@@ -267,7 +267,7 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.drop(bag, *self._multi_arguments[1:])
 
 
-        self.assertEqual(new_bag, ["dog", "cat", "bird", "worm"], ,
+        self.assertEqual(new_bag, ["dog", "cat", "bird", "worm"],
             ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
@@ -329,7 +329,7 @@ class Test2InventoryFunctions(ExamTestCase):
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
             str_data = fake_out.getvalue()
 
-        self.assertEqual(new_bag, bag, ,
+        self.assertEqual(new_bag, bag,
             ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
         self.assertNotIn(
             "Error",
@@ -357,7 +357,7 @@ class Test2InventoryFunctions(ExamTestCase):
         with patch("sys.stdout", new=StringIO()) as _:
             new_bag = backpack.swap(bag, *self._multi_arguments[1:])
 
-        self.assertEqual(new_bag, ["windows", "mac", "other", "linux"], ,
+        self.assertEqual(new_bag, ["windows", "mac", "other", "linux"],
             ["Förväntar att följande returneras från funktionen:","Fick istället följande:"])
 
 
