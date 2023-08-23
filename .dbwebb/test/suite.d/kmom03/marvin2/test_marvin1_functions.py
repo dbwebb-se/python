@@ -116,7 +116,7 @@ class Test1Marvin1Functions(ExamTestCase):
         self._multi_arguments = ["100", "59"]
 
         # If the studend does not include newlines in output.
-        self.check_print_contain(self._multi_arguments, ["Score: F"], marvin1.points_to_grade)
+        self.check_print_contain(self._multi_arguments, ["score: F"], marvin1.points_to_grade)
 
 
 
