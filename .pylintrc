@@ -25,6 +25,9 @@ reports=no
 
 [BASIC]
 
+# Naming style matching correct constant names.
+const-naming-style=any # disabled constants because all "global" variables count as constants. Makes it so every var in kmom01-02 is constants.
+
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=yes
 
