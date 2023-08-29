@@ -27,3 +27,12 @@ reports=no
 
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=yes
+
+# Good variable names which should always be accepted, separated by a comma.
+good-names=i,
+           j,
+           k,
+           ex,
+           Run,
+           _
+           fd
