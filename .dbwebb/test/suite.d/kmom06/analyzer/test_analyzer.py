@@ -19,6 +19,7 @@ if REPO_PATH not in sys.path:
 
 # Path to file and basename of the file to import
 main = import_module(REPO_PATH, "main")
+analyzer = import_module(REPO_PATH, "analyzer")
 
 
 class Test2Counters(ExamTestCase):
@@ -216,6 +217,21 @@ class Test4All(ExamTestCase):
             "a: 64 | 7.1%",
         ])
 
+    @tags("modules")
+    def test_b_not_imported_module(self):
+        """
+        Kollar att du inte importerar förbjudna moduler.
+        |R|Hittade modulen:|/RE|
+        {correct}
+        Importerad från filen:
+        {student}
+        """
+        # Check that modules are not used for solving Assignment
+        self.assertNotAttribute(main, "collections")
+        self.assertNotAttribute(main, "re")
+        self.assertNotAttribute(analyzer, "collections")
+        self.assertNotAttribute(analyzer, "re")
+
 
 
 class Test4Change(ExamTestCase):
@@ -260,6 +276,8 @@ class Test4Change(ExamTestCase):
                 self.assertIn("t: 10 | 7.1%", str_data)
                 self.assertIn("l: 10 | 7.1%", str_data)
                 self.assertIn("s: 9 | 6.4%", str_data)
+
+
 
 
 
