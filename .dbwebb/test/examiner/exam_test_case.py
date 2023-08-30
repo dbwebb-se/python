@@ -13,7 +13,7 @@ class ExamTestCase(unittest.TestCase):
     Override methods to help customize outputs of testcases.
     """
 
-    ASSIGNMENT_REGEX = r"\.Test[0-9]?([A-Z].+)\)"
+    ASSIGNMENT_REGEX = r"\.Test[0-9]?([A-Z]\w+)"
     TEST_NAME_REGEX = r"test(_[a-z])?_(\w+)"
     USER_TAGS = []
     SHOW_TAGS = False
@@ -52,6 +52,7 @@ class ExamTestCase(unittest.TestCase):
         Format testname and assignment text and assign to test object.
         """
         test_string = str(self)
+
         try:
             self.assignment = re.search(self.ASSIGNMENT_REGEX, test_string).group(1)
         except AttributeError as e:
@@ -161,6 +162,22 @@ class ExamTestCase(unittest.TestCase):
         except AttributeError as e:
             msg = self._formatMessage(msg, f"attribute {attr} not found in object {obj}")
             raise self.failureException(msg) from e
+
+
+
+    def assertNotAttribute(self, obj, attr, msg=None):
+        """
+        Check that object does not have attribute.
+        Save correct and student answer as to variables.
+        """
+        self.assert_setup(obj, attr, msg)
+        try:
+            getattr(obj, attr)
+            msg = self._formatMessage(msg, f"attribute {attr} was found in object {obj}")
+            raise self.failureException(msg)
+        except AttributeError as _:
+            pass
+
 
 
 

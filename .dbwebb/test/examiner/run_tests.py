@@ -5,7 +5,6 @@ import unittest
 from examiner.exceptions import ContactError
 from examiner.exam_test_result import ExamTestResult
 from examiner.exam_test_result_exam import ExamTestResultExam
-from examiner.exam_test_case import ExamTestCase
 from examiner import ExamTestCaseExam
 from examiner.cli_parser import parse
 from examiner.helper_functions import get_testfiles, import_module
@@ -16,43 +15,36 @@ NOT_PASS = 0
 ARGS = parse()
 RESULT_CLASS = ExamTestResult
 
-def get_testcases(path_and_name):
+def get_testsuite_from_file(path_and_name):
     """
-    Add all TestCases to a list and return.
+    Create TestSuite with testcases from a file
     """
-    global RESULT_CLASS
-    testcases = []
-    testMethodPrefix = "Test"
     path, name = path_and_name
     module = import_module(path, name)
-    for attrname in dir(module):
-        if not attrname.startswith(testMethodPrefix):
-            continue
-        testClass = getattr(module, attrname)
-        if issubclass(testClass, ExamTestCase):
-            testcases.append(testClass)
-        else:
-            raise TypeError(f"Test case is not subclass of ExamTestCase. It has class {type(testClass)}")
 
-    if issubclass(testClass, ExamTestCaseExam):
-        RESULT_CLASS = ExamTestResultExam
+    tl = unittest.TestLoader()
 
-    return testcases
-
+    testsuite = tl.loadTestsFromModule(module)
+    return testsuite
 
 
 def build_testsuite():
     """
     Create TestSuit with testcases.
     """
+    global RESULT_CLASS
     suite = unittest.TestSuite()
-    for path_and_name in get_testfiles(ARGS.what, ARGS.extra_assignments):
-        testcases = get_testcases(path_and_name)
 
-        for case in testcases:
+    for path_and_name in get_testfiles(ARGS.what, ARGS.extra_assignments):
+        filesuite = get_testsuite_from_file(path_and_name)
+
+        for case in filesuite:
             case.USER_TAGS = ARGS.tags
             case.SHOW_TAGS = ARGS.show_tags
-            suite.addTest(unittest.makeSuite(case))
+            suite.addTest(case)
+            #  under nog vara en bugg. har inte testa om det funkar med Exam tester då vi använder det längre
+            if issubclass(type(case), ExamTestCaseExam): 
+                RESULT_CLASS = ExamTestResultExam
     return suite
 
 
@@ -61,7 +53,7 @@ def run_testcases(suite):
     """
     Run testsuit.
     """
-    runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2, failfast=ARGS.failfast)
+    runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2, failfast=ARGS.failfast, descriptions=False)
 
     try:
         results = runner.run(suite)
