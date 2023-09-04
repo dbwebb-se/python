@@ -78,7 +78,7 @@ done;
 
 # Prepare the logdir and logfile
 LOG_DIR="$COURSE_REPO_BASE/.log/test"
-[[ -d $LOG_DIR ]] || install -d "$LOG_DIR"
+[[ -d "$LOG_DIR" ]] || install -d "$LOG_DIR"
 # export LOG="$( realpath "$COURSE_REPO_BASE/.log/test/$TESTSUITE.log" )" # ger fel på vissa mac
 # (( $? == 0 )) || exit 2
 # > "$LOG" || exit 1
@@ -128,19 +128,19 @@ examiner="examiner"
 lab="lab"
 validate="validate"
 # can't have space in filenames
-timeout_files=($lab $examiner)
+timeout_files=("$lab" "$examiner")
 
 case "$TESTSUITE" in
     "kmom10"            )
         TESTSUITE="try1"
         files=($validate $examiner)
         ;;
-    kmom0[1-6]          ) files=($validate $lab $examiner)      ;;
-    lab[1-9]            ) files=($validate $lab)                ;;
+    kmom0[1-6]          ) files=("$validate" "$lab" "$examiner")      ;;
+    lab[1-9]            ) files=("$validate" "$lab")                ;;
     *                   )
 
         is_valid_suite
-        files=($validate $examiner)
+        files=("$validate" "$examiner")
         ;;
 esac
 

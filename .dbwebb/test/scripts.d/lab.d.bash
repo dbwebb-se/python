@@ -25,10 +25,10 @@ printf "$HEADER
 
 
 DBWEBB_MAP="$COURSE_REPO_BASE/.dbwebb.map"
-lab_array="$(cat $DBWEBB_MAP | awk '/[\/]lab[1-9]/')"
+lab_array="$(cat "$DBWEBB_MAP" | awk '/[\/]lab[1-9]/')"
 file_to_exec="answer.py"
 
-LAB_VERSION="$(cat $COURSE_REPO_BASE/.dbwebb/lab.version)"
+LAB_VERSION="$(cat "$COURSE_REPO_BASE/.dbwebb/lab.version")"
 source "$COURSE_REPO_BASE/.dbwebb.course"
 
 for lab in $lab_array; do
@@ -49,7 +49,7 @@ Executing $lab/$file_to_exec ...
 " | tee -a "$LOG"
             status=1
         else
-            bash -c "set -o pipefail && cd "$COURSE_REPO_BASE/$lab" &&  ${PYTHON_EXECUTER} -u "${lab_file}"  2>&1  | tee -a "$LOG" "
+            bash -c "set -o pipefail && cd '$COURSE_REPO_BASE/$lab' &&  ${PYTHON_EXECUTER} -u '${lab_file}'  2>&1  | tee -a '$LOG' "
             status=$?
         fi
     fi
