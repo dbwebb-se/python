@@ -15,7 +15,7 @@ NOT_PASS = 0
 ARGS = parse()
 RESULT_CLASS = ExamTestResult
 
-def get_testsuite_from_file(path_and_name):
+def get_testsuites_from_file(path_and_name):
     """
     Create TestSuite with testcases from a file
     """
@@ -33,19 +33,20 @@ def build_testsuite():
     Create TestSuit with testcases.
     """
     global RESULT_CLASS
-    suite = unittest.TestSuite()
+    all_suites = unittest.TestSuite()
 
     for path_and_name in get_testfiles(ARGS.what, ARGS.extra_assignments):
-        filesuite = get_testsuite_from_file(path_and_name)
+        filesuites = get_testsuites_from_file(path_and_name)
 
-        for case in filesuite:
-            case.USER_TAGS = ARGS.tags
-            case.SHOW_TAGS = ARGS.show_tags
-            suite.addTest(case)
-            #  under nog vara en bugg. har inte testa om det funkar med Exam tester då vi använder det längre
-            if issubclass(type(case), ExamTestCaseExam): 
-                RESULT_CLASS = ExamTestResultExam
-    return suite
+        for suite in filesuites:
+            for case in suite:
+                case.USER_TAGS = ARGS.tags
+                case.SHOW_TAGS = ARGS.show_tags
+                #  under nog vara en bugg. har inte testa om det funkar med Exam tester då vi använder det längre
+                if issubclass(type(case), ExamTestCaseExam):
+                    RESULT_CLASS = ExamTestResultExam
+            all_suites.addTest(suite)
+    return all_suites
 
 
 
@@ -54,7 +55,6 @@ def run_testcases(suite):
     Run testsuit.
     """
     runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2, failfast=ARGS.failfast, descriptions=False)
-
     try:
         results = runner.run(suite)
     except Exception as e:
