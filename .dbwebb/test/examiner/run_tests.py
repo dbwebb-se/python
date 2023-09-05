@@ -55,6 +55,7 @@ def run_testcases(suite):
     Run testsuit.
     """
     runner = unittest.TextTestRunner(resultclass=RESULT_CLASS, verbosity=2, failfast=ARGS.failfast, descriptions=False)
+
     try:
         results = runner.run(suite)
     except Exception as e:
