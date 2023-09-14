@@ -130,7 +130,7 @@ class Test2Marvin1(ExamTestCase):
         {student}
         """
         self._multi_arguments = ["3", "100", "59", "", "q"]
-        self.check_print_contain(self._multi_arguments, "score: F")
+        self.check_print_contain(self._multi_arguments, ["score: F"])
 
 
     @tags("3")
@@ -145,7 +145,7 @@ class Test2Marvin1(ExamTestCase):
         {student}
         """
         self._multi_arguments = ["3", "70", "50", "", "q"]
-        self.check_print_contain( self._multi_arguments, "score: C")
+        self.check_print_contain( self._multi_arguments, ["score: C"])
 
     @tags("3")
     def test_c_points_to_grade_highest_grade(self):
@@ -159,7 +159,7 @@ class Test2Marvin1(ExamTestCase):
         {student}
         """
         self._multi_arguments = ["3", "70", "70", "", "q"]
-        self.check_print_contain( self._multi_arguments, "score: A")
+        self.check_print_contain( self._multi_arguments, ["score: A"])
 
 
     @tags("4")
