@@ -4,8 +4,10 @@
 #
 
 [kmom01]
+me/kmom01/plane/plane.py
 
 [kmom02]
+me/kmom02/marvin1/marvin.py
 
 [kmom03]
 
