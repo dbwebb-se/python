@@ -129,6 +129,7 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
+        self.norepr = True
         self._multi_arguments = ["3", "100", "59", "", "q"]
         self.check_print_contain(self._multi_arguments, ["score: F"])
 
@@ -144,6 +145,7 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
+        self.norepr = True
         self._multi_arguments = ["3", "70", "50", "", "q"]
         self.check_print_contain( self._multi_arguments, ["score: C"])
 
@@ -158,6 +160,7 @@ class Test2Marvin1(ExamTestCase):
         Fick följande:
         {student}
         """
+        self.norepr = True
         self._multi_arguments = ["3", "70", "70", "", "q"]
         self.check_print_contain( self._multi_arguments, ["score: A"])
 
