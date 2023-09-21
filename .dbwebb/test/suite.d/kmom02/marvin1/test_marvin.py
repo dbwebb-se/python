@@ -411,7 +411,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["7", "811218-9876", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "Valid")
+        self.check_print_contain(self._multi_arguments, ["Valid"])
 
 
     @tags("7")
@@ -429,7 +429,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["7", "231218-9874", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "Not valid")
+        self.check_print_contain(self._multi_arguments, ["Not valid"])
 
 
 
@@ -448,7 +448,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["7", "8181818181", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "Valid")
+        self.check_print_contain(self._multi_arguments, ["Valid"])
 
 
     @tags("7")
@@ -466,7 +466,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["7", "818181-81812", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "Not valid")
+        self.check_print_contain(self._multi_arguments, ["Not valid"])
 
 
 
@@ -485,7 +485,7 @@ class Test2Marvin1(ExamTestCase):
         self.norepr = True
         self._multi_arguments = ["7", "81818181812", "", "q"]
 
-        self.check_print_contain(self._multi_arguments, "Not valid")
+        self.check_print_contain(self._multi_arguments, ["Not valid"])
 
 
     @tags("8")
