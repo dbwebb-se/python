@@ -510,7 +510,7 @@ class Test2Marvin1(ExamTestCase):
         Testar menyval 8 där användaren skickar in en vokal
         Använder följande som input:
         {arguments}
-        Förväntar att följande inte finns med i utskrift:
+        Förväntar att följande inte finns med i utskrift, eftersom Y är en vokal:
         {correct}
         Fick följande:
         {student}
