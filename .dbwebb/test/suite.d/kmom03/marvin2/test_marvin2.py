@@ -84,7 +84,7 @@ class Test2Marvin2Functions(ExamTestCase):
         pattern = r"920606-\d{4}$"
         self.fail_msg.student_answer = str_data
         self.fail_msg.correct_answer = repr(f"{birthdate}-NNNN")
-        if re.match(pattern, str_data) is None:
+        if str_data is None or re.match(pattern, str_data) is None:
             raise AssertionError
 
         self._argument = str_data
@@ -93,7 +93,7 @@ class Test2Marvin2Functions(ExamTestCase):
             ["Valid"],
             marvin1.validate_ssn,
             [
-                "Använder funktionen 'validate_ssn()' för att validera det genererade personnummret:",
+                "Använder funktionen 'validate_ssn()' för att validera personnummret din create_ssn skapade:",
                 "Personnummret var inte giltigt:"
             ]
         )
