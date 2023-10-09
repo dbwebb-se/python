@@ -128,7 +128,7 @@ class Test2EmissionFunctions(ExamTestCase):
     @tags("change_func", "14")
     def test_get_country_year_data_missing_year(self):
         """
-        Testar att funktionen `get_country_year_data(country, year)` lyfter error om året är fel.
+        Testar att funktionen `get_country_year_data_megaton(country, year)` lyfter error om året är fel.
         Använder följande som input:
         {arguments}
         Förväntar att följande fel lyfts:
@@ -160,7 +160,7 @@ class Test2EmissionFunctions(ExamTestCase):
     @tags("change_func", "14")
     def test_get_country_year_data(self):
         """
-        Testar att funktionen `get_country_year_data(country, year)` returnerar rätt data för land och år.
+        Testar att funktionen `get_country_year_data_megaton(country, year)` returnerar rätt data för land och år.
         Använder följande som input:
         {arguments}
         Förväntar att följande returneras:
