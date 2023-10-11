@@ -8,15 +8,11 @@ filename = "items.txt"
 
 # with - as for reading a file automatically closes it after reading is done
 with open(filename) as filehandle:
-    line = filehandle.readline().strip()
-# print the line read from the file
-print(line)
+    items_as_list = filehandle.readlines()
 
-
-# split the line into a list on the comma ","
-items_as_list = line.split(",")
 # print what the list looks like
 print(items_as_list)
+
 
 
 # add item to the list
