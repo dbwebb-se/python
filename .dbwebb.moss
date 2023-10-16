@@ -10,12 +10,17 @@ me/kmom01/plane/plane.py
 me/kmom02/marvin1/marvin.py
 
 [kmom03]
+me/kmom03/marvin2/marvin2.py
 
 [kmom04]
+me/kmom04/marvin3/inventory.py
 
 [kmom05]
+me/kmom05/marvin4/emission_functions.py
 
 [kmom06]
+me/kmom06/analyzer/analyzer.py
+me/kmom06/analyzer/main.py
 
 [kmom10]
 me/kmom10/typing/*
