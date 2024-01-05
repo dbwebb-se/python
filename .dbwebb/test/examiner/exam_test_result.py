@@ -5,7 +5,7 @@ import sys
 import traceback
 from unittest.result import failfast
 from unittest.runner import TextTestResult
-from examiner import common_errors
+from examiner import common_errors, sentry
 from examiner import helper_functions as hf
 try:
     from examiner.colorama import init, Fore, Back, Style
@@ -37,9 +37,12 @@ class ExamTestResult(TextTestResult):
         Code is copied from baseclass and then changed/added to.
         """
         exctype, value, tb = err
+
         # Skip test runner traceback levels
         while tb and self._is_relevant_tb_level(tb):
             tb = tb.tb_next
+
+        sentry.add_exception(value, err)
 
         #----------------------
         # here starts the interesting code, which we changed. If test failed

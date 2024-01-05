@@ -2,12 +2,14 @@
 Custom test collecter, builder and runner used for examining students.
 """
 import unittest
+import re
 from examiner.exceptions import ContactError
 from examiner.exam_test_result import ExamTestResult
 from examiner.exam_test_result_exam import ExamTestResultExam
 from examiner import ExamTestCaseExam
 from examiner.cli_parser import parse
 from examiner.helper_functions import get_testfiles, import_module
+from examiner import sentry
 
 
 PASS = 1
@@ -69,6 +71,12 @@ def main():
     """
     Start point of program.
     """
+    sentry.activate_sentry(
+        ARGS.sentry_url,
+        ARGS.sentry_release,
+        ARGS.sentry_sample_rate,
+        re.findall(r"kmom\d\d", ARGS.what)[0]
+    )
     suite = build_testsuite()
     results = run_testcases(suite)
     results.exit_with_result()
