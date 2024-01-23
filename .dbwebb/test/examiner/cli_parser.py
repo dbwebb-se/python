@@ -67,6 +67,11 @@ def parse():
         help="REQUIRED unless using --sentry. - sample_rate to use in sentry"
     )
 
+    parser.add_argument(
+        "--sentry_user", dest="sentry_user", default="Jane Doe",
+        help="String to identify user in Sentry logs."
+    )
+
     args, _empty = parser.parse_known_args()
 
     if args.tags:

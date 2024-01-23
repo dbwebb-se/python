@@ -75,6 +75,7 @@ def main():
         ARGS.sentry_url,
         ARGS.sentry_release,
         ARGS.sentry_sample_rate,
+        ARGS.sentry_user,
         re.findall(r"kmom\d\d", ARGS.what)[0]
     )
     suite = build_testsuite()

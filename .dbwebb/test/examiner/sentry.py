@@ -28,7 +28,7 @@ def if_enabled():
 
 
 @if_enabled()
-def activate_sentry(url, release, sample_rate, kmom):
+def activate_sentry(url, release, sample_rate, user, kmom):
     """
     config
     https://docs.sentry.io/platforms/python/configuration/options/
@@ -38,18 +38,18 @@ def activate_sentry(url, release, sample_rate, kmom):
         """
         Use to silence sentry from printing
         """
-
     atexit.default_callback = null
     sentry_sdk.init(
         dsn=url,
         send_default_pii=False,
         send_client_reports=False,
-        server_name="Jane Doe",
+        server_name=user,
         release=release,
         sample_rate=sample_rate,
         shutdown_timeout=1.5,
     )
 
+    sentry_sdk.set_user({"id": user})
     sentry_sdk.set_tag("kmom", kmom)
 
 

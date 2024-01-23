@@ -8,4 +8,4 @@ from examiner.exam_test_result_exam import ExamTestResultExam
 from examiner.helper_functions import check_for_tags as tags, find_path_to_assignment, import_module
 
 # Version structure major.minor[.patch][sub]
-__version__ = '2.5.0'
+__version__ = '2.6.0'
