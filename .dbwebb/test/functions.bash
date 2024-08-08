@@ -47,11 +47,19 @@ is_valid_suite () {
 # $4+ - arguments for bash command.
 #
 execute_with_timeout () {
-    timeout --foreground -k $1 $2 "$3" "${@:4}"
-    status=$?
-    if [[ $status == 124 ]] || [[ $status == 137 ]]; then
-        reset -I
-        printf "\n\033[0;37;41mTest timedout\033[0m. Something took to longer than $2 seconds to finish!\nMaybe you have an infinty loop.\n\n" | tee -a "$LOG"
+    if command -v timeout &> /dev/null
+    then
+        timeout --foreground -k $1 $2 "$3" "${@:4}"
+        status=$?
+        if [[ $status == 124 ]] || [[ $status == 137 ]]; then
+            reset -I
+            printf "\n\033[0;37;41mTest timed out\033[0m. Something took longer than $2 seconds to finish!\nMaybe you have an infinite loop.\n\n" | tee -a "$LOG"
+        fi
+    else
+        echo "Error: timeout command not found. Please install it to use this script."
+        echo "For Linux: sudo apt install timeout"
+        echo "For macOS: brew install coreutils"
+        exit 1
     fi
     return $status
 }
