@@ -57,7 +57,7 @@ execute_with_timeout () {
         fi
     else
         echo "Error: timeout command not found. Please install it to use this script."
-        echo "For Linux: sudo apt install timeout"
+        echo "For WSL/Linux: sudo apt install timeout"
         echo "For macOS: brew install coreutils"
         exit 1
     fi
