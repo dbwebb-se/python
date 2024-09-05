@@ -87,7 +87,7 @@ class Test1Marvin1Functions(ExamTestCase):
     @tags("2", "marvin1")
     def test_temperature_high(self):
         """
-        Testar att funktionen "celcius_to_fahrenheit" finns i marvin1.py.
+        Testar att funktionen "celsius_to_fahrenheit" finns i marvin1.py.
         Använder följande som input:
         {arguments}
         Förväntar att följande finns med i utskrift:
@@ -97,7 +97,7 @@ class Test1Marvin1Functions(ExamTestCase):
         """
         self.norepr = True
         self._multi_arguments = ["70"]
-        self.check_print_contain(self._multi_arguments, ["158.0"], marvin1.celcius_to_fahrenheit)
+        self.check_print_contain(self._multi_arguments, ["158.0"], marvin1.celsius_to_fahrenheit)
 
 
 
