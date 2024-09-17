@@ -130,11 +130,11 @@ class Test2Marvin2Functions(ExamTestCase):
         Fick:
         {student}
         """
-        ssn = "031224"
+        ssn = "031224152"
         self._argument = ssn
         str_data = marvin2.calculate_luhna_sum(ssn)
 
-        self.assertEqual(str_data, 15)
+        self.assertEqual(str_data, 26)
 
 
 
