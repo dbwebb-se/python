@@ -91,7 +91,7 @@ class Test3Marvin2Extra(ExamTestCase):
     @tags("b2")
     def test_create_ssn_ext_func(self):
         """
-        Testar att anropa create_ssn i marvin2.py med manligt kön.
+        Testar att anropa create_ssn i marvin2.py med "M".
         Använder följande som argument:
         {arguments}
         Förväntar att följande sträng returneras:
@@ -129,7 +129,7 @@ class Test3Marvin2Extra(ExamTestCase):
     @tags("b2")
     def test_create_ssn_ext_menu(self):
         """
-        Testar att anropa menyval b2 via main funktionen i main.py, med kvinnligt kön.
+        Testar att anropa menyval b2 via main funktionen i main.py, med "k".
         Använder följande som input:
         {arguments}
         Förväntar att följande sträng finns med i utskriften:
