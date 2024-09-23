@@ -69,7 +69,7 @@ class Test2Marvin2Functions(ExamTestCase):
     @tags("9", "marvin2")
     def test_create_ssn_func(self):
         """
-        Testar att anropa funktionen create_ssn i marvin2.py.
+        Testar att anropa funktionen create_ssn i marvin2.py. Efter det anropas validate_ssn i marvin1.py för att validera personnummret.
         Använder följande som argument:
         {arguments}
         Förväntar att ett giltigt personnummer har rätt struktur:
