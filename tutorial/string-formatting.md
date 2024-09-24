@@ -1,7 +1,6 @@
 Formatting strings and output
 ==============================
-Examples in Python 3
-
+str.format() in Python 3
 
 ```python
 """
@@ -31,8 +30,25 @@ print("{0:10}{1:10}".format("Hello", "World"))
 
 
 ```
+f-string formatting in Python 3
+```python
+""" 
+Python 3.6 added support for new kind of formatting. 
+"""
+# The syntax is similar to the one you used with str.format() but less verbose and also faster.
+name = "John"
+f"Hello, {name}"
 
+# F-strings are evaluated at runtime, you can put any and all valid Python expressions in them.
+f"1 + 1 = {1+1}"
 
+# You could also call functions 
+def to_lowercase(string):
+    return string.lower()
+
+f"My name is {to_lowercase("John")} at lower-case"
+
+```
 
 Reference and read more
 ------------------------------
