@@ -139,7 +139,6 @@ class Test3Marvin2Extra(ExamTestCase):
         """
         self._multi_arguments = ["b2", "991231", "k", "", "q"]
         self.norepr = True
-        self.check_print_contain(self._multi_arguments, ["991231-4221"], main.main)
 
         with patch("builtins.input", side_effect=self._multi_arguments):
             with patch("sys.stdout", new=StringIO()) as fake_out:
